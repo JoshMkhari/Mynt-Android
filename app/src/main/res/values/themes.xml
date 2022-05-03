@@ -3,14 +3,14 @@
     <style name="Theme.Mynt" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">#e8eb93</item>
-        <item name="colorPrimaryVariant">#9CA015</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryVariant">#FFFFFF</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#000d13</item>
+        <item name="colorSecondary">#E1E2B5</item>
         <item name="colorSecondaryVariant">#021322</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnSecondary">#9CA015</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnSecondary</item>
         <!-- Customize your theme here. -->
     </style>
 </resources>

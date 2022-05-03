@@ -6,13 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".mainact.LeaderboardFragment"
-    android:background="?colorSecondary">
+    android:background="?colorPrimaryVariant">
+
 
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="247dp"
+        android:layout_marginTop="88dp"
         android:contentDescription="@string/mainAct_leaderboard_image"
         android:src="@drawable/worldmap"
         app:layout_constraintEnd_toEndOf="parent"
