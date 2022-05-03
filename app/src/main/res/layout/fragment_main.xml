@@ -10,20 +10,21 @@
 
     <ImageButton
         android:id="@+id/image_button_add_coin"
-        android:layout_width="306dp"
-        android:layout_height="375dp"
+        android:layout_width="252dp"
+        android:layout_height="263dp"
         android:background="@drawable/add_a_coin"
         android:contentDescription="@string/mainAct_coin_add_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.401" />
 
     <ImageButton
         android:id="@+id/image_button_search"
-        android:layout_width="62dp"
-        android:layout_height="66dp"
+        android:layout_width="51dp"
+        android:layout_height="48dp"
         android:background="@drawable/search_icon"
         android:contentDescription="@string/mainAct_search_button"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +32,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.89" />
+        app:layout_constraintVertical_bias="0.774" />
 
     <TextView
         android:id="@+id/text_view_title"
@@ -47,5 +48,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.138" />
+        app:layout_constraintVertical_bias="0.256" />
+
+    <ImageButton
+        android:id="@+id/image_button_charts"
+        android:layout_width="48dp"
+        android:layout_height="59dp"
+        android:background="@drawable/leaderboard_icon"
+        android:contentDescription="@string/mainAct_leaderboard_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.904"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.041" />
+
+    <ImageButton
+        android:id="@+id/image_button_library"
+        android:layout_width="48dp"
+        android:layout_height="59dp"
+        android:background="@drawable/library_icon"
+        android:contentDescription="@string/mainAct_library_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.04" />
 </androidx.constraintlayout.widget.ConstraintLayout>

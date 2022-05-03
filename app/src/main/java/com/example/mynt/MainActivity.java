@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Comment
-        tabLayout_main = findViewById(R.id.main_act_tabLayout);
+        //tabLayout_main = findViewById(R.id.main_act_tabLayout);
         viewPager2_main = findViewById(R.id.main_act_viewPager2);
 
         //Comment
@@ -32,25 +32,25 @@ public class MainActivity extends AppCompatActivity {
         viewPager2_main.setAdapter((fragmentAdapter));
 
         //Adding Tabs
-        tabLayout_main.addTab((tabLayout_main.newTab().setText("")));
-        tabLayout_main.addTab((tabLayout_main.newTab().setText("")));
-        tabLayout_main.addTab((tabLayout_main.newTab().setText("")));
+        //tabLayout_main.addTab((tabLayout_main.newTab().setText("")));
+        //tabLayout_main.addTab((tabLayout_main.newTab().setText("")));
+        //tabLayout_main.addTab((tabLayout_main.newTab().setText("")));
 
-        tabLayout_main.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager2_main.setCurrentItem(tab.getPosition());
-            }
+        //tabLayout_main.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+           // @Override
+            //public void onTabSelected(TabLayout.Tab tab) {
+            //    viewPager2_main.setCurrentItem(tab.getPosition());
+           // }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+           // @Override
+           // public void onTabUnselected(TabLayout.Tab tab) {
 
-            }
+           // }
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+            //@Override
+           // public void onTabReselected(TabLayout.Tab tab) {
 
-            }
-        });
+           // }
+       // });
     }
 }

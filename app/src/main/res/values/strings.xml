@@ -7,7 +7,8 @@
     <string name="mainAct_title">Tap to add a coin</string>
     <string name="mainAct_coin_add_button">Used to add coins</string>
     <string name="mainAct_search_button">Used to search for coins</string>
+    <string name="mainAct_charts_button">Used to navigate to the leaderboard</string>
+    <string name="mainAct_library_button">Used to navigate to the leaderboard</string>
     <string name="mainAct_leaderboard_image">Displays leaderboard world map</string>
-
     <string name="mainAct_library_coin_collection">Coins</string>
 </resources>
