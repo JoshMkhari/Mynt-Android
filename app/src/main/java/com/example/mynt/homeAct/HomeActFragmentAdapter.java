@@ -1,6 +1,4 @@
-package com.example.mynt.mainact;
-
-import android.os.Bundle;
+package com.example.mynt.homeAct;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -8,15 +6,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+public class HomeActFragmentAdapter extends FragmentStateAdapter {
 
-import com.example.mynt.R;
-
-public class MainActFragmentAdapter extends FragmentStateAdapter {
-
-    public MainActFragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    public HomeActFragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
         super(fragmentManager, lifecycle);
     }
 

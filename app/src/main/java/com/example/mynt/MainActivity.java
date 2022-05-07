@@ -7,14 +7,14 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
-import com.example.mynt.mainact.MainActFragmentAdapter;
+import com.example.mynt.homeAct.HomeActFragmentAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout_main;
     private ViewPager2 viewPager2_main;
-    private MainActFragmentAdapter fragmentAdapter;
+    private HomeActFragmentAdapter fragmentAdapter;
 
 
     @Override
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Comment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentAdapter = new MainActFragmentAdapter(fragmentManager, getLifecycle());
+        fragmentAdapter = new HomeActFragmentAdapter(fragmentManager, getLifecycle());
         viewPager2_main.setAdapter((fragmentAdapter));
 
         //Adding Tabs

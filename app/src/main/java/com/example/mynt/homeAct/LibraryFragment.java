@@ -1,4 +1,4 @@
-package com.example.mynt.mainact;
+package com.example.mynt.homeAct;
 
 import android.os.Bundle;
 
