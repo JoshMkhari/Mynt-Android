@@ -7,60 +7,37 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.mynt.R;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LeaderboardFragment#newInstance} factory method to
+ * Use the {@link LeaderboardFragment#} factory method to
  * create an instance of this fragment.
  */
 public class LeaderboardFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public LeaderboardFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LeaderboardFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LeaderboardFragment newInstance(String param1, String param2) {
-        LeaderboardFragment fragment = new LeaderboardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    ListView listView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        //https://stackoverflow.com/questions/6495898/findviewbyid-in-fragment
+        View leaderboardView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        listView = (ListView) leaderboardView.findViewById(R.id.listView);
+
+        ArrayList<Leaderboard_Model> leaderboardList = new ArrayList<Leaderboard_Model>();
+
+        for (int i =0; i<8;i++)
+        {
+            Leaderboard_Model lm = new Leaderboard_Model("IHasShoulders"+i,4396-i*2,i,R.drawable.default_user_profile_icon);
+            leaderboardList.add(lm);
+        }
+        Leaderboard_ListAdapter listAdapter = new Leaderboard_ListAdapter(getContext(),leaderboardList);
+        listView.setAdapter((listAdapter));
+        return leaderboardView;
     }
 }

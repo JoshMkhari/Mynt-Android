@@ -11,4 +11,6 @@
     <string name="mainAct_library_button">Used to navigate to the leaderboard</string>
     <string name="mainAct_leaderboard_image">Displays leaderboard world map</string>
     <string name="mainAct_library_coin_collection">Coins</string>
+
+    <string name="leaderboard_title">Leaderboard</string>
 </resources>
