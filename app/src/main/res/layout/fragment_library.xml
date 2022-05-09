@@ -10,15 +10,29 @@
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/LibraryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mainAct_library_coin_collection"
+        android:fontFamily="@font/impact"
+        android:text="@string/library_title"
         android:textColor="?colorSecondaryVariant"
+        android:textSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.101" />
+        app:layout_constraintVertical_bias="0.007" />
+
+    <ListView
+        android:id="@+id/libraryOptionsListView"
+        android:layout_width="match_parent"
+        android:layout_height="153dp"
+
+        android:layout_marginTop="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/library_navigation_listview" />
 </androidx.constraintlayout.widget.ConstraintLayout>

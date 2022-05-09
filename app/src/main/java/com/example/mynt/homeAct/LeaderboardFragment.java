@@ -27,7 +27,7 @@ public class LeaderboardFragment extends Fragment {
         // Inflate the layout for this fragment
         //https://stackoverflow.com/questions/6495898/findviewbyid-in-fragment
         View leaderboardView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
-        listView = (ListView) leaderboardView.findViewById(R.id.listView);
+        listView = (ListView) leaderboardView.findViewById(R.id.leaderboardListView);
 
         ArrayList<Leaderboard_Model> leaderboardList = new ArrayList<Leaderboard_Model>();
 
