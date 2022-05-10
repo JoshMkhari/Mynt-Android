@@ -19,4 +19,5 @@
     <string name="library_option_collections">Collections</string>
     <string name="library_option_goals">Goals</string>
     <string name="library_nav_icon">Displays Icon</string>
+    <string name="library_recent_coins">Recent Coins</string>
 </resources>

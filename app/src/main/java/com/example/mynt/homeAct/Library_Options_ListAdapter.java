@@ -54,16 +54,13 @@ public class Library_Options_ListAdapter extends BaseAdapter {
         TextView optionName = convertView.findViewById(R.id.library_nav_optionName);
         ProgressBar optionProgress = convertView.findViewById(R.id.progressBar);
         TextView optionValue = convertView.findViewById(R.id.library_nav_value);
-        //optionProgress.setProgress(this.libraryOptionsList.get(position).progress);
-        //optionValue.setText(this.libraryOptionsList.get(position).progress+"%");
+
         optionName.setText(this.libraryOptionsList.get(position).optionName);
-        Toast.makeText(context, "position " + position, Toast.LENGTH_SHORT).show();
         switch (position)
         {
             case 0:
                 optionIcon.setBackgroundResource(R.drawable.app_logo);
-                optionValue.setText(this.libraryOptionsList.get(position).optionValue);
-                optionValue.setVisibility(View.VISIBLE);
+                optionValue.setText(this.libraryOptionsList.get(position).optionValue+"");
                 optionProgress.setVisibility(View.INVISIBLE);
                 break;
             case 1:
@@ -73,8 +70,8 @@ public class Library_Options_ListAdapter extends BaseAdapter {
                 break;
             default:
                 optionIcon.setBackgroundResource(R.drawable.goal_icon);
-                optionValue.setVisibility(View.VISIBLE);
-                optionProgress.setVisibility(View.VISIBLE);
+                optionValue.setText(this.libraryOptionsList.get(position).optionValue+"");
+                optionProgress.setProgress(this.libraryOptionsList.get(position).progress);
                 break;
         }
 

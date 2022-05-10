@@ -29,12 +29,21 @@ public class LibraryFragment extends Fragment {
         optionListView = (ListView) libraryView.findViewById(R.id.libraryOptionsListView);
 
         ArrayList<Library_Options_Model> libraryOptionsList = new ArrayList<>();
-        Library_Options_Model library_options_model = new Library_Options_Model( R.drawable.app_logo,
+
+        libraryOptionsList.add(new Library_Options_Model( R.drawable.app_logo,
                 getResources().getString(R.string.library_option_coins),
                 0,
-                905);
+                905));
 
-        libraryOptionsList.add(library_options_model);
+        libraryOptionsList.add(new Library_Options_Model( R.drawable.collection_icon,
+                getResources().getString(R.string.library_option_collections),
+                0,
+                0));
+
+        libraryOptionsList.add(new Library_Options_Model( R.drawable.goal_icon,
+                getResources().getString(R.string.library_option_goals),
+                62,
+                62));
         //libraryOptionsList.add(library_options_model);
         //libraryOptionsList.add(library_options_model);
 
