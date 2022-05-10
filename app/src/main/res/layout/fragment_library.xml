@@ -51,4 +51,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.383" />
+
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/recentCoins_list"
+        android:layout_width="371dp"
+        android:layout_height="300dp"
+
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.272"
+
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/library_recent_coins_listview" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

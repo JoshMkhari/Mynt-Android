@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/layout/leaderboard_listview.xml" value="0.3578125" />
         <entry key="app/src/main/res/layout/library_navigation_listview.xml" value="0.5" />
         <entry key="app/src/main/res/layout/library_recent_coins_listview.xml" value="0.67" />
+        <entry key="app/src/main/res/menu/coin_menu.xml" value="0.3572916666666667" />
       </map>
     </option>
   </component>
