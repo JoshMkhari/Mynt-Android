@@ -1,4 +1,4 @@
-package com.example.mynt.collectionAct.models;
+package com.example.mynt.coinsAct.models;
 
 import java.util.ArrayList;
 

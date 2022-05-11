@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".collectionAct.AllCoinsFragment">
+    android:background="?colorOnPrimary"
+    tools:context=".coinsAct.AllCoinsFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -62,22 +63,22 @@
         app:layout_constraintTop_toTopOf="@+id/all_coins_title_block"
         tools:ignore="TextContrastCheck" />
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="580dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/all_coins_title_block"
-        android:paddingHorizontal="10dp">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <ListView
-            android:id="@+id/all_coins_listview"
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/all_coins_list"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/coin_super_list">
-
-        </ListView>
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:listitem="@layout/coins_list" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

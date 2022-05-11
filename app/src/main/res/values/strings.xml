@@ -32,6 +32,7 @@
     <string name="coin_overlay">Used to hold coin info</string>
     <string name="coin_image">Displays coin</string>
     <string name="meat_ball_menu_icon">Used to access sub menu</string>
+    <string name="scroll_view">Used to display items</string>
 
 
     <string name="back_button">Used to navigate back to the previous view</string>

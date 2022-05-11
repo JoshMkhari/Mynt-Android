@@ -15,7 +15,7 @@ import android.widget.ListView;
 
 import com.example.mynt.CoinAdapter;
 import com.example.mynt.Coin_Model;
-import com.example.mynt.CollectionsActivity;
+import com.example.mynt.CoinsActivity;
 import com.example.mynt.R;
 import com.example.mynt.homeAct.adapters.Library_Options_ListAdapter;
 import com.example.mynt.homeAct.models.Library_Options_Model;
@@ -66,8 +66,7 @@ public class LibraryFragment extends Fragment {
                 switch(position)
                 {
                     case 0:
-                    case 2:
-                        Intent i = new Intent(getContext(), CollectionsActivity.class);
+                        Intent i = new Intent(getContext(), CoinsActivity.class);
                         startActivity(i);
                 }
 
@@ -80,8 +79,8 @@ public class LibraryFragment extends Fragment {
         libraryCoinsList.add(new Coin_Model(R.drawable.two_rand,"Two Rand",2020));
         libraryCoinsList.add(new Coin_Model(R.drawable.two_rand,"Two Rand",2020));
 
-
         recyclerView = (RecyclerView) libraryView.findViewById(R.id.recentCoins_list);
+        //recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new StaggeredGridLayoutManager(2,1);
@@ -89,6 +88,8 @@ public class LibraryFragment extends Fragment {
 
         mAdapter = new CoinAdapter(libraryCoinsList, getContext());
         recyclerView.setAdapter(mAdapter);
+
         return libraryView;
     }
+
 }

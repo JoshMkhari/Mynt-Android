@@ -1,17 +1,17 @@
-package com.example.mynt.collectionAct.models;
+package com.example.mynt.coinsAct.models;
 
 import java.util.ArrayList;
 
 public class coins_baselist_model {
 
-    ArrayList<coins_list> coins;
+    ArrayList<coins_list_model> coins;
     String date;
 
-    public ArrayList<coins_list> getCoins() {
+    public ArrayList<coins_list_model> getCoins() {
         return coins;
     }
 
-    public void setCoins(ArrayList<coins_list> coins) {
+    public void setCoins(ArrayList<coins_list_model> coins) {
         this.coins = coins;
     }
 
@@ -23,7 +23,7 @@ public class coins_baselist_model {
         this.date = date;
     }
 
-    public coins_baselist_model(ArrayList<coins_list> coins, String date) {
+    public coins_baselist_model(ArrayList<coins_list_model> coins, String date) {
         this.coins = coins;
         this.date = date;
     }

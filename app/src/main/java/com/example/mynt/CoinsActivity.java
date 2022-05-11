@@ -6,13 +6,12 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
-import com.example.mynt.collectionAct.adapters.CollectionActFragmentAdapter;
-import com.example.mynt.homeAct.adapters.HomeActFragmentAdapter;
+import com.example.mynt.coinsAct.adapters.AllCoinsActFragmentAdapter;
 
-public class CollectionsActivity extends AppCompatActivity {
+public class CoinsActivity extends AppCompatActivity {
 
     private ViewPager2 viewPager2_collections;
-    private CollectionActFragmentAdapter fragmentAdapter;
+    private AllCoinsActFragmentAdapter fragmentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +21,7 @@ public class CollectionsActivity extends AppCompatActivity {
         viewPager2_collections = findViewById(R.id.collectionsAct_viewPager2);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentAdapter = new CollectionActFragmentAdapter(fragmentManager,getLifecycle());
+        fragmentAdapter = new AllCoinsActFragmentAdapter(fragmentManager,getLifecycle());
         viewPager2_collections.setAdapter((fragmentAdapter));
     }
 }

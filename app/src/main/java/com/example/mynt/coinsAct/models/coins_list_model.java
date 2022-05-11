@@ -1,6 +1,6 @@
-package com.example.mynt.collectionAct.models;
+package com.example.mynt.coinsAct.models;
 
-public class coins_list {
+public class coins_list_model {
     int imageId;
     String coinName;
     String coinDate;
@@ -15,7 +15,7 @@ public class coins_list {
         this.year = year;
     }
 
-    public coins_list(int imageId, String coinName, String coinDate, String country, int year) {
+    public coins_list_model(int imageId, String coinName, String coinDate, String country, int year) {
         this.imageId = imageId;
         this.coinName = coinName;
         this.coinDate = coinDate;
