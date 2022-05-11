@@ -60,6 +60,8 @@ public class LibraryFragment extends Fragment {
         libraryCoinsList.add(new Coin_Model(R.drawable.two_rand,"Two Rand",2020));
         libraryCoinsList.add(new Coin_Model(R.drawable.two_rand,"Two Rand",2020));
         libraryCoinsList.add(new Coin_Model(R.drawable.two_rand,"Two Rand",2020));
+
+
         recyclerView = (RecyclerView) libraryView.findViewById(R.id.recentCoins_list);
         recyclerView.setHasFixedSize(true);
 

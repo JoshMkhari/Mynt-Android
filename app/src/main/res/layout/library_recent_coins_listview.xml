@@ -10,7 +10,7 @@
     <ImageView
         android:id="@+id/coin_background_imageview"
         android:layout_width="180dp"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/coin_background"
@@ -41,11 +41,11 @@
         android:id="@+id/coin_name_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="?colorSecondaryVariant"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="192dp"
         android:text="@string/library_coin_name"
+        android:textColor="?colorSecondaryVariant"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -54,10 +54,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:textSize="12sp"
-        android:textColor="?colorSecondaryVariant"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="216dp"
         android:text="@string/library_coin_year"
+        android:textColor="?colorSecondaryVariant"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
