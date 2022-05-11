@@ -1,10 +1,14 @@
-package com.example.mynt.homeAct;
+package com.example.mynt.homeAct.adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+
+import com.example.mynt.homeAct.LeaderboardFragment;
+import com.example.mynt.homeAct.LibraryFragment;
+import com.example.mynt.homeAct.MainFragment;
 
 public class HomeActFragmentAdapter extends FragmentStateAdapter {
 

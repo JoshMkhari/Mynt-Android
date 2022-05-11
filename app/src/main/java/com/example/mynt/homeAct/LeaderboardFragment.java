@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.mynt.R;
+import com.example.mynt.homeAct.adapters.Leaderboard_ListAdapter;
+import com.example.mynt.homeAct.models.Leaderboard_Model;
 
 import java.util.ArrayList;
 

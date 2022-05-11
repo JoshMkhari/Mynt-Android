@@ -7,7 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
-import com.example.mynt.homeAct.HomeActFragmentAdapter;
+import com.example.mynt.homeAct.adapters.HomeActFragmentAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {

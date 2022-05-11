@@ -1,4 +1,4 @@
-package com.example.mynt.homeAct;
+package com.example.mynt.homeAct.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.mynt.R;
+import com.example.mynt.homeAct.models.Leaderboard_Model;
 
 import java.util.ArrayList;
 

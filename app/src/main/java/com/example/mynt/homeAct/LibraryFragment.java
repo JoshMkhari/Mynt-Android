@@ -9,12 +9,13 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.example.mynt.CoinAdapter;
 import com.example.mynt.Coin_Model;
 import com.example.mynt.R;
+import com.example.mynt.homeAct.adapters.Library_Options_ListAdapter;
+import com.example.mynt.homeAct.models.Library_Options_Model;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.mynt.homeAct;
+package com.example.mynt.homeAct.models;
 
 public class Leaderboard_Model {
 
