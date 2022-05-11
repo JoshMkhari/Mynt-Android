@@ -15,7 +15,7 @@
         <entry key="app/src/main/res/layout/coins_list.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_all_coins_.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_leaderboard.xml" value="0.30933333333333335" />
-        <entry key="app/src/main/res/layout/fragment_library.xml" value="0.346875" />
+        <entry key="app/src/main/res/layout/fragment_library.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_main_act_adapter.xml" value="0.346875" />
         <entry key="app/src/main/res/layout/leaderboard_listview.xml" value="0.3578125" />
