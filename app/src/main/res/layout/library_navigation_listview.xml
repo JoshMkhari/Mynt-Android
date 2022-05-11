@@ -55,10 +55,10 @@
                 android:progressDrawable="@drawable/theme_custom_progress"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.223"
+                app:layout_constraintHorizontal_bias="0.165"
                 app:layout_constraintStart_toEndOf="@+id/library_nav_optionName"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.502"></ProgressBar>
+                app:layout_constraintVertical_bias="0.52"></ProgressBar>
 
             <TextView
                 android:id="@+id/library_nav_value"
@@ -73,8 +73,10 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.305"
                 app:layout_constraintStart_toEndOf="@+id/progressBar"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.533"
                 tools:ignore="TextContrastCheck" />
 
 

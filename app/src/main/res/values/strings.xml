@@ -20,11 +20,20 @@
     <string name="library_option_goals">Goals</string>
     <string name="library_nav_icon">Displays Icon</string>
     <string name="library_recent_coins">Recent Coins</string>
-    <string name="library_coin_name">Two Rand</string>
-    <string name="library_coin_year">2020</string>
-    <string name="library_coin_country">South Africa</string>
+
+    <string name="coins_title">Coins</string>
+    <string name="all_coins_block_title">All Coins</string>
+    <string name="coin_base_list_date">TODAY</string>
+    <string name="coins_acquired_date">21 April, 17:36</string>
+    <string name="coins_coin_name">Two Rand</string>
+    <string name="coins_coin_year">2020</string>
+    <string name="coins_coin_country">South Africa</string>
     <string name="coin_background">Displays Coin Background</string>
     <string name="coin_overlay">Used to hold coin info</string>
     <string name="coin_image">Displays coin</string>
     <string name="meat_ball_menu_icon">Used to access sub menu</string>
+
+
+    <string name="back_button">Used to navigate back to the previous view</string>
+    <string name="block_title">Displays block title</string>
 </resources>

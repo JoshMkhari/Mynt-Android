@@ -41,7 +41,7 @@ public class LibraryFragment extends Fragment {
         libraryOptionsList.add(new Library_Options_Model( R.drawable.app_logo,
                 getResources().getString(R.string.library_option_coins),
                 0,
-                905));
+                50));
 
         libraryOptionsList.add(new Library_Options_Model( R.drawable.collection_icon,
                 getResources().getString(R.string.library_option_collections),
