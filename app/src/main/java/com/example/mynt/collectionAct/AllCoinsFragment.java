@@ -3,64 +3,79 @@ package com.example.mynt.collectionAct;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionAct.adapters.Collections_AllCoins_ListAdapter;
+import com.example.mynt.collectionAct.models.coins_baselist_model;
+import com.example.mynt.collectionAct.models.coins_list;
+import com.example.mynt.collectionAct.models.coins_superlist_model;
+import com.example.mynt.homeAct.adapters.Library_Options_ListAdapter;
+import com.example.mynt.homeAct.models.Library_Options_Model;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AllCoinsFragment#newInstance} factory method to
+ * Use the {@link AllCoinsFragment#} factory method to
  * create an instance of this fragment.
  */
 public class AllCoinsFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public AllCoinsFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AllCoins_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AllCoinsFragment newInstance(String param1, String param2) {
-        AllCoinsFragment fragment = new AllCoinsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+    private ListView coinsListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all_coins_, container, false);
+        View allCoinsView = inflater.inflate(R.layout.fragment_all_coins_, container, false);
+        coinsListView = (ListView) allCoinsView.findViewById(R.id.all_coins_listview);
+
+        ArrayList<coins_list> coinsList = new ArrayList<>();
+
+        coinsList.add(new coins_list( R.drawable.app_logo,
+                getResources().getString(R.string.library_option_coins),
+                "21 April, 17:36",
+                "South Africa",
+                2020));
+
+        coinsList.add(new coins_list( R.drawable.app_logo,
+                getResources().getString(R.string.library_option_coins),
+                "21 April, 09:15",
+                "South Africa",
+                1994));
+
+        ArrayList<coins_list> coinsList2 = new ArrayList<>();
+
+        coinsList2.add(new coins_list( R.drawable.app_logo,
+                getResources().getString(R.string.library_option_coins),
+                "20 April, 09:10",
+                "South Africa",
+                1985));
+
+        coinsList2.add(new coins_list( R.drawable.app_logo,
+                getResources().getString(R.string.library_option_coins),
+                "20 April, 09:10",
+                "South Africa",
+                2004));
+
+        ArrayList<coins_baselist_model> coinsBaseList = new ArrayList<>();
+        coinsBaseList.add(new coins_baselist_model(coinsList,"Today"));
+        coinsBaseList.add(new coins_baselist_model(coinsList2,"Yesterday"));
+
+        ArrayList<coins_superlist_model> coinsSuperList = new ArrayList<>();
+        coinsSuperList.add(new coins_superlist_model(coinsBaseList));
+
+        Collections_AllCoins_ListAdapter coinsListAdapter = new Collections_AllCoins_ListAdapter(getContext(),coinsSuperList);
+        coinsListView.setAdapter(coinsListAdapter);
+
+        return allCoinsView;
     }
 }

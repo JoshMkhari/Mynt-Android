@@ -1,5 +1,6 @@
 package com.example.mynt.homeAct;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,10 +10,12 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.mynt.CoinAdapter;
 import com.example.mynt.Coin_Model;
+import com.example.mynt.CollectionsActivity;
 import com.example.mynt.R;
 import com.example.mynt.homeAct.adapters.Library_Options_ListAdapter;
 import com.example.mynt.homeAct.models.Library_Options_Model;
@@ -54,6 +57,22 @@ public class LibraryFragment extends Fragment {
                 62));
         Library_Options_ListAdapter optionsListAdapter = new Library_Options_ListAdapter(getContext(),libraryOptionsList);
         optionListView.setAdapter(optionsListAdapter);
+
+
+        optionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView parent, View v, int position, long id){
+
+                switch(position)
+                {
+                    case 0:
+                    case 2:
+                        Intent i = new Intent(getContext(), CollectionsActivity.class);
+                        startActivity(i);
+                }
+
+            }
+        });
 
         ArrayList<Coin_Model> libraryCoinsList = new ArrayList<>();
         libraryCoinsList.add(new Coin_Model(R.drawable.two_rand,"Two Rand",2020));
