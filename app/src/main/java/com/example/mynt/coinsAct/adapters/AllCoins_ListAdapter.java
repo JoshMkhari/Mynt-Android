@@ -28,7 +28,7 @@ public class AllCoins_ListAdapter extends RecyclerView.Adapter<AllCoins_ListAdap
     @NonNull
     @Override
     public CoinViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.coins_list,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_coins,parent,false);
         CoinViewHolder holder = new CoinViewHolder(view);
         return holder;
     }

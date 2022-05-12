@@ -44,5 +44,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/worldMap_imageView"
-        tools:listitem="@layout/leaderboard_listview" />
+        tools:listitem="@layout/listview_leaderboard" />
 </androidx.constraintlayout.widget.ConstraintLayout>

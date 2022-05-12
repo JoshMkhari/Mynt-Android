@@ -1,4 +1,4 @@
-package com.example.mynt;
+package com.example.mynt.coinsAct;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -6,6 +6,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
+import com.example.mynt.R;
 import com.example.mynt.coinsAct.adapters.AllCoinsActFragmentAdapter;
 
 public class CoinsActivity extends AppCompatActivity {
@@ -16,12 +17,15 @@ public class CoinsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_collections);
+        setContentView(R.layout.activity_coins);
 
         viewPager2_collections = findViewById(R.id.collectionsAct_viewPager2);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentAdapter = new AllCoinsActFragmentAdapter(fragmentManager,getLifecycle());
         viewPager2_collections.setAdapter((fragmentAdapter));
+
+        //TO do
+        //Change into actual Activity instead of fragment
     }
 }

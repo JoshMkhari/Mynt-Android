@@ -46,7 +46,7 @@ public class Leaderboard_ListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        convertView = inflater.inflate(R.layout.leaderboard_listview, null);
+        convertView = inflater.inflate(R.layout.listview_leaderboard, null);
 
         ImageView userProfileIcon = convertView.findViewById(R.id.leaderboard_user_profile_icon);
         TextView userName = convertView.findViewById(R.id.leaderboard_user_name);

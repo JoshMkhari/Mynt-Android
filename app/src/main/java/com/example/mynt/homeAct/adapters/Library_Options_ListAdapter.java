@@ -48,7 +48,7 @@ public class Library_Options_ListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
-        convertView = inflater.inflate(R.layout.library_navigation_listview, null);
+        convertView = inflater.inflate(R.layout.listview_library_navigation, null);
 
         ImageView optionIcon = convertView.findViewById(R.id.library_nav_icon);
         TextView optionName = convertView.findViewById(R.id.library_nav_optionName);

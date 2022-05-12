@@ -1,8 +1,6 @@
-package com.example.mynt;
+package com.example.mynt.coinsAct;
 
-import android.content.ClipData;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.mynt.Coin_Model;
+import com.example.mynt.R;
 
 import java.util.ArrayList;
 
@@ -27,17 +28,17 @@ public class CoinAdapter  extends RecyclerView.Adapter<CoinAdapter.CoinViewHolde
     @NonNull
     @Override
     public CoinViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.library_recent_coins_listview,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listview_library_recent_coins,parent,false);
         CoinViewHolder holder = new CoinViewHolder(view);
         return holder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull CoinViewHolder holder, int position) {
-        holder.name.setText(coinsList.get(position).coinName);
-        holder.year.setText(String.valueOf(coinsList.get(position).year));
+        holder.name.setText(coinsList.get(position).getCoinName());
+        holder.year.setText(String.valueOf(coinsList.get(position).getYear()));
         //glide for internet images???
-        holder.coinImage.setBackgroundResource(coinsList.get(position).imageId);
+        holder.coinImage.setBackgroundResource(coinsList.get(position).getImageId());
 
         // Here I am just highlighting the background
         //holder.itemView.setBackgroundColor(selected_position == position ? Color.GREEN : Color.TRANSPARENT);

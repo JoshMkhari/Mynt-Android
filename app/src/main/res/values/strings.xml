@@ -34,6 +34,10 @@
     <string name="meat_ball_menu_icon">Used to access sub menu</string>
     <string name="scroll_view">Used to display items</string>
 
+    <string name="collections_title">Collections</string>
+    <string name="collections_name">20th Century</string>
+    <string name="collections_amount_of_coins">9 coins</string>
+    <string name="collections_next">Used to navigate to the goals page</string>
 
     <string name="back_button">Used to navigate back to the previous view</string>
     <string name="block_title">Displays block title</string>

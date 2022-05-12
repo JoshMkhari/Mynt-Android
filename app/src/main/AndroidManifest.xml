@@ -9,7 +9,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mynt">
         <activity
-            android:name=".CoinsActivity"
+            android:name=".collectionsAct.CollectionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".coinsAct.CoinsActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
