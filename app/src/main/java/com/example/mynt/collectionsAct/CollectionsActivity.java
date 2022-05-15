@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
 
-import com.example.mynt.Coin_Model;
 import com.example.mynt.R;
-import com.example.mynt.coinsAct.CoinAdapter;
+import com.example.mynt.collectionsAct.Adapters.CollectionsAdapter;
+import com.example.mynt.collectionsAct.Models.CollectionsModel;
 
 import java.util.ArrayList;
 

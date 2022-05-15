@@ -25,7 +25,5 @@ public class CoinsActivity extends AppCompatActivity {
         fragmentAdapter = new AllCoinsActFragmentAdapter(fragmentManager,getLifecycle());
         viewPager2_collections.setAdapter((fragmentAdapter));
 
-        //TO do
-        //Change into actual Activity instead of fragment
     }
 }

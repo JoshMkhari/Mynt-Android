@@ -46,8 +46,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/listview_library_navigation">
-
-
         </ListView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

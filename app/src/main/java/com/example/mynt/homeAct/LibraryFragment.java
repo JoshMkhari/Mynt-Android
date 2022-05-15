@@ -18,6 +18,7 @@ import com.example.mynt.Coin_Model;
 import com.example.mynt.coinsAct.CoinsActivity;
 import com.example.mynt.R;
 import com.example.mynt.collectionsAct.CollectionsActivity;
+import com.example.mynt.collectionsAct.tempActivity;
 import com.example.mynt.homeAct.adapters.Library_Options_ListAdapter;
 import com.example.mynt.homeAct.models.Library_Options_Model;
 
@@ -91,6 +92,9 @@ public class LibraryFragment extends Fragment {
                     case 1:
                         Intent s = new Intent(getContext(), CollectionsActivity.class);
                         startActivity(s);
+                    case 2:
+                        Intent t = new Intent(getContext(), tempActivity.class);
+                        startActivity(t);
                 }
 
             }

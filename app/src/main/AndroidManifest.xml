@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mynt">
         <activity
+            android:name=".collectionsAct.tempActivity"
+            android:exported="false" />
+        <activity
             android:name=".collectionsAct.CollectionsActivity"
             android:exported="false" />
         <activity

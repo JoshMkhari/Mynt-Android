@@ -41,4 +41,6 @@
 
     <string name="back_button">Used to navigate back to the previous view</string>
     <string name="block_title">Displays block title</string>
+
+    <string name="goals_title">Goals</string>
 </resources>
