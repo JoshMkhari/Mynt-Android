@@ -41,9 +41,6 @@ public class AllCoins_ListAdapter extends RecyclerView.Adapter<AllCoins_ListAdap
         holder.coinImage.setBackgroundResource(coinsList.get(position).getImageId());
         holder.date.setText(String.valueOf(coinsList.get(position).getCoinDate()));
         holder.country.setText(String.valueOf(coinsList.get(position).getCountry()));
-
-        // Here I am just highlighting the background
-        //holder.itemView.setBackgroundColor(selected_position == position ? Color.GREEN : Color.TRANSPARENT);
     }
 
     @Override

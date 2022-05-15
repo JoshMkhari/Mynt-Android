@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.mynt.coinsAct.CoinAdapter;
 import com.example.mynt.Coin_Model;
@@ -83,18 +84,18 @@ public class LibraryFragment extends Fragment {
 
             public void onItemClick(AdapterView parent, View v, int position, long id){
 
-
-                switch(position)
+                if(position==0)
                 {
-                    case 0:
-                        Intent i = new Intent(getContext(), CoinsActivity.class);
-                        startActivity(i);
-                    case 1:
-                        Intent s = new Intent(getContext(), CollectionsActivity.class);
-                        startActivity(s);
-                    case 2:
-                        Intent t = new Intent(getContext(), tempActivity.class);
-                        startActivity(t);
+                    Intent i = new Intent(getContext(), CoinsActivity.class);
+                    startActivity(i);
+                }else if (position==1)
+                {
+                    Intent s = new Intent(getContext(), CollectionsActivity.class);
+                    startActivity(s);
+                }else if (position==2)
+                {
+                    Intent t = new Intent(getContext(), tempActivity.class);
+                    startActivity(t);
                 }
 
             }
