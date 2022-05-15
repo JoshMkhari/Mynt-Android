@@ -25,6 +25,12 @@ public class CollectionsActivity extends AppCompatActivity {
         collectionsList.add(new CollectionsModel("20th Century",9,55,R.drawable.two_rand));
         collectionsList.add(new CollectionsModel("20th Century",9,55,R.drawable.two_rand));
         collectionsList.add(new CollectionsModel("20th Century",9,55,R.drawable.two_rand));
+        collectionsList.add(new CollectionsModel("20th Century",9,55,R.drawable.two_rand));
+        collectionsList.add(new CollectionsModel("20th Century",9,55,R.drawable.two_rand));
+        collectionsList.add(new CollectionsModel("20th Century",9,55,R.drawable.two_rand));
+        collectionsList.add(new CollectionsModel("20th Century",9,55,R.drawable.two_rand));
+        collectionsList.add(new CollectionsModel("20th Century",9,55,R.drawable.two_rand));
+        collectionsList.add(new CollectionsModel("20th Century",9,55,R.drawable.two_rand));
 
         recyclerView = (RecyclerView) findViewById(R.id.all_collectionsList);
         //recyclerView.setNestedScrollingEnabled(false);

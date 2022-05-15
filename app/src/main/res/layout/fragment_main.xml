@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".homeAct.MainFragment"
-    android:background="?colorSecondary">
+    android:background="?colorSecondary"
+    android:padding="10dp">
 
     <ImageButton
         android:id="@+id/image_button_add_coin"

@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorOnPrimary"
-    tools:context=".homeAct.LibraryFragment">
+    tools:context=".homeAct.LibraryFragment"
+    android:orientation="vertical"
+    android:padding="10dp">
 
 
     <TextView
@@ -17,12 +19,7 @@
         android:text="@string/library_title"
         android:textColor="?colorSecondaryVariant"
         android:textSize="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.007" />
+        android:layout_gravity="center"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
@@ -30,11 +27,7 @@
         android:layout_height="153dp"
         android:layout_marginTop="92dp"
 
-        android:paddingRight="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:paddingRight="10dp">
 
         <ListView
             android:id="@+id/libraryOptionsListView"
@@ -57,23 +50,7 @@
         android:text="@string/library_recent_coins"
         android:fontFamily="@font/impact"
         android:textSize="32sp"
-        android:textColor="?colorSecondaryVariant"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.383" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="390dp"
-        android:layout_marginTop="80dp"
-        android:paddingHorizontal="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:textColor="?colorSecondaryVariant" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recentCoins_list"
@@ -86,7 +63,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             tools:listitem="@layout/listview_library_recent_coins" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

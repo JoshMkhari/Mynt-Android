@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".collectionsAct.GoalFragment"
     android:background="?colorOnPrimary"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

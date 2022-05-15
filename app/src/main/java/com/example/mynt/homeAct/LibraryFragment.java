@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.coinsAct.CoinAdapter;
 import com.example.mynt.Coin_Model;
 import com.example.mynt.coinsAct.CoinsActivity;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
  * Use the {@link LibraryFragment#} factory method to
  * create an instance of this fragment.
  */
-public class LibraryFragment extends Fragment {
+public class LibraryFragment extends Fragment implements RecyclerViewInterface {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -73,7 +74,7 @@ public class LibraryFragment extends Fragment {
         layoutManager = new StaggeredGridLayoutManager(2,1);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new CoinAdapter(libraryCoinsList, getContext());
+        mAdapter = new CoinAdapter(libraryCoinsList, getContext(),this);
         recyclerView.setAdapter(mAdapter);
 
 
@@ -104,4 +105,8 @@ public class LibraryFragment extends Fragment {
         return libraryView;
     }
 
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(getContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
+    }
 }

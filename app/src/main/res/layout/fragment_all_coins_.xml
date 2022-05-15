@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorOnPrimary"
-    tools:context=".coinsAct.AllCoinsFragment">
+    tools:context=".coinsAct.AllCoinsFragment"
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -37,42 +39,41 @@
             android:textSize="30sp" />
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/all_coins_title_block"
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/title_block_shape"
-        android:contentDescription="@string/block_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:ignore="ImageContrastCheck" />
-
-    <TextView
-        android:id="@+id/coinsPageBlockTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/all_coins_block_title"
-        android:textColor="?colorPrimary"
-        android:textSize="23sp"
-        app:layout_constraintBottom_toBottomOf="@+id/all_coins_title_block"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/all_coins_title_block"
-        tools:ignore="TextContrastCheck" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="560dp"
-        android:paddingHorizontal="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/all_coins_title_block"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/title_block_shape"
+            android:contentDescription="@string/block_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/coinsPageBlockTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all_coins_block_title"
+            android:textColor="?colorPrimary"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="@+id/all_coins_title_block"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/all_coins_title_block"
+            tools:ignore="TextContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:paddingTop="20dp"
+            android:paddingHorizontal="10dp"
             android:id="@+id/all_coins_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -80,5 +81,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:listitem="@layout/list_coins" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

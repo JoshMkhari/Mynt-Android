@@ -12,17 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.Coin_Model;
 import com.example.mynt.R;
+import com.example.mynt.RecyclerViewInterface;
 
 import java.util.ArrayList;
 
 public class CoinAdapter  extends RecyclerView.Adapter<CoinAdapter.CoinViewHolder>{
+    private final RecyclerViewInterface recyclerViewInterface;
     ArrayList<Coin_Model> coinsList;
     Context context;
     int selected_position = 0;
 
-    public CoinAdapter(ArrayList<Coin_Model> coinsList, Context context) {
+    public CoinAdapter(ArrayList<Coin_Model> coinsList, Context context,RecyclerViewInterface recyclerViewInterface) {
         this.coinsList = coinsList;
         this.context = context;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
@@ -60,6 +63,20 @@ public class CoinAdapter  extends RecyclerView.Adapter<CoinAdapter.CoinViewHolde
             coinImage = itemView.findViewById(R.id.current_coin_imageview);
             year = itemView.findViewById(R.id.coin_year_textview);
             name = itemView.findViewById(R.id.coin_name_textview);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recyclerViewInterface != null)
+                    {
+                        int pos = getAbsoluteAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 
