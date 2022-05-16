@@ -7,13 +7,13 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
-import com.example.mynt.homeAct.adapters.HomeActFragmentAdapter;
+import com.example.mynt.mainActivity.adapters.Adapter_HomeActFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     //private TabLayout tabLayout_main;
     private ViewPager2 viewPager2_main;
-    private HomeActFragmentAdapter fragmentAdapter;
+    private Adapter_HomeActFragment fragmentAdapter;
 
 
     @Override
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Comment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentAdapter = new HomeActFragmentAdapter(fragmentManager, getLifecycle());
+        fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle());
         viewPager2_main.setAdapter((fragmentAdapter));
         viewPager2_main.setCurrentItem(1);
 

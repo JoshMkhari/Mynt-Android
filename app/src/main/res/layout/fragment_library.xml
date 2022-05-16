@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorOnPrimary"
-    tools:context=".homeAct.LibraryFragment"
+    tools:context=".mainActivity.Fragment_Library"
     android:orientation="vertical"
     android:padding="10dp">
 
@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
-            android:id="@+id/UserActivity"
+            android:id="@+id/imageButton_userActivity_library"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:background="@drawable/ic_baseline_account_circle_24"
@@ -26,7 +26,7 @@
             tools:ignore="ImageContrastCheck,ImageContrastCheck" />
 
         <TextView
-            android:id="@+id/LibraryTitle"
+            android:id="@+id/textview_title_library"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/impact"
@@ -41,13 +41,13 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:layout_marginTop="40dp"
+        android:id="@+id/constraintLayout_navigation_library"
         android:layout_width="match_parent"
-        android:layout_height="153dp"
-        android:layout_marginTop="92dp">
+        android:layout_height="153dp">
 
         <ListView
-            android:id="@+id/libraryOptionsListView"
+            android:id="@+id/listView_navigation_library"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,7 +60,8 @@
 
 
     <TextView
-        android:id="@+id/RecentCoins_textview"
+        android:layout_marginVertical="15dp"
+        android:id="@+id/textView_recentCoins_library"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/library_recent_coins"
@@ -69,7 +70,7 @@
         android:textColor="?colorSecondaryVariant" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recentCoins_list"
+            android:id="@+id/recyclerView_recentCoins_library"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"

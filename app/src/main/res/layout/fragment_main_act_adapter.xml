@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".homeAct.adapters.HomeActFragmentAdapter">
+    tools:context=".mainActivity.adapters.Adapter_HomeActFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

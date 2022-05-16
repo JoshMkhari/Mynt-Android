@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".goalsAct.goalsActivity"
+    tools:context=".goalsActivity.Activity_Goals"
     android:background="?colorOnPrimary"
     android:orientation="vertical"
     android:padding="10dp">
@@ -14,8 +14,8 @@
         android:layout_height="wrap_content">
         <ImageButton
             android:id="@+id/imageButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@drawable/ic_baseline_arrow_back_24"
             android:contentDescription="@string/back_button"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -31,7 +31,7 @@
             android:paddingEnd="20dp"
             android:text="@string/goals_title"
             android:textColor="?colorSecondaryVariant"
-            android:textSize="30sp"
+            android:textSize="33sp"
             android:layout_marginLeft="55dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,6 +42,7 @@
         android:layout_height="500dp">
 
         <TextView
+            android:layout_margin="20dp"
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,7 +57,7 @@
             android:textSize="28sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:layout_margin="10dp"
             android:text="Coins:"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -66,19 +67,18 @@
             android:id="@+id/GoalsPageCoinsTotal_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:text="2"
-            android:paddingTop="10dp"
-            android:textSize="28sp"
             android:textColor="?colorSecondaryVariant"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:textSize="28sp"
+
             app:layout_constraintStart_toEndOf="@+id/textView4"
-            app:layout_constraintTop_toTopOf="@+id/textView4" />
+            app:layout_constraintTop_toBottomOf="@+id/GoalPageCollectionName_TextView" />
 
         <TextView
             android:id="@+id/GoalPageCollectionName_TextView"
             android:layout_width="wrap_content"
-            android:paddingTop="10dp"
+            android:layout_margin="10dp"
             android:layout_height="wrap_content"
             android:text="Roaring 80s"
             android:textColor="?colorSecondaryVariant"
@@ -102,7 +102,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView4"></ProgressBar>
+            app:layout_constraintTop_toBottomOf="@+id/textView4"/>
 
         <TextView
             android:id="@+id/textView5"
@@ -153,15 +153,41 @@
             android:textColor="?colorSecondaryVariant"
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
+        <TextView
+            android:id="@+id/textView_set_goal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/goal_button"
+            android:textColor="?colorPrimary"
+            android:layout_marginStart="10dp"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageview_blockTitle_goal"
+            app:layout_constraintEnd_toEndOf="@+id/imageview_blockTitle_goal"
+            app:layout_constraintStart_toStartOf="@+id/imageview_blockTitle_goal"
+            app:layout_constraintTop_toTopOf="@+id/imageview_blockTitle_goal"
+            tools:ignore="TextContrastCheck" />
+
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/ic_set_goal_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/imageview_blockTitle_goal"
+            app:layout_constraintStart_toStartOf="@+id/imageview_blockTitle_goal"
+            app:layout_constraintTop_toTopOf="@+id/imageview_blockTitle_goal" />
+
         <ImageButton
+            android:id="@+id/imageview_blockTitle_goal"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:layout_marginTop="80dp"
-            android:background="@drawable/set_button_icon"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp"
+            android:background="@drawable/ic_title_block_shape"
+            android:contentDescription="@string/block_title"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/GoalsPageTarget_TextView" />
+            app:layout_constraintTop_toBottomOf="@+id/GoalsPageTarget_TextView"
+            tools:ignore="ImageContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

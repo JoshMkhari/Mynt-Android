@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
@@ -7,8 +8,9 @@
 
     <ImageView
         android:id="@+id/coin_background_imageview_collections"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/coin_background"
@@ -18,51 +20,48 @@
         android:id="@+id/current_coin_imageview_collections"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:contentDescription="@string/coin_image"
         app:layout_constraintBottom_toBottomOf="@+id/coin_background_imageview_collections"
         app:layout_constraintEnd_toEndOf="@+id/coin_background_imageview_collections"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_two_rand"
-        android:contentDescription="@string/coin_image" />
+        app:layout_constraintStart_toStartOf="@+id/coin_background_imageview_collections"
+        app:layout_constraintTop_toTopOf="@+id/coin_background_imageview_collections"
+        app:srcCompat="@drawable/img_two_rand" />
 
     <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
         android:id="@+id/collectionNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="5dp"
         android:text="@string/collections_name"
         android:textColor="?colorSecondaryVariant"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/coin_background_imageview_collections"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
         android:id="@+id/progressBar_collections"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="130dp"
+        android:layout_width="150dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
         android:layout_height="25dp"
-        android:layout_gravity="center_vertical"
         android:indeterminate="false"
         android:max="100"
         android:progress="55"
         android:progressDrawable="@drawable/theme_custom_progress"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.462"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.894"></ProgressBar>
+        app:layout_constraintStart_toEndOf="@+id/coin_background_imageview_collections"
+        app:layout_constraintTop_toBottomOf="@+id/collections_amount_TextView" />
 
     <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
         android:id="@+id/collections_amount_TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="33dp"
         android:text="@string/collections_amount_of_coins"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/coin_background_imageview_collections"
+        app:layout_constraintTop_toBottomOf="@+id/collectionNameTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

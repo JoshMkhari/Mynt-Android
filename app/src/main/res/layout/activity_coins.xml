@@ -5,12 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorOnPrimary"
-    tools:context=".coinsAct.CoinsActivity"
+    tools:context=".coinsActivity.Activity_Coins"
     android:orientation="vertical"
     android:padding="10dp">
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayout_coins"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,14 +22,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:id="@+id/image_button_back_coins"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@drawable/ic_baseline_arrow_back_24"
             android:contentDescription="@string/back_button"
             tools:ignore="ImageContrastCheck" />
 
         <TextView
-            android:id="@+id/CoinsPageTitle"
+            android:id="@+id/textview_title_coins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -37,17 +38,30 @@
             android:paddingEnd="20dp"
             android:text="@string/coins_title"
             android:textColor="?colorSecondaryVariant"
-            android:textSize="30sp" />
+            android:textSize="33sp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
+        <TextView
+            android:id="@+id/textview_blockTitle_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all_coins_block_title"
+            android:textColor="?colorPrimary"
+            android:textSize="23sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageview_blockTitle_coins"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageview_blockTitle_coins"
+            tools:ignore="TextContrastCheck" />
         <ImageView
-            android:id="@+id/all_coins_title_block"
+            android:id="@+id/imageview_blockTitle_coins"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="20dp"
             android:background="@drawable/ic_title_block_shape"
             android:contentDescription="@string/block_title"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -57,25 +71,14 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ImageContrastCheck" />
 
-        <TextView
-            android:id="@+id/coinsPageBlockTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/all_coins_block_title"
-            android:textColor="?colorPrimary"
-            android:textSize="23sp"
-            app:layout_constraintBottom_toBottomOf="@+id/all_coins_title_block"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/all_coins_title_block"
-            tools:ignore="TextContrastCheck" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:paddingTop="20dp"
+        android:layout_marginTop="10dp"
         android:paddingHorizontal="10dp"
-        android:id="@+id/all_coins_list"
+        android:id="@+id/recyclerView_coins"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

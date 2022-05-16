@@ -9,19 +9,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mynt">
         <activity
-            android:name=".userAct.UserActivity"
+            android:name=".userActivity.UserActivity"
             android:exported="false" />
         <activity
             android:name=".CoinDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".goalsAct.goalsActivity"
+            android:name=".goalsActivity.Activity_Goals"
             android:exported="false" />
         <activity
-            android:name=".collectionsAct.CollectionsActivity"
+            android:name=".collectionsActivity.Activity_Collections"
             android:exported="false" />
         <activity
-            android:name=".coinsAct.CoinsActivity"
+            android:name=".coinsActivity.Activity_Coins"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

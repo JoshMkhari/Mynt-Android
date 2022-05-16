@@ -38,6 +38,7 @@
 
     <string name="collections_title">Collections</string>
     <string name="collections_name">20th Century</string>
+    <string name="collections_create">Next</string>
     <string name="collections_amount_of_coins">9 coins</string>
     <string name="collections_next">Used to navigate to the goals page</string>
 
@@ -55,6 +56,7 @@
     <string name="coin_details_type">Type:</string>
     <string name="coin_details_points">Points:</string>
 
+    <string name="goal_button">Set</string>
     <string name="login_title">Login</string>
     <string name="login_icon">Login Icon</string>
     <string name="sign_up_icon">Sign Up Icon</string>
