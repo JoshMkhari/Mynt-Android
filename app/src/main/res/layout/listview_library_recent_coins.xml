@@ -73,15 +73,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/coin_meat_ball_icon_imageButton"
-        android:layout_width="24dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/meat_ball_menu_icon"
-        android:contentDescription="@string/meat_ball_menu_icon"
-        app:layout_constraintStart_toEndOf="@+id/current_coin_imageview"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TouchTargetSizeCheck" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

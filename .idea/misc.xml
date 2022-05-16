@@ -9,11 +9,13 @@
         <entry key="app/src/main/res/drawable/coin_background.xml" value="0.2385" />
         <entry key="app/src/main/res/drawable/coin_library_overlay.xml" value="0.2385" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.2385" />
+        <entry key="app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.2385" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2385" />
         <entry key="app/src/main/res/drawable/mynt_logo.xml" value="0.2965" />
         <entry key="app/src/main/res/drawable/tab_indicator.xml" value="0.2965" />
         <entry key="app/src/main/res/drawable/theme_custom_progress.xml" value="0.3295" />
         <entry key="app/src/main/res/drawable/title_block_shape.xml" value="0.2385" />
+        <entry key="app/src/main/res/layout/activity_coin_details.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_coins.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_collections.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.245018115942029" />
@@ -21,6 +23,8 @@
         <entry key="app/src/main/res/layout/coin_super_list.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/coins_base_list.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/coins_list.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/content_coin_details.xml" value="0.18333333333333332" />
+        <entry key="app/src/main/res/layout/details_coin_information.xml" value="0.3572916666666667" />
         <entry key="app/src/main/res/layout/fragment_all_coins_.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_goal.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_leaderboard.xml" value="0.30933333333333335" />
@@ -31,8 +35,12 @@
         <entry key="app/src/main/res/layout/library_navigation_listview.xml" value="0.5" />
         <entry key="app/src/main/res/layout/library_recent_coins_listview.xml" value="0.67" />
         <entry key="app/src/main/res/layout/list_all_collections.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/list_coin_super.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/list_coins.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/list_coins_base.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/listview_leaderboard.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/listview_library_navigation.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/listview_library_recent_coins.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/menu/coin_menu.xml" value="0.3572916666666667" />
       </map>
     </option>
