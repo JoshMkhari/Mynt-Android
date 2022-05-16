@@ -4,24 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?colorOnPrimary"
     tools:context=".coinsActivity.Activity_Coins"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayout_coins"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
+            android:layout_margin="10dp"
             android:id="@+id/image_button_back_coins"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -38,19 +34,20 @@
             android:paddingEnd="20dp"
             android:text="@string/coins_title"
             android:textColor="?colorSecondaryVariant"
-            android:textSize="33sp" />
+            android:textSize="30sp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?colorOnPrimary">
         <TextView
             android:id="@+id/textview_blockTitle_coins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/all_coins_block_title"
             android:textColor="?colorPrimary"
-            android:textSize="23sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageview_blockTitle_coins"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,8 +73,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="10dp"
+        android:background="?colorOnPrimary"
+        android:padding="10dp"
         android:id="@+id/recyclerView_coins"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

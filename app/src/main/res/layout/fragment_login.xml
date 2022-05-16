@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".userActivity.LoginFragment"
+    android:background="?colorOnPrimary"
     android:padding="15dp">
 
     <ImageButton
@@ -69,29 +70,7 @@
         android:autofillHints="password"
         android:inputType="textPassword"/>
 
-    <ImageView
-        android:id="@+id/LoginView_loginIcon"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="20dp"
-        android:background="@drawable/img_login_button"
-        android:contentDescription="@string/login_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/LoginEmail_Button"
-        app:layout_constraintStart_toStartOf="@+id/LoginEmail_Button"
-        app:layout_constraintTop_toTopOf="@+id/LoginEmail_Button"
-        tools:ignore="ImageContrastCheck" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_button_text"
-        android:textColor="#689F38"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/LoginEmail_Button"
-        app:layout_constraintEnd_toEndOf="@+id/LoginEmail_Button"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/LoginEmail_Button"
-        app:layout_constraintTop_toTopOf="@+id/LoginEmail_Button" />
 
     <ImageButton
         android:id="@+id/LoginEmail_Button"
@@ -105,5 +84,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LoginPassword_EditText"
         tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/LoginView_loginIcon"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/img_login_button"
+        android:contentDescription="@string/login_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/LoginEmail_Button"
+        app:layout_constraintEnd_toStartOf="@+id/textView8"
+        app:layout_constraintStart_toStartOf="@+id/LoginEmail_Button"
+        app:layout_constraintTop_toTopOf="@+id/LoginEmail_Button"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_button_text"
+        android:textColor="?colorPrimary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/LoginEmail_Button"
+
+        app:layout_constraintEnd_toEndOf="@+id/LoginEmail_Button"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/LoginEmail_Button"
+        app:layout_constraintTop_toTopOf="@+id/LoginEmail_Button"
+        tools:ignore="TextContrastCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".goalsActivity.Activity_Goals"
-    android:background="?colorOnPrimary"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageButton
             android:id="@+id/imageButton"
+            android:layout_margin="10dp"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@drawable/ic_baseline_arrow_back_24"
@@ -37,9 +36,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="?colorOnPrimary"
         android:layout_width="match_parent"
-        android:layout_height="500dp">
+        android:layout_height="match_parent">
 
         <TextView
             android:layout_margin="20dp"

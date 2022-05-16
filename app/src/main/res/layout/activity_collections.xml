@@ -5,17 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/collections_act_layout"
-    android:background="?colorOnPrimary"
     tools:context=".collectionsActivity.Activity_Collections"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/linearLayoutCollections"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,6 +19,7 @@
 
         <ImageButton
             android:layout_width="48dp"
+            android:layout_margin="10dp"
             android:layout_height="48dp"
             android:background="@drawable/ic_baseline_arrow_back_24"
             android:contentDescription="@string/back_button"
@@ -42,8 +39,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="?colorOnPrimary"
         android:orientation="vertical"
-        android:layout_height="170dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayoutCollections"
@@ -109,6 +107,7 @@
             android:contentDescription="@string/block_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/CollectionNameEditText"
             tools:ignore="ImageContrastCheck" />
 
 
@@ -116,14 +115,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:background="?colorOnPrimary"
             android:id="@+id/all_collectionsList"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:listitem="@layout/list_all_collections" />
-
-
 
 </LinearLayout>

@@ -36,7 +36,7 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
     public void onBindViewHolder(@NonNull CollectionsViewHolder holder, int position) {
         holder.collectionName.setText(collectionsList.get(position).getCollectionName());
 
-        holder.collectionCoinAmount.setText(String.valueOf(collectionsList.get(position).getCollectionCoinAmount()));
+        holder.collectionCoinAmount.setText(collectionsList.get(position).getCollectionCoinAmount()+" Coins");
         //glide for internet images???
         holder.coinImage.setBackgroundResource(R.drawable.img_two_rand);
 
