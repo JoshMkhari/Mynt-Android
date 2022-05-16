@@ -1,4 +1,4 @@
-package com.example.mynt.collectionsAct.Models;
+package com.example.mynt.collectionsAct;
 
 public class CollectionsModel {
     String CollectionName;

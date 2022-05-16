@@ -15,7 +15,7 @@
             android:name=".CoinDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".collectionsAct.tempActivity"
+            android:name=".goalsAct.goalsActivity"
             android:exported="false" />
         <activity
             android:name=".collectionsAct.CollectionsActivity"

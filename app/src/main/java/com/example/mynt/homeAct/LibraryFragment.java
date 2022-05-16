@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.mynt.CoinDetailsActivity;
 import com.example.mynt.RecyclerViewInterface;
@@ -22,7 +21,7 @@ import com.example.mynt.Coin_Model;
 import com.example.mynt.coinsAct.CoinsActivity;
 import com.example.mynt.R;
 import com.example.mynt.collectionsAct.CollectionsActivity;
-import com.example.mynt.collectionsAct.tempActivity;
+import com.example.mynt.goalsAct.goalsActivity;
 import com.example.mynt.homeAct.adapters.Library_Options_ListAdapter;
 import com.example.mynt.homeAct.models.Library_Options_Model;
 import com.example.mynt.userAct.UserActivity;
@@ -108,7 +107,7 @@ public class LibraryFragment extends Fragment implements RecyclerViewInterface {
                     startActivity(s);
                 }else if (position==2)
                 {
-                    Intent t = new Intent(getContext(), tempActivity.class);
+                    Intent t = new Intent(getContext(), goalsActivity.class);
                     startActivity(t);
                 }
             }
