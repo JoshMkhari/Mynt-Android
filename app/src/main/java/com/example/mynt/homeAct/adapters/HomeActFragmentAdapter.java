@@ -28,7 +28,6 @@ public class HomeActFragmentAdapter extends FragmentStateAdapter {
             else
                 return new LibraryFragment();
 
-
     }
 
     @Override

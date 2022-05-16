@@ -59,17 +59,17 @@ public class Library_Options_ListAdapter extends BaseAdapter {
         switch (position)
         {
             case 0:
-                optionIcon.setBackgroundResource(R.drawable.app_logo);
+                optionIcon.setBackgroundResource(R.drawable.img_app_logo);
                 optionValue.setText(this.libraryOptionsList.get(position).getOptionValue()+"");
                 optionProgress.setVisibility(View.INVISIBLE);
                 break;
             case 1:
-                optionIcon.setBackgroundResource(R.drawable.collection_icon);
+                optionIcon.setBackgroundResource(R.drawable.ic_collection_icon);
                 optionValue.setVisibility(View.INVISIBLE);
                 optionProgress.setVisibility(View.INVISIBLE);
                 break;
             default:
-                optionIcon.setBackgroundResource(R.drawable.goal_icon);
+                optionIcon.setBackgroundResource(R.drawable.ic_goal_icon);
                 optionValue.setText(this.libraryOptionsList.get(position).getOptionValue()+"");
                 optionProgress.setProgress(this.libraryOptionsList.get(position).getProgress());
                 break;

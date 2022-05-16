@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentAdapter = new HomeActFragmentAdapter(fragmentManager, getLifecycle());
         viewPager2_main.setAdapter((fragmentAdapter));
+        viewPager2_main.setCurrentItem(1);
 
         //Adding Tabs
         //tabLayout_main.addTab((tabLayout_main.newTab().setText("")));

@@ -3,6 +3,8 @@ package com.example.mynt.homeAct;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,36 +12,59 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.mynt.R;
-import com.example.mynt.homeAct.adapters.Leaderboard_ListAdapter;
-import com.example.mynt.homeAct.models.Leaderboard_Model;
+import com.example.mynt.RecyclerViewInterface;
+import com.example.mynt.coinsAct.CoinAdapter;
+import com.example.mynt.homeAct.adapters.Adapter_Leaderboard;
+import com.example.mynt.homeAct.models.Model_Leaderboard;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link LeaderboardFragment#} factory method to
  * create an instance of this fragment.
  */
-public class LeaderboardFragment extends Fragment {
-    ListView listView;
+public class LeaderboardFragment extends Fragment implements RecyclerViewInterface  {
+    private RecyclerView recycler_view_leaderboard;
+    private RecyclerView.Adapter rv_leaferbaord_adapter;
+    private RecyclerView.LayoutManager layout_manager_leaderboard;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        //https://stackoverflow.com/questions/6495898/findviewbyid-in-fragment
-        View leaderboardView = inflater.inflate(R.layout.fragment_leaderboard, container, false);
-        listView = (ListView) leaderboardView.findViewById(R.id.leaderboardListView);
+        View view_leaderboard = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
-        ArrayList<Leaderboard_Model> leaderboardList = new ArrayList<Leaderboard_Model>();
+        //Creating list to store users and their ranks
+        ArrayList<Model_Leaderboard> array_list_leaderboard = new ArrayList<Model_Leaderboard>();
 
+        //Populating leaderboard list
         for (int i =0; i<8;i++)
         {
-            Leaderboard_Model lm = new Leaderboard_Model("IHasShoulders"+i,4396-i*2,i,R.drawable.default_user_profile_icon);
-            leaderboardList.add(lm);
+            /*
+                Using constructor to create new leaderboard items
+                    Passing Username, UserScore, UserIcon
+             */
+            Model_Leaderboard lm = new Model_Leaderboard("IHasShoulders",4396,R.drawable.ic_default_user_profile_icon);
+            array_list_leaderboard.add(lm);
         }
-        Leaderboard_ListAdapter listAdapter = new Leaderboard_ListAdapter(getContext(),leaderboardList);
-        listView.setAdapter((listAdapter));
-        return leaderboardView;
+
+        //Passing data to list recycler view
+        recycler_view_leaderboard = (RecyclerView) view_leaderboard.findViewById(R.id.recycler_view_ranking_leaderboard);
+        recycler_view_leaderboard.setHasFixedSize(true);
+
+        //Ensuring the recycler view layout contains 1 item in each row
+        layout_manager_leaderboard = new StaggeredGridLayoutManager(1,1);
+        recycler_view_leaderboard.setLayoutManager(layout_manager_leaderboard);
+
+
+        rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard, getContext(),this);
+        recycler_view_leaderboard.setAdapter(rv_leaferbaord_adapter);
+        return view_leaderboard;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        //Code intent here if we are to code an on click event for this
     }
 }

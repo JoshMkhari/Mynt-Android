@@ -14,7 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:contentDescription="@string/coin_background"
-        app:srcCompat="@drawable/coin_background" />
+        app:srcCompat="@drawable/img_coin_background" />
 
     <ImageView
         android:id="@+id/coin_overlay_imageview"
@@ -23,7 +23,7 @@
         android:layout_marginTop="148dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/coin_library_overlay"
+        app:srcCompat="@drawable/img_coin_library_overlay"
         android:contentDescription="@string/coin_overlay" />
 
     <ImageView
@@ -34,7 +34,7 @@
         app:layout_constraintEnd_toEndOf="@+id/coin_background_imageview"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/two_rand"
+        app:srcCompat="@drawable/img_two_rand"
         android:contentDescription="@string/coin_image" />
 
     <TextView

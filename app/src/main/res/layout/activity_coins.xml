@@ -48,7 +48,7 @@
             android:id="@+id/all_coins_title_block"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/title_block_shape"
+            android:background="@drawable/ic_title_block_shape"
             android:contentDescription="@string/block_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

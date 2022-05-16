@@ -38,7 +38,7 @@ public class CollectionsAdapter  extends RecyclerView.Adapter<CollectionsAdapter
 
         holder.collectionCoinAmount.setText(String.valueOf(collectionsList.get(position).getCollectionCoinAmount()));
         //glide for internet images???
-        holder.coinImage.setBackgroundResource(R.drawable.two_rand);
+        holder.coinImage.setBackgroundResource(R.drawable.img_two_rand);
 
         holder.progressBar.setProgress(collectionsList.get(position).getCollectionProgressBar());
 

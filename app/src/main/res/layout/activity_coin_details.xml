@@ -41,7 +41,7 @@
         <ImageButton
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/share_button"
+            android:background="@drawable/ic_share_button"
             android:contentDescription="@string/share_button"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
@@ -62,7 +62,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:background="@drawable/two_rand"
+            android:background="@drawable/img_two_rand"
             tools:ignore="ImageContrastCheck"
             android:contentDescription="@string/coin_image" />
         <TextView

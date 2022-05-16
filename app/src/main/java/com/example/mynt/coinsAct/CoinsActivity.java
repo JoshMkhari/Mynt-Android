@@ -33,25 +33,25 @@ public class CoinsActivity extends AppCompatActivity {
 
         ArrayList<coins_list_model> coinsList = new ArrayList<>();
 
-        coinsList.add(new coins_list_model( R.drawable.app_logo,
+        coinsList.add(new coins_list_model( R.drawable.img_app_logo,
                 getResources().getString(R.string.library_option_coins),
                 "21 April, 17:36",
                 "South Africa",
                 2020));
 
-        coinsList.add(new coins_list_model( R.drawable.app_logo,
+        coinsList.add(new coins_list_model( R.drawable.img_app_logo,
                 getResources().getString(R.string.library_option_coins),
                 "21 April, 09:15",
                 "South Africa",
                 1994));
 
-        coinsList.add(new coins_list_model( R.drawable.app_logo,
+        coinsList.add(new coins_list_model( R.drawable.img_app_logo,
                 getResources().getString(R.string.library_option_coins),
                 "20 April, 09:10",
                 "South Africa",
                 1985));
 
-        coinsList.add(new coins_list_model( R.drawable.app_logo,
+        coinsList.add(new coins_list_model( R.drawable.img_app_logo,
                 getResources().getString(R.string.library_option_coins),
                 "20 April, 09:10",
                 "South Africa",

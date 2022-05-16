@@ -57,27 +57,27 @@ public class LibraryFragment extends Fragment implements RecyclerViewInterface {
 
         ArrayList<Library_Options_Model> libraryOptionsList = new ArrayList<>();
 
-        libraryOptionsList.add(new Library_Options_Model( R.drawable.app_logo,
+        libraryOptionsList.add(new Library_Options_Model( R.drawable.img_app_logo,
                 getResources().getString(R.string.library_option_coins),
                 0,
                 50));
 
-        libraryOptionsList.add(new Library_Options_Model( R.drawable.collection_icon,
+        libraryOptionsList.add(new Library_Options_Model( R.drawable.ic_collection_icon,
                 getResources().getString(R.string.library_option_collections),
                 0,
                 0));
 
-        libraryOptionsList.add(new Library_Options_Model( R.drawable.goal_icon,
+        libraryOptionsList.add(new Library_Options_Model( R.drawable.ic_goal_icon,
                 getResources().getString(R.string.library_option_goals),
                 62,
                 62));
         Library_Options_ListAdapter optionsListAdapter = new Library_Options_ListAdapter(getContext(),libraryOptionsList);
 
         ArrayList<Coin_Model> libraryCoinsList = new ArrayList<>();
-        libraryCoinsList.add(new Coin_Model(R.drawable.two_rand,"Two Rand",2020));
-        libraryCoinsList.add(new Coin_Model(R.drawable.two_rand,"Two Rand",2020));
-        libraryCoinsList.add(new Coin_Model(R.drawable.two_rand,"Two Rand",2020));
-        libraryCoinsList.add(new Coin_Model(R.drawable.two_rand,"Two Rand",2020));
+        libraryCoinsList.add(new Coin_Model(R.drawable.img_two_rand,"Two Rand",2020));
+        libraryCoinsList.add(new Coin_Model(R.drawable.img_two_rand,"Two Rand",2020));
+        libraryCoinsList.add(new Coin_Model(R.drawable.img_two_rand,"Two Rand",2020));
+        libraryCoinsList.add(new Coin_Model(R.drawable.img_two_rand,"Two Rand",2020));
 
         recyclerView = (RecyclerView) libraryView.findViewById(R.id.recentCoins_list);
         //recyclerView.setNestedScrollingEnabled(false);
