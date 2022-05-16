@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".userAct.LoginFragment"
+    android:padding="15dp">
+
+    <ImageButton
+        android:id="@+id/LoginClose_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_baseline_close_24"
+        android:contentDescription="@string/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/LoginTitle_TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/impact"
+        android:text="@string/login_title"
+        android:textColor="?colorSecondaryVariant"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginClose_button" />
+
+    <TextView
+        android:id="@+id/LoginSubHeading_TextView"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/login_description"
+        android:textColor="?colorSecondaryVariant"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginTitle_TextView" />
+
+    <EditText
+        android:id="@+id/LoginEmail_EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="@string/email_text"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginSubHeading_TextView"
+        android:autofillHints="emailAddress"
+        android:inputType="textEmailAddress"/>
+
+    <EditText
+        android:id="@+id/LoginPassword_EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="@string/password_text"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginEmail_EditText"
+        android:autofillHints="password"
+        android:inputType="textPassword"/>
+
+    <ImageView
+        android:id="@+id/LoginView_loginIcon"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/login_button"
+        android:contentDescription="@string/login_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/LoginEmail_Button"
+        app:layout_constraintStart_toStartOf="@+id/LoginEmail_Button"
+        app:layout_constraintTop_toTopOf="@+id/LoginEmail_Button"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_button_text"
+        android:textColor="#689F38"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/LoginEmail_Button"
+        app:layout_constraintEnd_toEndOf="@+id/LoginEmail_Button"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/LoginEmail_Button"
+        app:layout_constraintTop_toTopOf="@+id/LoginEmail_Button" />
+
+    <ImageButton
+        android:id="@+id/LoginEmail_Button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="55dp"
+        android:background="@drawable/title_block_shape"
+        android:contentDescription="@string/login_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginPassword_EditText"
+        tools:ignore="ImageContrastCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

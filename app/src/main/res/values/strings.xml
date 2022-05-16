@@ -14,6 +14,8 @@
 
     <string name="leaderboard_title">Leaderboard</string>
 
+    <string name="library_user_icon">Used to navigate to Login</string>
+
     <string name="library_title">Library</string>
     <string name="library_option_coins">Coins</string>
     <string name="library_option_collections">Collections</string>
@@ -52,4 +54,20 @@
     <string name="coin_details_circulation">Circulation:</string>
     <string name="coin_details_type">Type:</string>
     <string name="coin_details_points">Points:</string>
+
+    <string name="login_title">Login</string>
+    <string name="login_icon">Login Icon</string>
+    <string name="sign_up_icon">Sign Up Icon</string>
+    <string name="login_description">Access all your coins in one place</string>
+    <string name="email_text">Email</string>
+    <string name="password_text">Password</string>
+    <string name="login_button_text">LOGIN WITH EMAIL</string>
+
+    <string name="register_title">Save your coins</string>
+    <string name="sign_up_or">Or</string>
+    <string name="confirm_password_text">Confirm Password</string>
+    <string name="sign_up_button_text">SIGN UP</string>
+    <string name="sign_up_button">Used to sign up a user</string>
+    <string name="login_navigate">Used to change to login page</string>
+    <string name="login_button">Used to login a user</string>
 </resources>

@@ -11,9 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.mynt.CoinDetailsActivity;
 import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.coinsAct.CoinAdapter;
 import com.example.mynt.Coin_Model;
@@ -23,6 +25,7 @@ import com.example.mynt.collectionsAct.CollectionsActivity;
 import com.example.mynt.collectionsAct.tempActivity;
 import com.example.mynt.homeAct.adapters.Library_Options_ListAdapter;
 import com.example.mynt.homeAct.models.Library_Options_Model;
+import com.example.mynt.userAct.UserActivity;
 
 import java.util.ArrayList;
 
@@ -36,12 +39,22 @@ public class LibraryFragment extends Fragment implements RecyclerViewInterface {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private ListView optionListView;
+    private ImageButton loginButton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View libraryView = inflater.inflate(R.layout.fragment_library, container, false);
         optionListView = (ListView) libraryView.findViewById(R.id.libraryOptionsListView);
+        loginButton = libraryView.findViewById(R.id.UserActivity);
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), UserActivity.class);
+                startActivity(i);
+            }
+        });
 
         ArrayList<Library_Options_Model> libraryOptionsList = new ArrayList<>();
 
@@ -98,7 +111,6 @@ public class LibraryFragment extends Fragment implements RecyclerViewInterface {
                     Intent t = new Intent(getContext(), tempActivity.class);
                     startActivity(t);
                 }
-
             }
         });
 
@@ -107,6 +119,7 @@ public class LibraryFragment extends Fragment implements RecyclerViewInterface {
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(getContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(getContext(), CoinDetailsActivity.class);
+        startActivity(i);
     }
 }

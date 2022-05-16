@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".userAct.RegisterFragment"
+android:padding="15dp">
+
+
+    <ImageButton
+        android:id="@+id/RegisterClose_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/ic_baseline_close_24"
+        android:contentDescription="@string/back_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/RegisterTitle_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/impact"
+        android:text="@string/register_title"
+        android:textColor="?colorSecondaryVariant"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegisterClose_button" />
+
+    <TextView
+        android:id="@+id/RegisterSubHeading_TextView"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/login_description"
+        android:textColor="?colorSecondaryVariant"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegisterTitle_textview" />
+
+    <EditText
+        android:id="@+id/RegisterEmail_EditText"
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="@string/email_text"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegisterSubHeading_TextView"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/RegisterPassword_EditText"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="@string/password_text"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegisterEmail_EditText"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/RegisterConfirmPassword_EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:hint="@string/confirm_password_text"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegisterPassword_EditText"
+        tools:ignore="TextContrastCheck"
+        android:importantForAutofill="no" />
+
+    <ImageView
+        android:id="@+id/RegisterSignUpIcon"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/sign_up_button"
+        app:layout_constraintBottom_toBottomOf="@+id/SignEmail_Button"
+        app:layout_constraintStart_toStartOf="@+id/SignEmail_Button"
+        app:layout_constraintTop_toTopOf="@+id/SignEmail_Button"
+        tools:ignore="ImageContrastCheck"
+        android:contentDescription="@string/sign_up_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_up_button_text"
+        android:textColor="?colorPrimary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/SignEmail_Button"
+        app:layout_constraintEnd_toEndOf="@+id/SignEmail_Button"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/SignEmail_Button"
+        app:layout_constraintTop_toTopOf="@+id/SignEmail_Button"
+        tools:ignore="TextContrastCheck" />
+
+    <ImageButton
+        android:id="@+id/SignEmail_Button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="45dp"
+        android:background="@drawable/title_block_shape"
+        android:contentDescription="@string/sign_up_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RegisterConfirmPassword_EditText"
+        tools:ignore="ImageContrastCheck" />
+
+    <ImageView
+        android:id="@+id/RegisterLoginIcon"
+        android:layout_width="50dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/login_button"
+        android:contentDescription="@string/login_icon"
+        app:layout_constraintBottom_toBottomOf="@+id/RegisterLoginEmail_Button"
+        app:layout_constraintStart_toStartOf="@+id/RegisterLoginEmail_Button"
+        app:layout_constraintTop_toTopOf="@+id/RegisterLoginEmail_Button"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/SignUpOr_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/sign_up_or"
+        android:textSize="25sp"
+        android:textColor="?colorSecondaryVariant"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.455"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SignEmail_Button" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_button_text"
+        android:textColor="?colorPrimary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/RegisterLoginEmail_Button"
+        app:layout_constraintEnd_toEndOf="@+id/RegisterLoginEmail_Button"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="@+id/RegisterLoginEmail_Button"
+        app:layout_constraintTop_toTopOf="@+id/RegisterLoginEmail_Button"
+        tools:ignore="TextContrastCheck" />
+
+    <ImageButton
+        android:id="@+id/RegisterLoginEmail_Button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/title_block_shape"
+        android:contentDescription="@string/login_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SignUpOr_textView"
+        tools:ignore="ImageContrastCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>
