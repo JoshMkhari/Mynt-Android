@@ -11,17 +11,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.mynt.R;
+import com.example.mynt.RecyclerViewInterface;
 
 import java.util.ArrayList;
 
 public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder>{
-    ArrayList<Model_Collections> collectionsList;
-    Context context;
-    int selected_position = 0;
+    private final RecyclerViewInterface recyclerViewInterface;
+    private ArrayList<Model_Collections> collectionsList;
+    private Context context;
+    private int selected_position = 0;
 
-    public Adapter_Collections(ArrayList<Model_Collections> collectionsList, Context context) {
+    public Adapter_Collections(ArrayList<Model_Collections> collectionsList, Context context, RecyclerViewInterface recyclerViewInterface) {
         this.collectionsList = collectionsList;
         this.context = context;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
@@ -64,6 +67,20 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
             collectionCoinAmount = itemView.findViewById(R.id.collections_amount_TextView);
             collectionName = itemView.findViewById(R.id.collectionNameTextView);
             progressBar = itemView.findViewById(R.id.progressBar_collections);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recyclerViewInterface != null)
+                    {
+                        int pos = getAbsoluteAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 

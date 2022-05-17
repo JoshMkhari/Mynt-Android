@@ -11,17 +11,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.R;
+import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.coinsActivity.models.Model_Coins_List;
 
 import java.util.ArrayList;
 
 public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHolder>{
+    private final RecyclerViewInterface recyclerViewInterface;
     ArrayList<Model_Coins_List> coinsList;
     Context context;
 
-    public Adapter_Coins(ArrayList<Model_Coins_List> coinsList, Context context) {
+    public Adapter_Coins(ArrayList<Model_Coins_List> coinsList, Context context, RecyclerViewInterface recyclerViewInterface) {
         this.coinsList = coinsList;
         this.context = context;
+        this.recyclerViewInterface = recyclerViewInterface;
     }
 
     @NonNull
@@ -62,6 +65,20 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             name = itemView.findViewById(R.id.textview_coin_name);
             country = itemView.findViewById(R.id.textview_coin_country);
             date = itemView.findViewById(R.id.textview_coin_acquired_date);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(recyclerViewInterface != null)
+                    {
+                        int pos = getAbsoluteAdapterPosition();
+
+                        if(pos != RecyclerView.NO_POSITION){
+                            recyclerViewInterface.onItemClick(pos);
+                        }
+                    }
+                }
+            });
         }
     }
 

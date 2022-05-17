@@ -47,6 +47,7 @@ public class RegisterFragment extends Fragment {
             public void onClick(View v) {
                 //intent take me to library
                 Intent i = new Intent(getContext(), MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
                 //Navigation.findNavController(registerView).navigate(R.id.action_login);
             }

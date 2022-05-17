@@ -4,23 +4,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.mynt.CoinDetailsActivity;
 import com.example.mynt.R;
+import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.coinsActivity.adapters.Adapter_Coins;
 import com.example.mynt.coinsActivity.models.Model_Coins_List;
 import com.example.mynt.collectionsActivity.Model_Collections;
 
 import java.util.ArrayList;
 
-public class Activity_Coins extends AppCompatActivity {
+public class Activity_Coins extends AppCompatActivity implements RecyclerViewInterface {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ListView coinsListView;
+    private ImageButton back_imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,7 @@ public class Activity_Coins extends AppCompatActivity {
         setContentView(R.layout.activity_coins);
         TextView pageTitle_textView = findViewById(R.id.textview_title_coins);
         TextView collectionName_textView = findViewById(R.id.textview_blockTitle_coins);
+        back_imageButton = findViewById(R.id.image_button_back_coins);
 
         pageTitle_textView.setText("Coins test");
         collectionName_textView.setText("BLock Test");
@@ -72,9 +78,15 @@ public class Activity_Coins extends AppCompatActivity {
         layoutManager = new StaggeredGridLayoutManager(1,1);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new Adapter_Coins(coinsList, this);
+        mAdapter = new Adapter_Coins(coinsList, this,this);
         recyclerView.setAdapter(mAdapter);
 
+        back_imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
 
         //ListView myList = new ListView(allCoinsView.getContext());
         /*
@@ -91,5 +103,11 @@ public class Activity_Coins extends AppCompatActivity {
         */
 
 
+    }
+    //implementing RecyclerViewInterface
+    @Override
+    public void onItemClick(int position) {
+        Intent i = new Intent(getApplicationContext(), CoinDetailsActivity.class);
+        startActivity(i);
     }
 }
