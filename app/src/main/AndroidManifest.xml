@@ -12,7 +12,7 @@
             android:name=".userActivity.Activity_User"
             android:exported="false" />
         <activity
-            android:name=".Activity_CoinDetails"
+            android:name=".coinsActivity.Activity_CoinDetails"
             android:exported="false" />
         <activity
             android:name=".goalsActivity.Activity_Goals"

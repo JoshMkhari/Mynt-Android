@@ -28,7 +28,9 @@ public class Activity_Goals extends AppCompatActivity {
         goalProgress_progressBar = findViewById(R.id.GoalPageProgressBar);
         setGoal_imageButton = findViewById(R.id.imageview_blockTitle_goal);
 
-        Model_Goals model_goals = new Model_Goals("Roaring 80s",2,1000);
+        Model_Goals model_goals = new Model_Goals("NOnsense",5,50);
+
+
         collectionName_textView.setText(model_goals.getCollectionName());
         numCoinsInCollection_textView.setText(String.valueOf(model_goals.getNumCoins()));
         percentOfGoal_textView.setText("0.2%");

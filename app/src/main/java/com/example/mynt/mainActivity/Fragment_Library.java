@@ -14,10 +14,10 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.example.mynt.Activity_CoinDetails;
+import com.example.mynt.coinsActivity.Activity_CoinDetails;
 import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.coinsActivity.adapters.Adapter_Coin;
-import com.example.mynt.Model_Coin;
+import com.example.mynt.coinsActivity.models.Model_Coin;
 import com.example.mynt.coinsActivity.Activity_Coins;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.Activity_Collections;
@@ -134,6 +134,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getContext(), Activity_User.class);
+                //Bundle.Add.Extra(Name of coin, year, country)
                 startActivity(i);
             }
         });

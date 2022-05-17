@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.mynt.Activity_CoinDetails;
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.coinsActivity.adapters.Adapter_Coins;
@@ -29,9 +28,11 @@ public class Activity_Coins extends AppCompatActivity implements RecyclerViewInt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coins);
+
         TextView pageTitle_textView = findViewById(R.id.textview_title_coins);
         TextView collectionName_textView = findViewById(R.id.textview_blockTitle_coins);
         back_imageButton = findViewById(R.id.image_button_back_coins);
+
 
         pageTitle_textView.setText("Coins test");
         collectionName_textView.setText("BLock Test");

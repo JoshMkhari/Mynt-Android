@@ -17,6 +17,7 @@ import com.example.mynt.coinsActivity.models.Model_Coins_List;
 import java.util.ArrayList;
 
 public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHolder>{
+
     private final RecyclerViewInterface recyclerViewInterface;
     ArrayList<Model_Coins_List> coinsList;
     Context context;

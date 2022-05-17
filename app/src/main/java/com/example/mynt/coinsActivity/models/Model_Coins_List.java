@@ -1,6 +1,8 @@
 package com.example.mynt.coinsActivity.models;
 
+//DELETE ENTIRE CLASS
 public class Model_Coins_List {
+
 
     int imageId;
     String coinName;

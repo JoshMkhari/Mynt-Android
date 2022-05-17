@@ -1,8 +1,10 @@
-package com.example.mynt;
+package com.example.mynt.coinsActivity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.mynt.R;
 
 public class Activity_CoinDetails extends AppCompatActivity {
 

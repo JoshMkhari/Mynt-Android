@@ -1,4 +1,4 @@
-package com.example.mynt;
+package com.example.mynt.coinsActivity.models;
 
 public class Model_Coin {
 

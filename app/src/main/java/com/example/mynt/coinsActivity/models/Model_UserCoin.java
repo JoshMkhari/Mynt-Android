@@ -1,8 +1,5 @@
 package com.example.mynt.coinsActivity.models;
 
-import com.example.mynt.Model_Coin;
-
-import java.util.ArrayList;
 import java.util.Date;
 
 public class Model_UserCoin {

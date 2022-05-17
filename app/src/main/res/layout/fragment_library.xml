@@ -37,23 +37,18 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="40dp"
-        android:layout_width="match_parent"
-        android:layout_height="153dp">
-
+    <!--To see other elements, change listView_navigation_library height to 153dp-->
         <ListView
+            android:layout_marginTop="40dp"
             android:id="@+id/listView_navigation_library"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="150dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/listview_library_navigation">
         </ListView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     <TextView

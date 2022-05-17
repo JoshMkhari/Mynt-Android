@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mynt.Model_Coin;
+import com.example.mynt.coinsActivity.models.Model_Coin;
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
 
