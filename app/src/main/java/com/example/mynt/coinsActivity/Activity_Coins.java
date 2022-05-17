@@ -8,15 +8,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.mynt.CoinDetailsActivity;
+import com.example.mynt.Activity_CoinDetails;
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.coinsActivity.adapters.Adapter_Coins;
 import com.example.mynt.coinsActivity.models.Model_Coins_List;
-import com.example.mynt.collectionsActivity.Model_Collections;
 
 import java.util.ArrayList;
 
@@ -107,7 +105,7 @@ public class Activity_Coins extends AppCompatActivity implements RecyclerViewInt
     //implementing RecyclerViewInterface
     @Override
     public void onItemClick(int position) {
-        Intent i = new Intent(getApplicationContext(), CoinDetailsActivity.class);
+        Intent i = new Intent(getApplicationContext(), Activity_CoinDetails.class);
         startActivity(i);
     }
 }

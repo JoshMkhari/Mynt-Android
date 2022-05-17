@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import com.example.mynt.mainActivity.adapters.Adapter_HomeActFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class Activity_Main extends AppCompatActivity {
 
     //private TabLayout tabLayout_main;
     private ViewPager2 viewPager2_main;

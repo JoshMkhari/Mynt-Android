@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.example.mynt.CoinDetailsActivity;
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.coinsActivity.Activity_Coins;

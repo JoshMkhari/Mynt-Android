@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CoinDetailsActivity"
+    tools:context=".Activity_CoinDetails"
     android:orientation="vertical">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayoutCoinDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +29,6 @@
             tools:ignore="ImageContrastCheck" />
 
         <TextView
-            android:id="@+id/CoinDetailsTitle_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -80,7 +78,6 @@
             android:contentDescription="@string/coin_image" />
         <TextView
             android:padding="10dp"
-            android:id="@+id/CoinDetails_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -89,7 +86,6 @@
             android:textColor="?colorSecondaryVariant"/>
         <TextView
             android:padding="10dp"
-            android:id="@+id/CoinDetailsLocation_TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -262,7 +258,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/CoinDetails_Circulation_TextView" />
 
             <TextView
-                android:id="@+id/CoinDetails_Points_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"

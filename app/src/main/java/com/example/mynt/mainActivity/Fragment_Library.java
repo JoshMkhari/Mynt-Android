@@ -14,17 +14,17 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.example.mynt.CoinDetailsActivity;
+import com.example.mynt.Activity_CoinDetails;
 import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.coinsActivity.adapters.Adapter_Coin;
-import com.example.mynt.Coin_Model;
+import com.example.mynt.Model_Coin;
 import com.example.mynt.coinsActivity.Activity_Coins;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.Activity_Collections;
 import com.example.mynt.goalsActivity.Activity_Goals;
 import com.example.mynt.mainActivity.adapters.Adapter_Library_Options;
 import com.example.mynt.mainActivity.models.Model_Library_Options;
-import com.example.mynt.userActivity.UserActivity;
+import com.example.mynt.userActivity.Activity_User;
 
 import java.util.ArrayList;
 
@@ -52,7 +52,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         optionListView = libraryView.findViewById(R.id.listView_navigation_library);
         loginButton = libraryView.findViewById(R.id.imageButton_userActivity_library);
         ArrayList<Model_Library_Options> arrayList_library_navigation = new ArrayList<>();
-        ArrayList<Coin_Model> arrayList_recent_coins = new ArrayList<>();
+        ArrayList<Model_Coin> arrayList_recent_coins = new ArrayList<>();
 
         //Populating Library Options List
         arrayList_library_navigation.add(new Model_Library_Options( R.drawable.img_app_logo,
@@ -72,10 +72,10 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
 
 
         //Populating Recent Coins RecyclerView
-        arrayList_recent_coins.add(new Coin_Model(R.drawable.img_two_rand,"Two Rand",2020));
-        arrayList_recent_coins.add(new Coin_Model(R.drawable.img_two_rand,"Two Rand",2020));
-        arrayList_recent_coins.add(new Coin_Model(R.drawable.img_two_rand,"Two Rand",2020));
-        arrayList_recent_coins.add(new Coin_Model(R.drawable.img_two_rand,"Two Rand",2020));
+        arrayList_recent_coins.add(new Model_Coin(R.drawable.img_two_rand,"Two Rand",2020));
+        arrayList_recent_coins.add(new Model_Coin(R.drawable.img_two_rand,"Two Rand",2020));
+        arrayList_recent_coins.add(new Model_Coin(R.drawable.img_two_rand,"Two Rand",2020));
+        arrayList_recent_coins.add(new Model_Coin(R.drawable.img_two_rand,"Two Rand",2020));
 
         //Passing data to list recycler view
         recyclerView = (RecyclerView) libraryView.findViewById(R.id.recyclerView_recentCoins_library);
@@ -103,7 +103,8 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
     //Implementing RecyclerViewInterface Method
     @Override
     public void onItemClick(int position) {
-        Intent i = new Intent(getContext(), CoinDetailsActivity.class);
+        Intent i = new Intent(getContext(), Activity_CoinDetails.class);
+
         startActivity(i);
     }
 
@@ -132,7 +133,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), UserActivity.class);
+                Intent i = new Intent(getContext(), Activity_User.class);
                 startActivity(i);
             }
         });

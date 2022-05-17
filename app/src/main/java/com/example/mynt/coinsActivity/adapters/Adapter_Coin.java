@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mynt.Coin_Model;
+import com.example.mynt.Model_Coin;
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
 
@@ -18,11 +18,11 @@ import java.util.ArrayList;
 
 public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHolder>{
     private final RecyclerViewInterface recyclerViewInterface;
-    ArrayList<Coin_Model> coinsList;
+    ArrayList<Model_Coin> coinsList;
     Context context;
     int selected_position = 0;
 
-    public Adapter_Coin(ArrayList<Coin_Model> coinsList, Context context, RecyclerViewInterface recyclerViewInterface) {
+    public Adapter_Coin(ArrayList<Model_Coin> coinsList, Context context, RecyclerViewInterface recyclerViewInterface) {
         this.coinsList = coinsList;
         this.context = context;
         this.recyclerViewInterface = recyclerViewInterface;

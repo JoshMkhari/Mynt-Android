@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".userActivity.LoginFragment"
+    tools:context=".userActivity.Fragment_Login"
     android:background="?colorOnPrimary"
     android:padding="15dp">
 
@@ -86,7 +86,6 @@
         tools:ignore="ImageContrastCheck" />
 
     <ImageView
-        android:id="@+id/LoginView_loginIcon"
         android:layout_width="50dp"
         android:layout_height="45dp"
         android:layout_marginStart="20dp"

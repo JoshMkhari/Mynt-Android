@@ -43,7 +43,7 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
         //glide for internet images???
         holder.coinImage.setBackgroundResource(R.drawable.img_two_rand);
 
-        holder.progressBar.setProgress(collectionsList.get(position).getCollectionProgressBar());
+        holder.progressBar.setProgress(collectionsList.get(position).getGoal());
 
         // Here I am just highlighting the background
         //holder.itemView.setBackgroundColor(selected_position == position ? Color.GREEN : Color.TRANSPARENT);

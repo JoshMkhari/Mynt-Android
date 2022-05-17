@@ -9,10 +9,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mynt">
         <activity
-            android:name=".userActivity.UserActivity"
+            android:name=".userActivity.Activity_User"
             android:exported="false" />
         <activity
-            android:name=".CoinDetailsActivity"
+            android:name=".Activity_CoinDetails"
             android:exported="false" />
         <activity
             android:name=".goalsActivity.Activity_Goals"
@@ -24,7 +24,7 @@
             android:name=".coinsActivity.Activity_Coins"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activity_Main"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

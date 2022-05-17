@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.mynt.MainActivity;
+import com.example.mynt.Activity_Main;
 import com.example.mynt.R;
 
 public class Activity_Goals extends AppCompatActivity {
@@ -39,7 +39,7 @@ public class Activity_Goals extends AppCompatActivity {
         setGoal_imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                Intent i = new Intent(getApplicationContext(), Activity_Main.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }

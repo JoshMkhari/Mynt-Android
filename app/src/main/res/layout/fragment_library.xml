@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorOnPrimary"
@@ -26,7 +25,6 @@
             tools:ignore="ImageContrastCheck,ImageContrastCheck" />
 
         <TextView
-            android:id="@+id/textview_title_library"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/impact"
@@ -42,7 +40,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginTop="40dp"
-        android:id="@+id/constraintLayout_navigation_library"
         android:layout_width="match_parent"
         android:layout_height="153dp">
 
@@ -61,7 +58,6 @@
 
     <TextView
         android:layout_marginVertical="15dp"
-        android:id="@+id/textView_recentCoins_library"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/library_recent_coins"

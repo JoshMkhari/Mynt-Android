@@ -1,6 +1,7 @@
 package com.example.mynt.coinsActivity.models;
 
 public class Model_Coins_List {
+
     int imageId;
     String coinName;
     String coinDate;

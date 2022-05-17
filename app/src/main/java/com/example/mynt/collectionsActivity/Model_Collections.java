@@ -1,17 +1,46 @@
 package com.example.mynt.collectionsActivity;
 
-public class Model_Collections {
-    String CollectionName;
-    int CollectionCoinAmount;
-    int CollectionProgressBar;
-    int ImageID;
+import com.example.mynt.coinsActivity.models.Model_UserCoin;
+import com.example.mynt.userActivity.Model_User;
 
-    public Model_Collections(String collectionName, int collectionCoinAmount, int collectionProgressBar, int imageID) {
+import java.util.ArrayList;
+
+public class Model_Collections {
+
+    private int CollectionID;//Image for collection cover
+    private String CollectionName;
+    private ArrayList<Model_UserCoin> model_userCoinArrayList;
+    private int goal;
+
+    public Model_Collections(String collectionName, int collectionCoinAmount, int goal, int imageID) {
         CollectionName = collectionName;
         CollectionCoinAmount = collectionCoinAmount;
-        CollectionProgressBar = collectionProgressBar;
+        this.goal = goal;
         ImageID = imageID;
     }
+
+
+
+    private int CollectionCoinAmount;
+    private int ImageID;//Cover should be last added imnage
+
+    public ArrayList<Model_UserCoin> getModel_userArrayList() {
+        return model_userCoinArrayList;
+    }
+
+    public void setModel_userArrayList(ArrayList<Model_UserCoin> model_userArrayList) {
+        this.model_userCoinArrayList = model_userArrayList;
+    }
+
+
+    public int getCollectionID() {
+        return CollectionID;
+    }
+
+    public void setCollectionID(int collectionID) {
+        CollectionID = collectionID;
+    }
+
 
     public String getCollectionName() {
         return CollectionName;
@@ -29,12 +58,12 @@ public class Model_Collections {
         CollectionCoinAmount = collectionCoinAmount;
     }
 
-    public int getCollectionProgressBar() {
-        return CollectionProgressBar;
+    public int getGoal() {
+        return goal;
     }
 
-    public void setCollectionProgressBar(int collectionProgressBar) {
-        CollectionProgressBar = collectionProgressBar;
+    public void setGoal(int goal) {
+        this.goal = goal;
     }
 
     public int getImageID() {

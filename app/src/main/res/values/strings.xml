@@ -2,15 +2,11 @@
     <string name="app_name">Mynt</string>
 
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="mainAct_title">Tap to add a coin</string>
     <string name="mainAct_coin_add_button">Used to add coins</string>
     <string name="mainAct_search_button">Used to search for coins</string>
-    <string name="mainAct_charts_button">Used to navigate to the leaderboard</string>
     <string name="mainAct_library_button">Used to navigate to the leaderboard</string>
     <string name="mainAct_leaderboard_image">Displays leaderboard world map</string>
-    <string name="mainAct_library_coin_collection">Coins</string>
 
     <string name="leaderboard_title">Leaderboard</string>
 
@@ -25,7 +21,6 @@
 
     <string name="coins_title">Coins</string>
     <string name="all_coins_block_title">All Coins</string>
-    <string name="coin_base_list_date">TODAY</string>
     <string name="coins_acquired_date">21 April, 17:36</string>
     <string name="coins_coin_name">Two Rand</string>
     <string name="coins_coin_year">2020</string>
@@ -33,14 +28,11 @@
     <string name="coin_background">Displays Coin Background</string>
     <string name="coin_overlay">Used to hold coin info</string>
     <string name="coin_image">Displays coin</string>
-    <string name="meat_ball_menu_icon">Used to access sub menu</string>
-    <string name="scroll_view">Used to display items</string>
 
     <string name="collections_title">Collections</string>
     <string name="collections_name">20th Century</string>
     <string name="collections_create">Next</string>
     <string name="collections_amount_of_coins">9 coins</string>
-    <string name="collections_next">Used to navigate to the goals page</string>
 
     <string name="back_button">Used to navigate back to the previous view</string>
     <string name="block_title">Displays block title</string>
@@ -70,6 +62,5 @@
     <string name="confirm_password_text">Confirm Password</string>
     <string name="sign_up_button_text">SIGN UP</string>
     <string name="sign_up_button">Used to sign up a user</string>
-    <string name="login_navigate">Used to change to login page</string>
     <string name="login_button">Used to login a user</string>
 </resources>

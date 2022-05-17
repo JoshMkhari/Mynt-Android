@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.example.mynt.R;
 
-public class UserActivity extends AppCompatActivity {
+public class Activity_User extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

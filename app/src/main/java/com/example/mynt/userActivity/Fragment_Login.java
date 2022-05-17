@@ -18,7 +18,7 @@ import com.example.mynt.R;
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class LoginFragment extends Fragment {
+public class Fragment_Login extends Fragment {
 
     private EditText email;
     private EditText password;
