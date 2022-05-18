@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.mynt.Activity_Main;
 import com.example.mynt.R;
+import com.example.mynt.dataAccessLayer.Database_Lite;
 
 public class Activity_Goals extends AppCompatActivity {
     private ImageButton setGoal_imageButton;
@@ -42,6 +43,8 @@ public class Activity_Goals extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), Activity_Main.class);
+                Database_Lite database_lite = new Database_Lite(getApplicationContext());
+                database_lite.populateCoins();
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }

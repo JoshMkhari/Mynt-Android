@@ -7,6 +7,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
+import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.mainActivity.adapters.Adapter_HomeActFragment;
 
 public class Activity_Main extends AppCompatActivity {
