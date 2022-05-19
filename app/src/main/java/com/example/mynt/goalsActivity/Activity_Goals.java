@@ -44,7 +44,7 @@ public class Activity_Goals extends AppCompatActivity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), Activity_Main.class);
                 Database_Lite database_lite = new Database_Lite(getApplicationContext());
-                database_lite.populateCoins();
+                //database_lite.populateCoins();
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
