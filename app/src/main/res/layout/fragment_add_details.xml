@@ -55,4 +55,10 @@
         android:layout_height="300dp"
         tools:listitem="@layout/listview_add_coin">
     </ListView>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Button" />
 </LinearLayout>

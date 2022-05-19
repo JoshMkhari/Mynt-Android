@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_coin_navigation"
+    app:startDestination="@id/fragment_Add_Details">
+
+    <fragment
+        android:id="@+id/fragment_Add_Details"
+        android:name="com.example.mynt.addActivity.Fragment_Add_Details"
+        android:label="fragment_add_details"
+        tools:layout="@layout/fragment_add_details" />
+</navigation>

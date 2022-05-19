@@ -17,14 +17,19 @@ public class Adapter_AddCoin_ListView extends BaseAdapter {
 
     private Context context;
     private LayoutInflater inflater;
+
     private ArrayList<String> arrayList_values;
     private ArrayList<String> arrayList_Material;
     private ArrayList<String> arrayList_Variety;
     private ArrayList<String> arrayList_Collection;
 
-    public Adapter_AddCoin_ListView(Context context, LayoutInflater inflater) {
+    public Adapter_AddCoin_ListView(Context context) {
         this.context = context;
-        this.inflater = inflater;
+        inflater = LayoutInflater.from(context);
+        populateValues();
+        populateCollections();
+        populateMaterial();
+        populateVariety();
     }
 
     @Override
@@ -49,12 +54,6 @@ public class Adapter_AddCoin_ListView extends BaseAdapter {
 
         TextInputLayout dropdown = convertView.findViewById(R.id.dropdown_list);
         AutoCompleteTextView textView_forDropdown = convertView.findViewById(R.id.textView_forDropdown);
-
-        populateValues();
-        populateCollections();
-        populateMaterial();
-        populateVariety();
-
 
         switch(position)
         {
