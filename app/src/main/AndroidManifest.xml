@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mynt">
         <activity
+            android:name=".Activity_Add"
+            android:exported="false" />
+        <activity
             android:name=".userActivity.Activity_User"
             android:exported="false" />
         <activity

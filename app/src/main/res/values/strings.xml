@@ -63,4 +63,14 @@
     <string name="sign_up_button_text">SIGN UP</string>
     <string name="sign_up_button">Used to sign up a user</string>
     <string name="login_button">Used to login a user</string>
+
+    <string name="add_coin_title">Add Coin</string>
+    <string name="value">Value</string>
+    <string name="year">Value</string>
+    <string name="variety">Value</string>
+    <string name="material">Value</string>
+    <string name="alt_name">Value</string>
+    <string name="mintage">Value</string>
+    <string name="observe">Value</string>
+    <string name="reverse">Value</string>
 </resources>
