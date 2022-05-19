@@ -73,4 +73,57 @@
     <string name="mintage">Value</string>
     <string name="observe">Value</string>
     <string name="reverse">Value</string>
+
+    <string-array name="Collections">
+        <item>20th Century</item>
+        <item>Roaring 80s</item>
+    </string-array>
+
+    <string-array name="Material">
+        <item>Bimetallic</item>
+        <item>Silver</item>
+        <item>Nickel-plated copper</item>
+        <item>Nickel</item>
+        <item>Bronze-plated Steel</item>
+        <item>Copper-plated Steel</item>
+        <item>Bronze</item>
+        <item>Brass</item>
+        <item>Aluminium-Bronze</item>
+        <item>Gold</item>
+        <item>Platinum</item>
+    </string-array>
+
+    <string-array name="Variants">
+        <item>Proof</item>
+        <item>Brilliant CW privy mark</item>
+        <item>Brilliant Uncirculated</item>
+    </string-array>
+
+    <string-array name="Value">
+        <item>Half Cent"</item>
+        <item>One Cent</item>
+        <item>Two and a Half Cent</item>
+        <item>Five Cent</item>
+        <item>Ten Cent</item>
+        <item>Twenty Cent</item>
+        <item>Fifty Cent</item>
+        <item>One Rand</item>
+        <item>Two Rand</item>
+        <item>Five Rand</item>
+        <item>Fifty Rand</item>
+        <item>Tenth Ounce</item>
+        <item>Twentieth Ounce</item>
+        <item>Quarter Ounce</item>
+        <item>Fiftieth Ounce</item>
+        <item>Half Ounce</item>
+        <item>Ounce</item>
+        <item>Two Ounce</item>
+        <item>Five Ounce</item>
+        <item>Kilo</item>
+        <item>Penny</item>
+        <item>Three Pence</item>
+        <item>Six Pence</item>
+        <item>Shilling</item>
+    </string-array>
+
 </resources>

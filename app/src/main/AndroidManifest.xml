@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mynt">
         <activity
-            android:name=".Activity_Add"
+            android:name=".addActivity.Activity_Add"
             android:exported="false" />
         <activity
             android:name=".userActivity.Activity_User"

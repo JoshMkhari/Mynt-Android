@@ -50,32 +50,32 @@ public class Adapter_AddCoin_ListView extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = inflater.inflate(R.layout.listview_add_coin, null);
+        //convertView = inflater.inflate(R.layout.listview_add_coin, null);
 
-        TextInputLayout dropdown = convertView.findViewById(R.id.dropdown_list);
-        AutoCompleteTextView textView_forDropdown = convertView.findViewById(R.id.textView_forDropdown);
+        //TextInputLayout dropdown = convertView.findViewById(R.id.dropdown_list);
+        //AutoCompleteTextView textView_forDropdown = convertView.findViewById(R.id.textView_forDropdown);
 
         switch(position)
         {
             //Value
             case 0:
-                ArrayAdapter arrayAdapter = new ArrayAdapter(context,R.layout.dropdown_item,arrayList_values);
-                textView_forDropdown.setAdapter(arrayAdapter);
+                //ArrayAdapter arrayAdapter = new ArrayAdapter(context,R.layout.dropdown_item,arrayList_values);
+                //textView_forDropdown.setAdapter(arrayAdapter);
                 break;
             //Material
             case 1:
-                ArrayAdapter arrayMaterialAdapter = new ArrayAdapter(context,R.layout.dropdown_item,arrayList_Material);
-                textView_forDropdown.setAdapter(arrayMaterialAdapter);
+                //ArrayAdapter arrayMaterialAdapter = new ArrayAdapter(context,R.layout.dropdown_item,arrayList_Material);
+                //textView_forDropdown.setAdapter(arrayMaterialAdapter);
                 break;
             //Variety
             case 2:
-                ArrayAdapter arrayVarietyAdapter = new ArrayAdapter(context,R.layout.dropdown_item,arrayList_Variety);
-                textView_forDropdown.setAdapter(arrayVarietyAdapter);
+                //ArrayAdapter arrayVarietyAdapter = new ArrayAdapter(context,R.layout.dropdown_item,arrayList_Variety);
+               // textView_forDropdown.setAdapter(arrayVarietyAdapter);
                 break;
             //Collection
             case 3:
-                ArrayAdapter arrayCollectionAdapter = new ArrayAdapter(context,R.layout.dropdown_item,arrayList_Collection);
-                textView_forDropdown.setAdapter(arrayCollectionAdapter);
+               // ArrayAdapter arrayCollectionAdapter = new ArrayAdapter(context,R.layout.dropdown_item,arrayList_Collection);
+               // textView_forDropdown.setAdapter(arrayCollectionAdapter);
                 break;
         }
         return null;
