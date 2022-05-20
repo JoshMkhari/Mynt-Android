@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.project.mynt.coinsActivity.Activity_Coins"
+    tools:context="com.example.mynt.coinsActivity.Activity_Coins"
     android:orientation="vertical">
 
     <LinearLayout
