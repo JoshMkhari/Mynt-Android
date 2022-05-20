@@ -22,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.mynt.R;
 import com.example.mynt.Activity_Main;
@@ -65,7 +66,8 @@ public class Activity_Add extends AppCompatActivity {
 
         //ImageButton
         add_Button = findViewById(R.id.imageview_blockTitle_addCoin);
-        changeImage = findViewById((R.id.userImage));
+        userImage = findViewById(R.id.userImage);
+        changeImage = findViewById((R.id.changePicture));
 
         //Listeners
         setUpListeners();
@@ -93,24 +95,6 @@ public class Activity_Add extends AppCompatActivity {
         adapterCollection.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCollection.setAdapter(adapterCollection);
 
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                Bundle extras = result.getData().getExtras();
-                Uri imageUri;
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
-
-                WeakReference<Bitmap> highQualityBitmap = new WeakReference<>(Bitmap.createScaledBitmap(imageBitmap,
-                        imageBitmap.getHeight(),imageBitmap.getWidth(),false).copy(
-                        Bitmap.Config.RGB_565,true));
-
-                Bitmap bm = highQualityBitmap.get();
-                imageUri = saveImage(bm, getApplicationContext());
-
-                //this uri is what we need for the images
-                userImage.setImageURI(imageUri);
-            }
-        });
     }
     private Uri saveImage(Bitmap image, Context context) {
         File imagesFolder = new File(context.getCacheDir(),"images");
@@ -139,6 +123,30 @@ public class Activity_Add extends AppCompatActivity {
             public void onClick(View v) {
                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 activityResultLauncher.launch(takePicture);
+            }
+        });
+
+        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                Bundle extras = result.getData().getExtras();
+                if(extras!=null)
+                {
+                    Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_LONG).show();
+                    Uri imageUri;
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+                    WeakReference<Bitmap> highQualityBitmap = new WeakReference<>(Bitmap.createScaledBitmap(imageBitmap,
+                            imageBitmap.getHeight(),imageBitmap.getWidth(),false).copy(
+                            Bitmap.Config.RGB_565,true));
+
+                    Bitmap bm = highQualityBitmap.get();
+                    imageUri = saveImage(bm, getApplicationContext());
+
+                    //this uri is what we need for the images
+                    userImage.setImageURI(imageUri);
+                }
+
             }
         });
 
