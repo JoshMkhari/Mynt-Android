@@ -66,13 +66,15 @@
 
     <string name="add_coin_title">Add Coin</string>
     <string name="value">Value</string>
-    <string name="year">Value</string>
-    <string name="variety">Value</string>
-    <string name="material">Value</string>
-    <string name="alt_name">Value</string>
-    <string name="mintage">Value</string>
-    <string name="observe">Value</string>
-    <string name="reverse">Value</string>
+    <string name="add">Add</string>
+    <string name="year">Year</string>
+    <string name="collection">Collection</string>
+    <string name="variant">Variant</string>
+    <string name="material">Material</string>
+    <string name="alt_name">Alternate Name</string>
+    <string name="mintage">Mintage</string>
+    <string name="observe">Observe</string>
+    <string name="reverse">Reverse</string>
 
     <string-array name="Collections">
         <item>20th Century</item>
