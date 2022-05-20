@@ -9,25 +9,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mynt">
         <activity
-            android:name=".addActivity.Activity_Add"
+            android:name="com.project.mynt.addActivity.Activity_Add"
             android:exported="false" />
         <activity
-            android:name=".userActivity.Activity_User"
+            android:name="com.project.mynt.userActivity.Activity_User"
             android:exported="false" />
         <activity
-            android:name=".coinsActivity.Activity_CoinDetails"
+            android:name="com.project.mynt.coinsActivity.Activity_CoinDetails"
             android:exported="false" />
         <activity
-            android:name=".goalsActivity.Activity_Goals"
+            android:name="com.project.mynt.goalsActivity.Activity_Goals"
             android:exported="false" />
         <activity
-            android:name=".collectionsActivity.Activity_Collections"
+            android:name="com.project.mynt.collectionsActivity.Activity_Collections"
             android:exported="false" />
         <activity
-            android:name=".coinsActivity.Activity_Coins"
+            android:name="com.project.mynt.coinsActivity.Activity_Coins"
             android:exported="false" />
         <activity
-            android:name=".Activity_Main"
+            android:name="com.project.mynt.Activity_Main"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

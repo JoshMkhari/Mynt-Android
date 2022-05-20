@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".addActivity.Activity_Add">
+    tools:context="com.project.mynt.addActivity.Activity_Add">
 
 
     <androidx.fragment.app.FragmentContainerView
