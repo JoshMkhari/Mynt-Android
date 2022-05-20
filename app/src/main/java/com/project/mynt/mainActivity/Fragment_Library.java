@@ -53,7 +53,8 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         View libraryView = inflater.inflate(R.layout.fragment_library, container, false);
 
         //Initializing variables
-        String email = getArguments().getString("userEmail");
+        //String email = getArguments().getString("userEmail");
+        String email = "josh";
         Database_Lite dl = new Database_Lite(getContext());
 
         Model_User user = dl.getUser(email);
@@ -83,6 +84,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
 
 
 
+        if(userCoins.size()>0)
         for (int i =userCoins.size()-1; i>=userCoins.size()-5;i--)
         {
             arrayList_recent_coins.add(userCoins.get(i));

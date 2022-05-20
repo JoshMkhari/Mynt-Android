@@ -44,8 +44,8 @@ public class Database_Lite extends SQLiteOpenHelper {
     public static final String COLUMN_OBSERVE = "OBSERVE";
     public static final String COLUMN_REVERSE = "REVERSE";
     public static final String COLUMN_IMAGE = "IMAGE";
-    private static final String COLUMN_COIN_FK = "COIN";
-    private static final String COLUMN_COLLECTION_FK = "ID";
+    private static final String COLUMN_COIN_FK = "COIN_ID";
+    private static final String COLUMN_COLLECTION_FK = "COLLECTION_ID";
     private static final String COLLECTIONS_COIN_TABLE = "COLLECTION_COIN_TABLE";
     private static final String COLLECTION_TABLE = "COLLECTION_TABLE";
     private static final String COLUMN_COLLECTION_NAME = "NAME";
@@ -62,70 +62,71 @@ public class Database_Lite extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        ArrayList<String> tableStatements = new ArrayList<>();
-
         //Table Creation Statements
 
         //Material Table
-        tableStatements.add("CREATE TABLE " + MATERIAL_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_MATERIAL_NAME + " INTEGER);");
+        String tableStatement = ("CREATE TABLE " + MATERIAL_TABLE + "(" + COLUMN_MATERIAL_NAME + " INTEGER PRIMARY KEY AUTOINCREMENT );");
+        db.execSQL(tableStatement);
+
         //Year Table
-        tableStatements.add("CREATE TABLE " + YEAR_TABLE + "(" + COLUMN_YEAR_ID + " INTEGER PRIMARY KEY );");
+        tableStatement = ("CREATE TABLE " + YEAR_TABLE + "(" + COLUMN_YEAR_ID + " INTEGER PRIMARY KEY );");
+        db.execSQL(tableStatement);
         //Value Table
-        tableStatements.add("CREATE TABLE " + VALUE_TABLE + "(" + COLUMN_VALUE_ID + " TEXT PRIMARY KEY, " + COLUMN_NAME_VALUE + " INTEGER);");
+        tableStatement = ("CREATE TABLE " + VALUE_TABLE + "(" + COLUMN_NAME_VALUE + " INTEGER PRIMARY KEY AUTOINCREMENT );");
+        db.execSQL(tableStatement);
         //Variety Table
-        tableStatements.add("CREATE TABLE " + VARIETY_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_VARIETY_NAME + " INTEGER);");
+        tableStatement = ("CREATE TABLE " + VARIETY_TABLE + "(" + COLUMN_VARIETY_NAME + " INTEGER PRIMARY KEY AUTOINCREMENT );");
+        db.execSQL(tableStatement);
         //Coin Table
 
-        tableStatements.add("CREATE TABLE " + COIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_ALT_NAME + " TEXT, "
+        tableStatement = ("CREATE TABLE " + COIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_ALT_NAME + " TEXT, "
                 + COLUMN_MINTAGE + " INTEGER, " + COLUMN_OBSERVE + " TEXT, " + COLUMN_REVERSE + " TEXT, "+ COLUMN_IMAGE + " TEXT, " + COLUMN_VALUE_FK + " REAL, "
                 + COLUMN_YEAR_FK + " INTEGER, " + COLUMN_VARIETY_FK + " INTEGER, " + COLUMN_MATERIAL_FK + " INTEGER, "
-                + "FOREIGN KEY (" + COLUMN_VALUE_FK + ") REFERENCES "+ VALUE_TABLE +"("+COLUMN_VALUE_ID+"), "
+                + "FOREIGN KEY (" + COLUMN_VALUE_FK + ") REFERENCES "+ VALUE_TABLE +"("+COLUMN_NAME_VALUE+"), "
                 + "FOREIGN KEY (" + COLUMN_YEAR_FK + ") REFERENCES "+ YEAR_TABLE +"("+COLUMN_YEAR_ID+"), "
-                + "FOREIGN KEY (" + COLUMN_VARIETY_FK + ") REFERENCES "+ VARIETY_TABLE +"(ID) , "
-                + "FOREIGN KEY (" + COLUMN_MATERIAL_FK + ") REFERENCES "+ MATERIAL_TABLE +"(ID));");
-        //Collections Table
-        tableStatements.add("CREATE TABLE " + COLLECTION_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_COLLECTION_NAME
-                + " TEXT, "+ COLUMN_GOAL + " INTEGER);");
-        //Collection_Coin Table
-        tableStatements.add("CREATE TABLE " + COLLECTIONS_COIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_COLLECTION_FK
-                + " INTEGER, " + COLUMN_COIN_FK + " INTEGER, " + "FOREIGN KEY ("
-                + COLUMN_COIN_FK + ") REFERENCES "+ COIN_TABLE +"(ID), " + "FOREIGN KEY (" + COLUMN_COLLECTION_FK
-                + ") REFERENCES "+ COLLECTION_TABLE +"(ID));");
+                + "FOREIGN KEY (" + COLUMN_VARIETY_FK + ") REFERENCES "+ VARIETY_TABLE +"("+COLUMN_VARIETY_NAME+"), "
+                + "FOREIGN KEY (" + COLUMN_MATERIAL_FK + ") REFERENCES "+ MATERIAL_TABLE +"("+COLUMN_MATERIAL_NAME+"));");
+        db.execSQL(tableStatement);
 
-        //Create tables in database
-        for (int i =0; i<tableStatements.size();i++)
-        {
-            db.execSQL(tableStatements.get(i));
-        }
+        //Collections Table
+        tableStatement = ("CREATE TABLE " + COLLECTION_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_COLLECTION_NAME
+                + " TEXT, "+ COLUMN_GOAL + " INTEGER);");
+        db.execSQL(tableStatement);
+
+        //Collection_Coin Table
+        tableStatement = ("CREATE TABLE " + COLLECTIONS_COIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_COLLECTION_FK
+                + " INTEGER, " + COLUMN_COIN_FK + " INTEGER, "
+                + "FOREIGN KEY (" + COLUMN_COLLECTION_FK + ") REFERENCES "+ COLLECTION_TABLE +"(ID) ,"
+                + "FOREIGN KEY (" + COLUMN_COIN_FK + ") REFERENCES "+ COIN_TABLE +"(ID));");
+        db.execSQL(tableStatement);
 
         ContentValues cv = new ContentValues();
 
         //Populate Materials Table
-        String[] dataList = res.getStringArray(R.array.Material);
-        for (int i =0; i<dataList.length;i++)
+        for (int i =0; i<12;i++)
         {
-            cv.put(COLUMN_MATERIAL_NAME,i);
+            cv.put(COLUMN_MATERIAL_NAME,String.valueOf(i));
             db.insert(MATERIAL_TABLE,null,cv);
             cv.clear();
         }
 
         //Populate Value Table
-        dataList = res.getStringArray(R.array.Value);
-        for (int i =0; i<dataList.length;i++)
+        for (int i =0; i<24;i++)
         {
-            cv.put(COLUMN_NAME_VALUE,i);
+            cv.put(COLUMN_NAME_VALUE,String.valueOf(i));
             db.insert(VALUE_TABLE,null,cv);
             cv.clear();
         }
 
         //Populate Variety Table
-        dataList = res.getStringArray(R.array.Variants);
-        for (int i =0; i<dataList.length;i++)
+        for (int i =0; i<3;i++)
         {
-            cv.put(COLUMN_VARIETY_NAME,i);
+            cv.put(COLUMN_VARIETY_NAME,String.valueOf(i));
             db.insert(VARIETY_TABLE,null,cv);
             cv.clear();
         }
+
+
 
     }
 
