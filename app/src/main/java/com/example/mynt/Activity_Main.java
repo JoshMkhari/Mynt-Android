@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.mainActivity.adapters.Adapter_HomeActFragment;
+import com.example.mynt.userActivity.Model_User;
 
 public class Activity_Main extends AppCompatActivity {
 
@@ -23,12 +24,20 @@ public class Activity_Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         viewPager2_main = findViewById(R.id.main_act_viewPager2);
+        Model_User user = new Model_User();
 
         //Comment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle());
+        fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getEmail());
         viewPager2_main.setAdapter((fragmentAdapter));
-        viewPager2_main.setCurrentItem(1);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            int page = extras.getInt("page");
+            viewPager2_main.setCurrentItem(1);
+            //The key argument here must match that used in the other activity
+        }
+        //Read Data from Database
 
         //Adding Tabs
         //tabLayout_main.addTab((tabLayout_main.newTab().setText("")));

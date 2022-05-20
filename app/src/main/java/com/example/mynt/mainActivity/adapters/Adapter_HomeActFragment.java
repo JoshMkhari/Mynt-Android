@@ -1,5 +1,7 @@
 package com.example.mynt.mainActivity.adapters;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -12,21 +14,34 @@ import com.example.mynt.mainActivity.Fragment_Home;
 
 public class Adapter_HomeActFragment extends FragmentStateAdapter {
 
-    public Adapter_HomeActFragment(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+    private String email;
+    private Bundle bundle = new Bundle();
+    public Adapter_HomeActFragment(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, String email) {
         super(fragmentManager, lifecycle);
+        this.email = email;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
+        bundle.putString("userEmail",email);
         if (position == 1){
-            return new Fragment_Home();
+
+            Fragment_Home home = new Fragment_Home();
+            home.setArguments(bundle);
+            return home;
         }else
             if (position == 2){
-            return new Fragment_Leaderboard();
+                Fragment_Leaderboard leaderboard = new Fragment_Leaderboard();
+                leaderboard.setArguments(bundle);
+                return leaderboard;
             }
             else
-                return new Fragment_Library();
+            {
+                Fragment_Library library = new Fragment_Library();
+                library.setArguments(bundle);
+                return library;
+            }
 
     }
 

@@ -20,6 +20,7 @@ import android.widget.Spinner;
 
 import com.example.mynt.Activity_Main;
 import com.example.mynt.R;
+import com.example.mynt.coinsActivity.models.Model_Coin;
 
 import java.util.ArrayList;
 
@@ -99,7 +100,7 @@ public class Fragment_Add_Details extends Fragment {
             @Override
             public void onClick(View v) {
                 //Database stuff here XD
-
+                Model_Coin coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),Integer.parseInt(mintage_Textview.getText().toString()),spinnerMaterial.getSelectedItemPosition(),alternate_Textview.getText().toString(),observe_Textview.getText().toString(),reverse_Textview.getText().toString(),spinnerVariant.getSelectedItemPosition(),spinnerValue.getSelectedItemPosition());
                 //if Successful
                 Intent i = new Intent(getContext(), Activity_Main.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

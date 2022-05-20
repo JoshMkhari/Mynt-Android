@@ -1,15 +1,44 @@
 package com.example.mynt.coinsActivity.models;
 
+import android.content.res.Resources;
+
+import com.example.mynt.R;
+
 public class Model_Coin {
 
-    private int imageId, value, year, mintage, circulation;
-    private String name, alternateName, observe, reverse, type;
+    private Resources res;
+    private int year, mintage;
+    private String material, alternateName, observe, reverse, variety,value, ImageId;
 
-    public int getValue() {
+
+
+    public Model_Coin(int year, int mintage, int material, String alternateName, String observe, String reverse, int variety, int value) {
+        this.year = year;
+        this.mintage = mintage;
+        String[] dataList = res.getStringArray(R.array.Material);
+        this.material = dataList[material];
+        this.alternateName = alternateName;
+        this.observe = observe;
+        this.reverse = reverse;
+        dataList = res.getStringArray(R.array.Variants);
+        this.variety = dataList[variety];
+        dataList = res.getStringArray(R.array.Value);
+        this.value = dataList[value];
+    }
+
+    public String getImageId() {
+        return ImageId;
+    }
+
+    public void setImageId(String imageId) {
+        ImageId = imageId;
+    }
+
+    public String getValue() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
@@ -21,20 +50,13 @@ public class Model_Coin {
         this.mintage = mintage;
     }
 
-    public int getCirculation() {
-        return circulation;
+
+    public String getMaterial() {
+        return material;
     }
 
-    public void setCirculation(int circulation) {
-        this.circulation = circulation;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setMaterial(String material) {
+        this.material = material;
     }
 
     public String getAlternateName() {
@@ -61,29 +83,21 @@ public class Model_Coin {
         this.reverse = reverse;
     }
 
-    public String getType() {
-        return type;
+    public String getVariety() {
+        return variety;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setVariety(String variety) {
+        this.variety = variety;
     }
 
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
-    }
 
     public String getCoinName() {
-        return name;
+        return material;
     }
 
     public void setCoinName(String coinName) {
-        this.name = coinName;
+        this.material = coinName;
     }
 
     public int getYear() {
@@ -94,9 +108,5 @@ public class Model_Coin {
         this.year = year;
     }
 
-    public Model_Coin(int imageId, String coinName, int year) {
-        this.imageId = imageId;
-        this.name = coinName;
-        this.year = year;
-    }
+
 }

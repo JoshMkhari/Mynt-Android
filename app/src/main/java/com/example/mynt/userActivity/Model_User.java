@@ -12,10 +12,6 @@ public class Model_User {
     private int profilePicture;
     private ArrayList<Model_Collections> collectionsArrayList;
 
-    public Model_User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
     public String getUserName() {
         return userName;
     }
@@ -47,8 +43,6 @@ public class Model_User {
     public void setProfilePicture(int profilePicture) {
         this.profilePicture = profilePicture;
     }
-
-
 
     public String getPassword() {
         return password;

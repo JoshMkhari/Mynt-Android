@@ -21,12 +21,15 @@ import com.example.mynt.coinsActivity.adapters.Adapter_Coin;
 import com.example.mynt.coinsActivity.models.Model_Coin;
 import com.example.mynt.coinsActivity.Activity_Coins;
 import com.example.mynt.R;
+import com.example.mynt.coinsActivity.models.Model_UserCoin;
 import com.example.mynt.collectionsActivity.Activity_Collections;
+import com.example.mynt.collectionsActivity.Model_Collections;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.goalsActivity.Activity_Goals;
 import com.example.mynt.mainActivity.adapters.Adapter_Library_Options;
 import com.example.mynt.mainActivity.models.Model_Library_Options;
 import com.example.mynt.userActivity.Activity_User;
+import com.example.mynt.userActivity.Model_User;
 
 import java.util.ArrayList;
 
@@ -44,13 +47,22 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
     private ImageButton loginButton;
     private Adapter_Library_Options optionsListAdapter;
 
+    private Model_User user;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View libraryView = inflater.inflate(R.layout.fragment_library, container, false);
 
         //Initializing variables
+        String email = getArguments().getString("userEmail");
+        Database_Lite dl = new Database_Lite(getContext());
+
+        Model_User user = dl.getUser(email);
+
+        ArrayList<Model_Coin> userCoins = dl.getAllCoins();
+
         optionListView = libraryView.findViewById(R.id.listView_navigation_library);
         loginButton = libraryView.findViewById(R.id.imageButton_userActivity_library);
         ArrayList<Model_Library_Options> arrayList_library_navigation = new ArrayList<>();
@@ -73,11 +85,11 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
                 62));
 
 
-        //Populating Recent Coins RecyclerView
-        arrayList_recent_coins.add(new Model_Coin(R.drawable.img_two_rand,"Two Rand",2020));
-        arrayList_recent_coins.add(new Model_Coin(R.drawable.img_two_rand,"Two Rand",2020));
-        arrayList_recent_coins.add(new Model_Coin(R.drawable.img_two_rand,"Two Rand",2020));
-        arrayList_recent_coins.add(new Model_Coin(R.drawable.img_two_rand,"Two Rand",2020));
+
+        for (int i =userCoins.size()-1; i>=userCoins.size()-5;i--)
+        {
+            arrayList_recent_coins.add(userCoins.get(i));
+        }
 
         //Passing data to list recycler view
         recyclerView = (RecyclerView) libraryView.findViewById(R.id.recyclerView_recentCoins_library);
