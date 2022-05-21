@@ -33,7 +33,6 @@ public class Database_Lite extends SQLiteOpenHelper {
     public static final String COLUMN_YEAR_ID = COLUMN_YEAR_FK + "_ID";
     public static final String COLUMN_VALUE_FK = "VALUE";
     public static final String VALUE_TABLE = COLUMN_VALUE_FK + "_TABLE";
-    public static final String COLUMN_VALUE_ID = COLUMN_VALUE_FK + "_ID";
     public static final String COLUMN_VARIETY_FK = "VARIETY";
     private static final String VARIETY_TABLE = COLUMN_VARIETY_FK + "_TABLE";
     private static final String COLUMN_VARIETY_NAME = "NAME";

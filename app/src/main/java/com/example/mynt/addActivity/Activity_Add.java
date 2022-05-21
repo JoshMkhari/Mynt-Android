@@ -93,20 +93,21 @@ public class Activity_Add extends AppCompatActivity {
         userCollections.add("from");
         //Array Adapters
         //Value
-        ArrayAdapter<CharSequence> adapterValue = ArrayAdapter.createFromResource(getApplicationContext(),R.array.Value, android.R.layout.simple_spinner_item);
-        adapterValue.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        ArrayAdapter<CharSequence> adapterValue = ArrayAdapter.createFromResource(getApplicationContext(),R.array.Value, R.layout.spinner_item);
+        adapterValue.setDropDownViewResource(R.layout.spinner_item);
         spinnerValue.setAdapter(adapterValue);
 
-        ArrayAdapter<CharSequence> adapterMaterial = ArrayAdapter.createFromResource(getApplicationContext(),R.array.Material, android.R.layout.simple_spinner_item);
-        adapterMaterial.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapterMaterial = ArrayAdapter.createFromResource(getApplicationContext(),R.array.Material, R.layout.spinner_item);
+        adapterMaterial.setDropDownViewResource(R.layout.spinner_item);
         spinnerMaterial.setAdapter(adapterMaterial);
 
-        ArrayAdapter<CharSequence> adapterVariant = ArrayAdapter.createFromResource(getApplicationContext(),R.array.Variants, android.R.layout.simple_spinner_item);
-        adapterVariant.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> adapterVariant = ArrayAdapter.createFromResource(getApplicationContext(),R.array.Variants, R.layout.spinner_item);
+        adapterVariant.setDropDownViewResource(R.layout.spinner_item);
         spinnerVariant.setAdapter(adapterVariant);
 
-        ArrayAdapter<String> adapterCollection = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_spinner_item,userCollections);
-        adapterCollection.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<String> adapterCollection = new ArrayAdapter<String>(getApplicationContext(),R.layout.spinner_item,userCollections);
+        adapterCollection.setDropDownViewResource(R.layout.spinner_item);
         spinnerCollection.setAdapter(adapterCollection);
 
     }
@@ -120,7 +121,7 @@ public class Activity_Add extends AppCompatActivity {
         FileOutputStream out;
         try {
             Context context = Activity_Add.this;
-            out = context.openFileOutput(imageNumber+".jpg",context.MODE_PRIVATE);
+            out = context.openFileOutput(imageNumber+".jpg", MODE_PRIVATE);
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
@@ -129,40 +130,6 @@ public class Activity_Add extends AppCompatActivity {
         {
 
             return false;
-        }
-    }
-
-    private Uri saveImage(Bitmap image, Context context) {
-        File imagesFolder = new File(context.getCacheDir(),"images");
-        Uri uri = null;
-        if(checkPermission())
-        {
-            try{
-                imagesFolder.mkdirs();
-                File file = new File(imagesFolder,"captured_image.jpg");
-                FileOutputStream stream = new FileOutputStream(file);
-                image.compress(Bitmap.CompressFormat.JPEG,100,stream);
-                stream.flush();
-                stream.close();
-                uri = FileProvider.getUriForFile(context.getApplicationContext(),"com.example.mynt"+".provider",file);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-        return uri;
-    }
-
-    private boolean checkPermission() {
-        if (SDK_INT >= Build.VERSION_CODES.R) {
-            return Environment.isExternalStorageManager();
-        } else {
-            int result = ContextCompat.checkSelfPermission(Activity_Add.this, READ_EXTERNAL_STORAGE);
-            int result1 = ContextCompat.checkSelfPermission(Activity_Add.this, WRITE_EXTERNAL_STORAGE);
-            return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
         }
     }
 
