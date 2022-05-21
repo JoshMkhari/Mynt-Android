@@ -132,10 +132,11 @@ public class Activity_Add extends AppCompatActivity {
                 Bundle extras = result.getData().getExtras();
                 if(extras!=null)
                 {
-                    Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_LONG).show();
                     Uri imageUri;
                     Bitmap imageBitmap = (Bitmap) extras.get("data");
 
+                    userImage.setImageBitmap(imageBitmap);
+                    /*
                     WeakReference<Bitmap> highQualityBitmap = new WeakReference<>(Bitmap.createScaledBitmap(imageBitmap,
                             imageBitmap.getHeight(),imageBitmap.getWidth(),false).copy(
                             Bitmap.Config.RGB_565,true));
@@ -145,6 +146,8 @@ public class Activity_Add extends AppCompatActivity {
 
                     //this uri is what we need for the images
                     userImage.setImageURI(imageUri);
+
+                     */
                 }
 
             }
