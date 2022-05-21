@@ -122,6 +122,7 @@ public class Activity_Add extends AppCompatActivity {
             Context context = Activity_Add.this;
             out = context.openFileOutput(imageNumber+".jpg",context.MODE_PRIVATE);
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            out.flush();
             out.close();
             return true;
         }catch (IOException e)
