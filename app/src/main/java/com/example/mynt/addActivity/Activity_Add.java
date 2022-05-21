@@ -6,6 +6,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,6 +18,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,13 +29,18 @@ import android.widget.Toast;
 
 import com.example.mynt.R;
 import com.example.mynt.coinsActivity.models.Model_Coin;
+import com.example.mynt.coinsActivity.models.Model_UserCoin;
 import com.example.mynt.collectionsActivity.Activity_Collections;
+import com.example.mynt.collectionsActivity.Model_Collections;
+import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.goalsActivity.Model_Goals;
+import com.example.mynt.userActivity.Model_User;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Activity_Add extends AppCompatActivity {
     private Spinner spinnerValue, spinnerMaterial, spinnerVariant, spinnerCollection;
@@ -43,15 +52,22 @@ public class Activity_Add extends AppCompatActivity {
     private ActivityResultLauncher<Intent> activityResultLauncher_Collection;
     private  Bitmap imageBitmap;
     private Model_Goals model_goals;
-
     private Boolean imageSet;
-    private OutputStream outputStream;
+    private Database_Lite localDB;
+    private Model_Collections model_collections;
+    private int coinID;
+    private Button datePicker;
+    private DatePickerDialog dateAcquired;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        //Database methods
+
+
+        //Toast.makeText(getApplicationContext(),localDB.getAllCoins().size()+ " That is the size",Toast.LENGTH_SHORT).show();
         //Assigning views to variables
         //spinners
         spinnerValue = findViewById(R.id.spinner_Values);
@@ -74,8 +90,17 @@ public class Activity_Add extends AppCompatActivity {
         userImage = findViewById(R.id.userImage);
         changeImage = findViewById((R.id.changePicture));
 
+        //Button
+        datePicker = findViewById(R.id.datePickerButton);
+        datePicker.setText(getTodaysDate());
+
+
         //Listeners
         setUpListeners();
+
+        //Database
+        localDB = new Database_Lite(Activity_Add.this);
+        coinID = localDB.getAllCoins().size();;
 
         year_Textview.setText("2010");
 
@@ -106,9 +131,45 @@ public class Activity_Add extends AppCompatActivity {
 
     }
 
+    private String getTodaysDate() {
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        month = month+1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        return makeDateString(day,month,year);
+
+    }
+
 
     public void setUpListeners() {
 
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                month = month +1;
+                String date = makeDateString(day, month, year);
+                datePicker.setText(date);
+            }
+        };
+
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        int style = AlertDialog.THEME_HOLO_DARK;
+        dateAcquired = new DatePickerDialog(Activity_Add.this,style,dateSetListener,year,month,day);
+
+        datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dateAcquired.show();;
+            }
+        });
         //To upload and Change an Image
         changeImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +192,7 @@ public class Activity_Add extends AppCompatActivity {
                         String target = i.getStringExtra("target");
                         model_goals.setCollectionName(collectionName);
                         model_goals.setTarget(Integer.parseInt(target));
+                        model_collections = new Model_Collections(model_goals.getCollectionName(),0,model_goals.getTarget(),coinID);
                     }
                 }
             }
@@ -161,18 +223,18 @@ public class Activity_Add extends AppCompatActivity {
                 //Check if picture is taken?
                 if(imageSet)
                 {
-                    //Check if a collection has to be made
-                    if(spinnerCollection.getSelectedItemPosition()==0)
-                    {
-                        model_goals = new Model_Goals("tobeDecided",0,0);
-                        Intent createCollection = new Intent(getApplicationContext(), Activity_Collections.class);
-                        activityResultLauncher_Collection.launch(createCollection);
-                    }
                     //check if a mintage was placed
                     if(mintage_Textview.getText().length()>0)
                     {
+                        //Check if a collection has to be made
+                        if(spinnerCollection.getSelectedItemPosition()==0)
+                        {
+                            model_goals = new Model_Goals("tobeDecided",0,0);
+                            Intent createCollection = new Intent(getApplicationContext(), Activity_Collections.class);
+                            activityResultLauncher_Collection.launch(createCollection);
+                            model_collections = new Model_Collections(model_goals.getCollectionName(),0,model_goals.getTarget(),coinID);
+                        }
                         //Get coin ID
-                        int coinID = 0;
                         if(savePhotoToInternalStorage(coinID))
                         {
                             Model_Coin model_coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),
@@ -183,6 +245,10 @@ public class Activity_Add extends AppCompatActivity {
                                     reverse_Textview.getText().toString(),
                                     spinnerVariant.getSelectedItemPosition(),
                                     spinnerValue.getSelectedItemPosition(),coinID+"");
+
+                            Model_UserCoin users_coins = new Model_UserCoin(datePicker.getText().toString(),"here",model_coin);
+                            model_collections.getModel_userArrayList().add(users_coins);
+                            localDB.addCoin(model_collections);
                         }
 
                     }
@@ -262,6 +328,40 @@ public class Activity_Add extends AppCompatActivity {
 
             }
         });
+    }
+
+    private String makeDateString(int day, int month, int year) {
+        return getMonthFormat(month) + " " + day + " " + year;
+    }
+
+    private String getMonthFormat(int month) {
+        switch (month)
+        {
+            case 1:
+                return "JAN";
+            case 2:
+                return "FEB";
+            case 3:
+                return "MAR";
+            case 4:
+                return "APR";
+            case 5:
+                return "MAY";
+            case 6:
+                return "JUN";
+            case 7:
+                return "JUL";
+            case 8:
+                return "AUG";
+            case 9:
+                return "SEP";
+            case 10:
+                return "OCT";
+            case 11:
+                return "NOV";
+            default:
+                return "DEC";
+        }
     }
 
     private boolean savePhotoToInternalStorage(int imageNumber)

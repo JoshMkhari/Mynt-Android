@@ -5,10 +5,14 @@ import java.util.Date;
 public class Model_UserCoin {
 
     private int userCoinID;
-    private int imageID;//User taken image
-    private Date dateTaken;
-    private String takenLocation;
+    private String takenLocation,dateTaken;
     private Model_Coin coin;
+
+    public Model_UserCoin(String dateTaken, String takenLocation, Model_Coin coin) {
+        this.dateTaken = dateTaken;
+        this.takenLocation = takenLocation;
+        this.coin = coin;
+    }
 
     public Model_Coin getCoin() {
         return coin;
@@ -26,19 +30,12 @@ public class Model_UserCoin {
         this.userCoinID = userCoinID;
     }
 
-    public int getImageID() {
-        return imageID;
-    }
 
-    public void setImageID(int imageID) {
-        this.imageID = imageID;
-    }
-
-    public Date getDateTaken() {
+    public String getDateTaken() {
         return dateTaken;
     }
 
-    public void setDateTaken(Date dateTaken) {
+    public void setDateTaken(String dateTaken) {
         this.dateTaken = dateTaken;
     }
 

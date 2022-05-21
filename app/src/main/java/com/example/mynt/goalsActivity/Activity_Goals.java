@@ -26,10 +26,10 @@ public class Activity_Goals extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goals);
         
-        Bundle extras = getIntent().getExtras();
-        String collectionName = extras.getString("collectionName");
-        int numCoins = extras.getInt("coins");
-        int target = extras.getInt("target");
+        //Bundle extras = getIntent().getExtras();
+        //String collectionName = extras.getString("collectionName");
+        //int numCoins = extras.getInt("coins");
+        //int target = extras.getInt("target");
         
         collectionName_textView = findViewById(R.id.GoalPageCollectionName_TextView);
         numCoinsInCollection_textView = findViewById(R.id.GoalsPageCoinsTotal_TextView);
@@ -39,7 +39,7 @@ public class Activity_Goals extends AppCompatActivity {
         setGoal_imageButton = findViewById(R.id.imageview_blockTitle_goal);
         target_Edittext = findViewById(R.id.GoalsPage_GoalValue);
 
-        model_goals = new Model_Goals(collectionName,numCoins,Integer.parseInt(target_Edittext.getText().toString()));
+        //model_goals = new Model_Goals(collectionName,numCoins,Integer.parseInt(target_Edittext.getText().toString()));
 
         //1000000 GoalsPage_add GoalsPage_subtract GoalsPage_GoalValue
 

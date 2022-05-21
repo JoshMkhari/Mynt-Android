@@ -7,8 +7,8 @@ import com.example.mynt.R;
 public class Model_Coin {
 
     private Resources res;
-    private int year, mintage, ImageId;
-    private String material, alternateName, observe, reverse, variety,value ;
+    private int year, mintage;
+    private String material, alternateName, observe, reverse, variety,value,ImageId;
 
 
 
@@ -24,14 +24,14 @@ public class Model_Coin {
         this.variety = dataList[variety];
         dataList = res.getStringArray(R.array.Value);
         this.value = dataList[value];
-        this.ImageId = 55;
+        this.ImageId = image;
     }
 
-    public int getImageId() {
+    public String getImageId() {
         return ImageId;
     }
 
-    public void setImageId(int imageId) {
+    public void setImageId(String imageId) {
         ImageId = imageId;
     }
 

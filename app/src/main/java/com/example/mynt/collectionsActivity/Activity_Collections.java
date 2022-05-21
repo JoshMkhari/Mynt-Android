@@ -44,16 +44,16 @@ public class Activity_Collections extends AppCompatActivity implements RecyclerV
 
         collectionName = findViewById(R.id.CollectionNameEditText);
 
+        /*
         ArrayList<Model_Collections> collectionsList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             collectionsList.add(new Model_Collections("20th Century",9,55,R.drawable.img_two_rand));
         }
 
         model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
-        //CollectionNameEditText
 
         recyclerView = (RecyclerView) findViewById(R.id.all_collectionsList);
-        //recyclerView.setNestedScrollingEnabled(false);
+
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new StaggeredGridLayoutManager(1,1);
@@ -62,12 +62,28 @@ public class Activity_Collections extends AppCompatActivity implements RecyclerV
         mAdapter = new Adapter_Collections(collectionsList, this, this);
         recyclerView.setAdapter(mAdapter);
 
+
+         */
         createCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), Activity_Goals.class);
-                startActivity(i);
+                i.putExtra("collectionName",model_goals.getCollectionName());
+
+                if(subActivity)
+                {
+                    i.putExtra("coins",0);
+                    i.putExtra("target",0);
+                    activityResultLauncher_Goals.launch(i);
+                }
+                else
+                {
+                    i.putExtra("coins",model_goals.getNumCoins());
+                    i.putExtra("target",model_goals.getTarget());
+                    startActivity(i);
+                }
             }
+
         });
 
         activityResultLauncher_Goals = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {

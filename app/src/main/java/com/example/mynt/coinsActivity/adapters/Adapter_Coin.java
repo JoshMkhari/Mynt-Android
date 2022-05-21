@@ -41,7 +41,34 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
         holder.name.setText(coinsList.get(position).getCoinName());
         holder.year.setText(String.valueOf(coinsList.get(position).getYear()));
         //glide for internet images???
-        holder.coinImage.setBackgroundResource(coinsList.get(position).getImageId());
+
+
+
+
+
+
+
+
+
+
+        //REMEMBER TO SET THIS IMAGE
+        //holder.coinImage.setBackgroundResource(coinsList.get(position).getImageId());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // Here I am just highlighting the background
         //holder.itemView.setBackgroundColor(selected_position == position ? Color.GREEN : Color.TRANSPARENT);

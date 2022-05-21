@@ -140,9 +140,9 @@ public class Database_Lite extends SQLiteOpenHelper {
         ArrayList<Model_Coin> coinsList = new ArrayList<>();
 
         String queryString = "SELECT * FROM " + COIN_TABLE;
+
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString,null);
-
         if(cursor.moveToFirst())
         {
             //loop through the cursor result set and create new coin object for each row
@@ -161,7 +161,7 @@ public class Database_Lite extends SQLiteOpenHelper {
 
                 Model_Coin coin = new Model_Coin(year,mintage,material,altName,observe,reverse,variety,value,image);
                 coinsList.add(coin);
-            }while (cursor.moveToNext());
+            }while (cursor.moveToFirst());
         }
         else
         {
@@ -220,6 +220,7 @@ public class Database_Lite extends SQLiteOpenHelper {
             cv.put(COLUMN_REVERSE,coin.getReverse());
             cv.put(COLUMN_VALUE_FK,coin.getValue());
             cv.put(COLUMN_YEAR_FK,coin.getYear());
+            cv.put(COLUMN_IMAGE,coin.getImageId());
             cv.put(COLUMN_VARIETY_FK,coin.getVariety());
             cv.put(COLUMN_MATERIAL_FK,coin.getMaterial());
             db.insert(YEAR_TABLE,null,cv);

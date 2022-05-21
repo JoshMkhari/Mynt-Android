@@ -28,7 +28,7 @@
         <entry key="app/src/main/res/drawable/theme_scrubber_progress.xml" value="0.2795" />
         <entry key="app/src/main/res/drawable/thumb.xml" value="0.2795" />
         <entry key="app/src/main/res/drawable/title_block_shape.xml" value="0.2385" />
-        <entry key="app/src/main/res/layout/activity_add.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_add.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_coin_details.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_coins.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_collections.xml" value="0.35833333333333334" />
