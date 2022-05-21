@@ -1,28 +1,17 @@
 package com.example.mynt.addActivity;
 
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.os.Build.VERSION.SDK_INT;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -35,14 +24,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.mynt.R;
-import com.example.mynt.Activity_Main;
+import com.example.mynt.coinsActivity.models.Model_Coin;
+import com.example.mynt.collectionsActivity.Activity_Collections;
+import com.example.mynt.goalsActivity.Model_Goals;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class Activity_Add extends AppCompatActivity {
@@ -51,9 +39,12 @@ public class Activity_Add extends AppCompatActivity {
     private EditText year_Textview, alternate_Textview, mintage_Textview, observe_Textview, reverse_Textview;
     private ImageButton add_Button, changeImage;
     private ImageView userImage;
-    private ActivityResultLauncher<Intent> activityResultLauncher;
+    private ActivityResultLauncher<Intent> activityResultLauncher_Camera;
+    private ActivityResultLauncher<Intent> activityResultLauncher_Collection;
     private  Bitmap imageBitmap;
+    private Model_Goals model_goals;
 
+    private Boolean imageSet;
     private OutputStream outputStream;
 
     @Override
@@ -89,8 +80,11 @@ public class Activity_Add extends AppCompatActivity {
         year_Textview.setText("2010");
 
         ArrayList<String> userCollections = new ArrayList<>();
-        userCollections.add("hello");
-        userCollections.add("from");
+        userCollections.add("Create New Collection");
+
+        //Populate User Collections now
+
+
         //Array Adapters
         //Value
 
@@ -106,44 +100,45 @@ public class Activity_Add extends AppCompatActivity {
         adapterVariant.setDropDownViewResource(R.layout.spinner_item);
         spinnerVariant.setAdapter(adapterVariant);
 
-        ArrayAdapter<String> adapterCollection = new ArrayAdapter<String>(getApplicationContext(),R.layout.spinner_item,userCollections);
+        ArrayAdapter<String> adapterCollection = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item, userCollections);
         adapterCollection.setDropDownViewResource(R.layout.spinner_item);
         spinnerCollection.setAdapter(adapterCollection);
 
     }
 
 
-   private boolean savePhotoToInternalStorage()
-    {
-        //Get image number
-        int imageNumber = 0;//Check last coin ID then +1
-
-        FileOutputStream out;
-        try {
-            Context context = Activity_Add.this;
-            out = context.openFileOutput(imageNumber+".jpg", MODE_PRIVATE);
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-            out.flush();
-            out.close();
-            return true;
-        }catch (IOException e)
-        {
-
-            return false;
-        }
-    }
-
-
     public void setUpListeners() {
+
+        //To upload and Change an Image
         changeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                activityResultLauncher.launch(takePicture);
+                activityResultLauncher_Camera.launch(takePicture);
             }
         });
 
-        activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        //Result for Collection
+        activityResultLauncher_Collection = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if(result.getResultCode()==20)
+                {
+                    Intent i = result.getData();
+                    if(i != null)
+                    {
+                        String collectionName = i.getStringExtra("collectionName");
+                        String target = i.getStringExtra("target");
+                        model_goals.setCollectionName(collectionName);
+                        model_goals.setTarget(Integer.parseInt(target));
+                    }
+                }
+            }
+        });
+
+
+        //Result for Camera
+        activityResultLauncher_Camera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
             public void onActivityResult(ActivityResult result) {
                 Bundle extras = result.getData().getExtras();
@@ -152,32 +147,52 @@ public class Activity_Add extends AppCompatActivity {
                     imageBitmap = (Bitmap) extras.get("data");
 
                     userImage.setImageBitmap(imageBitmap);
-                    /*
-                    WeakReference<Bitmap> highQualityBitmap = new WeakReference<>(Bitmap.createScaledBitmap(imageBitmap,
-                            imageBitmap.getHeight(),imageBitmap.getWidth(),false).copy(
-                            Bitmap.Config.RGB_565,true));
-
-                    Bitmap bm = highQualityBitmap.get();
-                    imageUri = saveImage(bm, getApplicationContext());
-
-                    //this uri is what we need for the images
-                    userImage.setImageURI(imageUri);
-
-                     */
+                    imageSet = true;
                 }
 
             }
         });
 
+        //Adding a coin to the database
         add_Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //storing image
-                if(savePhotoToInternalStorage())
+
+                //Check if picture is taken?
+                if(imageSet)
                 {
-                    Toast.makeText(getApplicationContext(),"Saved",Toast.LENGTH_SHORT).show();
+                    //Check if a collection has to be made
+                    if(spinnerCollection.getSelectedItemPosition()==0)
+                    {
+                        model_goals = new Model_Goals("tobeDecided",0,0);
+                        Intent createCollection = new Intent(getApplicationContext(), Activity_Collections.class);
+                        activityResultLauncher_Collection.launch(createCollection);
+                    }
+                    //check if a mintage was placed
+                    if(mintage_Textview.getText().length()>0)
+                    {
+                        //Get coin ID
+                        int coinID = 0;
+                        if(savePhotoToInternalStorage(coinID))
+                        {
+                            Model_Coin model_coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),
+                                    Integer.parseInt(mintage_Textview.getText().toString()),
+                                    spinnerMaterial.getSelectedItemPosition(),
+                                    alternate_Textview.getText().toString(),
+                                    observe_Textview.getText().toString(),
+                                    reverse_Textview.getText().toString(),
+                                    spinnerVariant.getSelectedItemPosition(),
+                                    spinnerValue.getSelectedItemPosition(),coinID+"");
+                        }
+
+                    }
+                    Toast.makeText(getApplicationContext(),"Set Mintage",Toast.LENGTH_SHORT).show();
                 }
-                savePhotoToInternalStorage();
+                else{
+                    Toast.makeText(getApplicationContext(),"Set image nest time",Toast.LENGTH_SHORT).show();
+                }
+
+
                // File dir = new File(filepath.getAbsolutePath() + "/Images/");
                 //dir.mkdir();
                 //File file = new File(dir, System.currentTimeMillis() + ".jpg");
@@ -247,6 +262,25 @@ public class Activity_Add extends AppCompatActivity {
 
             }
         });
+    }
+
+    private boolean savePhotoToInternalStorage(int imageNumber)
+    {
+        //Get image number
+
+        FileOutputStream out;
+        try {
+            Context context = Activity_Add.this;
+            out = context.openFileOutput(imageNumber+".jpg", MODE_PRIVATE);
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            out.flush();
+            out.close();
+            return true;
+        }catch (IOException e)
+        {
+
+            return false;
+        }
     }
 
 }

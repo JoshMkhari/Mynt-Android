@@ -67,10 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="2"
             android:textColor="?colorSecondaryVariant"
             android:textSize="28sp"
-
             app:layout_constraintStart_toEndOf="@+id/textView4"
             app:layout_constraintTop_toBottomOf="@+id/GoalPageCollectionName_TextView" />
 
@@ -143,14 +141,12 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
             android:text="Goal"
-            android:textSize="28sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.155"
-            app:layout_constraintStart_toStartOf="parent"
             android:textColor="?colorSecondaryVariant"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+            android:textSize="28sp"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintBottom_toTopOf="@+id/GoalsPage_subtract"
+            app:layout_constraintStart_toStartOf="@+id/GoalsPage_GoalValue" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -166,6 +162,7 @@
             tools:ignore="TextContrastCheck" />
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_marginStart="5dp"
@@ -173,6 +170,39 @@
             app:layout_constraintBottom_toBottomOf="@+id/imageview_blockTitle_goal"
             app:layout_constraintStart_toStartOf="@+id/imageview_blockTitle_goal"
             app:layout_constraintTop_toTopOf="@+id/imageview_blockTitle_goal" />
+
+        <EditText
+            android:id="@+id/GoalsPage_GoalValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:inputType="number"
+            android:ems="8"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text=""
+            android:textColor="?colorSecondaryVariant"
+            app:layout_constraintBottom_toBottomOf="@+id/imageview_blockTitle_goal"
+            app:layout_constraintEnd_toStartOf="@+id/imageview_blockTitle_goal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+        <ImageButton
+            android:id="@+id/GoalsPage_subtract"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_baseline_remove_24"
+            app:layout_constraintStart_toStartOf="@+id/GoalsPage_GoalValue"
+            app:layout_constraintTop_toTopOf="@+id/GoalsPage_GoalValue" />
+
+        <ImageButton
+            android:id="@+id/GoalsPage_add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_baseline_add_24"
+            app:layout_constraintBottom_toBottomOf="@+id/GoalsPage_GoalValue"
+            app:layout_constraintEnd_toEndOf="@+id/GoalsPage_GoalValue"
+            app:layout_constraintTop_toTopOf="@+id/GoalsPage_GoalValue" />
 
         <ImageButton
             android:id="@+id/imageview_blockTitle_goal"
