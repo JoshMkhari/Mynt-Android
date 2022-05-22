@@ -145,6 +145,25 @@ public class Activity_Add extends AppCompatActivity {
 
 
     public void setUpListeners() {
+        //Result for Collection
+        activityResultLauncher_Collection = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if(result.getResultCode()==20)
+                {
+                    Intent i = result.getData();
+                    if(i != null)
+                    {
+                        String collectionName = i.getStringExtra("collectionName");
+                        String target = i.getStringExtra("target");
+                        model_goals.setCollectionName(collectionName);
+                        model_goals.setTarget(Integer.parseInt(target));
+                        model_collections = new Model_Collections(model_goals.getCollectionName(),0,model_goals.getTarget(),coinID);
+                        storeCoin();
+                    }
+                }
+            }
+        });
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -210,6 +229,7 @@ public class Activity_Add extends AppCompatActivity {
                         if(spinnerCollection.getSelectedItemPosition()==0)
                         {
                             createCollection();
+
                         }
                         else
                         {
@@ -342,9 +362,9 @@ public class Activity_Add extends AppCompatActivity {
                     reverse_Textview.getText().toString(),
                     spinnerVariant.getSelectedItemPosition(),
                     spinnerValue.getSelectedItemPosition(),coinID+"");
-
             Model_UserCoin users_coins = new Model_UserCoin(datePicker.getText().toString(),"here",model_coin);
             model_collections.getModel_userArrayList().add(users_coins);
+            Toast.makeText(getApplicationContext(),"database add",Toast.LENGTH_SHORT).show();
             localDB.addCoin(model_collections);
         }
     }
@@ -352,29 +372,10 @@ public class Activity_Add extends AppCompatActivity {
     {
         model_goals = new Model_Goals("tobeDecided",0,0);
         Intent createCollection = new Intent(getApplicationContext(), Activity_Collections.class);
+        createCollection.putExtra("create","toBeDecided");
         activityResultLauncher_Collection.launch(createCollection);
-        Toast.makeText(getApplicationContext(),"Has this ran",Toast.LENGTH_SHORT).show();
-        model_collections = new Model_Collections(model_goals.getCollectionName(),0,model_goals.getTarget(),coinID);
 
-        //Result for Collection
-        activityResultLauncher_Collection = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if(result.getResultCode()==20)
-                {
-                    Intent i = result.getData();
-                    if(i != null)
-                    {
-                        String collectionName = i.getStringExtra("collectionName");
-                        String target = i.getStringExtra("target");
-                        model_goals.setCollectionName(collectionName);
-                        model_goals.setTarget(Integer.parseInt(target));
-                        model_collections = new Model_Collections(model_goals.getCollectionName(),0,model_goals.getTarget(),coinID);
-                        storeCoin();
-                    }
-                }
-            }
-        });
+
     }
     private boolean savePhotoToInternalStorage(int imageNumber)
     {

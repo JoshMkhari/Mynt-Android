@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/collection_navigation"
+    app:startDestination="@id/fragment_Collections">
+    <fragment
+        android:id="@+id/fragment_Collections"
+        android:name="com.example.mynt.collectionsActivity.Fragment_Collections"
+        android:label="fragment_collections"
+        tools:layout="@layout/fragment_collections" >
+        <action
+            android:id="@+id/action_fragment_Collections_to_fragment_Goal"
+            app:destination="@id/fragment_Goal" />
+        <action
+            android:id="@+id/action_fragment_Collections_to_fragment_Coins"
+            app:destination="@id/fragment_Coins" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_Goal"
+        android:name="com.example.mynt.collectionsActivity.Fragment_Goal"
+        android:label="fragment_goal"
+        tools:layout="@layout/fragment_goal" />
+    <fragment
+        android:id="@+id/fragment_Add"
+        android:name="com.example.mynt.collectionsActivity.Fragment_Add"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_fragment_Add_to_fragment_Collections2"
+            app:destination="@id/fragment_Collections" />
+        <action
+            android:id="@+id/action_fragment_Add_to_fragment_Library"
+            app:destination="@id/fragment_Library" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_Coins"
+        android:name="com.example.mynt.collectionsActivity.Fragment_Coins"
+        android:label="fragment_coins"
+        tools:layout="@layout/fragment_coins" />
+    <fragment
+        android:id="@+id/fragment_Library"
+        android:name="com.example.mynt.mainActivity.Fragment_Library"
+        android:label="fragment_library"
+        tools:layout="@layout/fragment_library" >
+        <action
+            android:id="@+id/action_fragment_Library_to_fragment_Coins"
+            app:destination="@id/fragment_Coins" />
+        <action
+            android:id="@+id/action_fragment_Library_to_fragment_Collections"
+            app:destination="@id/fragment_Collections" />
+    </fragment>
+</navigation>
