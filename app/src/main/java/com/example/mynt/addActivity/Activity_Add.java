@@ -179,26 +179,6 @@ public class Activity_Add extends AppCompatActivity {
             }
         });
 
-        //Result for Collection
-        activityResultLauncher_Collection = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if(result.getResultCode()==20)
-                {
-                    Intent i = result.getData();
-                    if(i != null)
-                    {
-                        String collectionName = i.getStringExtra("collectionName");
-                        String target = i.getStringExtra("target");
-                        model_goals.setCollectionName(collectionName);
-                        model_goals.setTarget(Integer.parseInt(target));
-                        model_collections = new Model_Collections(model_goals.getCollectionName(),0,model_goals.getTarget(),coinID);
-                    }
-                }
-            }
-        });
-
-
         //Result for Camera
         activityResultLauncher_Camera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
             @Override
@@ -229,27 +209,13 @@ public class Activity_Add extends AppCompatActivity {
                         //Check if a collection has to be made
                         if(spinnerCollection.getSelectedItemPosition()==0)
                         {
-                            model_goals = new Model_Goals("tobeDecided",0,0);
-                            Intent createCollection = new Intent(getApplicationContext(), Activity_Collections.class);
-                            activityResultLauncher_Collection.launch(createCollection);
-                            model_collections = new Model_Collections(model_goals.getCollectionName(),0,model_goals.getTarget(),coinID);
+                            createCollection();
+                        }
+                        else
+                        {
+                            storeCoin();
                         }
                         //Get coin ID
-                        if(savePhotoToInternalStorage(coinID))
-                        {
-                            Model_Coin model_coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),
-                                    Integer.parseInt(mintage_Textview.getText().toString()),
-                                    spinnerMaterial.getSelectedItemPosition(),
-                                    alternate_Textview.getText().toString(),
-                                    observe_Textview.getText().toString(),
-                                    reverse_Textview.getText().toString(),
-                                    spinnerVariant.getSelectedItemPosition(),
-                                    spinnerValue.getSelectedItemPosition(),coinID+"");
-
-                            Model_UserCoin users_coins = new Model_UserCoin(datePicker.getText().toString(),"here",model_coin);
-                            model_collections.getModel_userArrayList().add(users_coins);
-                            localDB.addCoin(model_collections);
-                        }
 
                     }
                     Toast.makeText(getApplicationContext(),"Set Mintage",Toast.LENGTH_SHORT).show();
@@ -364,6 +330,52 @@ public class Activity_Add extends AppCompatActivity {
         }
     }
 
+    private void storeCoin()
+    {
+        if(savePhotoToInternalStorage(coinID))
+        {
+            Model_Coin model_coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),
+                    Integer.parseInt(mintage_Textview.getText().toString()),
+                    spinnerMaterial.getSelectedItemPosition(),
+                    alternate_Textview.getText().toString(),
+                    observe_Textview.getText().toString(),
+                    reverse_Textview.getText().toString(),
+                    spinnerVariant.getSelectedItemPosition(),
+                    spinnerValue.getSelectedItemPosition(),coinID+"");
+
+            Model_UserCoin users_coins = new Model_UserCoin(datePicker.getText().toString(),"here",model_coin);
+            model_collections.getModel_userArrayList().add(users_coins);
+            localDB.addCoin(model_collections);
+        }
+    }
+    private void createCollection()
+    {
+        model_goals = new Model_Goals("tobeDecided",0,0);
+        Intent createCollection = new Intent(getApplicationContext(), Activity_Collections.class);
+        activityResultLauncher_Collection.launch(createCollection);
+        Toast.makeText(getApplicationContext(),"Has this ran",Toast.LENGTH_SHORT).show();
+        model_collections = new Model_Collections(model_goals.getCollectionName(),0,model_goals.getTarget(),coinID);
+
+        //Result for Collection
+        activityResultLauncher_Collection = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+            @Override
+            public void onActivityResult(ActivityResult result) {
+                if(result.getResultCode()==20)
+                {
+                    Intent i = result.getData();
+                    if(i != null)
+                    {
+                        String collectionName = i.getStringExtra("collectionName");
+                        String target = i.getStringExtra("target");
+                        model_goals.setCollectionName(collectionName);
+                        model_goals.setTarget(Integer.parseInt(target));
+                        model_collections = new Model_Collections(model_goals.getCollectionName(),0,model_goals.getTarget(),coinID);
+                        storeCoin();
+                    }
+                }
+            }
+        });
+    }
     private boolean savePhotoToInternalStorage(int imageNumber)
     {
         //Get image number
