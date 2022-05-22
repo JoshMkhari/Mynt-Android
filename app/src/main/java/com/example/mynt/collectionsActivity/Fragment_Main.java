@@ -1,10 +1,11 @@
-package com.example.mynt.mainActivity;
+package com.example.mynt.collectionsActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ import com.example.mynt.R;
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class Fragment_Home extends Fragment {
+public class Fragment_Main extends Fragment {
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private ImageButton addButton;
@@ -32,6 +33,7 @@ public class Fragment_Home extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Navigation.findNavController(main).navigate(R.id.action_fragment_home_main_to_fragment_Add);
                 //Intent i = new Intent(getContext(), Activity_Add.class);
                 //startActivity(i);
             }

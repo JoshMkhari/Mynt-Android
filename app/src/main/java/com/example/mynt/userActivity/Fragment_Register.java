@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.mynt.Activity_Main;
 import com.example.mynt.R;
 
 /**
@@ -46,9 +45,9 @@ public class Fragment_Register extends Fragment {
             @Override
             public void onClick(View v) {
                 //intent take me to library
-                Intent i = new Intent(getContext(), Activity_Main.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+                //Intent i = new Intent(getContext(), Activity_Main.class);
+                //i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                //startActivity(i);
                 //Navigation.findNavController(registerView).navigate(R.id.action_login);
             }
         });

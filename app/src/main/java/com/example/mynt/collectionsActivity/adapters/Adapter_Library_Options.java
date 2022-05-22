@@ -1,4 +1,4 @@
-package com.example.mynt.mainActivity.adapters;
+package com.example.mynt.collectionsActivity.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.mynt.R;
-import com.example.mynt.mainActivity.models.Model_Library_Options;
+import com.example.mynt.collectionsActivity.models.Model_Library_Options;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,10 @@
-package com.example.mynt.mainActivity;
+package com.example.mynt.collectionsActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -16,22 +17,18 @@ import android.widget.ListView;
 
 
 import com.example.mynt.RecyclerViewInterface;
-import com.example.mynt.collectionsActivity.Activity_Collections;
-import com.example.mynt.collectionsActivity.Fragment_Coins;
-import com.example.mynt.collectionsActivity.Fragment_Collections;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 
 import com.example.mynt.R;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
-import com.example.mynt.mainActivity.adapters.Adapter_Library_Options;
-import com.example.mynt.mainActivity.models.Model_Library_Options;
+import com.example.mynt.collectionsActivity.adapters.Adapter_Library_Options;
+import com.example.mynt.collectionsActivity.models.Model_Library_Options;
 import com.example.mynt.userActivity.Activity_User;
 import com.example.mynt.userActivity.Model_User;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -115,22 +112,23 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
 
             public void onItemClick(AdapterView parent, View v, int position, long id){
 
-
+                //Intent collections = new Intent(getContext(), Activity_Collections.class);
                 if(position==0)
                 {
-                    Intent coins = new Intent(getContext(), Fragment_Coins.class);
-                    startActivity(coins);
-                    //Navigation.findNavController(libraryView).navigate(R.id.action_fragment_Library_to_fragment_Coins);
+                    Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coins);
+                    //collections.putExtra("action","coins");
                 }else if (position==1)
                 {
-                    Intent collections = new Intent(getContext(), Activity_Collections.class);
-                    startActivity(collections);
+                    Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Collections);
+                    //collections.putExtra("action","collections");
                     //Navigation.findNavController(libraryView).navigate(R.id.action_fragment_Library_to_fragment_Collections);
                 }else if (position==2)
                 {
                     //POE
                     //Goals Activity
                 }
+
+                //startActivity(collections);
             }
         });
 

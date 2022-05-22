@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -29,11 +30,12 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ImageButton createCollection;
+    private ImageButton createCollection, back;
     private ActivityResultLauncher<Intent> activityResultLauncher_Goals;
     private EditText collectionName;
     private Model_Goals model_goals;
     private Boolean subActivity;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +45,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         View collections = inflater.inflate(R.layout.fragment_collections, container, false);
 
         createCollection = collections.findViewById(R.id.imageview_blockTitle_collections);
-
+        back = collections.findViewById(R.id.collections_back);
         collectionName = collections.findViewById(R.id.CollectionNameEditText);
 
         /*
@@ -66,9 +68,18 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
 
 
          */
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(collections).navigate(R.id.action_fragment_Collections_to_fragment_home_main2);
+            }
+        });
         createCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Navigation.findNavController(collections).navigate(R.id.action_fragment_Collections_to_fragment_Goal);
+                /*
                 Intent i = new Intent(getContext(), Activity_Collections.class);
                 i.putExtra("collectionName",model_goals.getCollectionName());
 
@@ -85,6 +96,8 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
                     i.putExtra("target",model_goals.getTarget());
                     startActivity(i);
                 }
+
+                 */
             }
 
         });
@@ -120,4 +133,6 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
     public void onItemClick(int position) {
 
     }
+
+
 }

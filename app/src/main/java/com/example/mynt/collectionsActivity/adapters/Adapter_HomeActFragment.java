@@ -1,4 +1,4 @@
-package com.example.mynt.mainActivity.adapters;
+package com.example.mynt.collectionsActivity.adapters;
 
 import android.os.Bundle;
 
@@ -8,9 +8,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.mynt.mainActivity.Fragment_Leaderboard;
-import com.example.mynt.mainActivity.Fragment_Library;
-import com.example.mynt.mainActivity.Fragment_Home;
+import com.example.mynt.collectionsActivity.Fragment_Leaderboard;
+import com.example.mynt.collectionsActivity.Fragment_Library;
+import com.example.mynt.collectionsActivity.Fragment_Main;
 
 public class Adapter_HomeActFragment extends FragmentStateAdapter {
 
@@ -27,7 +27,7 @@ public class Adapter_HomeActFragment extends FragmentStateAdapter {
         bundle.putString("userEmail",email);
         if (position == 1){
 
-            Fragment_Home home = new Fragment_Home();
+            Fragment_Main home = new Fragment_Main();
             home.setArguments(bundle);
             return home;
         }else

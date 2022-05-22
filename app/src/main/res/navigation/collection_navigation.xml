@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/collection_navigation"
-    app:startDestination="@id/fragment_Collections">
+    app:startDestination="@id/fragment_home_main">
     <fragment
         android:id="@+id/fragment_Collections"
         android:name="com.example.mynt.collectionsActivity.Fragment_Collections"
@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_fragment_Collections_to_fragment_Add2"
             app:destination="@id/fragment_Add" />
+        <action
+            android:id="@+id/action_fragment_Collections_to_fragment_home_main2"
+            app:destination="@id/fragment_home_main" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Goal"
@@ -36,9 +39,6 @@
         <action
             android:id="@+id/action_fragment_Add_to_fragment_Collections2"
             app:destination="@id/fragment_Collections" />
-        <action
-            android:id="@+id/action_fragment_Add_to_fragment_Library"
-            app:destination="@id/fragment_Library" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Coins"
@@ -50,23 +50,35 @@
             app:destination="@id/fragment_Coin_Details" />
     </fragment>
     <fragment
-        android:id="@+id/fragment_Library"
-        android:name="com.example.mynt.mainActivity.Fragment_Library"
-        android:label="fragment_library"
-        tools:layout="@layout/fragment_library" >
-        <action
-            android:id="@+id/action_fragment_Library_to_fragment_Coins"
-            app:destination="@id/fragment_Coins" />
-        <action
-            android:id="@+id/action_fragment_Library_to_fragment_Collections"
-            app:destination="@id/fragment_Collections" />
-        <action
-            android:id="@+id/action_fragment_Library_to_fragment_Coin_Details"
-            app:destination="@id/fragment_Coin_Details" />
-    </fragment>
-    <fragment
         android:id="@+id/fragment_Coin_Details"
         android:name="com.example.mynt.collectionsActivity.Fragment_Coin_Details"
         android:label="fragment_coin_details"
         tools:layout="@layout/fragment_coin_details" />
+    <fragment
+        android:id="@+id/fragment_home_main"
+        android:name="com.example.mynt.collectionsActivity.Fragment_home_main"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_fragment_home_main_to_fragment_Add"
+            app:destination="@id/fragment_Add" />
+        <action
+            android:id="@+id/action_fragment_home_main_to_fragment_Collections"
+            app:destination="@id/fragment_Collections" />
+        <action
+            android:id="@+id/action_fragment_home_main_to_fragment_Coins"
+            app:destination="@id/fragment_Coins" />
+        <action
+            android:id="@+id/action_fragment_home_main_to_fragment_Coin_Details"
+            app:destination="@id/fragment_Coin_Details" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_Library"
+        android:name="com.example.mynt.collectionsActivity.Fragment_Library"
+        android:label="fragment_library"
+        tools:layout="@layout/fragment_library" >
+        <action
+            android:id="@+id/action_fragment_Library_to_fragment_Collections"
+            app:destination="@id/fragment_Collections" />
+    </fragment>
 </navigation>

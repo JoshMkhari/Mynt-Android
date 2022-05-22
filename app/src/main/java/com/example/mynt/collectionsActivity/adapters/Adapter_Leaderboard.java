@@ -1,4 +1,4 @@
-package com.example.mynt.mainActivity.adapters;
+package com.example.mynt.collectionsActivity.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
-import com.example.mynt.mainActivity.models.Model_Leaderboard;
+import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
 
 import java.util.ArrayList;
 

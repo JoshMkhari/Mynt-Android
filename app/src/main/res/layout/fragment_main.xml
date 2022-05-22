@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mynt.mainActivity.Fragment_Home"
+    tools:context="com.example.mynt.collectionsActivity.Fragment_Main"
     android:background="?colorSecondary"
     android:padding="10dp">
 

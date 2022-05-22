@@ -1,4 +1,4 @@
-package com.example.mynt.mainActivity.models;
+package com.example.mynt.collectionsActivity.models;
 
 public class Model_Leaderboard {
 

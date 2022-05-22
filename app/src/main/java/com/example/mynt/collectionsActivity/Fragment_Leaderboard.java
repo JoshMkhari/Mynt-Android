@@ -1,4 +1,4 @@
-package com.example.mynt.mainActivity;
+package com.example.mynt.collectionsActivity;
 
 import android.os.Bundle;
 
@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
-import com.example.mynt.mainActivity.adapters.Adapter_Leaderboard;
-import com.example.mynt.mainActivity.models.Model_Leaderboard;
+import com.example.mynt.collectionsActivity.adapters.Adapter_Leaderboard;
+import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
 
 import java.util.ArrayList;
 
