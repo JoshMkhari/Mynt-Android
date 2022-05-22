@@ -31,7 +31,6 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private ImageButton createCollection, back;
-    private ActivityResultLauncher<Intent> activityResultLauncher_Goals;
     private EditText collectionName;
     private Model_Goals model_goals;
     private Boolean subActivity;
@@ -77,8 +76,16 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         createCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Navigation.findNavController(collections).navigate(R.id.action_fragment_Collections_to_fragment_Goal);
+                if(collectionName.getText().toString().length()>3)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Collection Name", collectionName.getText().toString());;
+                    Navigation.findNavController(collections).navigate(R.id.action_fragment_Collections_to_fragment_Goal);
+                }
+                else
+                {
+                    Toast.makeText(getContext(),"Set a collection name",Toast.LENGTH_SHORT).show();
+                }
                 /*
                 Intent i = new Intent(getContext(), Activity_Collections.class);
                 i.putExtra("collectionName",model_goals.getCollectionName());
@@ -102,30 +109,6 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
 
         });
 
-        activityResultLauncher_Goals = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if(result.getResultCode()==14)
-                {
-                    Intent i = result.getData();
-                    if(i != null)
-                    {
-                        String target = i.getStringExtra("target");
-                        model_goals.setTarget(Integer.parseInt(target));
-
-                        if(subActivity)
-                        {
-                            Intent complete = new Intent();
-                            i.putExtra("collectionName",model_goals.getCollectionName());
-                            i.putExtra("target",target);
-                            //setResult(20,i);
-
-                            //Activity_Collections.super.onBackPressed();
-                        }
-                    }
-                }
-            }
-        });
         return collections;
     }
     //implementing RecyclerViewInterface

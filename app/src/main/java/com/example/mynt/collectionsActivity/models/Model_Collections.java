@@ -1,4 +1,4 @@
-package com.example.mynt.collectionsActivity;
+package com.example.mynt.collectionsActivity.models;
 
 import com.example.mynt.collectionsActivity.models.Model_UserCoin;
 

@@ -21,6 +21,9 @@
         <action
             android:id="@+id/action_fragment_Collections_to_fragment_home_main2"
             app:destination="@id/fragment_home_main" />
+        <argument
+            android:name="User"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Goal"
@@ -30,6 +33,18 @@
         <action
             android:id="@+id/action_fragment_Goal_to_fragment_Collections"
             app:destination="@id/fragment_Collections" />
+        <argument
+            android:name="Collection Name"
+            app:argType="string" />
+        <argument
+            android:name="Coins"
+            app:argType="integer" />
+        <argument
+            android:name="Goal"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_fragment_Goal_to_fragment_Add"
+            app:destination="@id/fragment_Add" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Add"
@@ -39,6 +54,18 @@
         <action
             android:id="@+id/action_fragment_Add_to_fragment_Collections2"
             app:destination="@id/fragment_Collections" />
+        <argument
+            android:name="Collection Name"
+            app:argType="string" />
+        <argument
+            android:name="User"
+            app:argType="string" />
+        <argument
+            android:name="Goal"
+            app:argType="integer" />
+        <argument
+            android:name="Task"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Coins"
@@ -48,12 +75,19 @@
         <action
             android:id="@+id/action_fragment_Coins_to_fragment_Coin_Details"
             app:destination="@id/fragment_Coin_Details" />
+        <argument
+            android:name="User"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Coin_Details"
         android:name="com.example.mynt.collectionsActivity.Fragment_Coin_Details"
         android:label="fragment_coin_details"
-        tools:layout="@layout/fragment_coin_details" />
+        tools:layout="@layout/fragment_coin_details" >
+        <argument
+            android:name="Coin"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_home_main"
         android:name="com.example.mynt.collectionsActivity.Fragment_home_main"
@@ -71,14 +105,5 @@
         <action
             android:id="@+id/action_fragment_home_main_to_fragment_Coin_Details"
             app:destination="@id/fragment_Coin_Details" />
-    </fragment>
-    <fragment
-        android:id="@+id/fragment_Library"
-        android:name="com.example.mynt.collectionsActivity.Fragment_Library"
-        android:label="fragment_library"
-        tools:layout="@layout/fragment_library" >
-        <action
-            android:id="@+id/action_fragment_Library_to_fragment_Collections"
-            app:destination="@id/fragment_Collections" />
     </fragment>
 </navigation>

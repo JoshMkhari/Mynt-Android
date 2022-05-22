@@ -33,9 +33,11 @@ public class Fragment_Main extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(main).navigate(R.id.action_fragment_home_main_to_fragment_Add);
-                //Intent i = new Intent(getContext(), Activity_Add.class);
-                //startActivity(i);
+                Bundle bundle = new Bundle();
+                bundle.putString("Collection Name", "not set");
+                bundle.putString("Task", "hectic");
+                bundle.putString("User", "hectic");
+                Navigation.findNavController(main).navigate(R.id.action_fragment_home_main_to_fragment_Add,bundle);
             }
         });
 

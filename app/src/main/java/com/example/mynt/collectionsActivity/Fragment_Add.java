@@ -13,6 +13,7 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.provider.MediaStore;
 import android.text.Editable;
@@ -32,6 +33,7 @@ import android.widget.Toast;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
+import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_UserCoin;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
@@ -48,7 +50,6 @@ public class Fragment_Add extends Fragment {
     private ImageButton add_Button, changeImage;
     private ImageView userImage;
     private ActivityResultLauncher<Intent> activityResultLauncher_Camera;
-    private ActivityResultLauncher<Intent> activityResultLauncher_Collection;
     private Bitmap imageBitmap;
     private Model_Goals model_goals;
     private Boolean imageSet;
@@ -94,7 +95,6 @@ public class Fragment_Add extends Fragment {
         datePicker = add.findViewById(R.id.datePickerButton);
         datePicker.setText(getTodaysDate());
 
-
         //Listeners
         setUpListeners();
 
@@ -130,6 +130,35 @@ public class Fragment_Add extends Fragment {
         adapterCollection.setDropDownViewResource(R.layout.spinner_item);
         spinnerCollection.setAdapter(adapterCollection);
 
+        add_Button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //Check if picture is taken?
+                if (imageSet) {
+                    //check if a mintage was placed
+                    if (mintage_Textview.getText().length() > 0) {
+                        //Check if a collection has to be made
+                        if (spinnerCollection.getSelectedItemPosition() == 0) {
+                            Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2);
+
+                        } else {
+                            storeCoin();
+                        }
+                        //Get coin ID
+
+                    }
+                    Toast.makeText(getContext(), "Set Mintage", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Set image nest time", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        if(getArguments().getString("Task").equals("Create Collection"))
+        {
+            createCollection();
+        }
         return add;
     }
 
@@ -144,26 +173,10 @@ public class Fragment_Add extends Fragment {
         return makeDateString(day, month, year);
 
     }
+    //Result for Collection
 
 
     public void setUpListeners() {
-        //Result for Collection
-        activityResultLauncher_Collection = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                if (result.getResultCode() == 20) {
-                    Intent i = result.getData();
-                    if (i != null) {
-                        String collectionName = i.getStringExtra("collectionName");
-                        String target = i.getStringExtra("target");
-                        model_goals.setCollectionName(collectionName);
-                        model_goals.setTarget(Integer.parseInt(target));
-                        model_collections = new Model_Collections(model_goals.getCollectionName(), 0, model_goals.getTarget(), coinID);
-                        storeCoin();
-                    }
-                }
-            }
-        });
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -216,42 +229,7 @@ public class Fragment_Add extends Fragment {
         });
 
         //Adding a coin to the database
-        add_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                //Check if picture is taken?
-                if (imageSet) {
-                    //check if a mintage was placed
-                    if (mintage_Textview.getText().length() > 0) {
-                        //Check if a collection has to be made
-                        if (spinnerCollection.getSelectedItemPosition() == 0) {
-                            createCollection();
-
-                        } else {
-                            storeCoin();
-                        }
-                        //Get coin ID
-
-                    }
-                    Toast.makeText(getContext(), "Set Mintage", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "Set image nest time", Toast.LENGTH_SHORT).show();
-                }
-
-
-                // File dir = new File(filepath.getAbsolutePath() + "/Images/");
-                //dir.mkdir();
-                //File file = new File(dir, System.currentTimeMillis() + ".jpg");
-
-                //Database stuff here XD
-                //Model_Coin coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),Integer.parseInt(mintage_Textview.getText().toString()),spinnerMaterial.getSelectedItemPosition(),alternate_Textview.getText().toString(),observe_Textview.getText().toString(),reverse_Textview.getText().toString(),spinnerVariant.getSelectedItemPosition(),spinnerValue.getSelectedItemPosition(),);
-                //if Successful
-                //Intent i = new Intent(getApplicationContext(), Activity_Main.class);
-                // i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                //startActivity(i);
-            }
-        });
 
         year_Textview.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -365,7 +343,13 @@ public class Fragment_Add extends Fragment {
         model_goals = new Model_Goals("tobeDecided", 0, 0);
         Intent createCollection = new Intent(getContext(), Activity_Collections.class);
         createCollection.putExtra("create", "toBeDecided");
-        activityResultLauncher_Collection.launch(createCollection);
+        String collectionName = getArguments().getString("Collection Name");
+
+        int target = getArguments().getInt("Goal");
+        model_goals.setCollectionName(collectionName);
+        model_goals.setTarget(target);
+        model_collections = new Model_Collections(model_goals.getCollectionName(), 0, model_goals.getTarget(), coinID);
+        storeCoin();
 
 
     }

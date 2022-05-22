@@ -1,4 +1,4 @@
-package com.example.mynt.collectionsActivity;
+package com.example.mynt.collectionsActivity.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
+import com.example.mynt.collectionsActivity.models.Model_Collections;
 
 import java.util.ArrayList;
 

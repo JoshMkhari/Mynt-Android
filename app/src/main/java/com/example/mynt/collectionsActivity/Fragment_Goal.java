@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +47,8 @@ public class Fragment_Goal extends Fragment {
         setGoal_imageButton = goals.findViewById(R.id.imageview_blockTitle_goal);
         target_Edittext = goals.findViewById(R.id.GoalsPage_GoalValue);
 
+        collectionName_textView.setText(getArguments().getString("Collection Name"));
+
         //model_goals = new Model_Goals(collectionName,numCoins,Integer.parseInt(target_Edittext.getText().toString()));
 
         //1000000 GoalsPage_add GoalsPage_subtract GoalsPage_GoalValue
@@ -54,8 +57,10 @@ public class Fragment_Goal extends Fragment {
         setGoal_imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent();
-                i.putExtra("target",String.valueOf(model_goals.getTarget()));
+                Bundle bundle = new Bundle();
+                bundle.putString("Collection Name", getArguments().getString("Collection Name"));;
+                bundle.putString("Task", "Create Collection");;
+                Navigation.findNavController(goals).navigate(R.id.action_fragment_Goal_to_fragment_Add,bundle);
                 //setResult(14,i);
 
                 //Activity_Goals.super.onBackPressed();
