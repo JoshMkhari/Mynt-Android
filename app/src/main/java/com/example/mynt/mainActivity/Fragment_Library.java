@@ -16,11 +16,13 @@ import android.widget.ListView;
 
 
 import com.example.mynt.RecyclerViewInterface;
+import com.example.mynt.collectionsActivity.Activity_Collections;
+import com.example.mynt.collectionsActivity.Fragment_Coins;
+import com.example.mynt.collectionsActivity.Fragment_Collections;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 
 import com.example.mynt.R;
-import com.example.mynt.collectionsActivity.Activity_Collections;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import com.example.mynt.mainActivity.adapters.Adapter_Library_Options;
@@ -29,6 +31,7 @@ import com.example.mynt.userActivity.Activity_User;
 import com.example.mynt.userActivity.Model_User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -108,37 +111,25 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         recyclerView.setAdapter(mAdapter);
 
         //Onclick Listeners
-        SetUpOnClickListeners();
-
-        return libraryView;
-    }
-
-    //Implementing RecyclerViewInterface Method
-    @Override
-    public void onItemClick(int position) {
-        //Intent i = new Intent(getContext(), Activity_CoinDetails.class);
-
-        //startActivity(i);
-    }
-
-    private void SetUpOnClickListeners()
-    {
         optionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView parent, View v, int position, long id){
 
+
                 if(position==0)
                 {
-                    //Intent i = new Intent(getContext(), Activity_Coins.class);
-                    //startActivity(i);
+                    Intent coins = new Intent(getContext(), Fragment_Coins.class);
+                    startActivity(coins);
+                    //Navigation.findNavController(libraryView).navigate(R.id.action_fragment_Library_to_fragment_Coins);
                 }else if (position==1)
                 {
-                    //Intent s = new Intent(getContext(), Activity_Collections.class);
-                   // startActivity(s);
+                    Intent collections = new Intent(getContext(), Activity_Collections.class);
+                    startActivity(collections);
+                    //Navigation.findNavController(libraryView).navigate(R.id.action_fragment_Library_to_fragment_Collections);
                 }else if (position==2)
                 {
-                   // Intent t = new Intent(getContext(), Activity_Goals.class);
-                   // startActivity(t);
+                    //POE
+                    //Goals Activity
                 }
             }
         });
@@ -151,5 +142,16 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
                 startActivity(i);
             }
         });
+
+        return libraryView;
     }
+
+    //Implementing RecyclerViewInterface Method
+    @Override
+    public void onItemClick(int position) {
+        //Intent i = new Intent(getContext(), Activity_CoinDetails.class);
+
+        //startActivity(i);
+    }
+
 }
