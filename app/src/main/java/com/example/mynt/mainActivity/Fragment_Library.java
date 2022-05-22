@@ -14,15 +14,15 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.example.mynt.coinsActivity.Activity_CoinDetails;
+
 import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
-import com.example.mynt.coinsActivity.Activity_Coins;
+
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.Activity_Collections;
 import com.example.mynt.dataAccessLayer.Database_Lite;
-import com.example.mynt.goalsActivity.Activity_Goals;
+
 import com.example.mynt.mainActivity.adapters.Adapter_Library_Options;
 import com.example.mynt.mainActivity.models.Model_Library_Options;
 import com.example.mynt.userActivity.Activity_User;
@@ -116,9 +116,9 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
     //Implementing RecyclerViewInterface Method
     @Override
     public void onItemClick(int position) {
-        Intent i = new Intent(getContext(), Activity_CoinDetails.class);
+        //Intent i = new Intent(getContext(), Activity_CoinDetails.class);
 
-        startActivity(i);
+        //startActivity(i);
     }
 
     private void SetUpOnClickListeners()
@@ -129,16 +129,16 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
 
                 if(position==0)
                 {
-                    Intent i = new Intent(getContext(), Activity_Coins.class);
-                    startActivity(i);
+                    //Intent i = new Intent(getContext(), Activity_Coins.class);
+                    //startActivity(i);
                 }else if (position==1)
                 {
-                    Intent s = new Intent(getContext(), Activity_Collections.class);
-                    startActivity(s);
+                    //Intent s = new Intent(getContext(), Activity_Collections.class);
+                   // startActivity(s);
                 }else if (position==2)
                 {
-                    Intent t = new Intent(getContext(), Activity_Goals.class);
-                    startActivity(t);
+                   // Intent t = new Intent(getContext(), Activity_Goals.class);
+                   // startActivity(t);
                 }
             }
         });

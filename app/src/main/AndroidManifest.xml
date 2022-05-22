@@ -15,23 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Mynt"
-        android:requestLegacyExternalStorage="true"
-        >
+        android:requestLegacyExternalStorage="true">
 
         <activity
             android:name="com.example.mynt.userActivity.Activity_User"
-            android:exported="false" />
-        <activity
-            android:name="com.example.mynt.coinsActivity.Activity_CoinDetails"
-            android:exported="false" />
-        <activity
-            android:name="com.example.mynt.goalsActivity.Activity_Goals"
-            android:exported="false" />
-        <activity
-            android:name="com.example.mynt.collectionsActivity.Activity_Collections"
-            android:exported="false" />
-        <activity
-            android:name="com.example.mynt.coinsActivity.Activity_Coins"
             android:exported="false" />
         <activity
             android:name="com.example.mynt.Activity_Main"

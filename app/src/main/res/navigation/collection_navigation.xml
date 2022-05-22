@@ -15,12 +15,19 @@
         <action
             android:id="@+id/action_fragment_Collections_to_fragment_Coins"
             app:destination="@id/fragment_Coins" />
+        <action
+            android:id="@+id/action_fragment_Collections_to_fragment_Add2"
+            app:destination="@id/fragment_Add" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Goal"
         android:name="com.example.mynt.collectionsActivity.Fragment_Goal"
         android:label="fragment_goal"
-        tools:layout="@layout/fragment_goal" />
+        tools:layout="@layout/fragment_goal" >
+        <action
+            android:id="@+id/action_fragment_Goal_to_fragment_Collections"
+            app:destination="@id/fragment_Collections" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_Add"
         android:name="com.example.mynt.collectionsActivity.Fragment_Add"

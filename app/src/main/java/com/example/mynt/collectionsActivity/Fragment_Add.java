@@ -31,7 +31,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.mynt.R;
-import com.example.mynt.addActivity.Activity_Add;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_UserCoin;
 import com.example.mynt.dataAccessLayer.Database_Lite;

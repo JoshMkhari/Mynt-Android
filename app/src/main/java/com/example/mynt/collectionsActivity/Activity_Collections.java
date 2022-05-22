@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.mynt.R;
-import com.example.mynt.goalsActivity.Activity_Goals;
 
 public class Activity_Collections extends AppCompatActivity {
     @Override

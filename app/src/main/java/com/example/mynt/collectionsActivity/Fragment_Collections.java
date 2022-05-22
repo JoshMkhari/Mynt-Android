@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
-import com.example.mynt.goalsActivity.Activity_Goals;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
 
 /**
@@ -70,7 +69,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         createCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), Activity_Goals.class);
+                Intent i = new Intent(getContext(), Activity_Collections.class);
                 i.putExtra("collectionName",model_goals.getCollectionName());
 
                 if(subActivity)

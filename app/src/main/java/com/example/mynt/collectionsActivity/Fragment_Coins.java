@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
-import com.example.mynt.coinsActivity.Activity_CoinDetails;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coins;
 import com.example.mynt.collectionsActivity.models.Model_Coins_List;
 
@@ -111,7 +110,7 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
     //implementing RecyclerViewInterface
     @Override
     public void onItemClick(int position) {
-        Intent i = new Intent(getContext(), Activity_CoinDetails.class);
-        startActivity(i);
+        //Intent i = new Intent(getContext(), Activity_CoinDetails.class);
+        //startActivity(i);
     }
 }

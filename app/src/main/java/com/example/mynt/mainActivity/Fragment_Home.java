@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.example.mynt.R;
-import com.example.mynt.addActivity.Activity_Add;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,8 +32,8 @@ public class Fragment_Home extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), Activity_Add.class);
-                startActivity(i);
+                //Intent i = new Intent(getContext(), Activity_Add.class);
+                //startActivity(i);
             }
         });
 
