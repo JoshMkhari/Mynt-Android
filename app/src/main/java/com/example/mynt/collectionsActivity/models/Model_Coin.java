@@ -1,4 +1,4 @@
-package com.example.mynt.coinsActivity.models;
+package com.example.mynt.collectionsActivity.models;
 
 import android.content.res.Resources;
 

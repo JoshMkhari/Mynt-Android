@@ -10,8 +10,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.example.mynt.coinsActivity.models.Model_Coin;
-import com.example.mynt.coinsActivity.models.Model_UserCoin;
+import com.example.mynt.collectionsActivity.models.Model_Coin;
+import com.example.mynt.collectionsActivity.models.Model_UserCoin;
 import com.example.mynt.collectionsActivity.Model_Collections;
 import com.example.mynt.userActivity.Model_User;
 

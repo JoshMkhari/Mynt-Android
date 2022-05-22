@@ -1,4 +1,4 @@
-package com.example.mynt.coinsActivity.adapters;
+package com.example.mynt.collectionsActivity.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,19 +10,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
-import com.example.mynt.coinsActivity.models.Model_Coins_List;
 
 import java.util.ArrayList;
 
-public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHolder>{
-
+public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHolder>{
     private final RecyclerViewInterface recyclerViewInterface;
-    ArrayList<Model_Coins_List> coinsList;
+    ArrayList<Model_Coin> coinsList;
     Context context;
+    int selected_position = 0;
 
-    public Adapter_Coins(ArrayList<Model_Coins_List> coinsList, Context context, RecyclerViewInterface recyclerViewInterface) {
+    public Adapter_Coin(ArrayList<Model_Coin> coinsList, Context context, RecyclerViewInterface recyclerViewInterface) {
         this.coinsList = coinsList;
         this.context = context;
         this.recyclerViewInterface = recyclerViewInterface;
@@ -31,7 +31,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
     @NonNull
     @Override
     public CoinViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_coins,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listview_library_recent_coins,parent,false);
         CoinViewHolder holder = new CoinViewHolder(view);
         return holder;
     }
@@ -41,9 +41,37 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
         holder.name.setText(coinsList.get(position).getCoinName());
         holder.year.setText(String.valueOf(coinsList.get(position).getYear()));
         //glide for internet images???
-        holder.coinImage.setBackgroundResource(coinsList.get(position).getImageId());
-        holder.date.setText(String.valueOf(coinsList.get(position).getCoinDate()));
-        holder.country.setText(String.valueOf(coinsList.get(position).getCountry()));
+
+
+
+
+
+
+
+
+
+
+        //REMEMBER TO SET THIS IMAGE
+        //holder.coinImage.setBackgroundResource(coinsList.get(position).getImageId());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Here I am just highlighting the background
+        //holder.itemView.setBackgroundColor(selected_position == position ? Color.GREEN : Color.TRANSPARENT);
     }
 
     @Override
@@ -55,8 +83,6 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
         ImageView coinImage;
         TextView year;
         TextView name;
-        TextView date;
-        TextView country;
 
 
         public CoinViewHolder(@NonNull View itemView) {
@@ -64,8 +90,6 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             coinImage = itemView.findViewById(R.id.imageview_current_coin);
             year = itemView.findViewById(R.id.textview_coin_year);
             name = itemView.findViewById(R.id.textview_coin_name);
-            country = itemView.findViewById(R.id.textview_coin_country);
-            date = itemView.findViewById(R.id.textview_coin_acquired_date);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

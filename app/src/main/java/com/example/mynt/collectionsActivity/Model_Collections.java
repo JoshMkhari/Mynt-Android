@@ -1,6 +1,6 @@
 package com.example.mynt.collectionsActivity;
 
-import com.example.mynt.coinsActivity.models.Model_UserCoin;
+import com.example.mynt.collectionsActivity.models.Model_UserCoin;
 
 import java.util.ArrayList;
 

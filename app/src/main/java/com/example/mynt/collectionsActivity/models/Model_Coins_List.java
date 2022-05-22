@@ -1,4 +1,4 @@
-package com.example.mynt.coinsActivity.models;
+package com.example.mynt.collectionsActivity.models;
 
 //DELETE ENTIRE CLASS
 public class Model_Coins_List {

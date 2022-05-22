@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.goalsActivity.Activity_Goals;
-import com.example.mynt.goalsActivity.Model_Goals;
+import com.example.mynt.collectionsActivity.models.Model_Goals;
 
 /**
  * A simple {@link Fragment} subclass.

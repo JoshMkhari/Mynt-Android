@@ -1,6 +1,4 @@
-package com.example.mynt.coinsActivity.models;
-
-import java.util.Date;
+package com.example.mynt.collectionsActivity.models;
 
 public class Model_UserCoin {
 

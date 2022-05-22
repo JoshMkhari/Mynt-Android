@@ -1,4 +1,4 @@
-package com.example.mynt.goalsActivity;
+package com.example.mynt.collectionsActivity.models;
 
 public class Model_Goals {
     private String collectionName;

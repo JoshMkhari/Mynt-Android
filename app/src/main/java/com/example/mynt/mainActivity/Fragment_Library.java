@@ -16,8 +16,8 @@ import android.widget.ListView;
 
 import com.example.mynt.coinsActivity.Activity_CoinDetails;
 import com.example.mynt.RecyclerViewInterface;
-import com.example.mynt.coinsActivity.adapters.Adapter_Coin;
-import com.example.mynt.coinsActivity.models.Model_Coin;
+import com.example.mynt.collectionsActivity.adapters.Adapter_Coin;
+import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.coinsActivity.Activity_Coins;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.Activity_Collections;

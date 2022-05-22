@@ -37,7 +37,11 @@
         android:id="@+id/fragment_Coins"
         android:name="com.example.mynt.collectionsActivity.Fragment_Coins"
         android:label="fragment_coins"
-        tools:layout="@layout/fragment_coins" />
+        tools:layout="@layout/fragment_coins" >
+        <action
+            android:id="@+id/action_fragment_Coins_to_fragment_Coin_Details"
+            app:destination="@id/fragment_Coin_Details" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_Library"
         android:name="com.example.mynt.mainActivity.Fragment_Library"
@@ -49,5 +53,13 @@
         <action
             android:id="@+id/action_fragment_Library_to_fragment_Collections"
             app:destination="@id/fragment_Collections" />
+        <action
+            android:id="@+id/action_fragment_Library_to_fragment_Coin_Details"
+            app:destination="@id/fragment_Coin_Details" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_Coin_Details"
+        android:name="com.example.mynt.collectionsActivity.Fragment_Coin_Details"
+        android:label="fragment_coin_details"
+        tools:layout="@layout/fragment_coin_details" />
 </navigation>
