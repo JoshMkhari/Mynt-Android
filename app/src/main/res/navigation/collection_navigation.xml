@@ -30,9 +30,6 @@
         android:name="com.example.mynt.collectionsActivity.Fragment_Goal"
         android:label="fragment_goal"
         tools:layout="@layout/fragment_goal" >
-        <action
-            android:id="@+id/action_fragment_Goal_to_fragment_Collections"
-            app:destination="@id/fragment_Collections" />
         <argument
             android:name="Collection Name"
             app:argType="string" />
@@ -45,9 +42,6 @@
         <action
             android:id="@+id/action_fragment_Goal_to_fragment_Add"
             app:destination="@id/fragment_Add" />
-        <action
-            android:id="@+id/action_fragment_Goal_to_fragment_Collections2"
-            app:destination="@id/fragment_Collections" />
         <action
             android:id="@+id/action_fragment_Goal_to_fragment_home_main"
             app:destination="@id/fragment_home_main" />

@@ -72,6 +72,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
             public void onClick(View v) {
                 Navigation.findNavController(collections).navigateUp();
             }
+
         });
         createCollection.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -80,15 +80,13 @@ public class Fragment_Goal extends Fragment {
                     Model_Collections model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
                     localDB.addCollection(model_collections);
                     //Add collection to database for user
-                    if(task==0)// Creating new Collection
-                    {
-                        Navigation.findNavController(goals).navigate(R.id.action_fragment_Goal_to_fragment_Collections2,bundle);
-
-                    }else //Creating new collection for a new coin
+                    if(task!=0)// Creating new Collection and assigning it to a coin
                     {
                         localDB.addCollectionCoin();
-                        Navigation.findNavController(goals).navigate(R.id.action_fragment_Goal_to_fragment_home_main,bundle);
+
                     }
+                    Navigation.findNavController(goals).navigate(R.id.action_fragment_Goal_to_fragment_home_main,bundle);
+
                 }else
                 {
                     Toast.makeText(getContext(), "Target cannot be 0", Toast.LENGTH_SHORT).show();
