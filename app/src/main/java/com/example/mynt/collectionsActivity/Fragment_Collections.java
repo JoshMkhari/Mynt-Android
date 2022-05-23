@@ -59,6 +59,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
 
         collectionsList = new ArrayList<>();
         collectionsList = db.getAllCollections();
+        task = getArguments().getInt("Task");
 
        // model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
 
@@ -72,14 +73,12 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         mAdapter = new Adapter_Collections(collectionsList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
-
-
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //get task
                 assert getArguments() != null;
-                task = getArguments().getInt("Task");
+
                 if(task==1)// Creating new Collection and assigning it to a coin
                 {
                     Navigation.findNavController(collectionsView).navigateUp();
@@ -94,6 +93,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
             }
 
         });
+
         createCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,6 +111,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
                 {
                     Toast.makeText(getContext(),"Set a collection name",Toast.LENGTH_SHORT).show();
                 }
+
                 /*
                 Intent i = new Intent(getContext(), Activity_Collections.class);
                 i.putExtra("collectionName",model_goals.getCollectionName());

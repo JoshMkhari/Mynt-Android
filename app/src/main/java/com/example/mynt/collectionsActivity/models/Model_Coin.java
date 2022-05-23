@@ -7,9 +7,9 @@ import com.example.mynt.R;
 public class Model_Coin {
 
     private int year, mintage, coinID;
-    private String material, alternateName, observe, reverse, variety,value,ImageId;
+    private String material, alternateName, observe, reverse, variety,value,ImageId, DateTaken;
 
-    public Model_Coin(int year, int mintage, String material, String alternateName, String observe, String reverse, String variety, String value, String image) {
+    public Model_Coin(int year, int mintage, String material, String alternateName, String observe, String reverse, String variety, String value, String image, String dateTaken) {
 
         this.year = year;
         this.mintage = mintage;
@@ -20,6 +20,15 @@ public class Model_Coin {
         this.variety = variety;
         this.value = value;
         this.ImageId = image;
+        this.DateTaken = dateTaken;
+    }
+
+    public String getDateTaken() {
+        return DateTaken;
+    }
+
+    public void setDateTaken(String dateTaken) {
+        DateTaken = dateTaken;
     }
 
     public int getCoinID() {

@@ -104,6 +104,7 @@ public class Fragment_Add extends Fragment {
         userImage = add.findViewById(R.id.userImage);
         //Button
         datePicker = add.findViewById(R.id.datePickerButton);
+
         datePicker.setText(getTodaysDate());
 
         //Listeners
@@ -378,7 +379,8 @@ public class Fragment_Add extends Fragment {
                     reverse_Textview.getText().toString(),
                     spinnerVariant.getSelectedItem().toString(),
                     spinnerValue.getSelectedItem().toString(),
-                    String.valueOf(coinID));
+                    String.valueOf(coinID),
+                    datePicker.getText().toString());
             localDB.addCoin(model_coin,spinnerCollection.getSelectedItemPosition());
         }catch (Exception e)
         {

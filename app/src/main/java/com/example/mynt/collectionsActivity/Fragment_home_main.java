@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.adapters.Adapter_HomeActFragment;
@@ -31,6 +32,10 @@ public class Fragment_home_main extends Fragment {
         View home = inflater.inflate(R.layout.fragment_home, container, false);
         viewPager2_main = home.findViewById(R.id.main_act_viewPager2);
         Model_User user = new Model_User();
+
+       // assert getArguments() != null;
+        //String testuser = getArguments().getString("User");
+        //Toast.makeText(getContext(), testuser, Toast.LENGTH_SHORT).show();
 
         //Comment
         FragmentManager fragmentManager = getParentFragmentManager();

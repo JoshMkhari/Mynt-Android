@@ -66,9 +66,9 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
             {
                 coinsList.add(new Model_Coins_List( R.drawable.img_app_logo,
                         dbCoins.get(i).getValue(),
-                        "Need change",
+                        dbCoins.get(i).getDateTaken(),
                         "South Africa",
-                        2020));
+                        dbCoins.get(i).getYear()));
             }
         }else//For specific collection
         {
@@ -83,9 +83,9 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
                     {
                         coinsList.add(new Model_Coins_List( R.drawable.img_app_logo,
                                 dbCoins.get(s).getValue(),
-                                "Need change",
+                                dbCoins.get(s).getDateTaken(),
                                 "South Africa",
-                                2020));
+                                dbCoins.get(s).getYear()));
                         coinIDs.add(dbCoins.get(s).getCoinID());
                         break;
                     }

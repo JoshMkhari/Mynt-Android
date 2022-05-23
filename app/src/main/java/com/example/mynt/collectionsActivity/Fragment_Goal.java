@@ -65,7 +65,6 @@ public class Fragment_Goal extends Fragment {
         Toast.makeText(getContext(), task + " this is it", Toast.LENGTH_SHORT).show();
         goalProgress_progressBar.setProgress(Math.round(progress));
         //model_goals = new Model_Goals(collectionName,numCoins,Integer.parseInt(target_Edittext.getText().toString()));
-
         //1000000 GoalsPage_add GoalsPage_subtract GoalsPage_GoalValue
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +88,7 @@ public class Fragment_Goal extends Fragment {
                     //Add collection to database for user
                     if(task==1)// Creating new Collection and assigning it to a coin
                     {
+                        Toast.makeText(getContext(), "Running new", Toast.LENGTH_SHORT).show();
                         localDB.addCollectionCoin(0);
                     }
                     Intent home = new Intent(getContext(),Activity_Collections.class);
