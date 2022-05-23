@@ -43,6 +43,8 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
     private ListView optionListView;
     private ImageButton loginButton;
     private Adapter_Library_Options optionsListAdapter;
+    private View libraryView;
+    private ArrayList<Model_Coin> arrayList_recent_coins;
 
     private Model_User user;
     @Override
@@ -50,7 +52,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View libraryView = inflater.inflate(R.layout.fragment_library, container, false);
+        libraryView = inflater.inflate(R.layout.fragment_library, container, false);
 
         //Initializing variables
         //String email = getArguments().getString("userEmail");
@@ -66,7 +68,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         optionListView = libraryView.findViewById(R.id.listView_navigation_library);
         loginButton = libraryView.findViewById(R.id.imageButton_userActivity_library);
         ArrayList<Model_Library_Options> arrayList_library_navigation = new ArrayList<>();
-        ArrayList<Model_Coin> arrayList_recent_coins = new ArrayList<>();
+        arrayList_recent_coins = new ArrayList<>();
 
         //Populating Library Options List
         arrayList_library_navigation.add(new Model_Library_Options( R.drawable.img_app_logo,
@@ -157,9 +159,10 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
     //Implementing RecyclerViewInterface Method
     @Override
     public void onItemClick(int position) {
-        //Intent i = new Intent(getContext(), Activity_CoinDetails.class);
-
-        //startActivity(i);
+        Bundle bundle = new Bundle();
+        bundle.putInt("Task", 0);
+        bundle.putInt("CoinID", arrayList_recent_coins.get(position).getCoinID());;
+        Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coin_Details,bundle);;
     }
 
 }

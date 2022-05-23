@@ -17,7 +17,10 @@ import android.widget.TextView;
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coins;
+import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Coins_List;
+import com.example.mynt.collectionsActivity.models.Model_Collections;
+import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
 
@@ -26,55 +29,72 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private ImageButton back_imageButton;
+    private View coinsView;
+    private int collectionID;
+    private ArrayList<Integer> coinIDs;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View coins = inflater.inflate(R.layout.fragment_coins, container, false);
-
-        TextView pageTitle_textView = coins.findViewById(R.id.textview_title_coins);
-        TextView collectionName_textView = coins.findViewById(R.id.textview_blockTitle_coins);
-        back_imageButton = coins.findViewById(R.id.image_button_back_coins);
+        coinsView = inflater.inflate(R.layout.fragment_coins, container, false);
 
 
-        pageTitle_textView.setText("Coins test");
-        collectionName_textView.setText("BLock Test");
+        TextView pageTitle_textView = coinsView.findViewById(R.id.textview_title_coins);
+        TextView collectionName_textView = coinsView.findViewById(R.id.textview_blockTitle_coins);
+        back_imageButton = coinsView.findViewById(R.id.image_button_back_coins);
+
+
+        assert getArguments() != null;
+        int task = getArguments().getInt("Task");
+        String blockTitle = getArguments().getString("Collection Name");
+        collectionID = getArguments().getInt("CollectionID");
+
+        Database_Lite db = new Database_Lite(getContext());
 
         ArrayList<Model_Coins_List> coinsList = new ArrayList<>();
 
-        coinsList.add(new Model_Coins_List( R.drawable.img_app_logo,
-                getResources().getString(R.string.library_option_coins),
-                "21 April, 17:36",
-                "South Africa",
-                2020));
+        ArrayList<Model_Coin> dbCoins;
+        dbCoins = db.getAllCoins();
+        coinIDs = new ArrayList<>();
+        if(task == 0) //All Coins
+        {
+            pageTitle_textView.setText(R.string.coins_title);
+            collectionName_textView.setText(R.string.all_coins_block_title);
 
-        coinsList.add(new Model_Coins_List( R.drawable.img_app_logo,
-                getResources().getString(R.string.library_option_coins),
-                "21 April, 09:15",
-                "South Africa",
-                1994));
+            for (int i=0; i<dbCoins.size(); i++)
+            {
+                coinsList.add(new Model_Coins_List( R.drawable.img_app_logo,
+                        dbCoins.get(i).getValue(),
+                        "Need change",
+                        "South Africa",
+                        2020));
+            }
+        }else//For specific collection
+        {
+            pageTitle_textView.setText(R.string.collections_title);
+            collectionName_textView.setText(blockTitle);
+            ArrayList<Integer> collectionCoins;
+            collectionCoins = db.getAllCoinsInCollection(collectionID);
+            for (int i=0; i<collectionCoins.size(); i++)
+            {
+                for (int s=0; s<dbCoins.size(); s++) {
+                    if(collectionCoins.get(i)==dbCoins.get(s).getCoinID())
+                    {
+                        coinsList.add(new Model_Coins_List( R.drawable.img_app_logo,
+                                dbCoins.get(s).getValue(),
+                                "Need change",
+                                "South Africa",
+                                2020));
+                        coinIDs.add(dbCoins.get(s).getCoinID());
+                        break;
+                    }
+                }
 
-        coinsList.add(new Model_Coins_List( R.drawable.img_app_logo,
-                getResources().getString(R.string.library_option_coins),
-                "20 April, 09:10",
-                "South Africa",
-                1985));
-
-        coinsList.add(new Model_Coins_List( R.drawable.img_app_logo,
-                getResources().getString(R.string.library_option_coins),
-                "20 April, 09:10",
-                "South Africa",
-                2004));
-
-        for (int i = 0; i < 4; i++) {
-            coinsList.add(new Model_Coins_List( R.drawable.img_app_logo,
-                    getResources().getString(R.string.library_option_coins),
-                    "20 April, 09:10",
-                    "South Africa",
-                    2004));
+            }
         }
 
-        recyclerView = (RecyclerView) coins.findViewById(R.id.recyclerView_coins);
+
+        recyclerView = (RecyclerView) coinsView.findViewById(R.id.recyclerView_coins);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new StaggeredGridLayoutManager(1,1);
@@ -90,7 +110,7 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
                 int task = getArguments().getInt("Task");
                 if(task==1)// Fragment was accessed from somewhere else
                 {
-                    Navigation.findNavController(coins).navigateUp();
+                    Navigation.findNavController(coinsView).navigateUp();
                 }else
                 {
                     Intent home = new Intent(getContext(),Activity_Collections.class);
@@ -116,13 +136,15 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
         */
 
 
-        return coins;
+        return coinsView;
     }
 
     //implementing RecyclerViewInterface
     @Override
     public void onItemClick(int position) {
-        //Intent i = new Intent(getContext(), Activity_CoinDetails.class);
-        //startActivity(i);
+        Bundle bundle = new Bundle();
+        bundle.putInt("Task", 1);
+        bundle.putInt("CoinID", coinIDs.get(position));
+        Navigation.findNavController(coinsView).navigate(R.id.action_fragment_Coins_to_fragment_Coin_Details,bundle);
     }
 }

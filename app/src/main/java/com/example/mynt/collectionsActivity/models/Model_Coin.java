@@ -6,11 +6,8 @@ import com.example.mynt.R;
 
 public class Model_Coin {
 
-    private Resources res;
-    private int year, mintage;
+    private int year, mintage, coinID;
     private String material, alternateName, observe, reverse, variety,value,ImageId;
-
-
 
     public Model_Coin(int year, int mintage, String material, String alternateName, String observe, String reverse, String variety, String value, String image) {
 
@@ -23,6 +20,14 @@ public class Model_Coin {
         this.variety = variety;
         this.value = value;
         this.ImageId = image;
+    }
+
+    public int getCoinID() {
+        return coinID;
+    }
+
+    public void setCoinID(int coinID) {
+        this.coinID = coinID;
     }
 
     public String getImageId() {

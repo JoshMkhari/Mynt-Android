@@ -40,6 +40,8 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
     private EditText collectionName;
     //private Model_Goals model_goals;
     private Boolean subActivity;
+    private ArrayList<Model_Collections> collectionsList;
+    private View collectionsView;
 
 
     @Override
@@ -47,19 +49,19 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View collections = inflater.inflate(R.layout.fragment_collections, container, false);
+        collectionsView = inflater.inflate(R.layout.fragment_collections, container, false);
         Database_Lite db = new Database_Lite(getContext());
 
-        createCollection = collections.findViewById(R.id.imageview_blockTitle_collections);
-        back = collections.findViewById(R.id.collections_back);
-        collectionName = collections.findViewById(R.id.CollectionNameEditText);
+        createCollection = collectionsView.findViewById(R.id.imageview_blockTitle_collections);
+        back = collectionsView.findViewById(R.id.collections_back);
+        collectionName = collectionsView.findViewById(R.id.CollectionNameEditText);
 
-        ArrayList<Model_Collections> collectionsList = new ArrayList<>();
+        collectionsList = new ArrayList<>();
         collectionsList = db.getAllCollections();
 
        // model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
 
-        recyclerView = collections.findViewById(R.id.all_collectionsList);
+        recyclerView = collectionsView.findViewById(R.id.all_collectionsList);
 
         recyclerView.setHasFixedSize(true);
 
@@ -79,7 +81,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
                 int task = getArguments().getInt("Task");
                 if(task==1)// Creating new Collection and assigning it to a coin
                 {
-                    Navigation.findNavController(collections).navigateUp();
+                    Navigation.findNavController(collectionsView).navigateUp();
 
                 }else
                 {
@@ -102,7 +104,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
                     bundle.putInt("Goal", 0);;
                     assert getArguments() != null;
                     bundle.putInt("Task", getArguments().getInt("Task"));
-                    Navigation.findNavController(collections).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
+                    Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
                 }
                 else
                 {
@@ -131,11 +133,17 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
 
         });
 
-        return collections;
+        return collectionsView;
     }
     //implementing RecyclerViewInterface
     @Override
     public void onItemClick(int position) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("Collection Name",collectionsList.get(position).getCollectionName());
+        bundle.putInt("Task", 1);;
+        bundle.putInt("CollectionID", position+1);;
+        Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Coins,bundle);
 
     }
 

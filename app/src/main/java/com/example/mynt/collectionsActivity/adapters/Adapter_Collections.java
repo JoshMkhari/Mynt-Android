@@ -52,7 +52,7 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
         holder.coinImage.setBackgroundResource(R.drawable.img_two_rand);
         float collectionSize = (float)collectionCoins.size();
         float target = (float)collectionsList.get(position).getGoal();
-        int goal = Math.round(collectionSize/target);
+        int goal = Math.round(collectionSize/target)*100;
         holder.progressBar.setProgress(goal);
 
         // Here I am just highlighting the background

@@ -310,6 +310,7 @@ public class Database_Lite extends SQLiteOpenHelper {
 
 
                 Model_Coin coin = new Model_Coin(year,mintage,material,altName,observe,reverse,variety,value,image);
+                coin.setCoinID(coinID);
                 coinsList.add(coin);
             }while (cursor.moveToNext());
         }
