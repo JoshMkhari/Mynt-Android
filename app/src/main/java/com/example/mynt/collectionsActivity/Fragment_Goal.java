@@ -13,9 +13,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
+import com.example.mynt.dataAccessLayer.Database_Lite;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,8 +50,19 @@ public class Fragment_Goal extends Fragment {
         setGoal_imageButton = goals.findViewById(R.id.imageview_blockTitle_goal);
         target_Edittext = goals.findViewById(R.id.GoalsPage_GoalValue);
 
-        collectionName_textView.setText(getArguments().getString("Collection Name"));
+        assert getArguments() != null;
+        model_goals = new Model_Goals(getArguments().getString("Collection Name"),getArguments().getInt("Coins"),getArguments().getInt("Goal"));
+        int task = getArguments().getInt("Task");
 
+        collectionName_textView.setText(model_goals.getCollectionName());
+        numCoinsInCollection_textView.setText(String.valueOf(model_goals.getNumCoins()));
+        target_Edittext.setText(String.valueOf(model_goals.getTarget()));
+
+        float coins = (float)model_goals.getNumCoins();
+        float target = (float)model_goals.getTarget();
+        float progress =  coins /target ;
+
+        goalProgress_progressBar.setProgress(Math.round(progress));
         //model_goals = new Model_Goals(collectionName,numCoins,Integer.parseInt(target_Edittext.getText().toString()));
 
         //1000000 GoalsPage_add GoalsPage_subtract GoalsPage_GoalValue
@@ -57,13 +71,29 @@ public class Fragment_Goal extends Fragment {
         setGoal_imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
-                bundle.putString("Collection Name", getArguments().getString("Collection Name"));;
-                bundle.putString("Task", "Create Collection");;
-                Navigation.findNavController(goals).navigate(R.id.action_fragment_Goal_to_fragment_Add,bundle);
-                //setResult(14,i);
+                if(Integer.parseInt(target_Edittext.getText().toString())!=0)
+                {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("User", getArguments().getString("User"));
+                    Database_Lite localDB = new Database_Lite(getContext());
 
-                //Activity_Goals.super.onBackPressed();
+                    Model_Collections model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
+                    localDB.addCollection(model_collections);
+                    //Add collection to database for user
+                    if(task==0)// Creating new Collection
+                    {
+                        Navigation.findNavController(goals).navigate(R.id.action_fragment_Goal_to_fragment_Collections2,bundle);
+
+                    }else //Creating new collection for a new coin
+                    {
+                        localDB.addCollectionCoin();
+                        Navigation.findNavController(goals).navigate(R.id.action_fragment_Goal_to_fragment_home_main,bundle);
+                    }
+                }else
+                {
+                    Toast.makeText(getContext(), "Target cannot be 0", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         return goals;

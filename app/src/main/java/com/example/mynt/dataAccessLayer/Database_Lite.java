@@ -63,17 +63,17 @@ public class Database_Lite extends SQLiteOpenHelper {
         //Table Creation Statements
 
         //Material Table
-        String tableStatement = ("CREATE TABLE " + MATERIAL_TABLE + "(" + COLUMN_MATERIAL_NAME + " INTEGER PRIMARY KEY AUTOINCREMENT );");
+        String tableStatement = ("CREATE TABLE " + MATERIAL_TABLE + "(" + COLUMN_MATERIAL_NAME + " TEXT PRIMARY KEY );");
         db.execSQL(tableStatement);
 
         //Year Table
-        tableStatement = ("CREATE TABLE " + YEAR_TABLE + "(" + COLUMN_YEAR_ID + " INTEGER PRIMARY KEY );");
+        tableStatement = ("CREATE TABLE " + YEAR_TABLE + "(" + COLUMN_YEAR_ID + " TEXT PRIMARY KEY );");
         db.execSQL(tableStatement);
         //Value Table
-        tableStatement = ("CREATE TABLE " + VALUE_TABLE + "(" + COLUMN_NAME_VALUE + " INTEGER PRIMARY KEY AUTOINCREMENT );");
+        tableStatement = ("CREATE TABLE " + VALUE_TABLE + "(" + COLUMN_NAME_VALUE + " TEXT PRIMARY KEY );");
         db.execSQL(tableStatement);
         //Variety Table
-        tableStatement = ("CREATE TABLE " + VARIETY_TABLE + "(" + COLUMN_VARIETY_NAME + " INTEGER PRIMARY KEY AUTOINCREMENT );");
+        tableStatement = ("CREATE TABLE " + VARIETY_TABLE + "(" + COLUMN_VARIETY_NAME + " TEXT PRIMARY KEY );");
         db.execSQL(tableStatement);
         //Coin Table
 
@@ -101,30 +101,125 @@ public class Database_Lite extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         //Populate Materials Table
-        for (int i =0; i<12;i++)
-        {
-            cv.put(COLUMN_MATERIAL_NAME,String.valueOf(i));
+            cv.put(COLUMN_MATERIAL_NAME,"Bimetallic");
             db.insert(MATERIAL_TABLE,null,cv);
             cv.clear();
-        }
+            cv.put(COLUMN_MATERIAL_NAME,"Silver");
+            db.insert(MATERIAL_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_MATERIAL_NAME,"Nickel-plated copper");
+            db.insert(MATERIAL_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_MATERIAL_NAME,"Nickel");
+            db.insert(MATERIAL_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_MATERIAL_NAME,"Bronze-plated Steel");
+            db.insert(MATERIAL_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_MATERIAL_NAME,"Copper-plated Steel");
+            db.insert(MATERIAL_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_MATERIAL_NAME,"Bronze");
+            db.insert(MATERIAL_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_MATERIAL_NAME,"Brass");
+            db.insert(MATERIAL_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_MATERIAL_NAME,"Aluminium-Bronze");
+            db.insert(MATERIAL_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_MATERIAL_NAME,"Gold");
+            db.insert(MATERIAL_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_MATERIAL_NAME,"Platinum");
+            db.insert(MATERIAL_TABLE,null,cv);
+            cv.clear();
 
         //Populate Value Table
-        for (int i =0; i<24;i++)
-        {
-            cv.put(COLUMN_NAME_VALUE,String.valueOf(i));
+            cv.put(COLUMN_NAME_VALUE,"Half Cent");
             db.insert(VALUE_TABLE,null,cv);
             cv.clear();
-        }
+            cv.put(COLUMN_NAME_VALUE,"One Cent");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Two and a Half Cent");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Five Cent");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Ten Cent");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Twenty Cent");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Fifty Cent");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"One Rand");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Two Rand");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Five Rand");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Fifty Rand");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Tenth Ounce");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Twentieth Ounce");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Quarter Ounce");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Fiftieth Ounce");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Half Ounce");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Ounce");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Two Ounce");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Five Ounce");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Kilo");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Penny");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Three Pence");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Six Pence");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_NAME_VALUE,"Shilling");
+            db.insert(VALUE_TABLE,null,cv);
+            cv.clear();
+
 
         //Populate Variety Table
-        for (int i =0; i<3;i++)
-        {
-            cv.put(COLUMN_VARIETY_NAME,String.valueOf(i));
+            cv.put(COLUMN_VARIETY_NAME,"Proof");
             db.insert(VARIETY_TABLE,null,cv);
             cv.clear();
-        }
-
-
+            cv.put(COLUMN_VARIETY_NAME,"Brilliant CW privy mark");
+            db.insert(VARIETY_TABLE,null,cv);
+            cv.clear();
+            cv.put(COLUMN_VARIETY_NAME,"Brilliant Uncirculated");
+            db.insert(VARIETY_TABLE,null,cv);
+            cv.clear();
 
     }
 
@@ -135,6 +230,33 @@ public class Database_Lite extends SQLiteOpenHelper {
 
     }
 
+    public ArrayList<Model_Collections> getAllCollections() {
+        ArrayList<Model_Collections> collectionsList = new ArrayList<>();
+
+        String queryString = "SELECT * FROM " + COIN_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst())
+        {
+            //loop through the cursor result set and create new coin object for each row
+            do{
+                String collectionName = cursor.getString(1);
+                int goal = cursor.getInt(2);
+
+                Model_Collections collection = new Model_Collections(collectionName,goal);
+
+                collectionsList.add(collection);
+            }while (cursor.moveToNext());
+        }
+        else
+        {
+            //failure means list is empty
+        }
+        cursor.close();
+        //Toast.makeText(context,collectionsList.size()+" size",Toast.LENGTH_LONG).show();
+        return collectionsList;
+    }
     public ArrayList<Model_Coin> getAllCoins()
     {
         ArrayList<Model_Coin> coinsList = new ArrayList<>();
@@ -153,22 +275,22 @@ public class Database_Lite extends SQLiteOpenHelper {
                 String observe = cursor.getString(3);
                 String reverse = cursor.getString(4);
                 String image = cursor.getString(5);
-                int value = cursor.getInt(6);
+                String value = cursor.getString(6);
                 int year = cursor.getInt(7);
-                int variety = cursor.getInt(8);
-                int material = cursor.getInt(9);
+                String variety = cursor.getString(8);
+                String material = cursor.getString(9);
 
 
                 Model_Coin coin = new Model_Coin(year,mintage,material,altName,observe,reverse,variety,value,image);
                 coinsList.add(coin);
-            }while (cursor.moveToFirst());
+            }while (cursor.moveToNext());
         }
         else
         {
             //failure means list is empty
         }
         cursor.close();
-        db.close();;
+        //Toast.makeText(context,coinsList.size()+" size",Toast.LENGTH_LONG).show();
         return coinsList;
     }
 
@@ -177,24 +299,66 @@ public class Database_Lite extends SQLiteOpenHelper {
         Model_User user = new Model_User();
         return user;
     }
-    public boolean addCoin(Model_Collections collection)
+
+    public boolean addCollectionCoin()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        int coinID =0;
+        int collectionID = 0;
+            try
+            {
+                coinID = getAllCoins().size();
+                 collectionID = getAllCollections().size();
+                try
+                {
+                    //Collections table
+                    cv.put(COLUMN_COLLECTION_FK,collectionID);
+                    cv.put(COLUMN_COIN_FK,coinID);
+                    db.insert(COLLECTIONS_COIN_TABLE,null,cv);
+                    cv.clear();
+                    db.close();
+                    return true;
+                }catch (Exception e)
+                {
+                    db.close();;
+                    Toast.makeText(context,"Collection Coin Table",Toast.LENGTH_LONG).show();
+                    return false;
+                }
+            }catch ( Exception e)
+            {
+                Toast.makeText(context,coinID+" size",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,collectionID+" size",Toast.LENGTH_LONG).show();
+                db.close();;
+                return false;
+            }
+        }
+
+    public boolean addCollection(Model_Collections model_collections) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        try {
+            //Collections table
+            cv.put(COLUMN_COLLECTION_NAME, model_collections.getCollectionName());
+            cv.put(COLUMN_GOAL, model_collections.getGoal());
+            db.insert(COLLECTION_TABLE, null, cv);
+            cv.clear();
+            db.close();
+            return true;
+        } catch (Exception e) {
+            db.close();
+            Toast.makeText(context, "Collection Table", Toast.LENGTH_LONG).show();
+            return false;
+
+        }
+    }
+
+    public boolean addCoin(Model_Coin coin, int collectionID)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
 
-        try
-        {
-            //Collections table
-            cv.put(COLUMN_COLLECTION_NAME,collection.getCollectionName());
-            cv.put(COLUMN_GOAL,collection.getGoal());
-            db.insert(COLLECTION_TABLE,null,cv);
-            cv.clear();
-        }catch (Exception e)
-        {
-            Toast.makeText(context,"Collection Table",Toast.LENGTH_LONG).show();
-            return false;
-        }
-
+        /*
         //Year Table
         //Extracting correct coin details for only user
         Model_UserCoin user_coin = collection.getModel_userArrayList().get(collection.getModel_userArrayList().size()-1);
@@ -211,6 +375,8 @@ public class Database_Lite extends SQLiteOpenHelper {
             return false;
         }
 
+         */
+
         try
         {
             //Coin Table
@@ -223,13 +389,45 @@ public class Database_Lite extends SQLiteOpenHelper {
             cv.put(COLUMN_IMAGE,coin.getImageId());
             cv.put(COLUMN_VARIETY_FK,coin.getVariety());
             cv.put(COLUMN_MATERIAL_FK,coin.getMaterial());
-            db.insert(YEAR_TABLE,null,cv);
+            db.insert(COIN_TABLE,null,cv);
             cv.clear();
-            return true;
         }catch (Exception e)
         {
             Toast.makeText(context,"Coin Table",Toast.LENGTH_LONG).show();
+            db.close();;
             return false;
+        }
+        if(collectionID != 0)
+        {
+            try
+            {
+                int coinID = getAllCoins().size();
+                try
+                {
+                    //Collections table
+                    cv.put(COLUMN_COLLECTION_FK,collectionID);
+                    cv.put(COLUMN_COIN_FK,coinID);
+                    db.insert(COLLECTIONS_COIN_TABLE,null,cv);
+                    cv.clear();
+                    db.close();;
+                    return true;
+                }catch (Exception e)
+                {
+                    db.close();;
+                    Toast.makeText(context,"Collection Table",Toast.LENGTH_LONG).show();
+                    return false;
+                }
+            }catch ( Exception e)
+            {
+                db.close();;
+                return false;
+            }
+
+        }
+        else
+        {
+            db.close();;
+            return  true;
         }
 
 
@@ -237,5 +435,6 @@ public class Database_Lite extends SQLiteOpenHelper {
         //Collections Coin Table
 
     }
+
 
 }

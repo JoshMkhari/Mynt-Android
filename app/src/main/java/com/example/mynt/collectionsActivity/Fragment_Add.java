@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_UserCoin;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
+import com.example.mynt.userActivity.Model_User;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -58,12 +60,18 @@ public class Fragment_Add extends Fragment {
     private int coinID;
     private Button datePicker;
     private DatePickerDialog dateAcquired;
-
+    private Model_User model_user;
+    private ArrayList<String> userCollections;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View add = inflater.inflate(R.layout.fragment_add, container, false);
+
+        //Retrieve bundles
+        model_user = new Model_User();
+        assert getArguments() != null;
+        model_user.setUserName(getArguments().getString("User"));
 
         //Database methods
 
@@ -86,6 +94,7 @@ public class Fragment_Add extends Fragment {
         observe_Textview = add.findViewById(R.id.observe_EditText);
         reverse_Textview = add.findViewById(R.id.reverse_EditText);
 
+
         //ImageButton
         add_Button = add.findViewById(R.id.imageview_blockTitle_addCoin);
         userImage = add.findViewById(R.id.userImage);
@@ -100,13 +109,25 @@ public class Fragment_Add extends Fragment {
 
         //Database
         localDB = new Database_Lite(getContext());
-        coinID = localDB.getAllCoins().size();
-        ;
+
+        if(localDB.getAllCoins() != null)
+        {
+            coinID = localDB.getAllCoins().size();
+        }
+        else
+        {
+            coinID = 0;
+        }
+
+
+
 
         year_Textview.setText("2010");
 
-        ArrayList<String> userCollections = new ArrayList<>();
+
+        userCollections = new ArrayList<>();
         userCollections.add("Create New Collection");
+        //for loop to add user collections here
 
         //Populate User Collections now
 
@@ -139,26 +160,26 @@ public class Fragment_Add extends Fragment {
                     //check if a mintage was placed
                     if (mintage_Textview.getText().length() > 0) {
                         //Check if a collection has to be made
-                        if (spinnerCollection.getSelectedItemPosition() == 0) {
-                            Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2);
-
-                        } else {
+                        if(savePhotoToInternalStorage())
+                        {
                             storeCoin();
+                            if (spinnerCollection.getSelectedItemPosition() == 0) {
+                                Bundle bundle = new Bundle();
+                                bundle.putString("User", "To be set");
+                                bundle.putInt("Task", 1);
+                                Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
+                            }
                         }
-                        //Get coin ID
-
                     }
-                    Toast.makeText(getContext(), "Set Mintage", Toast.LENGTH_SHORT).show();
+                    else
+                    {
+                        Toast.makeText(getContext(), "Set Mintage", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(getContext(), "Set image nest time", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
-        if(getArguments().getString("Task").equals("Create Collection"))
-        {
-            createCollection();
-        }
         return add;
     }
 
@@ -323,44 +344,31 @@ public class Fragment_Add extends Fragment {
     }
 
     private void storeCoin() {
-        if (savePhotoToInternalStorage(coinID)) {
+        try {
             Model_Coin model_coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),
                     Integer.parseInt(mintage_Textview.getText().toString()),
-                    spinnerMaterial.getSelectedItemPosition(),
+                    spinnerMaterial.getSelectedItem().toString(),
                     alternate_Textview.getText().toString(),
                     observe_Textview.getText().toString(),
                     reverse_Textview.getText().toString(),
-                    spinnerVariant.getSelectedItemPosition(),
-                    spinnerValue.getSelectedItemPosition(), coinID + "");
-            Model_UserCoin users_coins = new Model_UserCoin(datePicker.getText().toString(), "here", model_coin);
-            model_collections.getModel_userArrayList().add(users_coins);
+                    spinnerVariant.getSelectedItem().toString(),
+                    spinnerValue.getSelectedItem().toString(),
+                    String.valueOf(coinID));
+            localDB.addCoin(model_coin,spinnerCollection.getSelectedItemPosition());
+        }catch (Exception e)
+        {
             Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();
-            localDB.addCoin(model_collections);
         }
-    }
-
-    private void createCollection() {
-        model_goals = new Model_Goals("tobeDecided", 0, 0);
-        Intent createCollection = new Intent(getContext(), Activity_Collections.class);
-        createCollection.putExtra("create", "toBeDecided");
-        String collectionName = getArguments().getString("Collection Name");
-
-        int target = getArguments().getInt("Goal");
-        model_goals.setCollectionName(collectionName);
-        model_goals.setTarget(target);
-        model_collections = new Model_Collections(model_goals.getCollectionName(), 0, model_goals.getTarget(), coinID);
-        storeCoin();
-
 
     }
 
-    private boolean savePhotoToInternalStorage(int imageNumber) {
+    private boolean savePhotoToInternalStorage() {
         //Get image number
-
         FileOutputStream out;
         try {
             Context context = getContext();
-            out = context.openFileOutput(imageNumber + ".jpg", Context.MODE_PRIVATE);
+            assert context != null;
+            out = context.openFileOutput(coinID + ".jpg", Context.MODE_PRIVATE);
             imageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();

@@ -11,11 +11,9 @@ public class Model_Collections {
     private ArrayList<Model_UserCoin> model_userCoinArrayList;
     private int goal;
 
-    public Model_Collections(String collectionName, int collectionCoinAmount, int goal, int imageID) {
+    public Model_Collections(String collectionName, int goal) {
         CollectionName = collectionName;
-        CollectionCoinAmount = collectionCoinAmount;
         this.goal = goal;
-        ImageID = imageID;
     }
 
 

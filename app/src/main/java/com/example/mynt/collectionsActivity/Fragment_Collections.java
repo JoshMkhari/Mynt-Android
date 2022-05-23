@@ -70,7 +70,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(collections).navigate(R.id.action_fragment_Collections_to_fragment_home_main2);
+                Navigation.findNavController(collections).navigateUp();
             }
         });
         createCollection.setOnClickListener(new View.OnClickListener() {
@@ -79,8 +79,12 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
                 if(collectionName.getText().toString().length()>3)
                 {
                     Bundle bundle = new Bundle();
-                    bundle.putString("Collection Name", collectionName.getText().toString());;
-                    Navigation.findNavController(collections).navigate(R.id.action_fragment_Collections_to_fragment_Goal);
+                    bundle.putString("Collection Name", collectionName.getText().toString());
+                    bundle.putInt("Coins", 0);;
+                    bundle.putInt("Goal", 0);;
+                    assert getArguments() != null;
+                    bundle.putInt("Task", getArguments().getInt("Task"));
+                    Navigation.findNavController(collections).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
                 }
                 else
                 {

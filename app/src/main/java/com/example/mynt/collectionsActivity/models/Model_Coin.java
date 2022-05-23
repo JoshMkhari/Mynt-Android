@@ -12,18 +12,16 @@ public class Model_Coin {
 
 
 
-    public Model_Coin(int year, int mintage, int material, String alternateName, String observe, String reverse, int variety, int value, String image) {
+    public Model_Coin(int year, int mintage, String material, String alternateName, String observe, String reverse, String variety, String value, String image) {
+
         this.year = year;
         this.mintage = mintage;
-        String[] dataList = res.getStringArray(R.array.Material);
-        this.material = dataList[material];
+        this.material = material;
         this.alternateName = alternateName;
         this.observe = observe;
         this.reverse = reverse;
-        dataList = res.getStringArray(R.array.Variants);
-        this.variety = dataList[variety];
-        dataList = res.getStringArray(R.array.Value);
-        this.value = dataList[value];
+        this.variety = variety;
+        this.value = value;
         this.ImageId = image;
     }
 
