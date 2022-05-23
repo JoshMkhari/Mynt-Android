@@ -6,7 +6,6 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -252,7 +251,6 @@ public class Database_Lite extends SQLiteOpenHelper {
             //failure means list is empty
         }
         cursor.close();
-        //Toast.makeText(context,collectionsList.size()+" size",Toast.LENGTH_LONG).show();
         return coins;
     }
 
@@ -282,7 +280,6 @@ public class Database_Lite extends SQLiteOpenHelper {
             //failure means list is empty
         }
         cursor.close();
-        //Toast.makeText(context,collectionsList.size()+" size",Toast.LENGTH_LONG).show();
         return collectionsList;
     }
     public ArrayList<Model_Coin> getAllCoins()
@@ -319,7 +316,6 @@ public class Database_Lite extends SQLiteOpenHelper {
             //failure means list is empty
         }
         cursor.close();
-        //Toast.makeText(context,coinsList.size()+" size",Toast.LENGTH_LONG).show();
         return coinsList;
     }
 
@@ -333,7 +329,6 @@ public class Database_Lite extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        Toast.makeText(context,"AddCollection Coin running",Toast.LENGTH_LONG).show();
         int coinID =0;
         int collectionID;
             try
@@ -359,7 +354,6 @@ public class Database_Lite extends SQLiteOpenHelper {
                 }catch (Exception e)
                 {
                     db.close();;
-                    Toast.makeText(context,"Collection Coin Table",Toast.LENGTH_LONG).show();
                     return false;
                 }
             }catch ( Exception e)
@@ -372,7 +366,6 @@ public class Database_Lite extends SQLiteOpenHelper {
     public boolean addCollection(Model_Collections model_collections) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        Toast.makeText(context,"AddCollection Coin running",Toast.LENGTH_LONG).show();
         try {
             //Collections table
             cv.put(COLUMN_COLLECTION_NAME, model_collections.getCollectionName());
@@ -383,7 +376,6 @@ public class Database_Lite extends SQLiteOpenHelper {
             return true;
         } catch (Exception e) {
             db.close();
-            Toast.makeText(context, "Collection Table", Toast.LENGTH_LONG).show();
             return false;
 
         }
@@ -393,7 +385,6 @@ public class Database_Lite extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        Toast.makeText(context,"AddCollection Coin running",Toast.LENGTH_LONG).show();
 
         /*
         //Year Table
@@ -408,7 +399,6 @@ public class Database_Lite extends SQLiteOpenHelper {
             cv.clear();
         }catch (Exception e)
         {
-            Toast.makeText(context,"Year Table",Toast.LENGTH_LONG).show();
             return false;
         }
 
@@ -430,7 +420,6 @@ public class Database_Lite extends SQLiteOpenHelper {
             cv.clear();
         }catch (Exception e)
         {
-            Toast.makeText(context,"Coin Table",Toast.LENGTH_LONG).show();
             db.close();;
             return false;
         }
@@ -451,7 +440,6 @@ public class Database_Lite extends SQLiteOpenHelper {
                 }catch (Exception e)
                 {
                     db.close();;
-                    Toast.makeText(context,"Collection Table",Toast.LENGTH_LONG).show();
                     return false;
                 }
             }catch ( Exception e)

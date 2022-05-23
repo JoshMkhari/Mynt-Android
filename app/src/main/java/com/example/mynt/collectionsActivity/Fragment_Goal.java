@@ -81,7 +81,7 @@ public class Fragment_Goal extends Fragment {
                 if(Integer.parseInt(target_Edittext.getText().toString())!=0)
                 {
                     Bundle bundle = new Bundle();
-                    //bundle.putString("User", getArguments().getString("User"));
+                    bundle.putString("User", getArguments().getString("User"));
                     Database_Lite localDB = new Database_Lite(getContext());
 
                     Model_Collections model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
