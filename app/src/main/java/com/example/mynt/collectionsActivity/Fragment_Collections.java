@@ -70,7 +70,20 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(collections).navigateUp();
+                //get task
+                assert getArguments() != null;
+                int task = getArguments().getInt("Task");
+                if(task==1)// Creating new Collection and assigning it to a coin
+                {
+                    Navigation.findNavController(collections).navigateUp();
+
+                }else
+                {
+                    Intent home = new Intent(getContext(),Activity_Collections.class);
+                    //home.putExtra("view","library");
+                    home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(home);
+                }
             }
 
         });

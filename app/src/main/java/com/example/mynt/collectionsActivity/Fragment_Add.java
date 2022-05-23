@@ -49,7 +49,7 @@ public class Fragment_Add extends Fragment {
     private Spinner spinnerValue, spinnerMaterial, spinnerVariant, spinnerCollection;
     private SeekBar yearBar;
     private EditText year_Textview, alternate_Textview, mintage_Textview, observe_Textview, reverse_Textview;
-    private ImageButton add_Button, changeImage;
+    private ImageButton add_Button, changeImage, back;
     private ImageView userImage;
     private ActivityResultLauncher<Intent> activityResultLauncher_Camera;
     private Bitmap imageBitmap;
@@ -97,9 +97,11 @@ public class Fragment_Add extends Fragment {
 
         //ImageButton
         add_Button = add.findViewById(R.id.imageview_blockTitle_addCoin);
-        userImage = add.findViewById(R.id.userImage);
+        back = add.findViewById(R.id.image_button_back_coins);
         changeImage = add.findViewById((R.id.changePicture));
 
+        //ImageView
+        userImage = add.findViewById(R.id.userImage);
         //Button
         datePicker = add.findViewById(R.id.datePickerButton);
         datePicker.setText(getTodaysDate());
@@ -150,6 +152,15 @@ public class Fragment_Add extends Fragment {
         ArrayAdapter<String> adapterCollection = new ArrayAdapter<>(getContext(), R.layout.spinner_item, userCollections);
         adapterCollection.setDropDownViewResource(R.layout.spinner_item);
         spinnerCollection.setAdapter(adapterCollection);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent home = new Intent(getContext(),Activity_Collections.class);
+                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(home);
+            }
+        });
 
         add_Button.setOnClickListener(new View.OnClickListener() {
             @Override

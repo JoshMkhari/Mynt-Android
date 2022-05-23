@@ -61,6 +61,8 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
 
         //ArrayList<Model_Coin> userCoins = dl.getAllCoins();
         ArrayList<Model_Coin> userCoins = new ArrayList<>();
+        userCoins = dl.getAllCoins();
+
         optionListView = libraryView.findViewById(R.id.listView_navigation_library);
         loginButton = libraryView.findViewById(R.id.imageButton_userActivity_library);
         ArrayList<Model_Library_Options> arrayList_library_navigation = new ArrayList<>();
@@ -70,7 +72,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         arrayList_library_navigation.add(new Model_Library_Options( R.drawable.img_app_logo,
                 getResources().getString(R.string.library_option_coins),
                 0,
-                50));
+                dl.getAllCoins().size()));
 
         arrayList_library_navigation.add(new Model_Library_Options( R.drawable.ic_collection_icon,
                 getResources().getString(R.string.library_option_collections),
@@ -83,12 +85,18 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
                 62));
 
 
+        int i=userCoins.size()-1;
 
-        if(userCoins.size()>0)
-        for (int i =userCoins.size()-1; i>=userCoins.size()-5;i--)
-        {
-            arrayList_recent_coins.add(userCoins.get(i));
-        }
+        if(i>0)
+            do {
+                arrayList_recent_coins.add(userCoins.get(i));
+                if(arrayList_recent_coins.size()>3)
+                {
+                    break;
+                }
+                i--;
+            }while (i>=0);
+
 
         //Passing data to list recycler view
         recyclerView = (RecyclerView) libraryView.findViewById(R.id.recyclerView_recentCoins_library);
@@ -115,7 +123,9 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
                 //Intent collections = new Intent(getContext(), Activity_Collections.class);
                 if(position==0)
                 {
-                    Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coins);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("Task",0);
+                    Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coins,bundle);
                     //collections.putExtra("action","coins");
                 }else if (position==1)
                 {

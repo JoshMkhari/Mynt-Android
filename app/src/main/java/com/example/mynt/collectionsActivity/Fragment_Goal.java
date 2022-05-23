@@ -26,15 +26,15 @@ import com.example.mynt.dataAccessLayer.Database_Lite;
  * create an instance of this fragment.
  */
 public class Fragment_Goal extends Fragment {
-    private ImageButton setGoal_imageButton;
-    private TextView collectionName_textView,target_textView,numCoinsInCollection_textView,percentOfGoal_textView;
-    private ProgressBar goalProgress_progressBar;
+
     private EditText target_Edittext;
     private Model_Goals model_goals;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        ImageButton setGoal_imageButton, back;
+        TextView collectionName_textView,target_textView,numCoinsInCollection_textView,percentOfGoal_textView;
+        ProgressBar goalProgress_progressBar;
         // Inflate the layout for this fragment
         View goals = inflater.inflate(R.layout.fragment_goal, container, false);
         //Bundle extras = getIntent().getExtras();
@@ -48,6 +48,7 @@ public class Fragment_Goal extends Fragment {
         target_textView = goals.findViewById(R.id.GoalsPageTarget_TextView);
         goalProgress_progressBar = goals.findViewById(R.id.GoalPageProgressBar);
         setGoal_imageButton = goals.findViewById(R.id.imageview_blockTitle_goal);
+        back = goals.findViewById(R.id.GoalsPage_back);
         target_Edittext = goals.findViewById(R.id.GoalsPage_GoalValue);
 
         assert getArguments() != null;
@@ -67,6 +68,12 @@ public class Fragment_Goal extends Fragment {
 
         //1000000 GoalsPage_add GoalsPage_subtract GoalsPage_GoalValue
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(goals).navigateUp();
+            }
+        });
 
         setGoal_imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +87,7 @@ public class Fragment_Goal extends Fragment {
                     Model_Collections model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
                     localDB.addCollection(model_collections);
                     //Add collection to database for user
-                    if(task!=0)// Creating new Collection and assigning it to a coin
+                    if(task==1)// Creating new Collection and assigning it to a coin
                     {
                         localDB.addCollectionCoin();
 

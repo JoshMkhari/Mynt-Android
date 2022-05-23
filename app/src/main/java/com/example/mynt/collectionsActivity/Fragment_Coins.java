@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -85,7 +86,18 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
         back_imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                assert getArguments() != null;
+                int task = getArguments().getInt("Task");
+                if(task==1)// Fragment was accessed from somewhere else
+                {
+                    Navigation.findNavController(coins).navigateUp();
+                }else
+                {
+                    Intent home = new Intent(getContext(),Activity_Collections.class);
+                    //home.putExtra("View","library");
+                    home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(home);
+                }
             }
         });
 

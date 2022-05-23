@@ -24,6 +24,9 @@
         <argument
             android:name="User"
             app:argType="string" />
+        <argument
+            android:name="Task"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Goal"
@@ -63,9 +66,6 @@
         <argument
             android:name="Goal"
             app:argType="integer" />
-        <argument
-            android:name="Task"
-            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Coins"
@@ -77,6 +77,11 @@
             app:destination="@id/fragment_Coin_Details" />
         <argument
             android:name="User"
+            app:argType="string" />
+        <argument android:name="Task"
+            app:argType="integer" />
+        <argument
+            android:name="Collection Name"
             app:argType="string" />
     </fragment>
     <fragment
@@ -105,5 +110,8 @@
         <action
             android:id="@+id/action_fragment_home_main_to_fragment_Coin_Details"
             app:destination="@id/fragment_Coin_Details" />
+        <argument
+            android:name="User"
+            app:argType="string" />
     </fragment>
 </navigation>
