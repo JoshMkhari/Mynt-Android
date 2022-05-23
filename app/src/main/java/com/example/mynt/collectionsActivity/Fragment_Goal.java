@@ -89,10 +89,12 @@ public class Fragment_Goal extends Fragment {
                     //Add collection to database for user
                     if(task==1)// Creating new Collection and assigning it to a coin
                     {
-                        localDB.addCollectionCoin();
-
+                        localDB.addCollectionCoin(0);
                     }
-                    Navigation.findNavController(goals).navigate(R.id.action_fragment_Goal_to_fragment_home_main,bundle);
+                    Intent home = new Intent(getContext(),Activity_Collections.class);
+                    //home.putExtra("View","library");
+                    home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(home);
 
                 }else
                 {

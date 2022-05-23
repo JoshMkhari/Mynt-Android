@@ -229,11 +229,37 @@ public class Database_Lite extends SQLiteOpenHelper {
 
 
     }
+    public ArrayList<Integer> getAllCoinsInCollection(int collectionID) {
+        ArrayList<Integer> coins = new ArrayList<>();
+        //SELECT COIN_ID FROM COLLECTION_COIN_TABLE
+        // WHERE COLLECTION_ID = 1
+
+        String queryString = "SELECT " +COLUMN_COIN_FK + " FROM " + COLLECTIONS_COIN_TABLE +
+                            " WHERE " + COLUMN_COLLECTION_FK + " = " + collectionID;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst())
+        {
+            //loop through the cursor result set and create new coin object for each row
+            do{
+                int coinID = cursor.getInt(0);
+
+                coins.add(coinID);
+            }while (cursor.moveToNext());
+        }
+        else
+        {
+            //failure means list is empty
+        }
+        cursor.close();
+        //Toast.makeText(context,collectionsList.size()+" size",Toast.LENGTH_LONG).show();
+        return coins;
+    }
 
     public ArrayList<Model_Collections> getAllCollections() {
         ArrayList<Model_Collections> collectionsList = new ArrayList<>();
 
-        String queryString = "SELECT * FROM " + COIN_TABLE;
+        String queryString = "SELECT * FROM " + COLLECTION_TABLE;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString,null);
@@ -241,10 +267,12 @@ public class Database_Lite extends SQLiteOpenHelper {
         {
             //loop through the cursor result set and create new coin object for each row
             do{
+                int collectionID = cursor.getInt(0);
                 String collectionName = cursor.getString(1);
                 int goal = cursor.getInt(2);
 
                 Model_Collections collection = new Model_Collections(collectionName,goal);
+                collection.setCollectionID(collectionID);
 
                 collectionsList.add(collection);
             }while (cursor.moveToNext());
@@ -300,7 +328,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         return user;
     }
 
-    public boolean addCollectionCoin()
+    public boolean addCollectionCoin(int collection)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -308,8 +336,15 @@ public class Database_Lite extends SQLiteOpenHelper {
         int collectionID = 0;
             try
             {
-                coinID = getAllCoins().size();
-                 collectionID = getAllCollections().size();
+                 coinID = getAllCoins().size();
+                 if(collection ==0)
+                 {
+                     collectionID = getAllCollections().size();
+                 }
+                 else
+                 {
+                     collectionID = collection;
+                 }
                 try
                 {
                     //Collections table

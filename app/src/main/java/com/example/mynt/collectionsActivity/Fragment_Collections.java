@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,12 @@ import android.widget.Toast;
 
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
+import com.example.mynt.collectionsActivity.adapters.Adapter_Collections;
+import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
+import com.example.mynt.dataAccessLayer.Database_Lite;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +38,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
     private RecyclerView.LayoutManager layoutManager;
     private ImageButton createCollection, back;
     private EditText collectionName;
-    private Model_Goals model_goals;
+    //private Model_Goals model_goals;
     private Boolean subActivity;
 
 
@@ -42,31 +48,29 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         // Inflate the layout for this fragment
 
         View collections = inflater.inflate(R.layout.fragment_collections, container, false);
+        Database_Lite db = new Database_Lite(getContext());
 
         createCollection = collections.findViewById(R.id.imageview_blockTitle_collections);
         back = collections.findViewById(R.id.collections_back);
         collectionName = collections.findViewById(R.id.CollectionNameEditText);
 
-        /*
         ArrayList<Model_Collections> collectionsList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            collectionsList.add(new Model_Collections("20th Century",9,55,R.drawable.img_two_rand));
-        }
+        collectionsList = db.getAllCollections();
 
-        model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
+       // model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
 
-        recyclerView = (RecyclerView) findViewById(R.id.all_collectionsList);
+        recyclerView = collections.findViewById(R.id.all_collectionsList);
 
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new StaggeredGridLayoutManager(1,1);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new Adapter_Collections(collectionsList, this, this);
+        mAdapter = new Adapter_Collections(collectionsList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
 
-         */
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

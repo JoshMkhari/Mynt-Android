@@ -55,13 +55,13 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         //Initializing variables
         //String email = getArguments().getString("userEmail");
         String email = "josh";
-        Database_Lite dl = new Database_Lite(getContext());
+        Database_Lite db = new Database_Lite(getContext());
 
-        Model_User user = dl.getUser(email);
+        Model_User user = new Model_User();
 
-        //ArrayList<Model_Coin> userCoins = dl.getAllCoins();
+        //ArrayList<Model_Coin> userCoins = db.getAllCoins();
         ArrayList<Model_Coin> userCoins = new ArrayList<>();
-        userCoins = dl.getAllCoins();
+        userCoins = db.getAllCoins();
 
         optionListView = libraryView.findViewById(R.id.listView_navigation_library);
         loginButton = libraryView.findViewById(R.id.imageButton_userActivity_library);
@@ -72,7 +72,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         arrayList_library_navigation.add(new Model_Library_Options( R.drawable.img_app_logo,
                 getResources().getString(R.string.library_option_coins),
                 0,
-                dl.getAllCoins().size()));
+                db.getAllCoins().size()));
 
         arrayList_library_navigation.add(new Model_Library_Options( R.drawable.ic_collection_icon,
                 getResources().getString(R.string.library_option_collections),

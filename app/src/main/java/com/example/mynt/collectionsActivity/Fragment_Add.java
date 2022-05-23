@@ -129,6 +129,14 @@ public class Fragment_Add extends Fragment {
 
         userCollections = new ArrayList<>();
         userCollections.add("Create New Collection");
+        ArrayList<Model_Collections> collections;
+        collections = localDB.getAllCollections();
+
+        for (int i=0; i<collections.size(); i++)
+        {
+            userCollections.add(collections.get(i).getCollectionName());
+
+        }
         //for loop to add user collections here
 
         //Populate User Collections now
@@ -174,11 +182,18 @@ public class Fragment_Add extends Fragment {
                         if(savePhotoToInternalStorage())
                         {
                             storeCoin();
-                            if (spinnerCollection.getSelectedItemPosition() == 0) {
+                            if (spinnerCollection.getSelectedItemPosition() == 0) {//A new collection needs to be made
                                 Bundle bundle = new Bundle();
                                 bundle.putString("User", "To be set");
                                 bundle.putInt("Task", 1);
                                 Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
+                            }else
+                            {
+                                //update collection coin
+                                localDB.addCollectionCoin(spinnerCollection.getSelectedItemPosition());
+                                Intent home = new Intent(getContext(),Activity_Collections.class);
+                                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(home);
                             }
                         }
                     }

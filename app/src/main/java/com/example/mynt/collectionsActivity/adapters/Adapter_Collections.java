@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
+import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
 
@@ -38,17 +39,26 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
 
     @Override
     public void onBindViewHolder(@NonNull CollectionsViewHolder holder, int position) {
-        holder.collectionName.setText(collectionsList.get(position).getCollectionName());
 
-        holder.collectionCoinAmount.setText(collectionsList.get(position).getCollectionCoinAmount()+" Coins");
+        holder.collectionName.setText(collectionsList.get(position).getCollectionName());
+        int collectionID = collectionsList.get(position).getCollectionID();
+
+        Database_Lite db = new Database_Lite(context);
+        ArrayList<Integer> collectionCoins;
+        collectionCoins = db.getAllCoinsInCollection(collectionID);
+        String coinAmount = collectionCoins.size()+" Coins";
+        holder.collectionCoinAmount.setText(coinAmount);
         //glide for internet images???
         holder.coinImage.setBackgroundResource(R.drawable.img_two_rand);
-
-        holder.progressBar.setProgress(collectionsList.get(position).getGoal());
+        float collectionSize = (float)collectionCoins.size();
+        float target = (float)collectionsList.get(position).getGoal();
+        int goal = Math.round(collectionSize/target);
+        holder.progressBar.setProgress(goal);
 
         // Here I am just highlighting the background
         //holder.itemView.setBackgroundColor(selected_position == position ? Color.GREEN : Color.TRANSPARENT);
     }
+
 
     @Override
     public int getItemCount() {
