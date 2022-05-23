@@ -189,8 +189,7 @@ public class Fragment_Add extends Fragment {
                                 Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
                             }else
                             {
-                                //update collection coin
-                                localDB.addCollectionCoin(spinnerCollection.getSelectedItemPosition());
+                                Toast.makeText(getContext(), "Storing collectionCoin", Toast.LENGTH_SHORT).show();
                                 Intent home = new Intent(getContext(),Activity_Collections.class);
                                 home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(home);

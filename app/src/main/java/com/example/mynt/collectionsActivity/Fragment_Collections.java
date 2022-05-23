@@ -42,6 +42,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
     private Boolean subActivity;
     private ArrayList<Model_Collections> collectionsList;
     private View collectionsView;
+    private int task;
 
 
     @Override
@@ -78,7 +79,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
             public void onClick(View v) {
                 //get task
                 assert getArguments() != null;
-                int task = getArguments().getInt("Task");
+                task = getArguments().getInt("Task");
                 if(task==1)// Creating new Collection and assigning it to a coin
                 {
                     Navigation.findNavController(collectionsView).navigateUp();
@@ -103,7 +104,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
                     bundle.putInt("Coins", 0);;
                     bundle.putInt("Goal", 0);;
                     assert getArguments() != null;
-                    bundle.putInt("Task", getArguments().getInt("Task"));
+                    bundle.putInt("Task",task);
                     Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
                 }
                 else

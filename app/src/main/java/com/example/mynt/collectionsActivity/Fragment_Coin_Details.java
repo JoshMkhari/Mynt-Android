@@ -66,7 +66,8 @@ public class Fragment_Coin_Details extends Fragment {
         reverse.setText(model_coin.getReverse());
         circulation.setText(model_coin.getReverse());
         type.setText(model_coin.getMaterial());
-        pageTitle.setText(model_coin.getValue()+", 2007");
+        String coinTitle = model_coin.getValue()+", " + model_coin.getYear();
+        pageTitle.setText(coinTitle);
         points.setText(String.valueOf(1000));
 
         back.setOnClickListener(new View.OnClickListener() {

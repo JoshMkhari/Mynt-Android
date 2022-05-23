@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
@@ -30,7 +31,7 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
     private RecyclerView.LayoutManager layoutManager;
     private ImageButton back_imageButton;
     private View coinsView;
-    private int collectionID;
+    private int collectionID,task;
     private ArrayList<Integer> coinIDs;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +46,7 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
 
 
         assert getArguments() != null;
-        int task = getArguments().getInt("Task");
+        task = getArguments().getInt("Task");
         String blockTitle = getArguments().getString("Collection Name");
         collectionID = getArguments().getInt("CollectionID");
 
@@ -56,7 +57,7 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
         ArrayList<Model_Coin> dbCoins;
         dbCoins = db.getAllCoins();
         coinIDs = new ArrayList<>();
-        if(task == 0) //All Coins
+        if(task == 0 || task ==2) //All Coins
         {
             pageTitle_textView.setText(R.string.coins_title);
             collectionName_textView.setText(R.string.all_coins_block_title);
@@ -134,8 +135,6 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
             }
         }
         */
-
-
         return coinsView;
     }
 
@@ -143,8 +142,23 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
     @Override
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
-        bundle.putInt("Task", 1);
-        bundle.putInt("CoinID", coinIDs.get(position));
+
+        if(task == 0)
+        {
+            position++;
+            bundle.putInt("Task", task);
+            bundle.putInt("CoinID", position);
+        }
+        else if (task==2)
+        {
+            position++;
+            bundle.putInt("Task", task);
+            bundle.putInt("CoinID", position);
+        }else
+        {
+            bundle.putInt("Task", task);
+            bundle.putInt("CoinID", coinIDs.get(position));
+        }
         Navigation.findNavController(coinsView).navigate(R.id.action_fragment_Coins_to_fragment_Coin_Details,bundle);
     }
 }

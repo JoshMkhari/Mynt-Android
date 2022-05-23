@@ -62,7 +62,7 @@ public class Fragment_Goal extends Fragment {
         float coins = (float)model_goals.getNumCoins();
         float target = (float)model_goals.getTarget();
         float progress =  coins /target ;
-
+        Toast.makeText(getContext(), task + " this is it", Toast.LENGTH_SHORT).show();
         goalProgress_progressBar.setProgress(Math.round(progress));
         //model_goals = new Model_Goals(collectionName,numCoins,Integer.parseInt(target_Edittext.getText().toString()));
 
@@ -81,7 +81,7 @@ public class Fragment_Goal extends Fragment {
                 if(Integer.parseInt(target_Edittext.getText().toString())!=0)
                 {
                     Bundle bundle = new Bundle();
-                    bundle.putString("User", getArguments().getString("User"));
+                    //bundle.putString("User", getArguments().getString("User"));
                     Database_Lite localDB = new Database_Lite(getContext());
 
                     Model_Collections model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));

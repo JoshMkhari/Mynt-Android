@@ -87,17 +87,17 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
                 62));
 
 
-        int i=userCoins.size()-1;
+        int i=userCoins.size();
 
         if(i>0)
             do {
+                i--;
                 arrayList_recent_coins.add(userCoins.get(i));
-                if(arrayList_recent_coins.size()>3)
+                if(arrayList_recent_coins.size()>3 || i==0)
                 {
                     break;
                 }
-                i--;
-            }while (i>=0);
+            }while (i>0);
 
 
         //Passing data to list recycler view
@@ -121,16 +121,17 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         optionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             public void onItemClick(AdapterView parent, View v, int position, long id){
-
+                Bundle bundle = new Bundle();
                 //Intent collections = new Intent(getContext(), Activity_Collections.class);
                 if(position==0)
                 {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("Task",0);
+
+                    bundle.putInt("Task",2);
                     Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coins,bundle);
                     //collections.putExtra("action","coins");
                 }else if (position==1)
                 {
+                    bundle.putInt("Task", 0);
                     Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Collections);
                     //collections.putExtra("action","collections");
                     //Navigation.findNavController(libraryView).navigate(R.id.action_fragment_Library_to_fragment_Collections);

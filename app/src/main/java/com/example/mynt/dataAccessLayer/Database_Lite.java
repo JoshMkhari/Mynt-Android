@@ -333,8 +333,9 @@ public class Database_Lite extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        Toast.makeText(context,"AddCollection Coin running",Toast.LENGTH_LONG).show();
         int coinID =0;
-        int collectionID = 0;
+        int collectionID;
             try
             {
                  coinID = getAllCoins().size();
@@ -363,8 +364,6 @@ public class Database_Lite extends SQLiteOpenHelper {
                 }
             }catch ( Exception e)
             {
-                Toast.makeText(context,coinID+" size",Toast.LENGTH_LONG).show();
-                Toast.makeText(context,collectionID+" size",Toast.LENGTH_LONG).show();
                 db.close();;
                 return false;
             }
@@ -373,6 +372,7 @@ public class Database_Lite extends SQLiteOpenHelper {
     public boolean addCollection(Model_Collections model_collections) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        Toast.makeText(context,"AddCollection Coin running",Toast.LENGTH_LONG).show();
         try {
             //Collections table
             cv.put(COLUMN_COLLECTION_NAME, model_collections.getCollectionName());
@@ -393,6 +393,7 @@ public class Database_Lite extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        Toast.makeText(context,"AddCollection Coin running",Toast.LENGTH_LONG).show();
 
         /*
         //Year Table

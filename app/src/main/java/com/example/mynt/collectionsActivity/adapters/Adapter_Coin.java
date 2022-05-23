@@ -44,7 +44,7 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
 
     @Override
     public void onBindViewHolder(@NonNull CoinViewHolder holder, int position) {
-        holder.name.setText(coinsList.get(position).getCoinName());
+        holder.name.setText(coinsList.get(position).getValue());
         holder.year.setText(String.valueOf(coinsList.get(position).getYear()));
         //glide for internet images???
 
