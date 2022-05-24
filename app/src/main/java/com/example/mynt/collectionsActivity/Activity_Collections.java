@@ -1,62 +1,34 @@
 package com.example.mynt.collectionsActivity;
 
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
 
 import com.example.mynt.R;
-import com.example.mynt.RecyclerViewInterface;
-import com.example.mynt.coinsActivity.Activity_Coins;
-import com.example.mynt.goalsActivity.Activity_Goals;
 
-import java.util.ArrayList;
-
-public class Activity_Collections extends AppCompatActivity implements RecyclerViewInterface {
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private ImageButton createCollection;
-
+public class Activity_Collections extends AppCompatActivity {
+    private NavGraph collectionsNav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collections);
-        createCollection = findViewById(R.id.imageview_blockTitle_collections);
 
-        ArrayList<Model_Collections> collectionsList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            collectionsList.add(new Model_Collections("20th Century",9,55,R.drawable.img_two_rand));
-        }
-
-
-        recyclerView = (RecyclerView) findViewById(R.id.all_collectionsList);
-        //recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setHasFixedSize(true);
-
-        layoutManager = new StaggeredGridLayoutManager(1,1);
-        recyclerView.setLayoutManager(layoutManager);
-
-        mAdapter = new Adapter_Collections(collectionsList, this, this);
-        recyclerView.setAdapter(mAdapter);
-
-        createCollection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), Activity_Goals.class);
-                startActivity(i);
-            }
-        });
+        Bundle bundle = new Bundle();
+        bundle.putString("User","Josh");
+        //NavHostFragment.create(R.navigation.collection_navigation, bundle);
     }
 
-    //implementing RecyclerViewInterface
     @Override
-    public void onItemClick(int position) {
-        Intent i = new Intent(getApplicationContext(), Activity_Coins.class);
-        startActivity(i);
+    public void onBackPressed()
+    {
+        //Intent intent = new Intent(this,Activity_Collections.class);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        //startActivity(intent);
     }
 }

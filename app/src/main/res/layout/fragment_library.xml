@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorOnPrimary"
-    tools:context=".mainActivity.Fragment_Library"
+    tools:context="com.example.mynt.collectionsActivity.Fragment_Library"
     android:orientation="vertical"
     android:padding="10dp">
 

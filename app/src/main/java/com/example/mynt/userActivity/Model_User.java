@@ -1,6 +1,6 @@
 package com.example.mynt.userActivity;
 
-import com.example.mynt.collectionsActivity.Model_Collections;
+import com.example.mynt.collectionsActivity.models.Model_Collections;
 
 import java.util.ArrayList;
 
@@ -12,10 +12,6 @@ public class Model_User {
     private int profilePicture;
     private ArrayList<Model_Collections> collectionsArrayList;
 
-    public Model_User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
     public String getUserName() {
         return userName;
     }
@@ -47,8 +43,6 @@ public class Model_User {
     public void setProfilePicture(int profilePicture) {
         this.profilePicture = profilePicture;
     }
-
-
 
     public String getPassword() {
         return password;

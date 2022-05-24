@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".userActivity.Fragment_Register"
+    tools:context="com.example.mynt.userActivity.Fragment_Register"
     android:padding="15dp"
     android:background="?colorOnPrimary">
 

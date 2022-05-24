@@ -13,8 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.mynt.Activity_Main;
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.Activity_Collections;
+import com.example.mynt.dataAccessLayer.Database_Lite;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,17 +47,25 @@ public class Fragment_Register extends Fragment {
             @Override
             public void onClick(View v) {
                 //intent take me to library
-                Intent i = new Intent(getContext(), Activity_Main.class);
+                Intent i = new Intent(getContext(), Activity_Collections.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
-                //Navigation.findNavController(registerView).navigate(R.id.action_login);
             }
         });
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Signing Up Code here",Toast.LENGTH_LONG).show();
+                Database_Lite db = new Database_Lite(getContext());
+                Model_User model_user = new Model_User();
+                model_user.setEmail(email.getText().toString());
+                model_user.setPassword(password.getText().toString());
+                if(db.addUser(model_user))
+                {
+                    Intent i = new Intent(getContext(), Activity_Collections.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                }
             }
         });
 

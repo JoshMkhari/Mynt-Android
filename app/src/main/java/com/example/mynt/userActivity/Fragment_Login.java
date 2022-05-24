@@ -1,5 +1,6 @@
 package com.example.mynt.userActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,6 +14,10 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.Activity_Collections;
+import com.example.mynt.dataAccessLayer.Database_Lite;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +44,27 @@ public class Fragment_Login extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Login Code here",Toast.LENGTH_LONG).show();
+
+
+                Database_Lite db = new Database_Lite(getContext());
+                Model_User model_user = new Model_User();
+                model_user.setEmail(email.getText().toString());
+                model_user.setPassword(password.getText().toString());
+                ArrayList<Model_User> users = new ArrayList<>();
+                users = db.getAllUsers();
+
+                for (int i=0; i<users.size(); i++) {
+                    if(users.get(i).getUserName().equals(model_user.getUserName()))
+                    {
+                        if(users.get(i).getPassword().equals(model_user.getPassword()))
+                        {
+                            Intent login = new Intent(getContext(), Activity_Collections.class);
+                            login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(login);
+                        }
+                    }
+                }
+                    Toast.makeText(getContext(),"Email and password combination false or email not registered",Toast.LENGTH_LONG).show();
             }
         });
         close.setOnClickListener(new View.OnClickListener() {

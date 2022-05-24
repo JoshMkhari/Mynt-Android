@@ -63,4 +63,72 @@
     <string name="sign_up_button_text">SIGN UP</string>
     <string name="sign_up_button">Used to sign up a user</string>
     <string name="login_button">Used to login a user</string>
+
+    <string name="add_coin_title">Add Coin</string>
+    <string name="value">Value</string>
+    <string name="add">Add</string>
+    <string name="date">Select Date:</string>
+    <string name="year">Year</string>
+    <string name="collection">Collection</string>
+    <string name="variant">Variant</string>
+    <string name="material">Material</string>
+    <string name="alt_name">Alternate Name</string>
+    <string name="mintage">Mintage</string>
+    <string name="observe">Observe</string>
+    <string name="reverse">Reverse</string>
+
+    <string-array name="Collections">
+        <item>20th Century</item>
+        <item>Roaring 80s</item>
+    </string-array>
+
+    <string-array name="Material">
+        <item>Bimetallic</item>
+        <item>Silver</item>
+        <item>Nickel-plated copper</item>
+        <item>Nickel</item>
+        <item>Bronze-plated Steel</item>
+        <item>Copper-plated Steel</item>
+        <item>Bronze</item>
+        <item>Brass</item>
+        <item>Aluminium-Bronze</item>
+        <item>Gold</item>
+        <item>Platinum</item>
+    </string-array>
+
+    <string-array name="Variants">
+        <item>Proof</item>
+        <item>Brilliant CW privy mark</item>
+        <item>Brilliant Uncirculated</item>
+    </string-array>
+
+    <string-array name="Value">
+        <item>Half Cent</item>
+        <item>One Cent</item>
+        <item>Two and a Half Cent</item>
+        <item>Five Cent</item>
+        <item>Ten Cent</item>
+        <item>Twenty Cent</item>
+        <item>Fifty Cent</item>
+        <item>One Rand</item>
+        <item>Two Rand</item>
+        <item>Five Rand</item>
+        <item>Fifty Rand</item>
+        <item>Tenth Ounce</item>
+        <item>Twentieth Ounce</item>
+        <item>Quarter Ounce</item>
+        <item>Fiftieth Ounce</item>
+        <item>Half Ounce</item>
+        <item>Ounce</item>
+        <item>Two Ounce</item>
+        <item>Five Ounce</item>
+        <item>Kilo</item>
+        <item>Penny</item>
+        <item>Three Pence</item>
+        <item>Six Pence</item>
+        <item>Shilling</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
