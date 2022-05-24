@@ -36,6 +36,7 @@ public class Adapter_HomeActFragment extends FragmentStateAdapter {
                 leaderboard.setArguments(bundle);
                 return leaderboard;
             }
+
             else
             {
                 Fragment_Library library = new Fragment_Library();
@@ -47,6 +48,6 @@ public class Adapter_HomeActFragment extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 2;
     }
 }

@@ -50,7 +50,12 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
 
         //Image
         ContextWrapper cw = new ContextWrapper(context);
+
+        // THIS IS THE PROBLEM
         File directory = cw.getDir("files",Context.MODE_PRIVATE);
+
+
+
         String imageID = coinsList.get(position).getImageId()+".jpg";
         File file = new File(directory,imageID);
         holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
