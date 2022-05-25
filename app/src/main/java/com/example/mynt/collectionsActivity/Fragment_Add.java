@@ -76,9 +76,6 @@ public class Fragment_Add extends Fragment {
         assert getArguments() != null;
         model_user.setUserName(getArguments().getString("User"));
 
-        retrieveImage(getArguments().getInt("ImageID"));
-
-
 
         //Database methods
 
@@ -119,21 +116,36 @@ public class Fragment_Add extends Fragment {
 
         //Database
         localDB = new Database_Lite(getContext());
+        ArrayList<Integer> allCoinsWithCollection = localDB.getAllCoinsWithACollection();
+        ArrayList<Model_Coin> AllCoinsInDatabase = localDB.getAllCoins();
 
-        if(localDB.getAllCoins() != null)
-        {
-            coinID = localDB.getAllCoins().size()+1;
-        }
-        else
+        coinID = AllCoinsInDatabase.size();
+        if(coinID ==0)
         {
             coinID = 1;
         }
+        else
+        {
+            if(allCoinsWithCollection.size() == AllCoinsInDatabase.size() )
+            {
+                coinID = AllCoinsInDatabase.get(AllCoinsInDatabase.size()-1).getCoinID()+1;
+            }
+            else
+            {
+                if(allCoinsWithCollection.size() ==0 )
+                {
+                    coinID = 1;
+                    retrieveImage(1);
+                }else
+                {
+                    retrieveImage(allCoinsWithCollection.get(allCoinsWithCollection.size()-1)+1);
+                }
 
+            }
 
-
+        }
 
         year_Textview.setText("2010");
-
 
         userCollections = new ArrayList<>();
         userCollections.add("Create New Collection");
@@ -390,7 +402,7 @@ public class Fragment_Add extends Fragment {
                     String.valueOf(coinID),
                     datePicker.getText().toString());
             String result = localDB.addCoin(model_coin,spinnerCollection.getSelectedItemPosition());
-            Toast.makeText(getContext(), result + " COIN WAS ADDED", Toast.LENGTH_LONG).show();
+
         }catch (Exception e)
         {
             Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();
@@ -418,10 +430,9 @@ public class Fragment_Add extends Fragment {
     private void retrieveImage(int imageID)
     {
         String name = imageID +".jpg";
-        Toast.makeText(getContext(), "Bool Back", Toast.LENGTH_SHORT).show();
         try{
             Context context = getContext();
-            FileInputStream fis = context.openFileInput("1.jpg");
+            FileInputStream fis = context.openFileInput(name);
             Bitmap b = BitmapFactory.decodeStream(fis);
             userImage.setImageBitmap(b);
             fis.close();
@@ -429,6 +440,10 @@ public class Fragment_Add extends Fragment {
         }
         catch(Exception e){
         }
+
+        //Delete coin
+        localDB.deleteCoin(coinID-1);
+
     }
 }
 
