@@ -44,16 +44,19 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
         int collectionID = collectionsList.get(position).getCollectionID();
 
         Database_Lite db = new Database_Lite(context);
+
         ArrayList<Integer> collectionCoins;
         collectionCoins = db.getAllCoinsInCollection(collectionID);
+
         String coinAmount = collectionCoins.size()+" Coins";
         holder.collectionCoinAmount.setText(coinAmount);
         //glide for internet images???
         holder.coinImage.setBackgroundResource(R.drawable.img_two_rand);
+
         float collectionSize = (float)collectionCoins.size();
         float target = (float)collectionsList.get(position).getGoal();
         int goal = Math.round(collectionSize/target)*100;
-        holder.progressBar.setProgress(goal);
+        holder.progressBar.setProgress(50);
 
         // Here I am just highlighting the background
         //holder.itemView.setBackgroundColor(selected_position == position ? Color.GREEN : Color.TRANSPARENT);

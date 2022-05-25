@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Collections;
+import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.dataAccessLayer.Database_Lite;
@@ -60,9 +61,9 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         collectionsList = new ArrayList<>();
         collectionsList = db.getAllCollections();
         task = getArguments().getInt("Task");
+        int imageID = getArguments().getInt("ImageID");
 
        // model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
-
         recyclerView = collectionsView.findViewById(R.id.all_collectionsList);
 
         recyclerView.setHasFixedSize(true);
@@ -81,6 +82,9 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
 
                 if(task==1)// Creating new Collection and assigning it to a coin
                 {
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("Back",true);
+                    bundle.putInt("ImageID",imageID);
                     Navigation.findNavController(collectionsView).navigateUp();
 
                 }else

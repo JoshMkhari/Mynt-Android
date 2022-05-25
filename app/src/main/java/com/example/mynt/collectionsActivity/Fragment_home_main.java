@@ -42,12 +42,14 @@ public class Fragment_home_main extends Fragment {
         fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getEmail());
         viewPager2_main.setAdapter((fragmentAdapter));
 
+
         //Bundle extras = getIntent().getExtras();
         //if (extras != null) {
            // int page = extras.getInt("page");
            // viewPager2_main.setCurrentItem(1);
             //The key argument here must match that used in the other activity
         //}
+
 
         return home;
     }

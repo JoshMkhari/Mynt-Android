@@ -16,9 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.dataAccessLayer.Database_Lite;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -63,6 +66,7 @@ public class Fragment_Goal extends Fragment {
         float target = (float)model_goals.getTarget();
         float progress =  coins /target ;
         Toast.makeText(getContext(), task + " this is it", Toast.LENGTH_SHORT).show();
+
         goalProgress_progressBar.setProgress(Math.round(progress));
         //model_goals = new Model_Goals(collectionName,numCoins,Integer.parseInt(target_Edittext.getText().toString()));
         //1000000 GoalsPage_add GoalsPage_subtract GoalsPage_GoalValue
@@ -81,6 +85,7 @@ public class Fragment_Goal extends Fragment {
                 {
                     Bundle bundle = new Bundle();
                     bundle.putString("User", getArguments().getString("User"));
+
                     Database_Lite localDB = new Database_Lite(getContext());
 
                     Model_Collections model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
@@ -89,7 +94,10 @@ public class Fragment_Goal extends Fragment {
                     if(task==1)// Creating new Collection and assigning it to a coin
                     {
                         Toast.makeText(getContext(), "Running new", Toast.LENGTH_SHORT).show();
-                        localDB.addCollectionCoin(0);
+                        //Get latest collection ID
+                        ArrayList<Model_Collections> AllCollections = localDB.getAllCollections();
+                        Toast.makeText(getContext(),AllCollections.size()+" num collections", Toast.LENGTH_SHORT).show();
+                        localDB.addCollectionCoin(AllCollections.size());
                     }
                     Intent home = new Intent(getContext(),Activity_Collections.class);
                     //home.putExtra("View","library");

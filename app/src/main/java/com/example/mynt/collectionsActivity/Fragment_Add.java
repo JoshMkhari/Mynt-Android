@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -40,12 +41,14 @@ import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.userActivity.Model_User;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Fragment_Add extends Fragment {
+
     private Spinner spinnerValue, spinnerMaterial, spinnerVariant, spinnerCollection;
     private SeekBar yearBar;
     private EditText year_Textview, alternate_Textview, mintage_Textview, observe_Textview, reverse_Textview;
@@ -72,6 +75,12 @@ public class Fragment_Add extends Fragment {
         model_user = new Model_User();
         assert getArguments() != null;
         model_user.setUserName(getArguments().getString("User"));
+        boolean boolBack  = getArguments().getBoolean("Back");
+        if(boolBack)
+        {
+            retrieveImage(getArguments().getInt("ImageID"));
+        }
+
 
         //Database methods
 
@@ -115,11 +124,11 @@ public class Fragment_Add extends Fragment {
 
         if(localDB.getAllCoins() != null)
         {
-            coinID = localDB.getAllCoins().size();
+            coinID = localDB.getAllCoins().size()+1;
         }
         else
         {
-            coinID = 0;
+            coinID = 1;
         }
 
 
@@ -187,6 +196,7 @@ public class Fragment_Add extends Fragment {
                                 Bundle bundle = new Bundle();
                                 bundle.putString("User", "To be set");
                                 bundle.putInt("Task", 1);
+                                bundle.putInt("ImageID",coinID);
                                 Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
                             }else
                             {
@@ -381,7 +391,8 @@ public class Fragment_Add extends Fragment {
                     spinnerValue.getSelectedItem().toString(),
                     String.valueOf(coinID),
                     datePicker.getText().toString());
-            localDB.addCoin(model_coin,spinnerCollection.getSelectedItemPosition());
+            String result = localDB.addCoin(model_coin,spinnerCollection.getSelectedItemPosition());
+            Toast.makeText(getContext(), result + " COIN WAS ADDED", Toast.LENGTH_LONG).show();
         }catch (Exception e)
         {
             Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();
@@ -403,6 +414,21 @@ public class Fragment_Add extends Fragment {
         } catch (IOException e) {
 
             return false;
+        }
+    }
+
+    private void retrieveImage(int imageID)
+    {
+        String name = imageID +".jpg";
+        try{
+            Context context = getContext();
+            FileInputStream fis = context.openFileInput(name);
+            Bitmap b = BitmapFactory.decodeStream(fis);
+            userImage.setImageBitmap(b);
+            fis.close();
+
+        }
+        catch(Exception e){
         }
     }
 }

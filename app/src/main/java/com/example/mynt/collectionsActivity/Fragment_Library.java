@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.example.mynt.RecyclerViewInterface;
@@ -58,6 +59,39 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         //String email = getArguments().getString("userEmail");
         String email = "josh";
         Database_Lite db = new Database_Lite(getContext());
+
+        ArrayList<Integer> allCoinsWithCollection = db.getAllCoinsWithACollection();
+        ArrayList<Model_Coin> AllCoinsInDatabase = db.getAllCoins();
+        Toast.makeText(getContext(), AllCoinsInDatabase.size() + " AllCoinsInDatabase", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), allCoinsWithCollection.size() + " allCoinsWithCollection", Toast.LENGTH_SHORT).show();
+        boolean found;
+        if(allCoinsWithCollection.size() != AllCoinsInDatabase.size() )
+        {
+            for (int i=0; i<AllCoinsInDatabase.size(); i++)
+            {
+                found = false;
+                for (int b=0; b<allCoinsWithCollection.size(); b++)
+                {
+                    if(AllCoinsInDatabase.get(i).getCoinID() == allCoinsWithCollection.get(b))
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found)
+                {
+                    //delete current coin from database
+                    db.deleteCoin(AllCoinsInDatabase.get(i).getCoinID());;
+
+                    //Delete image from files
+                    //imageID.add(AllCoinsInDatabase.get(i).getImageId());
+                }
+            }
+        }
+
+
+
+
 
         Model_User user = new Model_User();
 
