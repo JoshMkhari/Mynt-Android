@@ -21,6 +21,7 @@ import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
+import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
@@ -61,6 +62,8 @@ public class Fragment_Goal extends Fragment {
         assert getArguments() != null;
         model_goals = new Model_Goals(getArguments().getString("Collection Name"),getArguments().getInt("Coins"),getArguments().getInt("Goal"));
         int task = getArguments().getInt("Task");
+        Model_User model_user = new Model_User();
+        model_user.setEmail(getArguments().getString("User"));
 
         collectionName_textView.setText(model_goals.getCollectionName());
         numCoinsInCollection_textView.setText(String.valueOf(model_goals.getNumCoins()));
@@ -145,19 +148,28 @@ public class Fragment_Goal extends Fragment {
                 if(Integer.parseInt(target_Edittext.getText().toString())!=0)
                 {
                     Bundle bundle = new Bundle();
-                    bundle.putString("User", getArguments().getString("User"));
+                    bundle.putString("User", model_user.getEmail());
 
                     Database_Lite localDB = new Database_Lite(getContext());
 
                     Model_Collections model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
-                    localDB.addCollection(model_collections);
+                    localDB.addCollection(model_collections,model_user);
                     //Add collection to database for user
                     if(task==1)// Creating new Collection and assigning it to a coin
                     {
                         Toast.makeText(getContext(), "Running new", Toast.LENGTH_SHORT).show();
                         //Get latest collection ID
+                        ArrayList<Integer> userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
                         ArrayList<Model_Collections> allCollections = localDB.getAllCollections();
-                        localDB.addCollectionCoin(allCollections.get(allCollections.size()-1).getCollectionID());
+
+                        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
+
+                        for (int i=0; i<allCollections.size(); i++)
+                        {
+                            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
+                                allUserCollections.add(allCollections.get(i));
+                        }
+                        localDB.addCollectionCoin(allUserCollections.get(allUserCollections.size()-1).getCollectionID());
                     }
                     Intent home = new Intent(getContext(),Activity_Collections.class);
                     //home.putExtra("View","library");

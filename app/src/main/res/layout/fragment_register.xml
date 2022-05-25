@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mynt.userActivity.Fragment_Register"
+    tools:context="com.example.mynt.collectionsActivity.Fragment_Register"
     android:padding="15dp"
     android:background="?colorOnPrimary">
 
@@ -125,10 +125,10 @@
     <ImageView
         android:layout_width="50dp"
         android:layout_height="45dp"
-        android:layout_marginStart="20dp"
         android:background="@drawable/img_login_button"
         android:contentDescription="@string/login_icon"
         app:layout_constraintBottom_toBottomOf="@+id/RegisterLoginEmail_Button"
+        app:layout_constraintEnd_toStartOf="@+id/textView13"
         app:layout_constraintStart_toStartOf="@+id/RegisterLoginEmail_Button"
         app:layout_constraintTop_toTopOf="@+id/RegisterLoginEmail_Button"
         tools:ignore="ImageContrastCheck" />
@@ -146,6 +146,7 @@
         app:layout_constraintTop_toBottomOf="@+id/SignEmail_Button" />
 
     <TextView
+        android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login_button_text"
@@ -158,16 +159,16 @@
         app:layout_constraintTop_toTopOf="@+id/RegisterLoginEmail_Button"
         tools:ignore="TextContrastCheck" />
 
+
     <ImageButton
         android:id="@+id/RegisterLoginEmail_Button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="55dp"
         android:background="@drawable/ic_title_block_shape"
         android:contentDescription="@string/login_button"
-        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.642"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SignUpOr_textView"
         tools:ignore="ImageContrastCheck" />

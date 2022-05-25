@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -36,10 +35,9 @@ import android.widget.Toast;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
-import com.example.mynt.collectionsActivity.models.Model_UserCoin;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
-import com.example.mynt.userActivity.Model_User;
+import com.example.mynt.collectionsActivity.models.Model_User;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -74,7 +72,7 @@ public class Fragment_Add extends Fragment {
         //Retrieve bundles
         model_user = new Model_User();
         assert getArguments() != null;
-        model_user.setUserName(getArguments().getString("User"));
+        model_user.setEmail(getArguments().getString("User"));
 
 
         //Database methods
@@ -114,9 +112,27 @@ public class Fragment_Add extends Fragment {
         //Listeners
         setUpListeners();
 
+
         //Database
         localDB = new Database_Lite(getContext());
-        ArrayList<Integer> allCoinsWithCollection = localDB.getAllCoinsWithACollection();
+        ArrayList<Integer> userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
+        ArrayList<Model_Collections> allCollections = localDB.getAllCollections();
+
+        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
+
+        for (int i=0; i<allCollections.size(); i++)
+        {
+            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
+                allUserCollections.add(allCollections.get(i));
+        }
+
+        ArrayList<Integer> onlyCollections = new ArrayList<>();
+
+        for (int i=0; allUserCollections.size()>0;i++)
+        {
+            onlyCollections.add(allUserCollections.get(i).getCollectionID());
+        }
+        ArrayList<Integer> allCoinsWithCollection = localDB.getAllCoinsWithACollection(onlyCollections);
         ArrayList<Model_Coin> AllCoinsInDatabase = localDB.getAllCoins();
 
         coinID = AllCoinsInDatabase.size();
@@ -149,12 +165,12 @@ public class Fragment_Add extends Fragment {
 
         userCollections = new ArrayList<>();
         userCollections.add("Create New Collection");
-        ArrayList<Model_Collections> collections;
-        collections = localDB.getAllCollections();
 
-        for (int i=0; i<collections.size(); i++)
+
+
+        for (int i=0; i<allUserCollections.size(); i++)
         {
-            userCollections.add(collections.get(i).getCollectionName());
+            userCollections.add(allUserCollections.get(i).getCollectionName());
 
         }
         //for loop to add user collections here

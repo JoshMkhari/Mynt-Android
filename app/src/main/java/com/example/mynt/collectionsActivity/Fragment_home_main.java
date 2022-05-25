@@ -9,11 +9,10 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.adapters.Adapter_HomeActFragment;
-import com.example.mynt.userActivity.Model_User;
+import com.example.mynt.collectionsActivity.models.Model_User;
 
 /**
  * A simple {@link Fragment} subclass.

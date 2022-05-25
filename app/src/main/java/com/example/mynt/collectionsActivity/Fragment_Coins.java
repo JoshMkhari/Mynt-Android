@@ -18,6 +18,8 @@ import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coins;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
+import com.example.mynt.collectionsActivity.models.Model_Collections;
+import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
@@ -45,6 +47,8 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
         assert getArguments() != null;
         task = getArguments().getInt("Task");
         String blockTitle = getArguments().getString("Collection Name");
+        Model_User model_user = new Model_User();
+        model_user.setEmail(getArguments().getString("User"));
         collectionID = getArguments().getInt("CollectionID");
 
         Database_Lite db = new Database_Lite(getContext());
@@ -53,13 +57,38 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
 
         ArrayList<Model_Coin> dbCoins;
         dbCoins = db.getAllCoins();
+        //get all collections for a user
+        //get all collectionCoins
+        //then match correct coins
+
+        ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(model_user);
+        ArrayList<Model_Collections> allCollections = db.getAllCollections();
+
+        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
+
+        for (int i=0; i<allCollections.size(); i++)
+        {
+            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
+                allUserCollections.add(allCollections.get(i));
+        }
         coinIDs = new ArrayList<>();
         if(task == 0 || task ==2) //All Coins
         {
             pageTitle_textView.setText(R.string.coins_title);
             collectionName_textView.setText(R.string.all_coins_block_title);
+            for (int i=0; i<allUserCollections.size(); i++)
+            {
+                for (int s=0; s<dbCoins.size(); s++) {
+                    if(allUserCollections.get(i).getCollectionID()==dbCoins.get(s).getCoinID())
+                    {
+                        coinsList.add(dbCoins.get(s));
+                        //add final list here
+                        coinIDs.add(dbCoins.get(s).getCoinID());
+                        break;
+                    }
+                }
 
-            coinsList.addAll(dbCoins);
+            }
         }else//For specific collection
         {
             pageTitle_textView.setText(R.string.collections_title);
@@ -72,6 +101,7 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
                     if(collectionCoins.get(i)==dbCoins.get(s).getCoinID())
                     {
                         coinsList.add(dbCoins.get(s));
+                        //add final list here
                         coinIDs.add(dbCoins.get(s).getCoinID());
                         break;
                     }
@@ -133,13 +163,13 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
         {
             position++;
             bundle.putInt("Task", task);
-            bundle.putInt("CoinID", position);
+            bundle.putInt("CoinID", coinIDs.get(position));
         }
         else if (task==2)
         {
             position++;
             bundle.putInt("Task", task);
-            bundle.putInt("CoinID", position);
+            bundle.putInt("CoinID", coinIDs.get(position));
         }else
         {
             bundle.putInt("Task", task);

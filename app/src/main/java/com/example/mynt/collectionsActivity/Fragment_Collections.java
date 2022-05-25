@@ -25,6 +25,7 @@ import com.example.mynt.collectionsActivity.adapters.Adapter_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
+import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
@@ -58,9 +59,23 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         back = collectionsView.findViewById(R.id.collections_back);
         collectionName = collectionsView.findViewById(R.id.CollectionNameEditText);
 
-        collectionsList = new ArrayList<>();
-        collectionsList = db.getAllCollections();
+
         task = getArguments().getInt("Task");
+        Model_User model_user = new Model_User();
+        model_user.setEmail(getArguments().getString("User"));
+
+        ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(model_user);
+        ArrayList<Model_Collections> allCollections = db.getAllCollections();
+
+        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
+
+        for (int i=0; i<allCollections.size(); i++)
+        {
+            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
+                allUserCollections.add(allCollections.get(i));
+        }
+
+        collectionsList = allUserCollections;
         int imageID = getArguments().getInt("ImageID");
 
        // model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
@@ -104,8 +119,8 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
                     bundle.putString("Collection Name", collectionName.getText().toString());
                     bundle.putInt("Coins", 0);;
                     bundle.putInt("Goal", 0);;
-                    assert getArguments() != null;
                     bundle.putInt("Task",task);
+                    bundle.putString("User",model_user.getEmail());
                     Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
                 }
                 else
