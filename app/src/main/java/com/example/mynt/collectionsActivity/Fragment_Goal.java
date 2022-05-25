@@ -95,9 +95,8 @@ public class Fragment_Goal extends Fragment {
                     {
                         Toast.makeText(getContext(), "Running new", Toast.LENGTH_SHORT).show();
                         //Get latest collection ID
-                        ArrayList<Model_Collections> AllCollections = localDB.getAllCollections();
-                        Toast.makeText(getContext(),AllCollections.size()+" num collections", Toast.LENGTH_SHORT).show();
-                        localDB.addCollectionCoin(AllCollections.size());
+                        ArrayList<Model_Collections> allCollections = localDB.getAllCollections();
+                        localDB.addCollectionCoin(allCollections.get(allCollections.size()-1).getCollectionID());
                     }
                     Intent home = new Intent(getContext(),Activity_Collections.class);
                     //home.putExtra("View","library");

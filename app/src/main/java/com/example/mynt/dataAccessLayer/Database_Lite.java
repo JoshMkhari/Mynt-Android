@@ -53,6 +53,7 @@ public class Database_Lite extends SQLiteOpenHelper {
     private static final String USER_TABLE = "USER_TABLE";
     private static final String COLUMN_USER_NAME = "USER";
     private static final String COLUMN_PASSWORD = "PASSWORD";
+    private  static final String COIN_ID = "ID";
 
 
     //Year Table
@@ -89,7 +90,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         db.execSQL(tableStatement);
 
         //Coin Table
-        tableStatement = ("CREATE TABLE " + COIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_ALT_NAME + " TEXT, "
+        tableStatement = ("CREATE TABLE " + COIN_TABLE + "(" + COIN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_ALT_NAME + " TEXT, "
                 + COLUMN_MINTAGE + " INTEGER, " + COLUMN_OBSERVE + " TEXT, " + COLUMN_REVERSE + " TEXT, "+ COLUMN_IMAGE + " TEXT, "
                 + COLUMN_DATE_TAKEN + " TEXT, " + COLUMN_VALUE_FK + " REAL, "
                 + COLUMN_YEAR_FK + " INTEGER, " + COLUMN_VARIETY_FK + " INTEGER, " + COLUMN_MATERIAL_FK + " INTEGER, "
@@ -108,7 +109,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         tableStatement = ("CREATE TABLE " + COLLECTIONS_COIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_COLLECTION_FK
                 + " INTEGER, " + COLUMN_COIN_FK + " INTEGER, "
                 + "FOREIGN KEY (" + COLUMN_COLLECTION_FK + ") REFERENCES "+ COLLECTION_TABLE +"(ID) ,"
-                + "FOREIGN KEY (" + COLUMN_COIN_FK + ") REFERENCES "+ COIN_TABLE +"(ID));");
+                + "FOREIGN KEY (" + COLUMN_COIN_FK + ") REFERENCES "+ COIN_TABLE + "(" + COIN_ID +"));");
         db.execSQL(tableStatement);
 
         ContentValues cv = new ContentValues();
@@ -525,6 +526,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         try
         {
             //Coin Table
+            cv.put(COIN_ID, coin.getCoinID());
             cv.put(COLUMN_ALT_NAME,coin.getAlternateName());
             cv.put(COLUMN_DATE_TAKEN,coin.getDateTaken());
             cv.put(COLUMN_MINTAGE,coin.getMintage());

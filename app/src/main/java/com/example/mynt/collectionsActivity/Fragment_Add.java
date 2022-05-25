@@ -132,10 +132,10 @@ public class Fragment_Add extends Fragment {
             }
             else
             {
-                if(allCoinsWithCollection.size() ==0 )
+                if(allCoinsWithCollection.size() == 0 )
                 {
                     coinID = 1;
-                    retrieveImage(1);
+                    retrieveImage(coinID);
                 }else
                 {
                     retrieveImage(allCoinsWithCollection.get(allCoinsWithCollection.size()-1)+1);
@@ -401,6 +401,7 @@ public class Fragment_Add extends Fragment {
                     spinnerValue.getSelectedItem().toString(),
                     String.valueOf(coinID),
                     datePicker.getText().toString());
+            model_coin.setCoinID(coinID);
             String result = localDB.addCoin(model_coin,spinnerCollection.getSelectedItemPosition());
 
         }catch (Exception e)
@@ -442,8 +443,9 @@ public class Fragment_Add extends Fragment {
         }
 
         //Delete coin
-        localDB.deleteCoin(coinID-1);
+        localDB.deleteCoin(coinID);
 
+        requireContext().deleteFile(name);
     }
 }
 
