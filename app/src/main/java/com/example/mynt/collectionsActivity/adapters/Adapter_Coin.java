@@ -2,7 +2,10 @@ package com.example.mynt.collectionsActivity.adapters;
 
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +23,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 
 public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHolder>{
@@ -52,11 +57,25 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
         ContextWrapper cw = new ContextWrapper(context);
 
         // THIS IS THE PROBLEM
-        File directory = cw.getDir("files",Context.MODE_PRIVATE);
+        String name = coinsList.get(position).getCoinID() +".jpg";
+        try{
+            FileInputStream fis = context.openFileInput(name);
+            Bitmap b = BitmapFactory.decodeStream(fis);
+            holder.coinImage.setImageBitmap(b);
+            //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
+            fis.close();
+            Log.d("Easy", "It worked");
+        }
+        catch(Exception e){
+;
+        }
 
-        String imageID = coinsList.get(position).getImageId()+".jpg";
-        File file = new File(directory,imageID);
-        holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
+        //File directory = cw.getDir("files",Context.MODE_PRIVATE);
+
+        //String imageID = coinsList.get(position).getImageId()+".jpg";
+       // File file = new File(directory,imageID);
+
+        //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
 
         // Here I am just highlighting the background
         //holder.itemView.setBackgroundColor(selected_position == position ? Color.GREEN : Color.TRANSPARENT);

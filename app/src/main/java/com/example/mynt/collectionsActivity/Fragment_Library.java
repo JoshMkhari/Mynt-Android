@@ -62,8 +62,6 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
 
         ArrayList<Integer> allCoinsWithCollection = db.getAllCoinsWithACollection();
         ArrayList<Model_Coin> AllCoinsInDatabase = db.getAllCoins();
-        Toast.makeText(getContext(), AllCoinsInDatabase.size() + " AllCoinsInDatabase", Toast.LENGTH_SHORT).show();
-        Toast.makeText(getContext(), allCoinsWithCollection.size() + " allCoinsWithCollection", Toast.LENGTH_SHORT).show();
         boolean found;
         if(allCoinsWithCollection.size() != AllCoinsInDatabase.size() )
         {
