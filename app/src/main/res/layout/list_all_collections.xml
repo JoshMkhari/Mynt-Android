@@ -24,8 +24,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/coin_background_imageview_collections"
         app:layout_constraintEnd_toEndOf="@+id/coin_background_imageview_collections"
         app:layout_constraintStart_toStartOf="@+id/coin_background_imageview_collections"
-        app:layout_constraintTop_toTopOf="@+id/coin_background_imageview_collections"
-        app:srcCompat="@drawable/img_two_rand" />
+        app:layout_constraintTop_toTopOf="@+id/coin_background_imageview_collections" />
 
     <TextView
         android:layout_marginTop="10dp"

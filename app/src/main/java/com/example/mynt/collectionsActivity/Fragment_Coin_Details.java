@@ -2,6 +2,8 @@ package com.example.mynt.collectionsActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,10 +18,11 @@ import android.widget.TextView;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
-import com.example.mynt.collectionsActivity.models.Model_Coins_List;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Fragment_Coin_Details extends Fragment {
 
@@ -59,7 +62,7 @@ public class Fragment_Coin_Details extends Fragment {
                 break;
             }
         }
-        coinImage.setBackgroundResource(R.drawable.img_two_rand);
+
         assert model_coin != null;
         mintage.setText(String.valueOf(model_coin.getMintage()));
         observe.setText(model_coin.getObserve());
@@ -69,6 +72,18 @@ public class Fragment_Coin_Details extends Fragment {
         String coinTitle = model_coin.getValue()+", " + model_coin.getYear();
         pageTitle.setText(coinTitle);
         points.setText(String.valueOf(1000));
+
+        String name = model_coin.getCoinID() +".jpg";
+        try{
+            FileInputStream fis = requireContext().openFileInput(name);
+            Bitmap b = BitmapFactory.decodeStream(fis);
+            coinImage.setImageBitmap(b);
+            //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
+            fis.close();
+        }
+        catch(Exception e){
+            ;
+        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

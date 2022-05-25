@@ -13,14 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coins;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
-import com.example.mynt.collectionsActivity.models.Model_Coins_List;
-import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
@@ -52,7 +49,7 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
 
         Database_Lite db = new Database_Lite(getContext());
 
-        ArrayList<Model_Coins_List> coinsList = new ArrayList<>();
+        ArrayList<Model_Coin> coinsList = new ArrayList<>();
 
         ArrayList<Model_Coin> dbCoins;
         dbCoins = db.getAllCoins();
@@ -62,14 +59,7 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
             pageTitle_textView.setText(R.string.coins_title);
             collectionName_textView.setText(R.string.all_coins_block_title);
 
-            for (int i=0; i<dbCoins.size(); i++)
-            {
-                coinsList.add(new Model_Coins_List( R.drawable.img_app_logo,
-                        dbCoins.get(i).getValue(),
-                        dbCoins.get(i).getDateTaken(),
-                        "South Africa",
-                        dbCoins.get(i).getYear()));
-            }
+            coinsList.addAll(dbCoins);
         }else//For specific collection
         {
             pageTitle_textView.setText(R.string.collections_title);
@@ -81,11 +71,7 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
                 for (int s=0; s<dbCoins.size(); s++) {
                     if(collectionCoins.get(i)==dbCoins.get(s).getCoinID())
                     {
-                        coinsList.add(new Model_Coins_List( R.drawable.img_app_logo,
-                                dbCoins.get(s).getValue(),
-                                dbCoins.get(s).getDateTaken(),
-                                "South Africa",
-                                dbCoins.get(s).getYear()));
+                        coinsList.add(dbCoins.get(s));
                         coinIDs.add(dbCoins.get(s).getCoinID());
                         break;
                     }

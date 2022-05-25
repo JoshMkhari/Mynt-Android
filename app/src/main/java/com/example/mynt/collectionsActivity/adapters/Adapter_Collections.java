@@ -55,8 +55,8 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
 
         float collectionSize = (float)collectionCoins.size();
         float target = (float)collectionsList.get(position).getGoal();
-        int goal = Math.round(collectionSize/target)*100;
-        holder.progressBar.setProgress(50);
+        float goal = collectionSize/target*100;
+        holder.progressBar.setProgress(Math.round(goal));
 
         // Here I am just highlighting the background
         //holder.itemView.setBackgroundColor(selected_position == position ? Color.GREEN : Color.TRANSPARENT);

@@ -33,7 +33,6 @@
         app:layout_constraintEnd_toEndOf="@+id/imageview_coin_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img_two_rand"
         android:contentDescription="@string/coin_image" />
 
     <TextView

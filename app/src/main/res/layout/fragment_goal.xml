@@ -39,7 +39,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:background="?colorOnPrimary"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingHorizontal="10dp">
 
         <TextView
             android:layout_margin="20dp"
@@ -174,11 +175,11 @@
 
         <EditText
             android:id="@+id/GoalsPage_GoalValue"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:inputType="number"
-            android:ems="8"
+            android:ems="5"
             android:textSize="20sp"
             android:textStyle="bold"
             android:text=""
