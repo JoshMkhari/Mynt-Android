@@ -64,7 +64,6 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
             holder.coinImage.setImageBitmap(b);
             //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
             fis.close();
-            Log.d("Easy", "It worked");
         }
         catch(Exception e){
 ;

@@ -75,11 +75,9 @@ public class Fragment_Add extends Fragment {
         model_user = new Model_User();
         assert getArguments() != null;
         model_user.setUserName(getArguments().getString("User"));
-        boolean boolBack  = getArguments().getBoolean("Back");
-        if(boolBack)
-        {
-            retrieveImage(getArguments().getInt("ImageID"));
-        }
+
+        retrieveImage(getArguments().getInt("ImageID"));
+
 
 
         //Database methods
@@ -420,9 +418,10 @@ public class Fragment_Add extends Fragment {
     private void retrieveImage(int imageID)
     {
         String name = imageID +".jpg";
+        Toast.makeText(getContext(), "Bool Back", Toast.LENGTH_SHORT).show();
         try{
             Context context = getContext();
-            FileInputStream fis = context.openFileInput(name);
+            FileInputStream fis = context.openFileInput("1.jpg");
             Bitmap b = BitmapFactory.decodeStream(fis);
             userImage.setImageBitmap(b);
             fis.close();

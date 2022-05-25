@@ -30,6 +30,7 @@ import com.example.mynt.userActivity.Activity_User;
 import com.example.mynt.userActivity.Model_User;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,7 +82,9 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
                     //delete current coin from database
                     db.deleteCoin(AllCoinsInDatabase.get(i).getCoinID());;
 
+                    String fileName = AllCoinsInDatabase.get(i).getCoinID() + ".jpg";
                     //Delete image from files
+                    requireContext().deleteFile(fileName);
                     //imageID.add(AllCoinsInDatabase.get(i).getImageId());
                 }
             }

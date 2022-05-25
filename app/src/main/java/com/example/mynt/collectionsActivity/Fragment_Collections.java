@@ -82,9 +82,6 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
 
                 if(task==1)// Creating new Collection and assigning it to a coin
                 {
-                    Bundle bundle = new Bundle();
-                    bundle.putBoolean("Back",true);
-                    bundle.putInt("ImageID",imageID);
                     Navigation.findNavController(collectionsView).navigateUp();
 
                 }else
