@@ -1,5 +1,7 @@
 package com.example.mynt.collectionsActivity;
 
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -110,10 +112,10 @@ public class Fragment_Coin_Details extends Fragment implements Interface_Back {
     public void backActivity() {
         if(task==0)// Fragment was accessed home screen
         {
-            Intent home = new Intent(getContext(),Activity_Collections.class);
-            //home.putExtra("View","library");
-            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(home);
+            Bundle bundle = new Bundle();
+            bundle.putInt("StartPage",0);
+            findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
+                    setGraph(R.navigation.collection_navigation,bundle);
 
         }else
         {

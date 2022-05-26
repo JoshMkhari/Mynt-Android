@@ -1,5 +1,7 @@
 package com.example.mynt.collectionsActivity;
 
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
+
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -47,6 +49,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Objects;
 
 public class Fragment_Add extends Fragment implements Interface_Back {
 
@@ -463,9 +466,11 @@ public class Fragment_Add extends Fragment implements Interface_Back {
 
     @Override
     public void backActivity() {
-        Intent home = new Intent(getContext(),Activity_Collections.class);
-        home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(home);
+        Bundle bundle = new Bundle();
+        bundle.putInt("StartPage",1);
+        findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
+                setGraph(R.navigation.collection_navigation,bundle);
+
     }
 }
 

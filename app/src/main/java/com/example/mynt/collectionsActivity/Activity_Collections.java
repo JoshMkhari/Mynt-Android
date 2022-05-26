@@ -14,6 +14,8 @@ import android.util.Log;
 
 import com.example.mynt.R;
 
+import java.util.Objects;
+
 public class Activity_Collections extends AppCompatActivity {
     private NavGraph collectionsNav;
     @Override
@@ -23,7 +25,9 @@ public class Activity_Collections extends AppCompatActivity {
 
         //Check current user
         Bundle bundle = new Bundle();
-        bundle.putString("User","Josh");
+        bundle.putInt("StartPage",1);
+        findNavController(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
+                setGraph(R.navigation.collection_navigation,bundle);
 
         //NavHostFragment.create(R.navigation.collection_navigation, bundle);
     }

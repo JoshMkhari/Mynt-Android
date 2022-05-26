@@ -1,5 +1,7 @@
 package com.example.mynt.collectionsActivity;
 
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -25,6 +27,7 @@ import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Fragment_Coins extends Fragment implements Interface_RecyclerView, Interface_Back {
     private RecyclerView recyclerView;
@@ -170,10 +173,10 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView, 
             Navigation.findNavController(coinsView).navigateUp();
         }else
         {
-            Intent home = new Intent(getContext(),Activity_Collections.class);
-            //home.putExtra("View","library");
-            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(home);
+            Bundle bundle = new Bundle();
+            bundle.putInt("StartPage",0);
+            findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
+                    setGraph(R.navigation.collection_navigation,bundle);
         }
     }
 }

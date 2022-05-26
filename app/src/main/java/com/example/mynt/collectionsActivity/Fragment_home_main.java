@@ -31,11 +31,13 @@ public class Fragment_home_main extends Fragment {
         View home = inflater.inflate(R.layout.fragment_home, container, false);
         viewPager2_main = home.findViewById(R.id.main_act_viewPager2);
         Model_User user = new Model_User();
-
+        assert getArguments() != null;
+        int currentPage = getArguments().getInt("StartPage");
         //Comment
         FragmentManager fragmentManager = getParentFragmentManager();
         fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getEmail());
         viewPager2_main.setAdapter((fragmentAdapter));
+        viewPager2_main.setCurrentItem(currentPage);
 
         return home;
     }

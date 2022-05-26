@@ -1,5 +1,7 @@
 package com.example.mynt.collectionsActivity;
 
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,15 +15,18 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_User;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class Fragment_Register extends Fragment {
+public class Fragment_Register extends Fragment implements Interface_Back {
     private EditText email;
     private EditText password;
     private EditText confirmPassword;
@@ -46,9 +51,7 @@ public class Fragment_Register extends Fragment {
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                Intent home = new Intent(getContext(),Activity_Collections.class);
-                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(home);
+                backActivity();
             }
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
@@ -57,9 +60,7 @@ public class Fragment_Register extends Fragment {
             @Override
             public void onClick(View v) {
                 //intent take me to library
-                Intent i = new Intent(getContext(), Activity_Collections.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(i);
+                backActivity();
             }
         });
 
@@ -88,5 +89,13 @@ public class Fragment_Register extends Fragment {
         });
 
         return registerView;
+    }
+
+    @Override
+    public void backActivity() {
+        Bundle bundle = new Bundle();
+        bundle.putInt("StartPage",0);
+        findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
+                setGraph(R.navigation.collection_navigation,bundle);
     }
 }
