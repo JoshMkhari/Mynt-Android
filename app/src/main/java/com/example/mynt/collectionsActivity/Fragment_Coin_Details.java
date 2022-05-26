@@ -103,6 +103,7 @@ public class Fragment_Coin_Details extends Fragment {
         }
 
 
+        ReturnToMainDetailsPage();
         return details;
     }
     private void ReturnToMainDetailsPage(){
@@ -127,9 +128,5 @@ public class Fragment_Coin_Details extends Fragment {
 
     }
 
-    private void DisplayCoinDetails(){
 
-
-
-    }
 }
