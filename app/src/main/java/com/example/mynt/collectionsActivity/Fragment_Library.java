@@ -59,7 +59,6 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         //Initializing variables
         //String email = getArguments().getString("userEmail");
 
-
         Database_Lite db = new Database_Lite(getContext());
 
         ArrayList<Model_User> users = db.getAllUsers();
@@ -71,12 +70,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
             }
         }
 
-        ArrayList<Integer> onlyCollections = new ArrayList<>();
-
         ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(user);
-        //Toast.makeText(getContext(), userCollectionIDs.size() + "userCollectionIDs size", Toast.LENGTH_SHORT).show();
-        String sizee = userCollectionIDs.size() + " size";
-        Log.d("userCollectionIDs",sizee);
         ArrayList<Model_Collections> allCollections = db.getAllCollections();
 
         ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
@@ -116,12 +110,29 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
             }
         }
 
+        ArrayList<Model_Coin> dbCoins = new ArrayList<>();
+        dbCoins = db.getAllCoins();
+
+        ArrayList<Model_Coin> currentUserCoins = new ArrayList<>();
+
+        ArrayList<Integer> collectionCoins;
+
+        for (int b=0; b<allUserCollections.size(); b++) {
+            collectionCoins = db.getAllCoinsInCollection(allUserCollections.get(b).getCollectionID());
+            for (int i = 0; i < collectionCoins.size(); i++) {
+                for (int s = 0; s < dbCoins.size(); s++) {
+                    if (collectionCoins.get(i) == dbCoins.get(s).getCoinID()) {
+                        currentUserCoins.add(dbCoins.get(s));
+                        //add final list here
+                        break;
+                    }
+                }
+            }
+        }
 
 
 
 
-        ArrayList<Model_Coin> userCoins = new ArrayList<>();
-        userCoins = db.getAllCoins();
 
         optionListView = libraryView.findViewById(R.id.listView_navigation_library);
         loginButton = libraryView.findViewById(R.id.imageButton_userActivity_library);
@@ -132,7 +143,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         arrayList_library_navigation.add(new Model_Library_Options( R.drawable.img_app_logo,
                 getResources().getString(R.string.library_option_coins),
                 0,
-                db.getAllCoins().size()));
+                currentUserCoins.size()));
 
         arrayList_library_navigation.add(new Model_Library_Options( R.drawable.ic_collection_icon,
                 getResources().getString(R.string.library_option_collections),
@@ -144,12 +155,12 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
                 62,
                 62));
 
-        int i=userCoins.size();
+        int i=currentUserCoins.size();
 
         if(i>0)
             do {
                 i--;
-                arrayList_recent_coins.add(userCoins.get(i));
+                arrayList_recent_coins.add(currentUserCoins.get(i));
                 if(arrayList_recent_coins.size()>3 || i==0)
                 {
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,9 +53,11 @@ public class Fragment_Login extends Fragment {
                 model_user.setPassword(password.getText().toString());
                 ArrayList<Model_User> users = new ArrayList<>();
                 users = db.getAllUsers();
+                String size = users.size() + " this";
+                Log.d("loginPage", size);
 
                 for (int i=0; i<users.size(); i++) {
-                    if(users.get(i).getUserName().equals(model_user.getUserName()))
+                    if(users.get(i).getEmail().equals(model_user.getEmail()))
                     {
                         if(users.get(i).getPassword().equals(model_user.getPassword()))
                         {

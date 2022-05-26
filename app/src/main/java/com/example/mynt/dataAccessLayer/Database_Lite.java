@@ -532,15 +532,20 @@ public class Database_Lite extends SQLiteOpenHelper {
         {
             SQLiteDatabase db = this.getWritableDatabase();
             ArrayList<Model_User> users = getAllUsers();
-
+            ContentValues cv = new ContentValues();
             for (int i=0; i<users.size(); i++)
             {
                 if(users.get(i).getState()==1)
                 {
-                    db.execSQL("UPDATE " + USER_TABLE + " SET " + COLUMN_STATE +" = 0" + " WHERE " + COLUMN_USER_EMAIL + " = " + users.get(i).getEmail());
+                    cv.put(COLUMN_STATE, 0);
+                    db.update(USER_TABLE,cv,COLUMN_STATE + "= 1",null);
+                    cv.clear();
+                    break;
                 }
             }
-            db.execSQL("UPDATE " + USER_TABLE + " SET " + COLUMN_STATE +" = 1" + " WHERE " + COLUMN_USER_EMAIL + " = " + model_user.getEmail());
+            cv.put(COLUMN_STATE, 1);
+            db.update(USER_TABLE,cv,COLUMN_USER_EMAIL+"=?",new String[]{model_user.getEmail()});
+            cv.clear();
         }
 
         public boolean addUser(Model_User model_user) {
