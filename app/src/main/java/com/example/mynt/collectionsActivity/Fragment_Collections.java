@@ -153,6 +153,9 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
                     bundle.putInt("Task",task);
                     bundle.putInt("User",model_user.getUserID());
                     Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
+
+                    // Additional User Feedback
+                    Toast.makeText(getContext(),collectionName.getText().toString() + " has been created successfully",Toast.LENGTH_SHORT).show();
                 }
                 else
                 {

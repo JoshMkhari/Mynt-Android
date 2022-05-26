@@ -43,6 +43,9 @@ public class Fragment_Register extends Fragment {
         signUp = registerView.findViewById(R.id.SignEmail_Button);
         close = registerView.findViewById(R.id.RegisterClose_button);
 
+        ReturnToLibrary();
+        SignUp();
+
         return registerView;
     }
 
