@@ -46,6 +46,13 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
     private ArrayList<Model_Collections> collectionsList;
     private View collectionsView;
     private int task;
+    private Database_Lite db;
+    private Model_User model_user;
+    private String userID;
+    private ArrayList<Integer> userCollectionIDs;
+    private ArrayList<Model_Collections> allCollections;
+    private ArrayList<Model_Collections> allUserCollections;
+    private String size;
 
 
     @Override
@@ -54,7 +61,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         // Inflate the layout for this fragment
 
         collectionsView = inflater.inflate(R.layout.fragment_collections, container, false);
-        Database_Lite db = new Database_Lite(getContext());
+        db = new Database_Lite(getContext());
 
         createCollection = collectionsView.findViewById(R.id.imageview_blockTitle_collections);
         back = collectionsView.findViewById(R.id.collections_back);
@@ -62,29 +69,13 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
 
 
         task = getArguments().getInt("Task");
-        Model_User model_user = new Model_User();
+        model_user = new Model_User();
         model_user.setUserID(getArguments().getInt("User"));
 
-        String userID = model_user.getUserID() + " this";
+        userID = model_user.getUserID() + " this";
         Log.d("collections", userID);
 
-        ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(model_user);
-        ArrayList<Model_Collections> allCollections = db.getAllCollections();
-
-        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
-
-        for (int i=0; i<allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                allUserCollections.add(allCollections.get(i));
-        }
-        String sizee = allUserCollections.size() + " this";
-        Log.d("allUserCollections", sizee);
-
-        collectionsList = allUserCollections;
-        int imageID = getArguments().getInt("ImageID");
-
-       // model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
+       //model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
         recyclerView = collectionsView.findViewById(R.id.all_collectionsList);
 
         recyclerView.setHasFixedSize(true);
@@ -94,6 +85,36 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
 
         mAdapter = new Adapter_Collections(collectionsList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
+
+        ReturnToHomePage();
+        CreateCollection();
+        DisplayAllLocalCollections();
+
+        return collectionsView;
+    }
+
+    private void DisplayAllLocalCollections(){
+
+        userCollectionIDs = db.getAllCollectionsForUser(model_user);
+        allCollections = db.getAllCollections();
+
+        allUserCollections = new ArrayList<>();
+
+        for (int i=0; i<allCollections.size(); i++)
+        {
+            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
+                allUserCollections.add(allCollections.get(i));
+        }
+        size = allUserCollections.size() + " this";
+        Log.d("allUserCollections", size);
+
+        collectionsList = allUserCollections;
+        int imageID = getArguments().getInt("ImageID");
+
+
+    }
+
+    private void ReturnToHomePage(){
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +136,10 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
             }
 
         });
+
+    }
+
+    private void CreateCollection(){
 
         createCollection.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,7 +182,8 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
 
         });
 
-        return collectionsView;
+
+
     }
     //implementing RecyclerViewInterface
     @Override

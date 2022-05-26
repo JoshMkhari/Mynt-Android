@@ -23,21 +23,24 @@ public class Fragment_home_main extends Fragment {
     //private TabLayout tabLayout_main;
     private ViewPager2 viewPager2_main;
     private Adapter_HomeActFragment fragmentAdapter;
+    private Model_User user;
+    private View home;
+    private FragmentManager fragmentManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View home = inflater.inflate(R.layout.fragment_home, container, false);
+        home = inflater.inflate(R.layout.fragment_home, container, false);
         viewPager2_main = home.findViewById(R.id.main_act_viewPager2);
-        Model_User user = new Model_User();
+        user = new Model_User();
 
-       // assert getArguments() != null;
+        //assert getArguments() != null;
         //String testuser = getArguments().getString("User");
         //Toast.makeText(getContext(), testuser, Toast.LENGTH_SHORT).show();
 
         //Comment
-        FragmentManager fragmentManager = getParentFragmentManager();
+        fragmentManager = getParentFragmentManager();
         fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getEmail());
         viewPager2_main.setAdapter((fragmentAdapter));
 

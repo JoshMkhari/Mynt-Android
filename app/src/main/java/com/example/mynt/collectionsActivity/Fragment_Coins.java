@@ -32,6 +32,17 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
     private View coinsView;
     private int collectionID,task;
     private ArrayList<Integer> coinIDs;
+    private TextView pageTitle_textView;
+    private TextView collectionName_textView;
+    private String blockTitle;
+    private Model_User model_user;
+    private Database_Lite db;
+    private ArrayList<Model_Coin> coinsList;
+    private ArrayList<Model_Coin> dbCoins;
+    private ArrayList<Integer> userCollectionIDs;
+    private ArrayList<Model_Collections> allCollections;
+    private ArrayList<Model_Collections> allUserCollections;
+    private ArrayList<Integer> collectionCoins;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,78 +50,18 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
         coinsView = inflater.inflate(R.layout.fragment_coins, container, false);
 
 
-        TextView pageTitle_textView = coinsView.findViewById(R.id.textview_title_coins);
-        TextView collectionName_textView = coinsView.findViewById(R.id.textview_blockTitle_coins);
+        pageTitle_textView = coinsView.findViewById(R.id.textview_title_coins);
+        collectionName_textView = coinsView.findViewById(R.id.textview_blockTitle_coins);
         back_imageButton = coinsView.findViewById(R.id.image_button_back_coins);
 
 
         assert getArguments() != null;
         task = getArguments().getInt("Task");
-        String blockTitle = getArguments().getString("Collection Name");
-        Model_User model_user = new Model_User();
+        blockTitle = getArguments().getString("Collection Name");
+        model_user = new Model_User();
         model_user.setUserID(getArguments().getInt("User"));
         collectionID = getArguments().getInt("CollectionID");
 
-        Database_Lite db = new Database_Lite(getContext());
-
-        ArrayList<Model_Coin> coinsList = new ArrayList<>();
-
-        ArrayList<Model_Coin> dbCoins;
-        dbCoins = db.getAllCoins();
-        //get all collections for a user
-        //get all collectionCoins
-        //then match correct coins
-
-        ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(model_user);
-        ArrayList<Model_Collections> allCollections = db.getAllCollections();
-
-        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
-
-        for (int i=0; i<allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                allUserCollections.add(allCollections.get(i));
-        }
-
-        coinIDs = new ArrayList<>();
-        if(task == 0 || task ==2) //All Coins
-        {
-            pageTitle_textView.setText(R.string.coins_title);
-            collectionName_textView.setText(R.string.all_coins_block_title);
-            ArrayList<Integer> collectionCoins;
-
-            for (int b=0; b<allUserCollections.size(); b++) {
-                collectionCoins = db.getAllCoinsInCollection(allUserCollections.get(b).getCollectionID());
-                for (int i = 0; i < collectionCoins.size(); i++) {
-                    for (int s = 0; s < dbCoins.size(); s++) {
-                        if (collectionCoins.get(i) == dbCoins.get(s).getCoinID()) {
-                            coinsList.add(dbCoins.get(s));
-                            //add final list here
-                            coinIDs.add(dbCoins.get(s).getCoinID());
-                            break;
-                        }
-                    }
-                }
-            }
-        }else//For specific collection
-        {
-            pageTitle_textView.setText(R.string.collections_title);
-            collectionName_textView.setText(blockTitle);
-            ArrayList<Integer> collectionCoins;
-            collectionCoins = db.getAllCoinsInCollection(collectionID);
-            for (int i=0; i<collectionCoins.size(); i++)
-            {
-                for (int s=0; s<dbCoins.size(); s++) {
-                    if(collectionCoins.get(i)==dbCoins.get(s).getCoinID())
-                    {
-                        coinsList.add(dbCoins.get(s));
-                        //add final list here
-                        coinIDs.add(dbCoins.get(s).getCoinID());
-                        break;
-                    }
-                }
-            }
-        }
 
 
         recyclerView = (RecyclerView) coinsView.findViewById(R.id.recyclerView_coins);
@@ -121,6 +72,29 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
 
         mAdapter = new Adapter_Coins(coinsList, getContext(),this);
         recyclerView.setAdapter(mAdapter);
+
+
+
+        //ListView myList = new ListView(allCoinsView.getContext());
+        /*
+
+        for (int i = 0; i < coinsBaseList.size(); i++) {
+            coinDate.setText(coinsBaseList.get(i).getDate());
+            myLayout.addView(coinDate);
+            Collections_AllCoins_ListAdapter coinsListAdapter = new Collections_AllCoins_ListAdapter(getContext(),coinsBaseList.get(i).getCoins());
+            for (int s = 0; coinsBaseList.get(i).getCoins().size() < 5; s++) {
+                //myList.addView(coinsListAdapter.getView(s,null,myLayout));
+                myLayout.addView(coinsListAdapter.getView(s,null,myLayout));
+            }
+        }
+        */
+
+        ReturnToCoinPage();
+        DisplayAllLocalCoinsAndCollections();
+        return coinsView;
+    }
+
+    private void ReturnToCoinPage(){
 
         back_imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,20 +114,74 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
             }
         });
 
-        //ListView myList = new ListView(allCoinsView.getContext());
-        /*
+    }
+    private void DisplayAllLocalCoinsAndCollections(){
 
-        for (int i = 0; i < coinsBaseList.size(); i++) {
-            coinDate.setText(coinsBaseList.get(i).getDate());
-            myLayout.addView(coinDate);
-            Collections_AllCoins_ListAdapter coinsListAdapter = new Collections_AllCoins_ListAdapter(getContext(),coinsBaseList.get(i).getCoins());
-            for (int s = 0; coinsBaseList.get(i).getCoins().size() < 5; s++) {
-                //myList.addView(coinsListAdapter.getView(s,null,myLayout));
-                myLayout.addView(coinsListAdapter.getView(s,null,myLayout));
+
+        db = new Database_Lite(getContext());
+
+        coinsList = new ArrayList<>();
+
+
+        dbCoins = db.getAllCoins();
+        //get all collections for a user
+        //get all collectionCoins
+        //then match correct coins
+
+        userCollectionIDs = db.getAllCollectionsForUser(model_user);
+        allCollections = db.getAllCollections();
+
+        allUserCollections = new ArrayList<>();
+
+        for (int i=0; i<allCollections.size(); i++)
+        {
+            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
+                allUserCollections.add(allCollections.get(i));
+        }
+
+        coinIDs = new ArrayList<>();
+        if(task == 0 || task ==2) //All Coins
+        {
+            pageTitle_textView.setText(R.string.coins_title);
+            collectionName_textView.setText(R.string.all_coins_block_title);
+            ;
+
+            for (int b=0; b<allUserCollections.size(); b++) {
+                collectionCoins = db.getAllCoinsInCollection(allUserCollections.get(b).getCollectionID());
+                for (int i = 0; i < collectionCoins.size(); i++) {
+                    for (int s = 0; s < dbCoins.size(); s++) {
+                        if (collectionCoins.get(i) == dbCoins.get(s).getCoinID()) {
+                            coinsList.add(dbCoins.get(s));
+                            //add final list here
+                            coinIDs.add(dbCoins.get(s).getCoinID());
+                            break;
+                        }
+                    }
+                }
+            }
+        }else//For specific collection
+        {
+            pageTitle_textView.setText(R.string.collections_title);
+            collectionName_textView.setText(blockTitle);
+
+            collectionCoins = db.getAllCoinsInCollection(collectionID);
+            for (int i=0; i<collectionCoins.size(); i++)
+            {
+                for (int s=0; s<dbCoins.size(); s++) {
+                    if(collectionCoins.get(i)==dbCoins.get(s).getCoinID())
+                    {
+                        coinsList.add(dbCoins.get(s));
+                        //add final list here
+                        coinIDs.add(dbCoins.get(s).getCoinID());
+                        break;
+                    }
+                }
             }
         }
-        */
-        return coinsView;
+
+
+
+
     }
 
     //implementing RecyclerViewInterface

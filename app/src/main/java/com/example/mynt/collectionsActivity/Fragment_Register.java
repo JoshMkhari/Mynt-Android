@@ -27,6 +27,7 @@ public class Fragment_Register extends Fragment {
     private ImageButton signUp;
     private ImageButton loginWithEmail;
     private ImageButton close;
+    private View registerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +43,10 @@ public class Fragment_Register extends Fragment {
         signUp = registerView.findViewById(R.id.SignEmail_Button);
         close = registerView.findViewById(R.id.RegisterClose_button);
 
+        return registerView;
+    }
+
+    private void ReturnToLibrary(){
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +57,12 @@ public class Fragment_Register extends Fragment {
             }
         });
 
-        signUp.setOnClickListener(new View.OnClickListener() {
+
+    }
+
+    private void SignUp(){
+
+       signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Database_Lite db = new Database_Lite(getContext());
@@ -76,6 +86,9 @@ public class Fragment_Register extends Fragment {
             }
         });
 
-        return registerView;
     }
+
+
+
+
 }

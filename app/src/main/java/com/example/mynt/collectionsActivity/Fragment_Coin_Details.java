@@ -26,32 +26,49 @@ import java.util.Objects;
 
 public class Fragment_Coin_Details extends Fragment {
 
+    private View details;
+    private ImageView coinImage;
+    private TextView mintage;
+    private TextView observe;
+    private TextView reverse;
+    private TextView circulation;
+    private TextView type;
+    private TextView points;
+    private TextView pageTitle;
+    private ImageButton back;
+    private Database_Lite db;
+    private Model_Coin model_coin;
+    private ArrayList<Model_Coin> dbCoin;
+    private ArrayList<Model_Coin> dbCoins;
+    private String coinTitle;
+    private String name;
+    private int task;
+
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View details = inflater.inflate(R.layout.fragment_coin_details, container, false);
-        ImageView coinImage = details.findViewById(R.id.CoinDetails_Image);
-        TextView mintage = details.findViewById(R.id.CoinDetails_Mintage_TextView);
-        TextView observe = details.findViewById(R.id.CoinDetails_Observe_TextView);
-        TextView reverse = details.findViewById(R.id.CoinDetails_Reverse_TextView);
-        TextView circulation = details.findViewById(R.id.CoinDetails_Circulation_TextView);
-        TextView type = details.findViewById(R.id.CoinDetails_Type_TextView);
-        TextView points = details.findViewById(R.id.CoinDetails_Points);
-        TextView pageTitle = details.findViewById(R.id.CoinDetails_PageTitle);
+        details = inflater.inflate(R.layout.fragment_coin_details, container, false);
+        coinImage = details.findViewById(R.id.CoinDetails_Image);
+        mintage = details.findViewById(R.id.CoinDetails_Mintage_TextView);
+        observe = details.findViewById(R.id.CoinDetails_Observe_TextView);
+        reverse = details.findViewById(R.id.CoinDetails_Reverse_TextView);
+        circulation = details.findViewById(R.id.CoinDetails_Circulation_TextView);
+        type = details.findViewById(R.id.CoinDetails_Type_TextView);
+        points = details.findViewById(R.id.CoinDetails_Points);
+        pageTitle = details.findViewById(R.id.CoinDetails_PageTitle);
 
-        ImageButton back;
+
         back = details.findViewById(R.id.CoinDetails_back);
 
         assert getArguments() != null;
-        int task = getArguments().getInt("Task");
+        task = getArguments().getInt("Task");
         int coinID = getArguments().getInt("CoinID");
 
-        Database_Lite db = new Database_Lite(getContext());
-        Model_Coin model_coin = null;
-        ArrayList<Model_Coin> dbCoins;
+        db = new Database_Lite(getContext());
+        model_coin = null;
         dbCoins = db.getAllCoins();
 
         for (int i=0; i<dbCoins.size(); i++)
@@ -69,11 +86,11 @@ public class Fragment_Coin_Details extends Fragment {
         reverse.setText(model_coin.getReverse());
         circulation.setText(model_coin.getReverse());
         type.setText(model_coin.getMaterial());
-        String coinTitle = model_coin.getValue()+", " + model_coin.getYear();
+        coinTitle = model_coin.getValue()+", " + model_coin.getYear();
         pageTitle.setText(coinTitle);
         points.setText(String.valueOf(1000));
 
-        String name = model_coin.getCoinID() +".jpg";
+        name = model_coin.getCoinID() +".jpg";
         try{
             FileInputStream fis = requireContext().openFileInput(name);
             Bitmap b = BitmapFactory.decodeStream(fis);
@@ -84,6 +101,11 @@ public class Fragment_Coin_Details extends Fragment {
         catch(Exception e){
             ;
         }
+
+
+        return details;
+    }
+    private void ReturnToMainDetailsPage(){
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,6 +123,13 @@ public class Fragment_Coin_Details extends Fragment {
                 }
             }
         });
-        return details;
+
+
+    }
+
+    private void DisplayCoinDetails(){
+
+
+
     }
 }

@@ -25,27 +25,17 @@ public class Fragment_Leaderboard extends Fragment implements RecyclerViewInterf
     private RecyclerView recycler_view_leaderboard;
     private RecyclerView.Adapter rv_leaferbaord_adapter;
     private RecyclerView.LayoutManager layout_manager_leaderboard;
+    private ArrayList<Model_Leaderboard> array_list_leaderboard;
+    private View view_leaderboard;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view_leaderboard = inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        view_leaderboard = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
-        //Creating list to store users and their ranks
-        ArrayList<Model_Leaderboard> array_list_leaderboard = new ArrayList<Model_Leaderboard>();
 
-        //Populating leaderboard list
-        for (int i =0; i<8;i++)
-        {
-            /*
-                Using constructor to create new leaderboard items
-                    Passing Username, UserScore, UserIcon
-             */
-            Model_Leaderboard lm = new Model_Leaderboard("IHasShoulders",4396,R.drawable.ic_default_user_profile_icon);
-            array_list_leaderboard.add(lm);
-        }
 
         //Passing data to list recycler view
         recycler_view_leaderboard = (RecyclerView) view_leaderboard.findViewById(R.id.recycler_view_ranking_leaderboard);
@@ -58,9 +48,29 @@ public class Fragment_Leaderboard extends Fragment implements RecyclerViewInterf
         //Setting up adapter
         rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard, getContext(),this);
         recycler_view_leaderboard.setAdapter(rv_leaferbaord_adapter);
+
+        DisplayLeaderBoardRanks();
+
         return view_leaderboard;
     }
 
+    private void DisplayLeaderBoardRanks(){
+
+        //Creating list to store users and their ranks
+        array_list_leaderboard = new ArrayList<Model_Leaderboard>();
+
+        //Populating leaderboard list
+        for (int i =0; i<8;i++)
+        {
+            /*
+                Using constructor to create new leaderboard items
+                    Passing Username, UserScore, UserIcon
+             */
+            Model_Leaderboard lm = new Model_Leaderboard("IHasShoulders",4396,R.drawable.ic_default_user_profile_icon);
+            array_list_leaderboard.add(lm);
+        }
+
+    }
     @Override
     public void onItemClick(int position) {
         //Code intent here if we are to code an on click event for this

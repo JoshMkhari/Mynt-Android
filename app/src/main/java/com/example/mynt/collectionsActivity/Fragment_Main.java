@@ -28,39 +28,54 @@ public class Fragment_Main extends Fragment {
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private ImageButton addButton;
     private Model_User user;
+    private View main;
+    private Database_Lite db;
+    private ArrayList<Model_User> users;
+    private String userID;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View main = inflater.inflate(R.layout.fragment_main, container, false);
+        main = inflater.inflate(R.layout.fragment_main, container, false);
 
         user = new Model_User();
         addButton = main.findViewById(R.id.image_button_add_coin_main);
 
-        Database_Lite db = new Database_Lite(getContext());
+        ViewLoggedInUser();
+        AddCoin();
 
-        ArrayList<Model_User> users = db.getAllUsers();
-        for (int i=0; i<users.size(); i++)
-        {
-            if(users.get(i).getState()==1)
-            {
-                user = users.get(i);
-            }
-        }
-        String userID = user.getUserID() + " this";
-        Log.d("main", userID);
+        return main;
+    }
+
+    private void AddCoin() {
+
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putInt("User", user.getUserID());
-                Navigation.findNavController(main).navigate(R.id.action_fragment_home_main_to_fragment_Add,bundle);
+                Navigation.findNavController(main).navigate(R.id.action_fragment_home_main_to_fragment_Add, bundle);
             }
         });
+    }
 
+        private void ViewLoggedInUser() {
 
-        return main;
+            db = new Database_Lite(getContext());
+
+            users = db.getAllUsers();
+            for (int i = 0; i < users.size(); i++) {
+                if (users.get(i).getState() == 1) {
+                    user = users.get(i);
+                }
+            }
+
+            userID = user.getUserID() + " this";
+            Log.d("main", userID);
+        }
+
     }
 
 
-}
+

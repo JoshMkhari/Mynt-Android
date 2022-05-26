@@ -37,14 +37,29 @@ public class Fragment_Goal extends Fragment {
     private EditText target_Edittext;
     private String oldText;
     private Model_Goals model_goals;
+    private ImageButton setGoal_imageButton, back, subtract,add;
+    private TextView collectionName_textView,target_textView,numCoinsInCollection_textView,percentOfGoal_textView;
+    private ProgressBar goalProgress_progressBar;
+    private View goals;
+    private Model_User model_user;
+    private String userID;
+    private String targetText;
+    private float coins;
+    private float target;
+    private float progress;
+    private String percentage;
+    private String currentText;
+    private int currentTarget;
+    private int task;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ImageButton setGoal_imageButton, back, subtract,add;
-        TextView collectionName_textView,target_textView,numCoinsInCollection_textView,percentOfGoal_textView;
-        ProgressBar goalProgress_progressBar;
+
+
+
         // Inflate the layout for this fragment
-        View goals = inflater.inflate(R.layout.fragment_goal, container, false);
+        goals = inflater.inflate(R.layout.fragment_goal, container, false);
 
         collectionName_textView = goals.findViewById(R.id.GoalPageCollectionName_TextView);
         numCoinsInCollection_textView = goals.findViewById(R.id.GoalsPageCoinsTotal_TextView);
@@ -62,29 +77,37 @@ public class Fragment_Goal extends Fragment {
 
         assert getArguments() != null;
         model_goals = new Model_Goals(getArguments().getString("Collection Name"),getArguments().getInt("Coins"),getArguments().getInt("Goal"));
-        int task = getArguments().getInt("Task");
-        Model_User model_user = new Model_User();
+        task = getArguments().getInt("Task");
+        model_user = new Model_User();
         model_user.setUserID(getArguments().getInt("User"));
 
 
-        String userID = model_user.getUserID() + " this";
+        userID = model_user.getUserID() + " this";
         Log.d("goal", userID);
 
         collectionName_textView.setText(model_goals.getCollectionName());
         numCoinsInCollection_textView.setText(String.valueOf(model_goals.getNumCoins()));
         target_Edittext.setText(String.valueOf(model_goals.getTarget()));
-        String targetText = "Target: " + String.valueOf(model_goals.getTarget());
+        targetText = "Target: " + String.valueOf(model_goals.getTarget());
         target_textView.setText(targetText);
 
-        float coins = (float)model_goals.getNumCoins();
-        float target = (float)model_goals.getTarget();
-        float progress =  coins /target *100;
-        String percentage = String.valueOf(Math.round(progress)) + '%';
-        percentOfGoal_textView.setText(percentage);
+
 
         goalProgress_progressBar.setProgress(Math.round(progress));
         //model_goals = new Model_Goals(collectionName,numCoins,Integer.parseInt(target_Edittext.getText().toString()));
         //1000000 GoalsPage_add GoalsPage_subtract GoalsPage_GoalValue
+
+
+        ReturnToHomePage();
+        CreateGoal();
+        CalculateGoalProgress();
+
+        return goals;
+    }
+
+    private void ReturnToHomePage(){
+
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,61 +115,9 @@ public class Fragment_Goal extends Fragment {
                 Navigation.findNavController(goals).navigateUp();
             }
         });
+    }
+    private void CreateGoal(){
 
-        target_Edittext.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                oldText = target_Edittext.getText().toString();
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String currentText = target_Edittext.getText().toString();
-                if(currentText.length()==5)
-                {
-                    target_Edittext.setText(oldText);
-                    Toast.makeText(getContext(), "Goal cannot be greater than 9999", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    String targetText = "Target: " + currentText;
-                    target_textView.setText(targetText);
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        target_Edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                int currentTarget = Integer.parseInt(target_Edittext.getText().toString());
-                if (currentTarget==0)
-                {
-                    target_Edittext.setText("");
-                }
-            }
-        });
-        subtract.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentTarget = Integer.parseInt(target_Edittext.getText().toString());
-                currentTarget--;
-                target_Edittext.setText(String.valueOf(currentTarget));
-            }
-        });
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentTarget = Integer.parseInt(target_Edittext.getText().toString());
-                currentTarget++;
-                target_Edittext.setText(String.valueOf(currentTarget));
-            }
-        });
         setGoal_imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -187,6 +158,73 @@ public class Fragment_Goal extends Fragment {
 
             }
         });
-        return goals;
+
+
+
+        target_Edittext.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                oldText = target_Edittext.getText().toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                currentText = target_Edittext.getText().toString();
+                if(currentText.length()==5)
+                {
+                    target_Edittext.setText(oldText);
+                    Toast.makeText(getContext(), "Goal cannot be greater than 9999", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    String targetText = "Target: " + currentText;
+                    target_textView.setText(targetText);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        target_Edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                currentTarget = Integer.parseInt(target_Edittext.getText().toString());
+                if (currentTarget==0)
+                {
+                    target_Edittext.setText("");
+                }
+            }
+        });
+        subtract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentTarget = Integer.parseInt(target_Edittext.getText().toString());
+                currentTarget--;
+                target_Edittext.setText(String.valueOf(currentTarget));
+            }
+        });
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentTarget = Integer.parseInt(target_Edittext.getText().toString());
+                currentTarget++;
+                target_Edittext.setText(String.valueOf(currentTarget));
+            }
+        });
+    }
+
+    private void CalculateGoalProgress(){
+
+        coins = (float)model_goals.getNumCoins();
+        target = (float)model_goals.getTarget();
+        progress =  coins /target *100;
+        percentage = String.valueOf(Math.round(progress)) + '%';
+        percentOfGoal_textView.setText(percentage);
+
+
     }
 }
