@@ -75,9 +75,7 @@ public class Fragment_Goal extends Fragment {
         //GoalsPage_add
         //GoalsPage_subtract
 
-        ReturnToHomePage();
-        CreateGoal();
-        CalculateGoalProgress();
+
 
         assert getArguments() != null;
         model_goals = new Model_Goals(getArguments().getString("Collection Name"),getArguments().getInt("Coins"),getArguments().getInt("Goal"));
@@ -102,7 +100,9 @@ public class Fragment_Goal extends Fragment {
         //1000000 GoalsPage_add GoalsPage_subtract GoalsPage_GoalValue
 
 
-
+        ReturnToHomePage();
+        CreateGoal();
+        CalculateGoalProgress();
 
         return goals;
     }
