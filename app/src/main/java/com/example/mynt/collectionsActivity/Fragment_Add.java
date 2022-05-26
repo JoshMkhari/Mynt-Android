@@ -19,6 +19,7 @@ import androidx.navigation.Navigation;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -126,19 +127,13 @@ public class Fragment_Add extends Fragment {
                 allUserCollections.add(allCollections.get(i));
         }
 
-        ArrayList<Integer> onlyCollections = new ArrayList<>();
-
-        for (int i=0; allUserCollections.size()>0;i++)
-        {
-            onlyCollections.add(allUserCollections.get(i).getCollectionID());
-        }
-        ArrayList<Integer> allCoinsWithCollection = localDB.getAllCoinsWithACollection(onlyCollections);
+        ArrayList<Integer> allCoinsWithCollection = localDB.getAllCoinsWithACollection();
         ArrayList<Model_Coin> AllCoinsInDatabase = localDB.getAllCoins();
 
-        coinID = AllCoinsInDatabase.size();
-        if(coinID ==0)
+        if(allCoinsWithCollection.size() == 0 )
         {
             coinID = 1;
+            retrieveImage(coinID);
         }
         else
         {
@@ -148,18 +143,10 @@ public class Fragment_Add extends Fragment {
             }
             else
             {
-                if(allCoinsWithCollection.size() == 0 )
-                {
-                    coinID = 1;
-                    retrieveImage(coinID);
-                }else
-                {
-                    retrieveImage(allCoinsWithCollection.get(allCoinsWithCollection.size()-1)+1);
-                }
-
+                retrieveImage(allCoinsWithCollection.get(allCoinsWithCollection.size()-1)+1);
             }
-
         }
+
 
         year_Textview.setText("2010");
 
@@ -220,7 +207,7 @@ public class Fragment_Add extends Fragment {
                             storeCoin();
                             if (spinnerCollection.getSelectedItemPosition() == 0) {//A new collection needs to be made
                                 Bundle bundle = new Bundle();
-                                bundle.putString("User", "To be set");
+                                bundle.putString("User", model_user.getEmail());
                                 bundle.putInt("Task", 1);
                                 bundle.putInt("ImageID",coinID);
                                 Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);

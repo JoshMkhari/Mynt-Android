@@ -8,6 +8,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,11 +71,13 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
             }
         }
 
+        Log.d("currentUser", user.getEmail());
         ArrayList<Integer> onlyCollections = new ArrayList<>();
 
         ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(user);
-        Toast.makeText(getContext(), userCollectionIDs.size() + "userCollectionIDs size", Toast.LENGTH_SHORT).show();
-        /*
+        //Toast.makeText(getContext(), userCollectionIDs.size() + "userCollectionIDs size", Toast.LENGTH_SHORT).show();
+        String sizee = userCollectionIDs.size() + " size";
+        Log.d("userCollectionIDs",sizee);
         ArrayList<Model_Collections> allCollections = db.getAllCollections();
 
         ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
@@ -85,11 +88,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
                 allUserCollections.add(allCollections.get(i));
         }
 
-        for (int i=0; allUserCollections.size()>0;i++)
-        {
-            onlyCollections.add(allUserCollections.get(i).getCollectionID());
-        }
-        ArrayList<Integer> allCoinsWithCollection = db.getAllCoinsWithACollection(onlyCollections);
+        ArrayList<Integer> allCoinsWithCollection = db.getAllCoinsWithACollection();
 
         ArrayList<Model_Coin> AllCoinsInDatabase = db.getAllCoins();
         boolean found;
@@ -119,12 +118,8 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         }
 
 
-         */
 
 
-
-
-        Model_User user = new Model_User();
 
         ArrayList<Model_Coin> userCoins = new ArrayList<>();
         userCoins = db.getAllCoins();
@@ -149,7 +144,6 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
                 getResources().getString(R.string.library_option_goals),
                 62,
                 62));
-
 
         int i=userCoins.size();
 
@@ -191,14 +185,13 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
                 //Intent collections = new Intent(getContext(), Activity_Collections.class);
                 if(position==0)
                 {
-
                     bundle.putInt("Task",2);
                     Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coins,bundle);
                     //collections.putExtra("action","coins");
                 }else if (position==1)
                 {
                     bundle.putInt("Task", 0);
-                    Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Collections);
+                    Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Collections, bundle);
                     //collections.putExtra("action","collections");
                     //Navigation.findNavController(libraryView).navigate(R.id.action_fragment_Library_to_fragment_Collections);
                 }else if (position==2)

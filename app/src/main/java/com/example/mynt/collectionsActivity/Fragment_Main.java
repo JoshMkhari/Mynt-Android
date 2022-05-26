@@ -13,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.Model_User;
+import com.example.mynt.dataAccessLayer.Database_Lite;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,21 +26,31 @@ public class Fragment_Main extends Fragment {
 
     private ActivityResultLauncher<Intent> activityResultLauncher;
     private ImageButton addButton;
+    private Model_User user;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View main = inflater.inflate(R.layout.fragment_main, container, false);
 
+        user = new Model_User();
         addButton = main.findViewById(R.id.image_button_add_coin_main);
 
+        Database_Lite db = new Database_Lite(getContext());
+
+        ArrayList<Model_User> users = db.getAllUsers();
+        for (int i=0; i<users.size(); i++)
+        {
+            if(users.get(i).getState()==1)
+            {
+                user = users.get(i);
+            }
+        }
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("Collection Name", "not set");
-                bundle.putString("Task", "hectic");
-                bundle.putString("User", "hectic");
+                bundle.putString("User", user.getEmail());
                 Navigation.findNavController(main).navigate(R.id.action_fragment_home_main_to_fragment_Add,bundle);
             }
         });

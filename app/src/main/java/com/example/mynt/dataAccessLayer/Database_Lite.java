@@ -264,32 +264,47 @@ public class Database_Lite extends SQLiteOpenHelper {
 
 
     }
+    /*
+    tableStatement = ("CREATE TABLE " + USER_COLLECTIONS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_COLLECTION_FK
+                + " INTEGER, " + COLUMN_USER_FK + " INTEGER, "
+            + "FOREIGN KEY (" + COLUMN_COLLECTION_FK + ") REFERENCES "+ COLLECTION_TABLE +"(ID) ,"
+            + "FOREIGN KEY (" + COLUMN_USER_FK + ") REFERENCES "+ USER_TABLE + "(" + COLUMN_USER_NAME +"));");
+        db.execSQL(tableStatement);
 
+
+     */
     public  ArrayList<Integer> getAllCollectionsForUser(Model_User model_user)
     {
         ArrayList<Integer> collections = new ArrayList<>();
         //SELECT COIN_ID FROM COLLECTION_COIN_TABLE
         // WHERE COLLECTION_ID = 1
         SQLiteDatabase db = this.getReadableDatabase();
-            String queryString = "SELECT " + COLUMN_COLLECTION_FK + " FROM " + USER_COLLECTIONS_TABLE
-                    + " WHERE " + COLUMN_USER_FK + " = " + model_user.getEmail();
-
+            String queryString = "SELECT * FROM " + USER_COLLECTIONS_TABLE;
             Cursor cursor = db.rawQuery(queryString,null);
-            if(cursor.moveToFirst())
+            try
             {
-                //loop through the cursor result set and create new coin object for each row
-                do{
-                    int collectionID = cursor.getInt(0);
-                    collections.add(collectionID);
-                }while (cursor.moveToNext());
+                if(cursor.moveToFirst())
+                {
+                    //loop through the cursor result set and create new coin object for each row
+                    do{
+                        //int userCollectionID = cursor.getInt(0);
+                        int collectionID = cursor.getInt(1);
+                        String userID = cursor.getString(2);
+                        if(userID.equals(model_user.getEmail()))
+                        {
+                            collections.add(collectionID);
+                        }
+                    }while (cursor.moveToNext());
+                }
+                cursor.close();
+                return collections;
             }
-            else
+            catch (Exception e)
             {
-                //failure means list is empty
+                return collections;
             }
-            cursor.close();
 
-        return collections;
+
     }
 
     public ArrayList<Model_Collections> getAllCollections() {
@@ -321,16 +336,15 @@ public class Database_Lite extends SQLiteOpenHelper {
         return collectionsList;
     }
 
-    public ArrayList<Integer> getAllCoinsWithACollection(ArrayList<Integer> userCollections) {
+    public ArrayList<Integer> getAllCoinsWithACollection() {
         ArrayList<Integer> coins = new ArrayList<>();
         //SELECT COIN_ID FROM COLLECTION_COIN_TABLE
         // WHERE COLLECTION_ID = 1
         SQLiteDatabase db = this.getReadableDatabase();
-        for (int i=0; i<userCollections.size(); i++)
+        String queryString = "SELECT " +COLUMN_COIN_FK + " FROM " + COLLECTIONS_COIN_TABLE;
+                   // + " WHERE " + COLUMN_COLLECTION_FK + " = " + userCollections.get(i);
+        try
         {
-            String queryString = "SELECT " +COLUMN_COIN_FK + " FROM " + COLLECTIONS_COIN_TABLE
-                    + " WHERE " + COLUMN_COLLECTION_FK + " = " + userCollections.get(i);
-
             Cursor cursor = db.rawQuery(queryString,null);
             if(cursor.moveToFirst())
             {
@@ -341,13 +355,18 @@ public class Database_Lite extends SQLiteOpenHelper {
                     coins.add(coinID);
                 }while (cursor.moveToNext());
             }
-            else
-            {
-                //failure means list is empty
-            }
             cursor.close();
+            Log.d("allWithColl", "pass: ");
+            return coins;
+        }catch (Exception e)
+        {
+            Log.d("allWithColl", "failed: ");
+            return coins;
         }
-        return coins;
+
+
+        //}
+
     }
 
     public ArrayList<Integer> getAllCoinsInCollection(int collectionID) {
@@ -549,7 +568,9 @@ public class Database_Lite extends SQLiteOpenHelper {
             cv.put(COLUMN_GOAL, model_collections.getGoal());
             db.insert(COLLECTION_TABLE, null, cv);
             cv.clear();
+            Log.d("addCollection", model_user.getEmail());
         } catch (Exception e) {
+            Log.d("addCollection","we failed");
             return false;
 
         }

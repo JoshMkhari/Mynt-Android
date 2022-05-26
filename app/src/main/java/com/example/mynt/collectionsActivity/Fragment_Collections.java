@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,8 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
             if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
                 allUserCollections.add(allCollections.get(i));
         }
+        String sizee = allUserCollections.size() + " this";
+        Log.d("allUserCollections", sizee);
 
         collectionsList = allUserCollections;
         int imageID = getArguments().getInt("ImageID");
@@ -121,6 +124,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
                     bundle.putInt("Goal", 0);;
                     bundle.putInt("Task",task);
                     bundle.putString("User",model_user.getEmail());
+                    Log.d("collectionsUser", model_user.getEmail());
                     Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
                 }
                 else
