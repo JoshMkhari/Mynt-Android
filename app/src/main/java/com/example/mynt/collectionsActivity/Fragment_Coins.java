@@ -71,23 +71,26 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
             if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
                 allUserCollections.add(allCollections.get(i));
         }
+
         coinIDs = new ArrayList<>();
         if(task == 0 || task ==2) //All Coins
         {
             pageTitle_textView.setText(R.string.coins_title);
             collectionName_textView.setText(R.string.all_coins_block_title);
-            for (int i=0; i<allUserCollections.size(); i++)
-            {
-                for (int s=0; s<dbCoins.size(); s++) {
-                    if(allUserCollections.get(i).getCollectionID()==dbCoins.get(s).getCoinID())
-                    {
-                        coinsList.add(dbCoins.get(s));
-                        //add final list here
-                        coinIDs.add(dbCoins.get(s).getCoinID());
-                        break;
+            ArrayList<Integer> collectionCoins;
+
+            for (int b=0; b<allUserCollections.size(); b++) {
+                collectionCoins = db.getAllCoinsInCollection(allUserCollections.get(b).getCollectionID());
+                for (int i = 0; i < collectionCoins.size(); i++) {
+                    for (int s = 0; s < dbCoins.size(); s++) {
+                        if (collectionCoins.get(i) == dbCoins.get(s).getCoinID()) {
+                            coinsList.add(dbCoins.get(s));
+                            //add final list here
+                            coinIDs.add(dbCoins.get(s).getCoinID());
+                            break;
+                        }
                     }
                 }
-
             }
         }else//For specific collection
         {
@@ -106,7 +109,6 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
                         break;
                     }
                 }
-
             }
         }
 
@@ -158,23 +160,8 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
     @Override
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
-
-        if(task == 0)
-        {
-            position++;
-            bundle.putInt("Task", task);
-            bundle.putInt("CoinID", coinIDs.get(position));
-        }
-        else if (task==2)
-        {
-            position++;
-            bundle.putInt("Task", task);
-            bundle.putInt("CoinID", coinIDs.get(position));
-        }else
-        {
-            bundle.putInt("Task", task);
-            bundle.putInt("CoinID", coinIDs.get(position));
-        }
+        bundle.putInt("Task", task);
+        bundle.putInt("CoinID", coinIDs.get(position));
         Navigation.findNavController(coinsView).navigate(R.id.action_fragment_Coins_to_fragment_Coin_Details,bundle);
     }
 }
