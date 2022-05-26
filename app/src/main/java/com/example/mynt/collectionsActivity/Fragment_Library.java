@@ -59,6 +59,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
     private ArrayList<Model_Coin> dbCoins;
     private ArrayList<Model_Coin> currentUserCoins;
     private ArrayList<Integer> collectionCoins;
+    private ArrayList<Model_Library_Options> arrayList_library_navigation;
 
 
     private Model_User user;
@@ -77,6 +78,11 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         ArrayList<Model_Library_Options> arrayList_library_navigation = new ArrayList<>();
         arrayList_recent_coins = new ArrayList<>();
 
+        ReturnToRegister();
+        ViewLoggedInUser();
+        NavigationToOtherPages();
+        DisplayAllLocalCollections();
+        DisplayAllLocalCoins();
 
         //Populating Library Options List
         arrayList_library_navigation.add(new Model_Library_Options( R.drawable.img_app_logo,
@@ -127,11 +133,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
 
 
 
-        ReturnToRegister();
-        ViewLoggedInUser();
-        NavigationToOtherPages();
-        DisplayAllLocalCollections();
-        DisplayAllLocalCoins();
+
 
         return libraryView;
     }

@@ -67,6 +67,9 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         back = collectionsView.findViewById(R.id.collections_back);
         collectionName = collectionsView.findViewById(R.id.CollectionNameEditText);
 
+        ReturnToHomePage();
+        CreateCollection();
+        DisplayAllLocalCollections();
 
         task = getArguments().getInt("Task");
         model_user = new Model_User();
@@ -86,9 +89,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         mAdapter = new Adapter_Collections(collectionsList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
-        ReturnToHomePage();
-        CreateCollection();
-        DisplayAllLocalCollections();
+
 
         return collectionsView;
     }

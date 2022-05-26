@@ -80,6 +80,8 @@ public class Fragment_Coin_Details extends Fragment {
             }
         }
 
+        ReturnToMainDetailsPage();
+
         assert model_coin != null;
         mintage.setText(String.valueOf(model_coin.getMintage()));
         observe.setText(model_coin.getObserve());
@@ -103,7 +105,7 @@ public class Fragment_Coin_Details extends Fragment {
         }
 
 
-        ReturnToMainDetailsPage();
+
         return details;
     }
     private void ReturnToMainDetailsPage(){

@@ -39,16 +39,19 @@ public class Fragment_Main extends Fragment {
         // Inflate the layout for this fragment
         main = inflater.inflate(R.layout.fragment_main, container, false);
 
+
+        AddCoin();
+        ViewLoggedInUser();
+        
         user = new Model_User();
         addButton = main.findViewById(R.id.image_button_add_coin_main);
 
-        ViewLoggedInUser();
-        AddCoin();
+
 
         return main;
     }
 
-    private void AddCoin() {
+    private void AddCoin(){
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +63,7 @@ public class Fragment_Main extends Fragment {
         });
     }
 
-        private void ViewLoggedInUser() {
+    private void ViewLoggedInUser() {
 
             db = new Database_Lite(getContext());
 

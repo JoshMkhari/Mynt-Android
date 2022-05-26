@@ -38,14 +38,16 @@ public class Fragment_Login extends Fragment {
         // Inflate the layout for this fragment
         loginView = inflater.inflate(R.layout.fragment_login, container, false);
 
+        Login();
+        ReturnToRegister();
+
         email = loginView.findViewById(R.id.LoginEmail_EditText);
         password = loginView.findViewById(R.id.LoginPassword_EditText);
         login = loginView.findViewById(R.id.LoginEmail_Button);
         close = loginView.findViewById(R.id.LoginClose_button);
 
 
-        ReturnToRegister();
-        Login();
+
 
         return loginView;
     }
@@ -85,8 +87,6 @@ public class Fragment_Login extends Fragment {
     }
 
     private void ReturnToRegister(){
-
-
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

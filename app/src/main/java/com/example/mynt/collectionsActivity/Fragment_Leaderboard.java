@@ -35,8 +35,6 @@ public class Fragment_Leaderboard extends Fragment implements RecyclerViewInterf
         // Inflate the layout for this fragment
         view_leaderboard = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
-
-
         //Passing data to list recycler view
         recycler_view_leaderboard = (RecyclerView) view_leaderboard.findViewById(R.id.recycler_view_ranking_leaderboard);
         recycler_view_leaderboard.setHasFixedSize(true);
