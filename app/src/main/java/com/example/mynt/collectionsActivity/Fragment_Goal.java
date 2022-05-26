@@ -64,7 +64,11 @@ public class Fragment_Goal extends Fragment {
         model_goals = new Model_Goals(getArguments().getString("Collection Name"),getArguments().getInt("Coins"),getArguments().getInt("Goal"));
         int task = getArguments().getInt("Task");
         Model_User model_user = new Model_User();
-        model_user.setEmail(getArguments().getString("User"));
+        model_user.setUserID(getArguments().getInt("User"));
+
+
+        String userID = model_user.getUserID() + " this";
+        Log.d("goal", userID);
 
         collectionName_textView.setText(model_goals.getCollectionName());
         numCoinsInCollection_textView.setText(String.valueOf(model_goals.getNumCoins()));
@@ -152,6 +156,7 @@ public class Fragment_Goal extends Fragment {
 
 
                     Model_Collections model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
+
                     localDB.addCollection(model_collections,model_user);
                     //Add collection to database for user
                     if(task==1)// Creating new Collection and assigning it to a coin

@@ -71,7 +71,6 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
             }
         }
 
-        Log.d("currentUser", user.getEmail());
         ArrayList<Integer> onlyCollections = new ArrayList<>();
 
         ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(user);
@@ -181,7 +180,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
 
             public void onItemClick(AdapterView parent, View v, int position, long id){
                 Bundle bundle = new Bundle();
-                bundle.putString("User",user.getEmail());
+                bundle.putInt("User",user.getUserID());
                 //Intent collections = new Intent(getContext(), Activity_Collections.class);
                 if(position==0)
                 {

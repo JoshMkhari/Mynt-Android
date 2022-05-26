@@ -48,7 +48,7 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
         task = getArguments().getInt("Task");
         String blockTitle = getArguments().getString("Collection Name");
         Model_User model_user = new Model_User();
-        model_user.setEmail(getArguments().getString("User"));
+        model_user.setUserID(getArguments().getInt("User"));
         collectionID = getArguments().getInt("CollectionID");
 
         Database_Lite db = new Database_Lite(getContext());

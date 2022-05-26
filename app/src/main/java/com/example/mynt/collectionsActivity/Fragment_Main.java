@@ -7,6 +7,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,11 +47,13 @@ public class Fragment_Main extends Fragment {
                 user = users.get(i);
             }
         }
+        String userID = user.getUserID() + " this";
+        Log.d("main", userID);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("User", user.getEmail());
+                bundle.putInt("User", user.getUserID());
                 Navigation.findNavController(main).navigate(R.id.action_fragment_home_main_to_fragment_Add,bundle);
             }
         });

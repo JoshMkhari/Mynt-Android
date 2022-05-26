@@ -69,13 +69,14 @@ public class Fragment_Add extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View add = inflater.inflate(R.layout.fragment_add, container, false);
-
+        Log.d("distance", "We make it this far");
         //Retrieve bundles
         model_user = new Model_User();
         assert getArguments() != null;
-        model_user.setEmail(getArguments().getString("User"));
+        model_user.setUserID(getArguments().getInt("User"));
 
-
+        String userID = model_user.getUserID() + " this";
+        Log.d("add", userID);
         //Database methods
 
 
@@ -160,6 +161,7 @@ public class Fragment_Add extends Fragment {
             userCollections.add(allUserCollections.get(i).getCollectionName());
 
         }
+
         //for loop to add user collections here
 
         //Populate User Collections now
@@ -207,7 +209,7 @@ public class Fragment_Add extends Fragment {
                             storeCoin();
                             if (spinnerCollection.getSelectedItemPosition() == 0) {//A new collection needs to be made
                                 Bundle bundle = new Bundle();
-                                bundle.putString("User", model_user.getEmail());
+                                bundle.putInt("User", model_user.getUserID());
                                 bundle.putInt("Task", 1);
                                 bundle.putInt("ImageID",coinID);
                                 Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);

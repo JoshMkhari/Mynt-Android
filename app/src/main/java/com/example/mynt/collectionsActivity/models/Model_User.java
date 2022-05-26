@@ -10,7 +10,7 @@ public class Model_User {
     private String password;
     private String userName;
     private int profilePicture;
-    private int state;
+    private int state,userID;
     private ArrayList<Model_Collections> collectionsArrayList;
 
     public String getUserName() {
@@ -25,13 +25,19 @@ public class Model_User {
         return collectionsArrayList;
     }
 
-    public void setCollectionsArrayList(ArrayList<Model_Collections> collectionsArrayList) {
-        this.collectionsArrayList = collectionsArrayList;
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public int getState() {
         return state;
     }
+
 
     public void setState(int state) {
         this.state = state;

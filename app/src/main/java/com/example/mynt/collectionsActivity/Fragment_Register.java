@@ -59,7 +59,6 @@ public class Fragment_Register extends Fragment {
                 Model_User model_user = new Model_User();
                 model_user.setEmail(email.getText().toString());
                 model_user.setPassword(password.getText().toString());
-                model_user.setState(0);
                 if(db.addUser(model_user))
                 {
                     db.updateState(model_user);

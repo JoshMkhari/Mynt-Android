@@ -63,7 +63,10 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
 
         task = getArguments().getInt("Task");
         Model_User model_user = new Model_User();
-        model_user.setEmail(getArguments().getString("User"));
+        model_user.setUserID(getArguments().getInt("User"));
+
+        String userID = model_user.getUserID() + " this";
+        Log.d("collections", userID);
 
         ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(model_user);
         ArrayList<Model_Collections> allCollections = db.getAllCollections();
@@ -123,8 +126,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
                     bundle.putInt("Coins", 0);;
                     bundle.putInt("Goal", 0);;
                     bundle.putInt("Task",task);
-                    bundle.putString("User",model_user.getEmail());
-                    Log.d("collectionsUser", model_user.getEmail());
+                    bundle.putInt("User",model_user.getUserID());
                     Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
                 }
                 else
