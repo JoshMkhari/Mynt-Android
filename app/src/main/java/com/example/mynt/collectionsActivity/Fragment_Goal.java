@@ -153,8 +153,14 @@ public class Fragment_Goal extends Fragment {
                     home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(home);
 
+                    //Additional User Feedback
+                    Toast.makeText(getContext(), "Goal for" +  model_goals.getCollectionName() + " has been created successfully" , Toast.LENGTH_SHORT).show();
+
                 }else
                 {
+
+                    //Additional User Feedback
+                    Toast.makeText(getContext(), "Goal for" +  model_goals.getCollectionName() + " has not been created successfully" , Toast.LENGTH_SHORT).show();
                     Toast.makeText(getContext(), "Target cannot be 0", Toast.LENGTH_SHORT).show();
                 }
 

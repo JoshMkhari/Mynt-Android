@@ -77,10 +77,19 @@ public class Fragment_Login extends Fragment {
                             Intent login = new Intent(getContext(), Activity_Collections.class);
                             login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(login);
+                        }else{
+
+                            Toast.makeText(getContext(),"An account with this password not registered" + "\n"+ "Please re-enter the password of this account",Toast.LENGTH_LONG).show();
+
                         }
+
+                    }else{
+
+                        Toast.makeText(getContext(),"An account with this email has not been registered"+ "\n"+ "Please re-enter the email of this account",Toast.LENGTH_LONG).show();
+
                     }
                 }
-                Toast.makeText(getContext(),"Email and password combination false or email not registered",Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(),"Email and password combination false or email not registered",Toast.LENGTH_LONG).show();
             }
         });
 

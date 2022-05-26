@@ -163,7 +163,8 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
                 }
                 else
                 {
-                    Toast.makeText(getContext(),"Set a collection name",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Error: Your collection has not been created successfully",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Set a collection name to proceed",Toast.LENGTH_SHORT).show();
                 }
 
                 /*

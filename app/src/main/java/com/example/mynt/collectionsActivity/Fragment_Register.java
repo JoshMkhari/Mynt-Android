@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.mynt.R;
 import com.example.mynt.dataAccessLayer.Database_Lite;
@@ -43,9 +44,10 @@ public class Fragment_Register extends Fragment {
         signUp = registerView.findViewById(R.id.SignEmail_Button);
         close = registerView.findViewById(R.id.RegisterClose_button);
 
-        ReturnToLibrary();
-        SignUp();
 
+        SignUp();
+        LoginWithEmail();
+        ReturnToLibrary();
         return registerView;
     }
 
@@ -68,30 +70,62 @@ public class Fragment_Register extends Fragment {
        signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Database_Lite db = new Database_Lite(getContext());
-                Model_User model_user = new Model_User();
-                model_user.setEmail(email.getText().toString());
-                model_user.setPassword(password.getText().toString());
-                if(db.addUser(model_user))
-                {
-                    db.updateState(model_user);
-                    Intent i = new Intent(getContext(), Activity_Collections.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
+
+                if(email.getText().toString() != null && password.getText().toString() !=  null){
+                    Database_Lite db = new Database_Lite(getContext());
+                    Model_User model_user = new Model_User();
+                    model_user.setEmail(email.getText().toString());
+                    model_user.setPassword(password.getText().toString());
+                    if(db.addUser(model_user))
+                    {
+                        db.updateState(model_user);
+                        Intent i = new Intent(getContext(), Activity_Collections.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                    }
+
+                    // Additional User Feedback
+                    Toast.makeText(getContext(),"An account has been created successfully for" + email.getText().toString(),Toast.LENGTH_SHORT).show();
+
+                }else{
+
+                    if(email.getText().toString() == null || email.getText().toString() == ""){
+
+                        // Additional User Feedback
+                        Toast.makeText(getContext(),"ERROR: This account has not been created successfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"ERROR: An email address has not been entered ",Toast.LENGTH_SHORT).show();
+
+                    }
+
+                   if(password.getText().toString() == null || password.getText().toString() == ""){
+
+                        // Additional User Feedback
+                        Toast.makeText(getContext(),"ERROR: This account has not been created successfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"ERROR: An password has not been set ",Toast.LENGTH_SHORT).show();
+
+                    }
+
+
                 }
+
             }
         });
 
-        loginWithEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(registerView).navigate(R.id.action_fragment_Register_to_fragment_Login);
-            }
-        });
+
 
     }
 
+    private void LoginWithEmail(){
 
+    loginWithEmail.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Navigation.findNavController(registerView).navigate(R.id.action_fragment_Register_to_fragment_Login);
+        }
+    });
+
+
+    }
 
 
 }
