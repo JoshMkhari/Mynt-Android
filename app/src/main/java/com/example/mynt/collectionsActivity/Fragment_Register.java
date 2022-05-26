@@ -33,7 +33,7 @@ public class Fragment_Register extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View registerView = inflater.inflate(R.layout.fragment_register, container, false);
+        registerView = inflater.inflate(R.layout.fragment_register, container, false);
 
         email = registerView.findViewById(R.id.RegisterEmail_EditText);
         password = registerView.findViewById(R.id.RegisterPassword_EditText);
