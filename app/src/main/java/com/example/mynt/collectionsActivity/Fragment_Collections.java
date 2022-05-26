@@ -67,9 +67,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         back = collectionsView.findViewById(R.id.collections_back);
         collectionName = collectionsView.findViewById(R.id.CollectionNameEditText);
 
-        ReturnToHomePage();
-        CreateCollection();
-        DisplayAllLocalCollections();
+
 
         task = getArguments().getInt("Task");
         model_user = new Model_User();
@@ -78,7 +76,12 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         userID = model_user.getUserID() + " this";
         Log.d("collections", userID);
 
-       //model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
+
+        CreateCollection();
+        ReturnToHomePage();
+        DisplayAllLocalCollections();
+
+        //model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
         recyclerView = collectionsView.findViewById(R.id.all_collectionsList);
 
         recyclerView.setHasFixedSize(true);
