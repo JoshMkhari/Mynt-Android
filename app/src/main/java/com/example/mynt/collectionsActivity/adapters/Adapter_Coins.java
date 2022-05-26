@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.R;
-import com.example.mynt.RecyclerViewInterface;
+import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 
 import java.io.FileInputStream;
@@ -21,14 +21,14 @@ import java.util.ArrayList;
 
 public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHolder>{
 
-    private final RecyclerViewInterface recyclerViewInterface;
+    private final Interface_RecyclerView interfaceRecyclerView;
     ArrayList<Model_Coin> coinsList;
     Context context;
 
-    public Adapter_Coins(ArrayList<Model_Coin> coinsList, Context context, RecyclerViewInterface recyclerViewInterface) {
+    public Adapter_Coins(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
         this.coinsList = coinsList;
         this.context = context;
-        this.recyclerViewInterface = recyclerViewInterface;
+        this.interfaceRecyclerView = interfaceRecyclerView;
     }
 
     @NonNull
@@ -86,12 +86,12 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(recyclerViewInterface != null)
+                    if(interfaceRecyclerView != null)
                     {
                         int pos = getAbsoluteAdapterPosition();
 
                         if(pos != RecyclerView.NO_POSITION){
-                            recyclerViewInterface.onItemClick(pos);
+                            interfaceRecyclerView.onItemClick(pos);
                         }
                     }
                 }

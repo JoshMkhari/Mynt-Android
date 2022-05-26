@@ -3,10 +3,7 @@ package com.example.mynt.collectionsActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,12 +17,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
-import com.example.mynt.RecyclerViewInterface;
+import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Collections;
-import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
-import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
@@ -35,7 +31,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class Fragment_Collections extends Fragment implements RecyclerViewInterface {
+public class Fragment_Collections extends Fragment implements Interface_RecyclerView, Interface_Back {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -95,23 +91,18 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         mAdapter = new Adapter_Collections(collectionsList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                backActivity();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //get task
-                assert getArguments() != null;
-
-                if(task==1)// Creating new Collection and assigning it to a coin
-                {
-                    Navigation.findNavController(collectionsView).navigateUp();
-
-                }else
-                {
-                    Intent home = new Intent(getContext(),Activity_Collections.class);
-                    //home.putExtra("view","library");
-                    home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(home);
-                }
+                backActivity();
             }
 
         });
@@ -172,4 +163,18 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
     }
 
 
+    @Override
+    public void backActivity() {
+        if(task==1)// Creating new Collection and assigning it to a coin
+        {
+            Navigation.findNavController(collectionsView).navigateUp();
+
+        }else
+        {
+            Intent home = new Intent(getContext(),Activity_Collections.class);
+            //home.putExtra("view","library");
+            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(home);
+        }
+    }
 }

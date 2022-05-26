@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,26 +15,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.R;
-import com.example.mynt.RecyclerViewInterface;
+import com.example.mynt.Interface_RecyclerView;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 
 public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHolder>{
-    private final RecyclerViewInterface recyclerViewInterface;
+    private final Interface_RecyclerView interfaceRecyclerView;
     ArrayList<Model_Coin> coinsList;
     Context context;
     int selected_position = 0;
 
-    public Adapter_Coin(ArrayList<Model_Coin> coinsList, Context context, RecyclerViewInterface recyclerViewInterface) {
+    public Adapter_Coin(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
         this.coinsList = coinsList;
         this.context = context;
-        this.recyclerViewInterface = recyclerViewInterface;
+        this.interfaceRecyclerView = interfaceRecyclerView;
     }
 
     @NonNull
@@ -100,12 +93,12 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(recyclerViewInterface != null)
+                    if(interfaceRecyclerView != null)
                     {
                         int pos = getAbsoluteAdapterPosition();
 
                         if(pos != RecyclerView.NO_POSITION){
-                            recyclerViewInterface.onItemClick(pos);
+                            interfaceRecyclerView.onItemClick(pos);
                         }
                     }
                 }

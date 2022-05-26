@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -33,6 +34,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
@@ -46,7 +48,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Fragment_Add extends Fragment {
+public class Fragment_Add extends Fragment implements Interface_Back {
 
     private Spinner spinnerValue, spinnerMaterial, spinnerVariant, spinnerCollection;
     private SeekBar yearBar;
@@ -186,12 +188,18 @@ public class Fragment_Add extends Fragment {
         adapterCollection.setDropDownViewResource(R.layout.spinner_item);
         spinnerCollection.setAdapter(adapterCollection);
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                backActivity();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
+        //Activity_Collections.OnB
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home = new Intent(getContext(),Activity_Collections.class);
-                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(home);
+                backActivity();
             }
         });
 
@@ -451,6 +459,13 @@ public class Fragment_Add extends Fragment {
         localDB.deleteCoin(coinID);
 
         requireContext().deleteFile(name);
+    }
+
+    @Override
+    public void backActivity() {
+        Intent home = new Intent(getContext(),Activity_Collections.class);
+        home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(home);
     }
 }
 

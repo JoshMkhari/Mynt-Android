@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -16,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.dataAccessLayer.Database_Lite;
@@ -24,15 +26,17 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Fragment_Coin_Details extends Fragment {
+public class Fragment_Coin_Details extends Fragment implements Interface_Back {
 
+    private View details;
+    private int task;
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View details = inflater.inflate(R.layout.fragment_coin_details, container, false);
+        details = inflater.inflate(R.layout.fragment_coin_details, container, false);
         ImageView coinImage = details.findViewById(R.id.CoinDetails_Image);
         TextView mintage = details.findViewById(R.id.CoinDetails_Mintage_TextView);
         TextView observe = details.findViewById(R.id.CoinDetails_Observe_TextView);
@@ -46,7 +50,7 @@ public class Fragment_Coin_Details extends Fragment {
         back = details.findViewById(R.id.CoinDetails_back);
 
         assert getArguments() != null;
-        int task = getArguments().getInt("Task");
+        task = getArguments().getInt("Task");
         int coinID = getArguments().getInt("CoinID");
 
         Database_Lite db = new Database_Lite(getContext());
@@ -84,23 +88,36 @@ public class Fragment_Coin_Details extends Fragment {
         catch(Exception e){
             ;
         }
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                backActivity();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(task==0)// Fragment was accessed home screen
-                {
-                    Intent home = new Intent(getContext(),Activity_Collections.class);
-                    //home.putExtra("View","library");
-                    home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(home);
-
-                }else
-                {
-                    Navigation.findNavController(details).navigateUp();
-                }
+                backActivity();
             }
         });
         return details;
+    }
+
+
+    @Override
+    public void backActivity() {
+        if(task==0)// Fragment was accessed home screen
+        {
+            Intent home = new Intent(getContext(),Activity_Collections.class);
+            //home.putExtra("View","library");
+            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(home);
+
+        }else
+        {
+            Navigation.findNavController(details).navigateUp();
+        }
     }
 }

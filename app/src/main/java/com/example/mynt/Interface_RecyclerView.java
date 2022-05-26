@@ -1,6 +1,6 @@
 package com.example.mynt;
 
-public interface RecyclerViewInterface {
+public interface Interface_RecyclerView {
 
     void onItemClick(int position);
 }
