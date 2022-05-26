@@ -128,7 +128,10 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
 
 
         ReturnToRegister();
+        ViewLoggedInUser();
         NavigationToOtherPages();
+        DisplayAllLocalCollections();
+        DisplayAllLocalCoins();
 
         return libraryView;
     }
