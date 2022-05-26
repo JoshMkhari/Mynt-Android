@@ -16,10 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Mynt"
         android:requestLegacyExternalStorage="true">
-
-        <activity
-            android:name="com.example.mynt.userActivity.Activity_User"
-            android:exported="false" />
         <activity
             android:name="com.example.mynt.collectionsActivity.Activity_Collections"
             android:exported="true">

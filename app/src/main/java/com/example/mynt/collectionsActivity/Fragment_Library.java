@@ -1,6 +1,6 @@
 package com.example.mynt.collectionsActivity;
 
-import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,12 +8,14 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.example.mynt.RecyclerViewInterface;
@@ -21,12 +23,12 @@ import com.example.mynt.collectionsActivity.adapters.Adapter_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import com.example.mynt.collectionsActivity.adapters.Adapter_Library_Options;
 import com.example.mynt.collectionsActivity.models.Model_Library_Options;
-import com.example.mynt.userActivity.Activity_User;
-import com.example.mynt.userActivity.Model_User;
+import com.example.mynt.collectionsActivity.models.Model_User;
 
 import java.util.ArrayList;
 
@@ -56,14 +58,81 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
 
         //Initializing variables
         //String email = getArguments().getString("userEmail");
-        String email = "josh";
+
         Database_Lite db = new Database_Lite(getContext());
 
-        Model_User user = new Model_User();
+        ArrayList<Model_User> users = db.getAllUsers();
+        for (int i=0; i<users.size(); i++)
+        {
+            if(users.get(i).getState()==1)
+            {
+                user = users.get(i);
+            }
+        }
 
-        //ArrayList<Model_Coin> userCoins = db.getAllCoins();
-        ArrayList<Model_Coin> userCoins = new ArrayList<>();
-        userCoins = db.getAllCoins();
+        ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(user);
+        ArrayList<Model_Collections> allCollections = db.getAllCollections();
+
+        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
+
+        for (int i=0; i<allCollections.size(); i++)
+        {
+            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
+                allUserCollections.add(allCollections.get(i));
+        }
+
+        ArrayList<Integer> allCoinsWithCollection = db.getAllCoinsWithACollection();
+
+        ArrayList<Model_Coin> AllCoinsInDatabase = db.getAllCoins();
+        boolean found;
+        if(allCoinsWithCollection.size() != AllCoinsInDatabase.size() )
+        {
+            for (int i=0; i<AllCoinsInDatabase.size(); i++)
+            {
+                found = false;
+                for (int b=0; b<allCoinsWithCollection.size(); b++)
+                {
+                    if(AllCoinsInDatabase.get(i).getCoinID() == allCoinsWithCollection.get(b))
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found)
+                {
+                    //delete current coin from database
+                    db.deleteCoin(AllCoinsInDatabase.get(i).getCoinID());;
+                    String fileName = AllCoinsInDatabase.get(i).getCoinID() + ".jpg";
+                    //Delete image from files
+                    requireContext().deleteFile(fileName);
+                    //imageID.add(AllCoinsInDatabase.get(i).getImageId());
+                }
+            }
+        }
+
+        ArrayList<Model_Coin> dbCoins = new ArrayList<>();
+        dbCoins = db.getAllCoins();
+
+        ArrayList<Model_Coin> currentUserCoins = new ArrayList<>();
+
+        ArrayList<Integer> collectionCoins;
+
+        for (int b=0; b<allUserCollections.size(); b++) {
+            collectionCoins = db.getAllCoinsInCollection(allUserCollections.get(b).getCollectionID());
+            for (int i = 0; i < collectionCoins.size(); i++) {
+                for (int s = 0; s < dbCoins.size(); s++) {
+                    if (collectionCoins.get(i) == dbCoins.get(s).getCoinID()) {
+                        currentUserCoins.add(dbCoins.get(s));
+                        //add final list here
+                        break;
+                    }
+                }
+            }
+        }
+
+
+
+
 
         optionListView = libraryView.findViewById(R.id.listView_navigation_library);
         loginButton = libraryView.findViewById(R.id.imageButton_userActivity_library);
@@ -74,7 +143,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         arrayList_library_navigation.add(new Model_Library_Options( R.drawable.img_app_logo,
                 getResources().getString(R.string.library_option_coins),
                 0,
-                db.getAllCoins().size()));
+                currentUserCoins.size()));
 
         arrayList_library_navigation.add(new Model_Library_Options( R.drawable.ic_collection_icon,
                 getResources().getString(R.string.library_option_collections),
@@ -86,15 +155,15 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
                 62,
                 62));
 
-
-        int i=userCoins.size();
+        int i=currentUserCoins.size();
 
         if(i>0)
             do {
                 i--;
-                arrayList_recent_coins.add(userCoins.get(i));
+                arrayList_recent_coins.add(currentUserCoins.get(i));
                 if(arrayList_recent_coins.size()>3 || i==0)
                 {
+
                     break;
                 }
             }while (i>0);
@@ -111,7 +180,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
 
         //Setting up adapters
         //ListView
-        optionsListAdapter = new Adapter_Library_Options(getContext(),arrayList_library_navigation);
+        optionsListAdapter = new Adapter_Library_Options(getContext(),arrayList_library_navigation,user);
         optionListView.setAdapter(optionsListAdapter);
         //recyclerView
         mAdapter = new Adapter_Coin(arrayList_recent_coins, getContext(),this);
@@ -122,17 +191,17 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
 
             public void onItemClick(AdapterView parent, View v, int position, long id){
                 Bundle bundle = new Bundle();
+                bundle.putInt("User",user.getUserID());
                 //Intent collections = new Intent(getContext(), Activity_Collections.class);
                 if(position==0)
                 {
-
                     bundle.putInt("Task",2);
                     Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coins,bundle);
                     //collections.putExtra("action","coins");
                 }else if (position==1)
                 {
                     bundle.putInt("Task", 0);
-                    Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Collections);
+                    Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Collections, bundle);
                     //collections.putExtra("action","collections");
                     //Navigation.findNavController(libraryView).navigate(R.id.action_fragment_Library_to_fragment_Collections);
                 }else if (position==2)
@@ -148,9 +217,8 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getContext(), Activity_User.class);
                 //Bundle.Add.Extra(Name of coin, year, country)
-                startActivity(i);
+                Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Register);
             }
         });
 

@@ -1,6 +1,8 @@
 package com.example.mynt.collectionsActivity.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +14,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.R;
 import com.example.mynt.RecyclerViewInterface;
-import com.example.mynt.collectionsActivity.models.Model_Coins_List;
+import com.example.mynt.collectionsActivity.models.Model_Coin;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 
 public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHolder>{
 
     private final RecyclerViewInterface recyclerViewInterface;
-    ArrayList<Model_Coins_List> coinsList;
+    ArrayList<Model_Coin> coinsList;
     Context context;
 
-    public Adapter_Coins(ArrayList<Model_Coins_List> coinsList, Context context, RecyclerViewInterface recyclerViewInterface) {
+    public Adapter_Coins(ArrayList<Model_Coin> coinsList, Context context, RecyclerViewInterface recyclerViewInterface) {
         this.coinsList = coinsList;
         this.context = context;
         this.recyclerViewInterface = recyclerViewInterface;
@@ -38,14 +41,25 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
 
     @Override
     public void onBindViewHolder(@NonNull CoinViewHolder holder, int position) {
-        holder.name.setText(coinsList.get(position).getCoinName());
+        holder.name.setText(coinsList.get(position).getValue());
 
         //Need to get actual year here
         holder.year.setText(String.valueOf(coinsList.get(position).getYear()));
         //glide for internet images???
-        holder.coinImage.setBackgroundResource(coinsList.get(position).getImageId());
-        holder.date.setText(String.valueOf(coinsList.get(position).getCoinDate()));
-        holder.country.setText(String.valueOf(coinsList.get(position).getCountry()));
+        //holder.coinImage.setBackgroundResource(coinsList.get(position).getImageId());
+        String name = coinsList.get(position).getCoinID() +".jpg";
+        try{
+            FileInputStream fis = context.openFileInput(name);
+            Bitmap b = BitmapFactory.decodeStream(fis);
+            holder.coinImage.setImageBitmap(b);
+            //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
+            fis.close();
+        }
+        catch(Exception e){
+            ;
+        }
+        holder.date.setText(String.valueOf(coinsList.get(position).getDateTaken()));
+        holder.country.setText("South Africa");
     }
 
     @Override

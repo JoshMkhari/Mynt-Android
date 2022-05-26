@@ -18,12 +18,9 @@
         <action
             android:id="@+id/action_fragment_Collections_to_fragment_Add2"
             app:destination="@id/fragment_Add" />
-        <action
-            android:id="@+id/action_fragment_Collections_to_fragment_home_main2"
-            app:destination="@id/fragment_home_main" />
         <argument
             android:name="User"
-            app:argType="string" />
+            app:argType="integer" />
         <argument
             android:name="Task"
             app:argType="integer" />
@@ -45,9 +42,6 @@
         <action
             android:id="@+id/action_fragment_Goal_to_fragment_Add"
             app:destination="@id/fragment_Add" />
-        <action
-            android:id="@+id/action_fragment_Goal_to_fragment_home_main"
-            app:destination="@id/fragment_home_main" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Add"
@@ -62,7 +56,7 @@
             app:argType="string" />
         <argument
             android:name="User"
-            app:argType="string" />
+            app:argType="integer" />
         <argument
             android:name="Goal"
             app:argType="integer" />
@@ -77,7 +71,7 @@
             app:destination="@id/fragment_Coin_Details" />
         <argument
             android:name="User"
-            app:argType="string" />
+            app:argType="integer" />
         <argument android:name="Task"
             app:argType="integer" />
         <argument
@@ -112,6 +106,27 @@
             app:destination="@id/fragment_Coin_Details" />
         <argument
             android:name="User"
-            app:argType="string" />
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_fragment_home_main_to_fragment_Register"
+            app:destination="@id/fragment_Register" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_Login"
+        android:name="com.example.mynt.collectionsActivity.Fragment_Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_fragment_Login_to_fragment_Register"
+            app:destination="@id/fragment_Register" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_Register"
+        android:name="com.example.mynt.collectionsActivity.Fragment_Register"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_fragment_Register_to_fragment_Login"
+            app:destination="@id/fragment_Login" />
     </fragment>
 </navigation>

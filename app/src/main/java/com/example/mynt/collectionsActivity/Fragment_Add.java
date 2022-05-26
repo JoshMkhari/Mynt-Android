@@ -4,8 +4,8 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -19,6 +19,7 @@ import androidx.navigation.Navigation;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,17 +36,18 @@ import android.widget.Toast;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
-import com.example.mynt.collectionsActivity.models.Model_UserCoin;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
-import com.example.mynt.userActivity.Model_User;
+import com.example.mynt.collectionsActivity.models.Model_User;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class Fragment_Add extends Fragment {
+
     private Spinner spinnerValue, spinnerMaterial, spinnerVariant, spinnerCollection;
     private SeekBar yearBar;
     private EditText year_Textview, alternate_Textview, mintage_Textview, observe_Textview, reverse_Textview;
@@ -67,12 +69,14 @@ public class Fragment_Add extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View add = inflater.inflate(R.layout.fragment_add, container, false);
-
+        Log.d("distance", "We make it this far");
         //Retrieve bundles
         model_user = new Model_User();
         assert getArguments() != null;
-        model_user.setUserName(getArguments().getString("User"));
+        model_user.setUserID(getArguments().getInt("User"));
 
+        String userID = model_user.getUserID() + " this";
+        Log.d("add", userID);
         //Database methods
 
 
@@ -110,34 +114,54 @@ public class Fragment_Add extends Fragment {
         //Listeners
         setUpListeners();
 
+
         //Database
         localDB = new Database_Lite(getContext());
+        ArrayList<Integer> userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
+        ArrayList<Model_Collections> allCollections = localDB.getAllCollections();
 
-        if(localDB.getAllCoins() != null)
+        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
+
+        for (int i=0; i<allCollections.size(); i++)
         {
-            coinID = localDB.getAllCoins().size();
+            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
+                allUserCollections.add(allCollections.get(i));
+        }
+
+        ArrayList<Integer> allCoinsWithCollection = localDB.getAllCoinsWithACollection();
+        ArrayList<Model_Coin> AllCoinsInDatabase = localDB.getAllCoins();
+
+        if(allCoinsWithCollection.size() == 0 )
+        {
+            coinID = 1;
+            retrieveImage(coinID);
         }
         else
         {
-            coinID = 0;
+            if(allCoinsWithCollection.size() == AllCoinsInDatabase.size() )
+            {
+                coinID = AllCoinsInDatabase.get(AllCoinsInDatabase.size()-1).getCoinID()+1;
+            }
+            else
+            {
+                retrieveImage(allCoinsWithCollection.get(allCoinsWithCollection.size()-1)+1);
+            }
         }
-
-
 
 
         year_Textview.setText("2010");
 
-
         userCollections = new ArrayList<>();
         userCollections.add("Create New Collection");
-        ArrayList<Model_Collections> collections;
-        collections = localDB.getAllCollections();
 
-        for (int i=0; i<collections.size(); i++)
+
+
+        for (int i=0; i<allUserCollections.size(); i++)
         {
-            userCollections.add(collections.get(i).getCollectionName());
+            userCollections.add(allUserCollections.get(i).getCollectionName());
 
         }
+
         //for loop to add user collections here
 
         //Populate User Collections now
@@ -185,8 +209,9 @@ public class Fragment_Add extends Fragment {
                             storeCoin();
                             if (spinnerCollection.getSelectedItemPosition() == 0) {//A new collection needs to be made
                                 Bundle bundle = new Bundle();
-                                bundle.putString("User", "To be set");
+                                bundle.putInt("User", model_user.getUserID());
                                 bundle.putInt("Task", 1);
+                                bundle.putInt("ImageID",coinID);
                                 Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
                             }else
                             {
@@ -381,7 +406,9 @@ public class Fragment_Add extends Fragment {
                     spinnerValue.getSelectedItem().toString(),
                     String.valueOf(coinID),
                     datePicker.getText().toString());
-            localDB.addCoin(model_coin,spinnerCollection.getSelectedItemPosition());
+            model_coin.setCoinID(coinID);
+            String result = localDB.addCoin(model_coin,spinnerCollection.getSelectedItemPosition());
+
         }catch (Exception e)
         {
             Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();
@@ -404,6 +431,26 @@ public class Fragment_Add extends Fragment {
 
             return false;
         }
+    }
+
+    private void retrieveImage(int imageID)
+    {
+        String name = imageID +".jpg";
+        try{
+            Context context = getContext();
+            FileInputStream fis = context.openFileInput(name);
+            Bitmap b = BitmapFactory.decodeStream(fis);
+            userImage.setImageBitmap(b);
+            fis.close();
+
+        }
+        catch(Exception e){
+        }
+
+        //Delete coin
+        localDB.deleteCoin(coinID);
+
+        requireContext().deleteFile(name);
     }
 }
 

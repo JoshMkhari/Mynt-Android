@@ -19,8 +19,10 @@ public class Activity_Collections extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collections);
 
+        //Check current user
         Bundle bundle = new Bundle();
         bundle.putString("User","Josh");
+
         //NavHostFragment.create(R.navigation.collection_navigation, bundle);
     }
 

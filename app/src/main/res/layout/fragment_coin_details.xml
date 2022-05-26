@@ -29,10 +29,11 @@
 
         <TextView
             android:id="@+id/CoinDetails_PageTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:text="Five Rand, 2007"
+            android:gravity="center"
+            android:text="Two and a Half Cent, 1986"
             android:textColor="?colorSecondaryVariant"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -43,6 +44,7 @@
         <ImageButton
             android:id="@+id/imageButton3"
             android:layout_width="48dp"
+            android:visibility="invisible"
             android:layout_height="48dp"
             android:background="@drawable/ic_share_button"
             android:contentDescription="@string/share_button"
@@ -54,6 +56,7 @@
         <ImageButton
             android:id="@+id/imageButton2"
             android:layout_width="48dp"
+            android:visibility="invisible"
             android:layout_height="48dp"
             android:background="@drawable/ic_baseline_more_vert_24"
             android:contentDescription="@string/share_button"
@@ -74,7 +77,6 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:background="@drawable/img_two_rand"
             tools:ignore="ImageContrastCheck"
             android:contentDescription="@string/coin_image" />
         <TextView

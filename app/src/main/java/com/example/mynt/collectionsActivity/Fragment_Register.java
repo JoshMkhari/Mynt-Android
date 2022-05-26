@@ -1,4 +1,4 @@
-package com.example.mynt.userActivity;
+package com.example.mynt.collectionsActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,11 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.mynt.R;
-import com.example.mynt.collectionsActivity.Activity_Collections;
 import com.example.mynt.dataAccessLayer.Database_Lite;
+import com.example.mynt.collectionsActivity.models.Model_User;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,6 +61,7 @@ public class Fragment_Register extends Fragment {
                 model_user.setPassword(password.getText().toString());
                 if(db.addUser(model_user))
                 {
+                    db.updateState(model_user);
                     Intent i = new Intent(getContext(), Activity_Collections.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(i);
@@ -72,9 +72,10 @@ public class Fragment_Register extends Fragment {
         loginWithEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(registerView).navigate(R.id.action_login);
+                Navigation.findNavController(registerView).navigate(R.id.action_fragment_Register_to_fragment_Login);
             }
         });
+
         return registerView;
     }
 }

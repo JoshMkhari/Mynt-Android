@@ -1,14 +1,12 @@
 package com.example.mynt.collectionsActivity.models;
 
-import com.example.mynt.collectionsActivity.models.Model_UserCoin;
-
 import java.util.ArrayList;
 
 public class Model_Collections {
 
     private int CollectionID;//Image for collection cover
     private String CollectionName;
-    private ArrayList<Model_UserCoin> model_userCoinArrayList;
+    private ArrayList<Model_UserCollection> model_userCollectionArrayList;
     private int goal;
 
     public Model_Collections(String collectionName, int goal) {
@@ -21,12 +19,12 @@ public class Model_Collections {
     private int CollectionCoinAmount;
     private int ImageID;//Cover should be last added imnage
 
-    public ArrayList<Model_UserCoin> getModel_userArrayList() {
-        return model_userCoinArrayList;
+    public ArrayList<Model_UserCollection> getModel_userArrayList() {
+        return model_userCollectionArrayList;
     }
 
-    public void setModel_userArrayList(ArrayList<Model_UserCoin> model_userArrayList) {
-        this.model_userCoinArrayList = model_userArrayList;
+    public void setModel_userArrayList(ArrayList<Model_UserCollection> model_userArrayList) {
+        this.model_userCollectionArrayList = model_userArrayList;
     }
 
 
