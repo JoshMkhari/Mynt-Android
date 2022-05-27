@@ -43,8 +43,6 @@ public class Fragment_Login extends Fragment {
         // Inflate the layout for this fragment
         loginView = inflater.inflate(R.layout.fragment_login, container, false);
 
-        Login();
-        ReturnToRegister();
 
         email = loginView.findViewById(R.id.LoginEmail_EditText);
         password = loginView.findViewById(R.id.LoginPassword_EditText);
@@ -52,6 +50,8 @@ public class Fragment_Login extends Fragment {
         close = loginView.findViewById(R.id.LoginClose_button);
 
 
+        Login();
+        ReturnToRegister();
 
 
         return loginView;
@@ -72,30 +72,48 @@ public class Fragment_Login extends Fragment {
                 size = users.size() + " this";
                 Log.d("loginPage", size);
 
-                for (int i=0; i<users.size(); i++) {
-                    if(users.get(i).getEmail().equals(model_user.getEmail()))
-                    {
-                        if(users.get(i).getPassword().equals(model_user.getPassword()))
+                if(email.getText().toString().length()==0){
+                    //Additional User Feedback
+                    Toast.makeText(getContext(),"ERROR: A email address has not been entered.",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+                    Toast.makeText(getContext(),"Please enter a email address to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                }
+
+
+                    if(password.getText().toString().length()==0){
+
+                        //Additional User Feedback
+                        Toast.makeText(getContext(),"ERROR: A password has not been entered",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+                        Toast.makeText(getContext(),"Please enter a password to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                    }
+
+                if(email.getText().toString().length()>0 && password.getText().toString().length()>0){
+                    for (int i=0; i<users.size(); i++) {
+                        if(users.get(i).getEmail().equals(model_user.getEmail()))
                         {
-                            //update user state
-                            db.updateState(model_user);
-                            Intent login = new Intent(getContext(), Activity_Collections.class);
-                            login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(login);
+                            if(users.get(i).getPassword().equals(model_user.getPassword()))
+                            {
+                                //update user state
+                                db.updateState(model_user);
+                                Intent login = new Intent(getContext(), Activity_Collections.class);
+                                login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(login);
+
+                                //Additional User Feedback
+                                Toast.makeText(getContext(),model_user.getEmail()+ " has logged in successfully.",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+                            }
+
+
                         }else{
-                            //Additional User Feedback
-                            Toast.makeText(getContext(),"An account with this password not registered" + "\n"+ "Please re-enter the password of this account",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+
 
                         }
-
-                    }else{
-
-                        Toast.makeText(getContext(),"An account with this email has not been registered"+ "\n"+ "Please re-enter the email of this account",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
-
                     }
                 }
-                //Toast.makeText(getContext(),"Email and password combination false or email not registered",Toast.LENGTH_LONG).show();
-            }
+
+
+                }
+
+
         });
 
     }
