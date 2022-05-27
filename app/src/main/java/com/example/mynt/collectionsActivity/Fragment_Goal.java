@@ -51,6 +51,13 @@ public class Fragment_Goal extends Fragment {
     private String currentText;
     private int currentTarget;
     private int task;
+    private Database_Lite localDB;
+    private Model_Collections model_collections;
+    private ArrayList<Integer> userCollectionIDs;
+    private ArrayList<Model_Collections> allCollections;
+    private ArrayList<Model_Collections> allUserCollections;
+    private Intent home;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -109,8 +116,6 @@ public class Fragment_Goal extends Fragment {
 
     private void ReturnToHomePage(){
 
-
-
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,10 +130,10 @@ public class Fragment_Goal extends Fragment {
             public void onClick(View v) {
                 if(Integer.parseInt(target_Edittext.getText().toString())!=0)
                 {
-                    Database_Lite localDB = new Database_Lite(getContext());
+                    localDB = new Database_Lite(getContext());
 
 
-                    Model_Collections model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
+                    model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
 
                     localDB.addCollection(model_collections,model_user);
                     //Add collection to database for user
@@ -136,10 +141,10 @@ public class Fragment_Goal extends Fragment {
                     {
                         Toast.makeText(getContext(), "Running new", Toast.LENGTH_SHORT).show();
                         //Get latest collection ID
-                        ArrayList<Integer> userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
-                        ArrayList<Model_Collections> allCollections = localDB.getAllCollections();
+                        userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
+                        allCollections = localDB.getAllCollections();
 
-                        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
+                        allUserCollections = new ArrayList<>();
 
                         for (int i=0; i<allCollections.size(); i++)
                         {
@@ -148,20 +153,20 @@ public class Fragment_Goal extends Fragment {
                         }
                         localDB.addCollectionCoin(allUserCollections.get(allUserCollections.size()-1).getCollectionID());
                     }
-                    Intent home = new Intent(getContext(),Activity_Collections.class);
-                    //home.putExtra("View","library");
+                    home = new Intent(getContext(),Activity_Collections.class);
+                    home.putExtra("View","library");
                     home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(home);
 
                     //Additional User Feedback
-                    Toast.makeText(getContext(), "Goal for" +  model_goals.getCollectionName() + " has been created successfully" , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has been created successfully." , Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
 
                 }else
                 {
 
                     //Additional User Feedback
-                    Toast.makeText(getContext(), "Goal for" +  model_goals.getCollectionName() + " has not been created successfully" , Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getContext(), "Target cannot be 0", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has not been created successfully." , Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                    Toast.makeText(getContext(), "Target number of coins cannot be 0.", Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
                 }
 
             }
@@ -210,9 +215,23 @@ public class Fragment_Goal extends Fragment {
         subtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentTarget = Integer.parseInt(target_Edittext.getText().toString());
-                currentTarget--;
-                target_Edittext.setText(String.valueOf(currentTarget));
+
+
+                if(currentTarget <0 || currentTarget ==0){
+                    currentTarget = 0;
+                    target_Edittext.setText(String.valueOf(currentTarget));
+
+                    //Additional User Feedback
+                    Toast.makeText(getContext(), "ERROR: Your target number of coins cannot 0 or be less than 0.", Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                    Toast.makeText(getContext(),  "Please re-enter your target number of coins." , Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+
+                }else{
+
+                    currentTarget = Integer.parseInt(target_Edittext.getText().toString());
+                    currentTarget--;
+                    target_Edittext.setText(String.valueOf(currentTarget));
+
+                }
             }
         });
         add.setOnClickListener(new View.OnClickListener() {

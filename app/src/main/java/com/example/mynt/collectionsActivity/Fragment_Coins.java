@@ -43,6 +43,8 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
     private ArrayList<Model_Collections> allCollections;
     private ArrayList<Model_Collections> allUserCollections;
     private ArrayList<Integer> collectionCoins;
+    private Intent home;
+    private Bundle bundle;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -107,7 +109,7 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
                     Navigation.findNavController(coinsView).navigateUp();
                 }else
                 {
-                    Intent home = new Intent(getContext(),Activity_Collections.class);
+                    home = new Intent(getContext(),Activity_Collections.class);
                     //home.putExtra("View","library");
                     home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(home);
@@ -187,7 +189,7 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
     //implementing RecyclerViewInterface
     @Override
     public void onItemClick(int position) {
-        Bundle bundle = new Bundle();
+        bundle = new Bundle();
         bundle.putInt("Task", task);
         bundle.putInt("CoinID", coinIDs.get(position));
         Navigation.findNavController(coinsView).navigate(R.id.action_fragment_Coins_to_fragment_Coin_Details,bundle);

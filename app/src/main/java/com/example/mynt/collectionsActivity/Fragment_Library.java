@@ -75,7 +75,7 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
 
         optionListView = libraryView.findViewById(R.id.listView_navigation_library);
         loginButton = libraryView.findViewById(R.id.imageButton_userActivity_library);
-        ArrayList<Model_Library_Options> arrayList_library_navigation = new ArrayList<>();
+        arrayList_library_navigation = new ArrayList<>();
         arrayList_recent_coins = new ArrayList<>();
 
         ReturnToRegister();

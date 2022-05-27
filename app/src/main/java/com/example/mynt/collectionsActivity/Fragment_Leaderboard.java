@@ -27,6 +27,7 @@ public class Fragment_Leaderboard extends Fragment implements RecyclerViewInterf
     private RecyclerView.LayoutManager layout_manager_leaderboard;
     private ArrayList<Model_Leaderboard> array_list_leaderboard;
     private View view_leaderboard;
+    private Model_Leaderboard lm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,7 +65,7 @@ public class Fragment_Leaderboard extends Fragment implements RecyclerViewInterf
                 Using constructor to create new leaderboard items
                     Passing Username, UserScore, UserIcon
              */
-            Model_Leaderboard lm = new Model_Leaderboard("IHasShoulders",4396,R.drawable.ic_default_user_profile_icon);
+            lm = new Model_Leaderboard("IHasShoulders",4396,R.drawable.ic_default_user_profile_icon);
             array_list_leaderboard.add(lm);
         }
 

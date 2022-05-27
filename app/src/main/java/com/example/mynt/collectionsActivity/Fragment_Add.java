@@ -64,6 +64,16 @@ public class Fragment_Add extends Fragment {
     private DatePickerDialog dateAcquired;
     private Model_User model_user;
     private ArrayList<String> userCollections;
+    private ArrayList<Integer> userCollectionIDs;
+    private ArrayList<Model_Collections> allCollections;
+    private ArrayList<Model_Collections> allUserCollections;
+    private ArrayList<Integer> allCoinsWithCollection;
+    private ArrayList<Model_Coin> AllCoinsInDatabase;
+    private ArrayAdapter<CharSequence> adapterValue;
+    private ArrayAdapter<CharSequence> adapterMaterial;
+    private ArrayAdapter<CharSequence> adapterVariant;
+    private ArrayAdapter<String> adapterCollection;
+    private Intent home;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -117,10 +127,10 @@ public class Fragment_Add extends Fragment {
 
         //Database
         localDB = new Database_Lite(getContext());
-        ArrayList<Integer> userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
-        ArrayList<Model_Collections> allCollections = localDB.getAllCollections();
+        userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
+        allCollections = localDB.getAllCollections();
 
-        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
+        allUserCollections = new ArrayList<>();
 
         for (int i=0; i<allCollections.size(); i++)
         {
@@ -128,8 +138,8 @@ public class Fragment_Add extends Fragment {
                 allUserCollections.add(allCollections.get(i));
         }
 
-        ArrayList<Integer> allCoinsWithCollection = localDB.getAllCoinsWithACollection();
-        ArrayList<Model_Coin> AllCoinsInDatabase = localDB.getAllCoins();
+        allCoinsWithCollection = localDB.getAllCoinsWithACollection();
+        AllCoinsInDatabase = localDB.getAllCoins();
 
         if(allCoinsWithCollection.size() == 0 )
         {
@@ -170,26 +180,26 @@ public class Fragment_Add extends Fragment {
         //Array Adapters
         //Value
 
-        ArrayAdapter<CharSequence> adapterValue = ArrayAdapter.createFromResource(getContext(), R.array.Value, R.layout.spinner_item);
+        adapterValue = ArrayAdapter.createFromResource(getContext(), R.array.Value, R.layout.spinner_item);
         adapterValue.setDropDownViewResource(R.layout.spinner_item);
         spinnerValue.setAdapter(adapterValue);
 
-        ArrayAdapter<CharSequence> adapterMaterial = ArrayAdapter.createFromResource(getContext(), R.array.Material, R.layout.spinner_item);
+        adapterMaterial = ArrayAdapter.createFromResource(getContext(), R.array.Material, R.layout.spinner_item);
         adapterMaterial.setDropDownViewResource(R.layout.spinner_item);
         spinnerMaterial.setAdapter(adapterMaterial);
 
-        ArrayAdapter<CharSequence> adapterVariant = ArrayAdapter.createFromResource(getContext(), R.array.Variants, R.layout.spinner_item);
+        adapterVariant = ArrayAdapter.createFromResource(getContext(), R.array.Variants, R.layout.spinner_item);
         adapterVariant.setDropDownViewResource(R.layout.spinner_item);
         spinnerVariant.setAdapter(adapterVariant);
 
-        ArrayAdapter<String> adapterCollection = new ArrayAdapter<>(getContext(), R.layout.spinner_item, userCollections);
+        adapterCollection = new ArrayAdapter<>(getContext(), R.layout.spinner_item, userCollections);
         adapterCollection.setDropDownViewResource(R.layout.spinner_item);
         spinnerCollection.setAdapter(adapterCollection);
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home = new Intent(getContext(),Activity_Collections.class);
+                home = new Intent(getContext(),Activity_Collections.class);
                 home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(home);
             }
@@ -233,6 +243,8 @@ public class Fragment_Add extends Fragment {
         });
         return add;
     }
+
+
 
     private String getTodaysDate() {
 

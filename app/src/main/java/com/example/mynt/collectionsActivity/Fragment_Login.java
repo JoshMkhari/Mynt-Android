@@ -31,6 +31,11 @@ public class Fragment_Login extends Fragment {
     private ImageButton login;
     private ImageButton close;
     private View loginView;
+    private Database_Lite db;
+    private Model_User model_user;
+    private ArrayList<Model_User> users;
+    private String size;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,13 +63,13 @@ public class Fragment_Login extends Fragment {
             public void onClick(View v) {
 
 
-                Database_Lite db = new Database_Lite(getContext());
-                Model_User model_user = new Model_User();
+                db = new Database_Lite(getContext());
+                model_user = new Model_User();
                 model_user.setEmail(email.getText().toString());
                 model_user.setPassword(password.getText().toString());
-                ArrayList<Model_User> users = new ArrayList<>();
+                users = new ArrayList<>();
                 users = db.getAllUsers();
-                String size = users.size() + " this";
+                size = users.size() + " this";
                 Log.d("loginPage", size);
 
                 for (int i=0; i<users.size(); i++) {
@@ -78,14 +83,14 @@ public class Fragment_Login extends Fragment {
                             login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(login);
                         }else{
-
-                            Toast.makeText(getContext(),"An account with this password not registered" + "\n"+ "Please re-enter the password of this account",Toast.LENGTH_LONG).show();
+                            //Additional User Feedback
+                            Toast.makeText(getContext(),"An account with this password not registered" + "\n"+ "Please re-enter the password of this account",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
 
                         }
 
                     }else{
 
-                        Toast.makeText(getContext(),"An account with this email has not been registered"+ "\n"+ "Please re-enter the email of this account",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"An account with this email has not been registered"+ "\n"+ "Please re-enter the email of this account",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
 
                     }
                 }

@@ -32,6 +32,7 @@ public class Fragment_Main extends Fragment {
     private Database_Lite db;
     private ArrayList<Model_User> users;
     private String userID;
+    private Bundle bundle;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +57,7 @@ public class Fragment_Main extends Fragment {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle = new Bundle();
+                bundle = new Bundle();
                 bundle.putInt("User", user.getUserID());
                 Navigation.findNavController(main).navigate(R.id.action_fragment_home_main_to_fragment_Add, bundle);
             }

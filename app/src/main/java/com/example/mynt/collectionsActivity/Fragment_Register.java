@@ -29,6 +29,10 @@ public class Fragment_Register extends Fragment {
     private ImageButton loginWithEmail;
     private ImageButton close;
     private View registerView;
+    private Database_Lite db;
+    private Model_User model_user;
+    private Intent i;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +60,7 @@ public class Fragment_Register extends Fragment {
             @Override
             public void onClick(View v) {
                 //intent take me to library
-                Intent i = new Intent(getContext(), Activity_Collections.class);
+                i = new Intent(getContext(), Activity_Collections.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
             }
@@ -71,44 +75,56 @@ public class Fragment_Register extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(email.getText().toString() != null && password.getText().toString() !=  null){
-                    Database_Lite db = new Database_Lite(getContext());
-                    Model_User model_user = new Model_User();
-                    model_user.setEmail(email.getText().toString());
-                    model_user.setPassword(password.getText().toString());
-                    if(db.addUser(model_user))
-                    {
-                        db.updateState(model_user);
-                        Intent i = new Intent(getContext(), Activity_Collections.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
-                    }
-
-                    // Additional User Feedback
-                    Toast.makeText(getContext(),"An account has been created successfully for" + email.getText().toString(),Toast.LENGTH_SHORT).show();
-
-                }else{
-
-                    if(email.getText().toString() == null || email.getText().toString() == ""){
+                    if(email.getText().toString().length()==0){
 
                         // Additional User Feedback
-                        Toast.makeText(getContext(),"ERROR: This account has not been created successfully",Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getContext(),"ERROR: An email address has not been entered ",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"ERROR: This account has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                        Toast.makeText(getContext(),"A email address has not been entered.",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+                        Toast.makeText(getContext(),"Please enter a email address to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
 
                     }
 
-                   if(password.getText().toString() == null || password.getText().toString() == ""){
+                        if(password.getText().toString().length()==0){
 
-                        // Additional User Feedback
-                        Toast.makeText(getContext(),"ERROR: This account has not been created successfully",Toast.LENGTH_SHORT).show();
-                        Toast.makeText(getContext(),"ERROR: An password has not been set ",Toast.LENGTH_SHORT).show();
+                            // Additional User Feedback
+                            Toast.makeText(getContext(),"ERROR: This account has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                            Toast.makeText(getContext(),"A password has not been entered",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+                            Toast.makeText(getContext(),"Please enter a password to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                        }
 
-                    }
+                        if(confirmPassword.getText().toString().length()==0){
+
+                            // Additional User Feedback
+                            Toast.makeText(getContext(),"ERROR: This account has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                            Toast.makeText(getContext(),"A password has not been entered to confirm the password entered.",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+                            Toast.makeText(getContext(),"Please re-enter your password to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+
+                        }
 
 
-                }
+                            if(email.getText().toString().length()>0 && password.getText().toString().length()>0 && confirmPassword.getText().toString().length()>0){
 
-            }
+                                db = new Database_Lite(getContext());
+                                model_user = new Model_User();
+                                model_user.setEmail(email.getText().toString());
+                                model_user.setPassword(password.getText().toString());
+                                if(db.addUser(model_user))
+                                {
+                                    db.updateState(model_user);
+                                    i = new Intent(getContext(), Activity_Collections.class);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(i);
+                                }
+
+                                //Additional User Feedback
+                                Toast.makeText(getContext(),"An account has been created successfully for " + email.getText().toString() + ".",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+
+                            }
+                        }
+
+
+
+
         });
 
 

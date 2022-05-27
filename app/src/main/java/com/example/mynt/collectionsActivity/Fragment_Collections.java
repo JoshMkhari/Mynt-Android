@@ -158,13 +158,15 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
                     bundle.putInt("User",model_user.getUserID());
                     Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
 
-                    // Additional User Feedback
-                    Toast.makeText(getContext(),collectionName.getText().toString() + " has been created successfully",Toast.LENGTH_SHORT).show();
+                    //Additional User Feedback
+                    Toast.makeText(getContext(),collectionName.getText().toString() + " has been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
                 }
                 else
                 {
-                    Toast.makeText(getContext(),"Error: Your collection has not been created successfully",Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getContext(),"Set a collection name to proceed",Toast.LENGTH_SHORT).show();
+                    //Additional User Feedback
+                    Toast.makeText(getContext(),"Error: Your collection has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                    Toast.makeText(getContext(),"A collection name has not been set.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                    Toast.makeText(getContext(),"Please enter a name for your collection.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
                 }
 
                 /*

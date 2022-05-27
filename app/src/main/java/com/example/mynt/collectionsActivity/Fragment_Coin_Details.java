@@ -43,6 +43,7 @@ public class Fragment_Coin_Details extends Fragment {
     private String coinTitle;
     private String name;
     private int task;
+    private Intent home;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -115,7 +116,7 @@ public class Fragment_Coin_Details extends Fragment {
             public void onClick(View v) {
                 if(task==0)// Fragment was accessed home screen
                 {
-                    Intent home = new Intent(getContext(),Activity_Collections.class);
+                    home = new Intent(getContext(),Activity_Collections.class);
                     //home.putExtra("View","library");
                     home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(home);
