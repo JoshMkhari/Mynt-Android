@@ -79,7 +79,13 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView, 
         mAdapter = new Adapter_Coins(coinsList, getContext(),this);
         recyclerView.setAdapter(mAdapter);
 
-
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                backActivity();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
 
         //ListView myList = new ListView(allCoinsView.getContext());
         /*
@@ -104,20 +110,10 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView, 
         back_imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                assert getArguments() != null;
-                int task = getArguments().getInt("Task");
-                if(task==1)// Fragment was accessed from somewhere else
-                {
-                    Navigation.findNavController(coinsView).navigateUp();
-                }else
-                {
-                    home = new Intent(getContext(),Activity_Collections.class);
-                    //home.putExtra("View","library");
-                    home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(home);
-                }
+                backActivity();
             }
         });
+
 
     }
     private void DisplayAllLocalCoinsAndCollections(){
@@ -182,39 +178,6 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView, 
                 }
             }
         }
-
-        mAdapter = new Adapter_Coins(coinsList, getContext(),this);
-        recyclerView.setAdapter(mAdapter);
-
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                backActivity();
-            }
-        };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
-
-        back_imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backActivity();
-            }
-        });
-
-        //ListView myList = new ListView(allCoinsView.getContext());
-        /*
-
-        for (int i = 0; i < coinsBaseList.size(); i++) {
-            coinDate.setText(coinsBaseList.get(i).getDate());
-            myLayout.addView(coinDate);
-            Collections_AllCoins_ListAdapter coinsListAdapter = new Collections_AllCoins_ListAdapter(getContext(),coinsBaseList.get(i).getCoins());
-            for (int s = 0; coinsBaseList.get(i).getCoins().size() < 5; s++) {
-                //myList.addView(coinsListAdapter.getView(s,null,myLayout));
-                myLayout.addView(coinsListAdapter.getView(s,null,myLayout));
-            }
-        }
-        */
-        return coinsView;
 
     }
 
