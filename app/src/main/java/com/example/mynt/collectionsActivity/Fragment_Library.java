@@ -150,10 +150,6 @@ public class Fragment_Library extends Fragment implements RecyclerViewInterface 
                 user = users.get(i);
             }
         }
-
-
-
-
     }
 
     private void DisplayAllLocalCollections(){
