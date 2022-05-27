@@ -37,6 +37,11 @@ public class Fragment_home_main extends Fragment {
         // Inflate the layout for this fragment
         home = inflater.inflate(R.layout.fragment_home, container, false);
         viewPager2_main = home.findViewById(R.id.main_act_viewPager2);
+
+
+        assert getArguments() != null;
+        int currentPage = getArguments().getInt("StartPage");
+
         user = new Model_User();
 
         Database_Lite db = new Database_Lite(getContext());
@@ -56,16 +61,10 @@ public class Fragment_home_main extends Fragment {
         fragmentManager = getParentFragmentManager();
         fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getUserID());
         viewPager2_main.setAdapter((fragmentAdapter));
-
-
-        //Bundle extras = getIntent().getExtras();
-        //if (extras != null) {
-           // int page = extras.getInt("page");
-           // viewPager2_main.setCurrentItem(1);
-            //The key argument here must match that used in the other activity
-        //}
-
+        viewPager2_main.setCurrentItem(currentPage);
 
         return home;
     }
+
+
 }

@@ -1,8 +1,11 @@
 package com.example.mynt.collectionsActivity;
 
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
+
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,8 +17,9 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
-import com.example.mynt.RecyclerViewInterface;
+import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coins;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
@@ -23,8 +27,9 @@ import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
+public class Fragment_Coins extends Fragment implements Interface_RecyclerView, Interface_Back {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -178,8 +183,38 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
             }
         }
 
+        mAdapter = new Adapter_Coins(coinsList, getContext(),this);
+        recyclerView.setAdapter(mAdapter);
 
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                backActivity();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
 
+        back_imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backActivity();
+            }
+        });
+
+        //ListView myList = new ListView(allCoinsView.getContext());
+        /*
+
+        for (int i = 0; i < coinsBaseList.size(); i++) {
+            coinDate.setText(coinsBaseList.get(i).getDate());
+            myLayout.addView(coinDate);
+            Collections_AllCoins_ListAdapter coinsListAdapter = new Collections_AllCoins_ListAdapter(getContext(),coinsBaseList.get(i).getCoins());
+            for (int s = 0; coinsBaseList.get(i).getCoins().size() < 5; s++) {
+                //myList.addView(coinsListAdapter.getView(s,null,myLayout));
+                myLayout.addView(coinsListAdapter.getView(s,null,myLayout));
+            }
+        }
+        */
+        return coinsView;
 
     }
 
@@ -190,5 +225,19 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
         bundle.putInt("Task", task);
         bundle.putInt("CoinID", coinIDs.get(position));
         Navigation.findNavController(coinsView).navigate(R.id.action_fragment_Coins_to_fragment_Coin_Details,bundle);
+    }
+
+    @Override
+    public void backActivity() {
+        if(task==1)// Fragment was accessed from somewhere else
+        {
+            Navigation.findNavController(coinsView).navigateUp();
+        }else
+        {
+            Bundle bundle = new Bundle();
+            bundle.putInt("StartPage",0);
+            findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
+                    setGraph(R.navigation.collection_navigation,bundle);
+        }
     }
 }

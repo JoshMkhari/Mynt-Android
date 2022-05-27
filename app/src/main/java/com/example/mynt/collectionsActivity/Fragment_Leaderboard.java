@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.mynt.R;
-import com.example.mynt.RecyclerViewInterface;
+import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Leaderboard;
 import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
 
@@ -21,7 +21,7 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class Fragment_Leaderboard extends Fragment implements RecyclerViewInterface  {
+public class Fragment_Leaderboard extends Fragment implements Interface_RecyclerView {
     private RecyclerView recycler_view_leaderboard;
     private RecyclerView.Adapter rv_leaferbaord_adapter;
     private RecyclerView.LayoutManager layout_manager_leaderboard;

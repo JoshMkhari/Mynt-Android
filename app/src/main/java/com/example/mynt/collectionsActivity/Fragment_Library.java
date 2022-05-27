@@ -1,6 +1,5 @@
 package com.example.mynt.collectionsActivity;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,17 +7,15 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
-import com.example.mynt.RecyclerViewInterface;
+import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 
@@ -37,7 +34,7 @@ import java.util.ArrayList;
  * Use the {@link Fragment_Library#} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Library extends Fragment implements RecyclerViewInterface {
+public class Fragment_Library extends Fragment implements Interface_RecyclerView {
     //Variable Declarations
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;

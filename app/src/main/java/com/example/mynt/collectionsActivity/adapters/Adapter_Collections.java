@@ -11,22 +11,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.mynt.R;
-import com.example.mynt.RecyclerViewInterface;
+import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
 
 public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder>{
-    private final RecyclerViewInterface recyclerViewInterface;
+    private final Interface_RecyclerView interfaceRecyclerView;
     private ArrayList<Model_Collections> collectionsList;
     private Context context;
     private int selected_position = 0;
 
-    public Adapter_Collections(ArrayList<Model_Collections> collectionsList, Context context, RecyclerViewInterface recyclerViewInterface) {
+    public Adapter_Collections(ArrayList<Model_Collections> collectionsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
         this.collectionsList = collectionsList;
         this.context = context;
-        this.recyclerViewInterface = recyclerViewInterface;
+        this.interfaceRecyclerView = interfaceRecyclerView;
     }
 
     @NonNull
@@ -85,12 +85,12 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(recyclerViewInterface != null)
+                    if(interfaceRecyclerView != null)
                     {
                         int pos = getAbsoluteAdapterPosition();
 
                         if(pos != RecyclerView.NO_POSITION){
-                            recyclerViewInterface.onItemClick(pos);
+                            interfaceRecyclerView.onItemClick(pos);
                         }
                     }
                 }

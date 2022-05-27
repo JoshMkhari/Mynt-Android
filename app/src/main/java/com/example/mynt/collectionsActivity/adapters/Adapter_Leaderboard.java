@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.R;
-import com.example.mynt.RecyclerViewInterface;
+import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
 
 import java.util.ArrayList;
@@ -19,11 +19,11 @@ import java.util.ArrayList;
 public class Adapter_Leaderboard extends RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> {
 
     //Variable Declarations
-    private final RecyclerViewInterface recyclerView_Interface;
+    private final Interface_RecyclerView recyclerView_Interface;
     private ArrayList<Model_Leaderboard> arrayList_Leaderboard;
     private Context context;
 
-    public Adapter_Leaderboard(ArrayList<Model_Leaderboard> arrayList_Leaderboard, Context context, RecyclerViewInterface recyclerView_Interface) {
+    public Adapter_Leaderboard(ArrayList<Model_Leaderboard> arrayList_Leaderboard, Context context, Interface_RecyclerView recyclerView_Interface) {
         this.context = context;
         this.arrayList_Leaderboard = arrayList_Leaderboard;
         this.recyclerView_Interface = recyclerView_Interface;
