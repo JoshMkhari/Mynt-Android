@@ -11,6 +11,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,8 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView, 
         model_user.setUserID(getArguments().getInt("User"));
         collectionID = getArguments().getInt("CollectionID");
 
+        String collec = collectionID + " this";
+        Log.d("collectionID", collec);
         DisplayAllLocalCoinsAndCollections();
         ReturnToCoinPage();
         recyclerView = (RecyclerView) coinsView.findViewById(R.id.recyclerView_coins);

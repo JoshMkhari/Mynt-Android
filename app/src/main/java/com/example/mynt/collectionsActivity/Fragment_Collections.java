@@ -196,7 +196,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         Bundle bundle = new Bundle();
         bundle.putString("Collection Name",collectionsList.get(position).getCollectionName());
         bundle.putInt("Task", 1);;
-        bundle.putInt("CollectionID", position+1);;
+        bundle.putInt("CollectionID", collectionsList.get(position).getCollectionID());;
         bundle.putInt("User", model_user.getUserID());;
         Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Coins,bundle);
 
