@@ -39,15 +39,12 @@ public class Fragment_Main extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         main = inflater.inflate(R.layout.fragment_main, container, false);
-
-
-        AddCoin();
-        ViewLoggedInUser();
-        
         user = new Model_User();
+        assert getArguments() != null;
+        user.setUserID(getArguments().getInt("User"));
         addButton = main.findViewById(R.id.image_button_add_coin_main);
 
-
+        AddCoin();
 
         return main;
     }
@@ -64,20 +61,6 @@ public class Fragment_Main extends Fragment {
         });
     }
 
-    private void ViewLoggedInUser() {
-
-            db = new Database_Lite(getContext());
-
-            users = db.getAllUsers();
-            for (int i = 0; i < users.size(); i++) {
-                if (users.get(i).getState() == 1) {
-                    user = users.get(i);
-                }
-            }
-
-            userID = user.getUserID() + " this";
-            Log.d("main", userID);
-        }
 
     }
 

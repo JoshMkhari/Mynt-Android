@@ -56,9 +56,6 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
         collectionName_textView = coinsView.findViewById(R.id.textview_blockTitle_coins);
         back_imageButton = coinsView.findViewById(R.id.image_button_back_coins);
 
-        ReturnToCoinPage();
-        DisplayAllLocalCoinsAndCollections();
-
         assert getArguments() != null;
         task = getArguments().getInt("Task");
         blockTitle = getArguments().getString("Collection Name");
@@ -66,8 +63,8 @@ public class Fragment_Coins extends Fragment implements RecyclerViewInterface {
         model_user.setUserID(getArguments().getInt("User"));
         collectionID = getArguments().getInt("CollectionID");
 
-
-
+        DisplayAllLocalCoinsAndCollections();
+        ReturnToCoinPage();
         recyclerView = (RecyclerView) coinsView.findViewById(R.id.recyclerView_coins);
         recyclerView.setHasFixedSize(true);
 

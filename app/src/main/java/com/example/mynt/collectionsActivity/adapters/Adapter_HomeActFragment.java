@@ -14,17 +14,19 @@ import com.example.mynt.collectionsActivity.Fragment_Main;
 
 public class Adapter_HomeActFragment extends FragmentStateAdapter {
 
-    private String email;
+    private int userID;
     private Bundle bundle = new Bundle();
-    public Adapter_HomeActFragment(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, String email) {
+    public Adapter_HomeActFragment(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, int userID) {
         super(fragmentManager, lifecycle);
-        this.email = email;
+        this.userID = userID;
     }
 
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        bundle.putString("userEmail",email);
+
+
+        bundle.putInt("User",userID);
         if (position == 1){
 
             Fragment_Main home = new Fragment_Main();

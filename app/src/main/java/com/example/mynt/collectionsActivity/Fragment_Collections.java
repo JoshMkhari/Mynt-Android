@@ -76,10 +76,10 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         userID = model_user.getUserID() + " this";
         Log.d("collections", userID);
 
-
+        DisplayAllLocalCollections();
         CreateCollection();
         ReturnToHomePage();
-        DisplayAllLocalCollections();
+
 
         //model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
         recyclerView = collectionsView.findViewById(R.id.all_collectionsList);
@@ -203,6 +203,7 @@ public class Fragment_Collections extends Fragment implements RecyclerViewInterf
         bundle.putString("Collection Name",collectionsList.get(position).getCollectionName());
         bundle.putInt("Task", 1);;
         bundle.putInt("CollectionID", position+1);;
+        bundle.putInt("User", model_user.getUserID());;
         Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Coins,bundle);
 
     }
