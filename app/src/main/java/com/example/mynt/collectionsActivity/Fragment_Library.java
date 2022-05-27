@@ -44,6 +44,20 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
     private Adapter_Library_Options optionsListAdapter;
     private View libraryView;
     private ArrayList<Model_Coin> arrayList_recent_coins;
+    private Database_Lite db;
+    private ArrayList<Model_User> users;
+    private ArrayList<Integer> userCollectionIDs;
+    private ArrayList<Model_Collections> allCollections;
+    private ArrayList<Model_Collections> allUserCollections;
+    private ArrayList<Integer> allCoinsWithCollection;
+    private ArrayList<Model_Coin> AllCoinsInDatabase;
+    private boolean found;
+    private String fileName;
+    private ArrayList<Model_Coin> dbCoins;
+    private ArrayList<Model_Coin> currentUserCoins;
+    private ArrayList<Integer> collectionCoins;
+    private ArrayList<Model_Library_Options> arrayList_library_navigation;
+
 
     private Model_User user;
     @Override
@@ -56,85 +70,16 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         //Initializing variables
         //String email = getArguments().getString("userEmail");
 
-        Database_Lite db = new Database_Lite(getContext());
-
-        ArrayList<Model_User> users = db.getAllUsers();
-        for (int i=0; i<users.size(); i++)
-        {
-            if(users.get(i).getState()==1)
-            {
-                user = users.get(i);
-            }
-        }
-
-        ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(user);
-        ArrayList<Model_Collections> allCollections = db.getAllCollections();
-
-        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
-
-        for (int i=0; i<allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                allUserCollections.add(allCollections.get(i));
-        }
-
-        ArrayList<Integer> allCoinsWithCollection = db.getAllCoinsWithACollection();
-
-        ArrayList<Model_Coin> AllCoinsInDatabase = db.getAllCoins();
-        boolean found;
-        if(allCoinsWithCollection.size() != AllCoinsInDatabase.size() )
-        {
-            for (int i=0; i<AllCoinsInDatabase.size(); i++)
-            {
-                found = false;
-                for (int b=0; b<allCoinsWithCollection.size(); b++)
-                {
-                    if(AllCoinsInDatabase.get(i).getCoinID() == allCoinsWithCollection.get(b))
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                if(!found)
-                {
-                    //delete current coin from database
-                    db.deleteCoin(AllCoinsInDatabase.get(i).getCoinID());;
-                    String fileName = AllCoinsInDatabase.get(i).getCoinID() + ".jpg";
-                    //Delete image from files
-                    requireContext().deleteFile(fileName);
-                    //imageID.add(AllCoinsInDatabase.get(i).getImageId());
-                }
-            }
-        }
-
-        ArrayList<Model_Coin> dbCoins = new ArrayList<>();
-        dbCoins = db.getAllCoins();
-
-        ArrayList<Model_Coin> currentUserCoins = new ArrayList<>();
-
-        ArrayList<Integer> collectionCoins;
-
-        for (int b=0; b<allUserCollections.size(); b++) {
-            collectionCoins = db.getAllCoinsInCollection(allUserCollections.get(b).getCollectionID());
-            for (int i = 0; i < collectionCoins.size(); i++) {
-                for (int s = 0; s < dbCoins.size(); s++) {
-                    if (collectionCoins.get(i) == dbCoins.get(s).getCoinID()) {
-                        currentUserCoins.add(dbCoins.get(s));
-                        //add final list here
-                        break;
-                    }
-                }
-            }
-        }
-
-
-
-
-
         optionListView = libraryView.findViewById(R.id.listView_navigation_library);
         loginButton = libraryView.findViewById(R.id.imageButton_userActivity_library);
-        ArrayList<Model_Library_Options> arrayList_library_navigation = new ArrayList<>();
+        arrayList_library_navigation = new ArrayList<>();
         arrayList_recent_coins = new ArrayList<>();
+
+        ReturnToRegister();
+        ViewLoggedInUser();
+        NavigationToOtherPages();
+        DisplayAllLocalCollections();
+        DisplayAllLocalCoins();
 
         //Populating Library Options List
         arrayList_library_navigation.add(new Model_Library_Options( R.drawable.img_app_logo,
@@ -183,6 +128,134 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         mAdapter = new Adapter_Coin(arrayList_recent_coins, getContext(),this);
         recyclerView.setAdapter(mAdapter);
 
+
+
+
+
+        return libraryView;
+    }
+
+    private void ViewLoggedInUser(){
+
+        db = new Database_Lite(getContext());
+
+        users = db.getAllUsers();
+        for (int i=0; i<users.size(); i++)
+        {
+            if(users.get(i).getState()==1)
+            {
+                user = users.get(i);
+            }
+        }
+    }
+
+    private void DisplayAllLocalCollections(){
+
+        userCollectionIDs = db.getAllCollectionsForUser(user);
+        allCollections = db.getAllCollections();
+
+        allUserCollections = new ArrayList<>();
+
+        for (int i=0; i<allCollections.size(); i++)
+        {
+            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
+                allUserCollections.add(allCollections.get(i));
+        }
+
+        allCoinsWithCollection = db.getAllCoinsWithACollection();
+
+        AllCoinsInDatabase = db.getAllCoins();
+        if(allCoinsWithCollection.size() != AllCoinsInDatabase.size() )
+        {
+            for (int i=0; i<AllCoinsInDatabase.size(); i++)
+            {
+                found = false;
+                for (int b=0; b<allCoinsWithCollection.size(); b++)
+                {
+                    if(AllCoinsInDatabase.get(i).getCoinID() == allCoinsWithCollection.get(b))
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found)
+                {
+                    //delete current coin from database
+                    db.deleteCoin(AllCoinsInDatabase.get(i).getCoinID());;
+                    fileName = AllCoinsInDatabase.get(i).getCoinID() + ".jpg";
+                    //Delete image from files
+                    requireContext().deleteFile(fileName);
+                    //imageID.add(AllCoinsInDatabase.get(i).getImageId());
+                }
+            }
+        }
+
+        userCollectionIDs = db.getAllCollectionsForUser(user);
+        allCollections = db.getAllCollections();
+
+        allUserCollections = new ArrayList<>();
+
+        for (int i=0; i<allCollections.size(); i++)
+        {
+            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
+                allUserCollections.add(allCollections.get(i));
+        }
+    }
+
+    private void DisplayAllLocalCoins(){
+
+        allCoinsWithCollection = db.getAllCoinsWithACollection();
+
+        AllCoinsInDatabase = db.getAllCoins();
+        if(allCoinsWithCollection.size() != AllCoinsInDatabase.size() )
+        {
+            for (int i=0; i<AllCoinsInDatabase.size(); i++)
+            {
+                found = false;
+                for (int b=0; b<allCoinsWithCollection.size(); b++)
+                {
+                    if(AllCoinsInDatabase.get(i).getCoinID() == allCoinsWithCollection.get(b))
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if(!found)
+                {
+                    //delete current coin from database
+                    db.deleteCoin(AllCoinsInDatabase.get(i).getCoinID());;
+                    fileName = AllCoinsInDatabase.get(i).getCoinID() + ".jpg";
+                    //Delete image from files
+                    requireContext().deleteFile(fileName);
+                    //imageID.add(AllCoinsInDatabase.get(i).getImageId());
+                }
+            }
+        }
+
+        dbCoins = new ArrayList<>();
+        dbCoins = db.getAllCoins();
+
+        currentUserCoins = new ArrayList<>();
+
+        for (int b=0; b<allUserCollections.size(); b++) {
+            collectionCoins = db.getAllCoinsInCollection(allUserCollections.get(b).getCollectionID());
+            for (int i = 0; i < collectionCoins.size(); i++) {
+                for (int s = 0; s < dbCoins.size(); s++) {
+                    if (collectionCoins.get(i) == dbCoins.get(s).getCoinID()) {
+                        currentUserCoins.add(dbCoins.get(s));
+                        //add final list here
+                        break;
+                    }
+                }
+            }
+        }
+
+
+    }
+
+    private void NavigationToOtherPages(){
+
+
         //Onclick Listeners
         optionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -211,6 +284,12 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
             }
         });
 
+
+    }
+
+    private void ReturnToRegister(){
+
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -219,9 +298,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
             }
         });
 
-        return libraryView;
     }
-
     //Implementing RecyclerViewInterface Method
     @Override
     public void onItemClick(int position) {
@@ -230,5 +307,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         bundle.putInt("CoinID", arrayList_recent_coins.get(position).getCoinID());;
         Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coin_Details,bundle);;
     }
+
+
 
 }

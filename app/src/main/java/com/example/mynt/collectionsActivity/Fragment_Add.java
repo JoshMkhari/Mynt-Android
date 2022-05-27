@@ -69,6 +69,16 @@ public class Fragment_Add extends Fragment implements Interface_Back {
     private DatePickerDialog dateAcquired;
     private Model_User model_user;
     private ArrayList<String> userCollections;
+    private ArrayList<Integer> userCollectionIDs;
+    private ArrayList<Model_Collections> allCollections;
+    private ArrayList<Model_Collections> allUserCollections;
+    private ArrayList<Integer> allCoinsWithCollection;
+    private ArrayList<Model_Coin> AllCoinsInDatabase;
+    private ArrayAdapter<CharSequence> adapterValue;
+    private ArrayAdapter<CharSequence> adapterMaterial;
+    private ArrayAdapter<CharSequence> adapterVariant;
+    private ArrayAdapter<String> adapterCollection;
+    private Intent home;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -122,10 +132,10 @@ public class Fragment_Add extends Fragment implements Interface_Back {
 
         //Database
         localDB = new Database_Lite(getContext());
-        ArrayList<Integer> userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
-        ArrayList<Model_Collections> allCollections = localDB.getAllCollections();
+        userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
+        allCollections = localDB.getAllCollections();
 
-        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
+        allUserCollections = new ArrayList<>();
 
         for (int i=0; i<allCollections.size(); i++)
         {
@@ -133,8 +143,8 @@ public class Fragment_Add extends Fragment implements Interface_Back {
                 allUserCollections.add(allCollections.get(i));
         }
 
-        ArrayList<Integer> allCoinsWithCollection = localDB.getAllCoinsWithACollection();
-        ArrayList<Model_Coin> AllCoinsInDatabase = localDB.getAllCoins();
+        allCoinsWithCollection = localDB.getAllCoinsWithACollection();
+        AllCoinsInDatabase = localDB.getAllCoins();
 
         if(allCoinsWithCollection.size() == 0 )
         {
@@ -175,19 +185,19 @@ public class Fragment_Add extends Fragment implements Interface_Back {
         //Array Adapters
         //Value
 
-        ArrayAdapter<CharSequence> adapterValue = ArrayAdapter.createFromResource(getContext(), R.array.Value, R.layout.spinner_item);
+        adapterValue = ArrayAdapter.createFromResource(getContext(), R.array.Value, R.layout.spinner_item);
         adapterValue.setDropDownViewResource(R.layout.spinner_item);
         spinnerValue.setAdapter(adapterValue);
 
-        ArrayAdapter<CharSequence> adapterMaterial = ArrayAdapter.createFromResource(getContext(), R.array.Material, R.layout.spinner_item);
+        adapterMaterial = ArrayAdapter.createFromResource(getContext(), R.array.Material, R.layout.spinner_item);
         adapterMaterial.setDropDownViewResource(R.layout.spinner_item);
         spinnerMaterial.setAdapter(adapterMaterial);
 
-        ArrayAdapter<CharSequence> adapterVariant = ArrayAdapter.createFromResource(getContext(), R.array.Variants, R.layout.spinner_item);
+        adapterVariant = ArrayAdapter.createFromResource(getContext(), R.array.Variants, R.layout.spinner_item);
         adapterVariant.setDropDownViewResource(R.layout.spinner_item);
         spinnerVariant.setAdapter(adapterVariant);
 
-        ArrayAdapter<String> adapterCollection = new ArrayAdapter<>(getContext(), R.layout.spinner_item, userCollections);
+        adapterCollection = new ArrayAdapter<>(getContext(), R.layout.spinner_item, userCollections);
         adapterCollection.setDropDownViewResource(R.layout.spinner_item);
         spinnerCollection.setAdapter(adapterCollection);
 
@@ -244,6 +254,8 @@ public class Fragment_Add extends Fragment implements Interface_Back {
         });
         return add;
     }
+
+
 
     private String getTodaysDate() {
 

@@ -30,55 +30,103 @@ public class Fragment_Login extends Fragment {
     private EditText password;
     private ImageButton login;
     private ImageButton close;
+    private View loginView;
+    private Database_Lite db;
+    private Model_User model_user;
+    private ArrayList<Model_User> users;
+    private String size;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View loginView = inflater.inflate(R.layout.fragment_login, container, false);
+        loginView = inflater.inflate(R.layout.fragment_login, container, false);
+
 
         email = loginView.findViewById(R.id.LoginEmail_EditText);
         password = loginView.findViewById(R.id.LoginPassword_EditText);
         login = loginView.findViewById(R.id.LoginEmail_Button);
         close = loginView.findViewById(R.id.LoginClose_button);
 
+
+        Login();
+        ReturnToRegister();
+
+
+        return loginView;
+    }
+
+    private void Login(){
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                Database_Lite db = new Database_Lite(getContext());
-                Model_User model_user = new Model_User();
+                db = new Database_Lite(getContext());
+                model_user = new Model_User();
                 model_user.setEmail(email.getText().toString());
                 model_user.setPassword(password.getText().toString());
-                ArrayList<Model_User> users = new ArrayList<>();
+                users = new ArrayList<>();
                 users = db.getAllUsers();
-                String size = users.size() + " this";
+                size = users.size() + " this";
                 Log.d("loginPage", size);
 
-                for (int i=0; i<users.size(); i++) {
-                    if(users.get(i).getEmail().equals(model_user.getEmail()))
-                    {
-                        if(users.get(i).getPassword().equals(model_user.getPassword()))
+                if(email.getText().toString().length()==0){
+                    //Additional User Feedback
+                    Toast.makeText(getContext(),"ERROR: A email address has not been entered.",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+                    Toast.makeText(getContext(),"Please enter a email address to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                }
+
+
+                    if(password.getText().toString().length()==0){
+
+                        //Additional User Feedback
+                        Toast.makeText(getContext(),"ERROR: A password has not been entered",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+                        Toast.makeText(getContext(),"Please enter a password to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                    }
+
+                if(email.getText().toString().length()>0 && password.getText().toString().length()>0){
+                    for (int i=0; i<users.size(); i++) {
+                        if(users.get(i).getEmail().equals(model_user.getEmail()))
                         {
-                            //update user state
-                            db.updateState(model_user);
-                            Intent login = new Intent(getContext(), Activity_Collections.class);
-                            login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(login);
+                            if(users.get(i).getPassword().equals(model_user.getPassword()))
+                            {
+                                //update user state
+                                db.updateState(model_user);
+                                Intent login = new Intent(getContext(), Activity_Collections.class);
+                                login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(login);
+
+                                //Additional User Feedback
+                                Toast.makeText(getContext(),model_user.getEmail()+ " has logged in successfully.",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+                            }
+
+
+                        }else{
+
+
                         }
                     }
                 }
-                    Toast.makeText(getContext(),"Email and password combination false or email not registered",Toast.LENGTH_LONG).show();
-            }
+
+
+                }
+
+
         });
+
+    }
+
+    private void ReturnToRegister(){
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(loginView).navigate(R.id.action_fragment_Login_to_fragment_Register);
             }
         });
-        return loginView;
+
+
     }
 
 }

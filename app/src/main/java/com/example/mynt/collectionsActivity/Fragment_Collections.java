@@ -45,6 +45,13 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
     private ArrayList<Model_Collections> collectionsList;
     private View collectionsView;
     private int task;
+    private Database_Lite db;
+    private Model_User model_user;
+    private String userID;
+    private ArrayList<Integer> userCollectionIDs;
+    private ArrayList<Model_Collections> allCollections;
+    private ArrayList<Model_Collections> allUserCollections;
+    private String size;
 
 
     @Override
@@ -53,37 +60,27 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         // Inflate the layout for this fragment
 
         collectionsView = inflater.inflate(R.layout.fragment_collections, container, false);
-        Database_Lite db = new Database_Lite(getContext());
+        db = new Database_Lite(getContext());
 
         createCollection = collectionsView.findViewById(R.id.imageview_blockTitle_collections);
         back = collectionsView.findViewById(R.id.collections_back);
         collectionName = collectionsView.findViewById(R.id.CollectionNameEditText);
 
 
+
         task = getArguments().getInt("Task");
-        Model_User model_user = new Model_User();
+        model_user = new Model_User();
         model_user.setUserID(getArguments().getInt("User"));
 
-        String userID = model_user.getUserID() + " this";
+        userID = model_user.getUserID() + " this";
         Log.d("collections", userID);
 
-        ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(model_user);
-        ArrayList<Model_Collections> allCollections = db.getAllCollections();
+        DisplayAllLocalCollections();
+        CreateCollection();
+        ReturnToHomePage();
 
-        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
 
-        for (int i=0; i<allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                allUserCollections.add(allCollections.get(i));
-        }
-        String sizee = allUserCollections.size() + " this";
-        Log.d("allUserCollections", sizee);
-
-        collectionsList = allUserCollections;
-        int imageID = getArguments().getInt("ImageID");
-
-       // model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
+        //model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
         recyclerView = collectionsView.findViewById(R.id.all_collectionsList);
 
         recyclerView.setHasFixedSize(true);
@@ -93,6 +90,34 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
 
         mAdapter = new Adapter_Collections(collectionsList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
+
+
+
+        return collectionsView;
+    }
+
+    private void DisplayAllLocalCollections(){
+
+        userCollectionIDs = db.getAllCollectionsForUser(model_user);
+        allCollections = db.getAllCollections();
+
+        allUserCollections = new ArrayList<>();
+
+        for (int i=0; i<allCollections.size(); i++)
+        {
+            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
+                allUserCollections.add(allCollections.get(i));
+        }
+        size = allUserCollections.size() + " this";
+        Log.d("allUserCollections", size);
+
+        collectionsList = allUserCollections;
+        int imageID = getArguments().getInt("ImageID");
+
+
+    }
+
+    private void ReturnToHomePage(){
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -110,6 +135,10 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
 
         });
 
+    }
+
+    private void CreateCollection(){
+
         createCollection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,10 +151,16 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
                     bundle.putInt("Task",task);
                     bundle.putInt("User",model_user.getUserID());
                     Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
+
+                    //Additional User Feedback
+                    Toast.makeText(getContext(),collectionName.getText().toString() + " has been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
                 }
                 else
                 {
-                    Toast.makeText(getContext(),"Set a collection name",Toast.LENGTH_SHORT).show();
+                    //Additional User Feedback
+                    Toast.makeText(getContext(),"Error: Your collection has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                    Toast.makeText(getContext(),"A collection name has not been set.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                    Toast.makeText(getContext(),"Please enter a name for your collection.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
                 }
 
                 /*
@@ -151,7 +186,8 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
 
         });
 
-        return collectionsView;
+
+
     }
     //implementing RecyclerViewInterface
     @Override
@@ -161,6 +197,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         bundle.putString("Collection Name",collectionsList.get(position).getCollectionName());
         bundle.putInt("Task", 1);;
         bundle.putInt("CollectionID", position+1);;
+        bundle.putInt("User", model_user.getUserID());;
         Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Coins,bundle);
 
     }

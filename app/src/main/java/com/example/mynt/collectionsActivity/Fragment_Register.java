@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
@@ -33,12 +34,17 @@ public class Fragment_Register extends Fragment implements Interface_Back {
     private ImageButton signUp;
     private ImageButton loginWithEmail;
     private ImageButton close;
+    private View registerView;
+    private Database_Lite db;
+    private Model_User model_user;
+    private Intent i;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View registerView = inflater.inflate(R.layout.fragment_register, container, false);
+        registerView = inflater.inflate(R.layout.fragment_register, container, false);
 
         email = registerView.findViewById(R.id.RegisterEmail_EditText);
         password = registerView.findViewById(R.id.RegisterPassword_EditText);
@@ -56,6 +62,15 @@ public class Fragment_Register extends Fragment implements Interface_Back {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
 
+
+        SignUp();
+        LoginWithEmail();
+        ReturnToLibrary();
+        return registerView;
+    }
+
+    private void ReturnToLibrary(){
+
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,31 +79,81 @@ public class Fragment_Register extends Fragment implements Interface_Back {
             }
         });
 
-        signUp.setOnClickListener(new View.OnClickListener() {
+
+    }
+
+    private void SignUp(){
+
+       signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Database_Lite db = new Database_Lite(getContext());
-                Model_User model_user = new Model_User();
-                model_user.setEmail(email.getText().toString());
-                model_user.setPassword(password.getText().toString());
-                if(db.addUser(model_user))
-                {
-                    db.updateState(model_user);
-                    Intent i = new Intent(getContext(), Activity_Collections.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
-                }
-            }
+
+                    if(email.getText().toString().length()==0){
+
+                        // Additional User Feedback
+                        Toast.makeText(getContext(),"ERROR: This account has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                        Toast.makeText(getContext(),"A email address has not been entered.",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+                        Toast.makeText(getContext(),"Please enter a email address to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+
+                    }
+
+                        if(password.getText().toString().length()==0){
+
+                            // Additional User Feedback
+                            Toast.makeText(getContext(),"ERROR: This account has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                            Toast.makeText(getContext(),"A password has not been entered",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+                            Toast.makeText(getContext(),"Please enter a password to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                        }
+
+                        if(confirmPassword.getText().toString().length()==0){
+
+                            // Additional User Feedback
+                            Toast.makeText(getContext(),"ERROR: This account has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                            Toast.makeText(getContext(),"A password has not been entered to confirm the password entered.",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+                            Toast.makeText(getContext(),"Please re-enter your password to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+
+                        }
+
+
+                            if(email.getText().toString().length()>0 && password.getText().toString().length()>0 && confirmPassword.getText().toString().length()>0){
+
+                                db = new Database_Lite(getContext());
+                                model_user = new Model_User();
+                                model_user.setEmail(email.getText().toString());
+                                model_user.setPassword(password.getText().toString());
+                                if(db.addUser(model_user))
+                                {
+                                    db.updateState(model_user);
+                                    i = new Intent(getContext(), Activity_Collections.class);
+                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(i);
+                                }
+
+                                //Additional User Feedback
+                                Toast.makeText(getContext(),"An account has been created successfully for " + email.getText().toString() + ".",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+
+                            }
+                        }
+
+
+
+
         });
 
-        loginWithEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(registerView).navigate(R.id.action_fragment_Register_to_fragment_Login);
-            }
-        });
 
-        return registerView;
+
+    }
+
+    private void LoginWithEmail(){
+
+    loginWithEmail.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Navigation.findNavController(registerView).navigate(R.id.action_fragment_Register_to_fragment_Login);
+        }
+    });
+
+
     }
 
     @Override
@@ -98,4 +163,5 @@ public class Fragment_Register extends Fragment implements Interface_Back {
         findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                 setGraph(R.navigation.collection_navigation,bundle);
     }
+
 }
