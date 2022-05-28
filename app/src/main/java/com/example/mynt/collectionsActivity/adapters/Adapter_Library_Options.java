@@ -86,7 +86,12 @@ public class Adapter_Library_Options extends BaseAdapter {
             float coins = (float)coinsInCollection.size();
             float target = (float)allUserCollections.get(i).getGoal();
             float progress =  coins /target *100;
-            goalTotalProgress = goalTotalProgress + Math.round(progress);
+
+            if(progress>99)
+            {
+                goalTotalProgress = goalTotalProgress + 100;
+            }else
+                goalTotalProgress = goalTotalProgress + Math.round(progress);
         }
 
         float forProgressBar = (float)goalTotalProgress/allUserCollections.size();

@@ -416,7 +416,6 @@ public class Fragment_Add extends Fragment implements Interface_Back {
                 return "DEC";
         }
     }
-
     private void storeCoin() {
         try {
             Model_Coin model_coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),
@@ -430,7 +429,15 @@ public class Fragment_Add extends Fragment implements Interface_Back {
                     String.valueOf(coinID),
                     datePicker.getText().toString());
             model_coin.setCoinID(coinID);
-            String result = localDB.addCoin(model_coin,spinnerCollection.getSelectedItemPosition());
+            int selectedPosition = spinnerCollection.getSelectedItemPosition()-1;
+            if(selectedPosition == -1)
+            {
+                localDB.addCoin(model_coin,0);
+            }
+            else
+            {
+                localDB.addCoin(model_coin,allUserCollections.get(selectedPosition).getCollectionID());
+            }
 
         }catch (Exception e)
         {
