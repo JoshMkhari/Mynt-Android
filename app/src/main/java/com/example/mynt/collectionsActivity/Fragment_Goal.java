@@ -1,7 +1,5 @@
 package com.example.mynt.collectionsActivity;
 
-import static androidx.navigation.fragment.NavHostFragment.findNavController;
-
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -21,14 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mynt.R;
-import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,16 +37,11 @@ public class Fragment_Goal extends Fragment {
     private String oldText;
     private Model_Goals model_goals;
     private ImageButton setGoal_imageButton, back, subtract,add;
-    private TextView collectionName_textView,target_textView,numCoinsInCollection_textView,percentOfGoal_textView;
-    private ProgressBar goalProgress_progressBar;
+    private TextView target_textView;
+    private TextView percentOfGoal_textView;
     private View goals;
     private Model_User model_user;
-    private String userID;
-    private String targetText;
-    private float coins;
-    private float target;
     private float progress;
-    private String percentage;
     private String currentText;
     private int currentTarget;
     private int task;
@@ -71,11 +62,11 @@ public class Fragment_Goal extends Fragment {
         // Inflate the layout for this fragment
         goals = inflater.inflate(R.layout.fragment_goal, container, false);
 
-        collectionName_textView = goals.findViewById(R.id.GoalPageCollectionName_TextView);
-        numCoinsInCollection_textView = goals.findViewById(R.id.GoalsPageCoinsTotal_TextView);
+        TextView collectionName_textView = goals.findViewById(R.id.GoalPageCollectionName_TextView);
+        TextView numCoinsInCollection_textView = goals.findViewById(R.id.GoalsPageCoinsTotal_TextView);
         percentOfGoal_textView = goals.findViewById(R.id.GoalPagePercentage_TextView);
         target_textView = goals.findViewById(R.id.GoalsPageTarget_TextView);
-        goalProgress_progressBar = goals.findViewById(R.id.GoalPageProgressBar);
+        ProgressBar goalProgress_progressBar = goals.findViewById(R.id.GoalPageProgressBar);
         setGoal_imageButton = goals.findViewById(R.id.imageview_blockTitle_goal);
         back = goals.findViewById(R.id.GoalsPage_back);
         target_Edittext = goals.findViewById(R.id.GoalsPage_GoalValue);
@@ -94,13 +85,13 @@ public class Fragment_Goal extends Fragment {
         model_user.setUserID(getArguments().getInt("User"));
 
 
-        userID = model_user.getUserID() + " this";
+        String userID = model_user.getUserID() + " this";
         Log.d("goal", userID);
 
         collectionName_textView.setText(model_goals.getCollectionName());
         numCoinsInCollection_textView.setText(String.valueOf(model_goals.getNumCoins()));
         target_Edittext.setText(String.valueOf(model_goals.getTarget()));
-        targetText = "Target: " + String.valueOf(model_goals.getTarget());
+        String targetText = "Target: " + model_goals.getTarget();
         target_textView.setText(targetText);
 
 
@@ -119,60 +110,52 @@ public class Fragment_Goal extends Fragment {
 
     private void ReturnToHomePage(){
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(goals).navigateUp();
-            }
-        });
+        back.setOnClickListener(v -> Navigation.findNavController(goals).navigateUp());
     }
     private void CreateGoal(){
 
-        setGoal_imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(Integer.parseInt(target_Edittext.getText().toString())!=0)
+        setGoal_imageButton.setOnClickListener(v -> {
+            if(Integer.parseInt(target_Edittext.getText().toString())!=0)
+            {
+                localDB = new Database_Lite(getContext());
+
+
+                model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
+
+                localDB.addCollection(model_collections,model_user);
+                //Add collection to database for user
+                if(task==1)// Creating new Collection and assigning it to a coin
                 {
-                    localDB = new Database_Lite(getContext());
+                    Toast.makeText(getContext(), "Running new", Toast.LENGTH_SHORT).show();
+                    //Get latest collection ID
+                    userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
+                    allCollections = localDB.getAllCollections();
 
+                    allUserCollections = new ArrayList<>();
 
-                    model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
-
-                    localDB.addCollection(model_collections,model_user);
-                    //Add collection to database for user
-                    if(task==1)// Creating new Collection and assigning it to a coin
+                    for (int i=0; i<allCollections.size(); i++)
                     {
-                        Toast.makeText(getContext(), "Running new", Toast.LENGTH_SHORT).show();
-                        //Get latest collection ID
-                        userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
-                        allCollections = localDB.getAllCollections();
-
-                        allUserCollections = new ArrayList<>();
-
-                        for (int i=0; i<allCollections.size(); i++)
-                        {
-                            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                                allUserCollections.add(allCollections.get(i));
-                        }
-                        localDB.addCollectionCoin(allUserCollections.get(allUserCollections.size()-1).getCollectionID());
+                        if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
+                            allUserCollections.add(allCollections.get(i));
                     }
-                    home = new Intent(getContext(),Activity_Collections.class);
-                    home.putExtra("View","library");
-                    home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(home);
-
-                    //Additional User Feedback
-                    Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has been created successfully." , Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-
-                }else
-                {
-
-                    //Additional User Feedback
-                    Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has not been created successfully." , Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                    Toast.makeText(getContext(), "Target number of coins cannot be 0.", Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                    localDB.addCollectionCoin(allUserCollections.get(allUserCollections.size()-1).getCollectionID());
                 }
+                home = new Intent(getContext(),Activity_Collections.class);
+                home.putExtra("View","library");
+                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(home);
 
+                //Additional User Feedback
+                Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has been created successfully." , Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+
+            }else
+            {
+
+                //Additional User Feedback
+                Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has not been created successfully." , Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                Toast.makeText(getContext(), "Target number of coins cannot be 0.", Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
             }
+
         });
 
 
@@ -205,54 +188,45 @@ public class Fragment_Goal extends Fragment {
             }
         });
 
-        target_Edittext.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                currentTarget = Integer.parseInt(target_Edittext.getText().toString());
-                if (currentTarget==0)
-                {
-                    target_Edittext.setText("");
-                }
+        target_Edittext.setOnFocusChangeListener((v, hasFocus) -> {
+            currentTarget = Integer.parseInt(target_Edittext.getText().toString());
+            if (currentTarget==0)
+            {
+                target_Edittext.setText("");
             }
         });
-        subtract.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        subtract.setOnClickListener(v -> {
 
 
-                if(currentTarget <0 || currentTarget ==0){
-                    currentTarget = 0;
-                    target_Edittext.setText(String.valueOf(currentTarget));
-
-                    //Additional User Feedback
-                    Toast.makeText(getContext(), "ERROR: Your target number of coins cannot 0 or be less than 0.", Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                    Toast.makeText(getContext(),  "Please re-enter your target number of coins." , Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-
-                }else{
-
-                    currentTarget = Integer.parseInt(target_Edittext.getText().toString());
-                    currentTarget--;
-                    target_Edittext.setText(String.valueOf(currentTarget));
-
-                }
-            }
-        });
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentTarget = Integer.parseInt(target_Edittext.getText().toString());
-                currentTarget++;
+            if(currentTarget <0 || currentTarget ==0){
+                currentTarget = 0;
                 target_Edittext.setText(String.valueOf(currentTarget));
+
+                //Additional User Feedback
+                Toast.makeText(getContext(), "ERROR: Your target number of coins cannot 0 or be less than 0.", Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                Toast.makeText(getContext(),  "Please re-enter your target number of coins." , Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+
+            }else{
+
+                currentTarget = Integer.parseInt(target_Edittext.getText().toString());
+                currentTarget--;
+                target_Edittext.setText(String.valueOf(currentTarget));
+
             }
+        });
+        add.setOnClickListener(v -> {
+            currentTarget = Integer.parseInt(target_Edittext.getText().toString());
+            currentTarget++;
+            target_Edittext.setText(String.valueOf(currentTarget));
         });
     }
 
     private void CalculateGoalProgress(){
 
-        coins = (float)model_goals.getNumCoins();
-        target = (float)model_goals.getTarget();
-        progress =  coins /target *100;
-        percentage = String.valueOf(Math.round(progress)) + '%';
+        float coins = (float) model_goals.getNumCoins();
+        float target = (float) model_goals.getTarget();
+        progress =  coins / target *100;
+        String percentage = String.valueOf(Math.round(progress)) + '%';
         percentOfGoal_textView.setText(percentage);
 
 

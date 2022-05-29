@@ -22,10 +22,10 @@ import java.util.ArrayList;
 
 public class Adapter_Library_Options extends BaseAdapter {
 
-    Context context;
-    LayoutInflater inflater;
-    ArrayList<Model_Library_Options> libraryOptionsList;
-    Model_User model_user;
+    final Context context;
+    final LayoutInflater inflater;
+    final ArrayList<Model_Library_Options> libraryOptionsList;
+    final Model_User model_user;
 
     public Adapter_Library_Options(Context context, ArrayList<Model_Library_Options> libraryOptionsList, Model_User model_user) {
         this.context = context;
@@ -86,7 +86,12 @@ public class Adapter_Library_Options extends BaseAdapter {
             float coins = (float)coinsInCollection.size();
             float target = (float)allUserCollections.get(i).getGoal();
             float progress =  coins /target *100;
-            goalTotalProgress = goalTotalProgress + Math.round(progress);
+
+            if(progress>99)
+            {
+                goalTotalProgress = goalTotalProgress + 100;
+            }else
+                goalTotalProgress = goalTotalProgress + Math.round(progress);
         }
 
         float forProgressBar = (float)goalTotalProgress/allUserCollections.size();

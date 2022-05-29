@@ -1,13 +1,10 @@
 package com.example.mynt.collectionsActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResultLauncher;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +12,6 @@ import android.widget.ImageButton;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_User;
-import com.example.mynt.dataAccessLayer.Database_Lite;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,13 +19,9 @@ import java.util.ArrayList;
  */
 public class Fragment_Main extends Fragment {
 
-    private ActivityResultLauncher<Intent> activityResultLauncher;
     private ImageButton addButton;
     private Model_User user;
     private View main;
-    private Database_Lite db;
-    private ArrayList<Model_User> users;
-    private String userID;
     private Bundle bundle;
 
     @Override
@@ -51,13 +41,10 @@ public class Fragment_Main extends Fragment {
 
     private void AddCoin(){
 
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bundle = new Bundle();
-                bundle.putInt("User", user.getUserID());
-                Navigation.findNavController(main).navigate(R.id.action_fragment_home_main_to_fragment_Add, bundle);
-            }
+        addButton.setOnClickListener(v -> {
+            bundle = new Bundle();
+            bundle.putInt("User", user.getUserID());
+            Navigation.findNavController(main).navigate(R.id.action_fragment_home_main_to_fragment_Add, bundle);
         });
     }
 

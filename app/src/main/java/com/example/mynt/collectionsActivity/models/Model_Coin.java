@@ -1,13 +1,20 @@
 package com.example.mynt.collectionsActivity.models;
 
-import android.content.res.Resources;
-
-import com.example.mynt.R;
+import java.util.Comparator;
 
 public class Model_Coin {
 
-    private int year, mintage, coinID;
-    private String material, alternateName, observe, reverse, variety,value,ImageId, DateTaken;
+    private final int year;
+    private final int mintage;
+    private int coinID;
+    private final String material;
+    private final String alternateName;
+    private final String observe;
+    private final String reverse;
+    private final String variety;
+    private final String value;
+    private final String ImageId;
+    private final String DateTaken;
 
     public Model_Coin(int year, int mintage, String material, String alternateName, String observe, String reverse, String variety, String value, String image, String dateTaken) {
 
@@ -27,10 +34,6 @@ public class Model_Coin {
         return DateTaken;
     }
 
-    public void setDateTaken(String dateTaken) {
-        DateTaken = dateTaken;
-    }
-
     public int getCoinID() {
         return coinID;
     }
@@ -43,24 +46,12 @@ public class Model_Coin {
         return ImageId;
     }
 
-    public void setImageId(String imageId) {
-        ImageId = imageId;
-    }
-
     public String getValue() {
         return value;
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     public int getMintage() {
         return mintage;
-    }
-
-    public void setMintage(int mintage) {
-        this.mintage = mintage;
     }
 
 
@@ -68,58 +59,26 @@ public class Model_Coin {
         return material;
     }
 
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
     public String getAlternateName() {
         return alternateName;
-    }
-
-    public void setAlternateName(String alternateName) {
-        this.alternateName = alternateName;
     }
 
     public String getObserve() {
         return observe;
     }
 
-    public void setObserve(String observe) {
-        this.observe = observe;
-    }
-
     public String getReverse() {
         return reverse;
-    }
-
-    public void setReverse(String reverse) {
-        this.reverse = reverse;
     }
 
     public String getVariety() {
         return variety;
     }
 
-    public void setVariety(String variety) {
-        this.variety = variety;
-    }
-
-
-    public String getCoinName() {
-        return material;
-    }
-
-    public void setCoinName(String coinName) {
-        this.material = coinName;
-    }
 
     public int getYear() {
         return year;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-
 }
+

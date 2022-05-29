@@ -2,7 +2,6 @@ package com.example.mynt.collectionsActivity;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -11,29 +10,25 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
 import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coins;
+import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
-import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
-import com.example.mynt.dataAccessLayer.Database_Lite;
+import com.example.mynt.dataAccessLayer.Model_Database_Lite;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
-public class Fragment_Coins extends Fragment implements Interface_RecyclerView, Interface_Back {
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
     private ImageButton back_imageButton;
     private View coinsView;
     private int collectionID,task;
@@ -42,15 +37,8 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView, 
     private TextView collectionName_textView;
     private String blockTitle;
     private Model_User model_user;
-    private Database_Lite db;
     private ArrayList<Model_Coin> coinsList;
-    private ArrayList<Model_Coin> dbCoins;
-    private ArrayList<Integer> userCollectionIDs;
-    private ArrayList<Model_Collections> allCollections;
-    private ArrayList<Model_Collections> allUserCollections;
-    private ArrayList<Integer> collectionCoins;
-    private Intent home;
-    private Bundle bundle;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -69,17 +57,15 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView, 
         model_user.setUserID(getArguments().getInt("User"));
         collectionID = getArguments().getInt("CollectionID");
 
-        String collec = collectionID + " this";
-        Log.d("collectionID", collec);
         DisplayAllLocalCoinsAndCollections();
         ReturnToCoinPage();
-        recyclerView = (RecyclerView) coinsView.findViewById(R.id.recyclerView_coins);
+        RecyclerView recyclerView = coinsView.findViewById(R.id.recyclerView_coins);
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new StaggeredGridLayoutManager(1,1);
+        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new Adapter_Coins(coinsList, getContext(),this);
+        RecyclerView.Adapter<Adapter_Coins.CoinViewHolder> mAdapter = new Adapter_Coins(coinsList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
@@ -91,18 +77,6 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView, 
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
 
         //ListView myList = new ListView(allCoinsView.getContext());
-        /*
-
-        for (int i = 0; i < coinsBaseList.size(); i++) {
-            coinDate.setText(coinsBaseList.get(i).getDate());
-            myLayout.addView(coinDate);
-            Collections_AllCoins_ListAdapter coinsListAdapter = new Collections_AllCoins_ListAdapter(getContext(),coinsBaseList.get(i).getCoins());
-            for (int s = 0; coinsBaseList.get(i).getCoins().size() < 5; s++) {
-                //myList.addView(coinsListAdapter.getView(s,null,myLayout));
-                myLayout.addView(coinsListAdapter.getView(s,null,myLayout));
-            }
-        }
-        */
 
 
         return coinsView;
@@ -110,76 +84,33 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView, 
 
     private void ReturnToCoinPage(){
 
-        back_imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backActivity();
-            }
-        });
+        back_imageButton.setOnClickListener(v -> backActivity());
 
 
     }
-    private void DisplayAllLocalCoinsAndCollections(){
+    private void DisplayAllLocalCoinsAndCollections() {
 
-        db = new Database_Lite(getContext());
+        Model_Database_Lite mdl = new Model_Database_Lite();
 
-        coinsList = new ArrayList<>();
-
-
-        dbCoins = db.getAllCoins();
-        //get all collections for a user
-        //get all collectionCoins
-        //then match correct coins
-
-        userCollectionIDs = db.getAllCollectionsForUser(model_user);
-        allCollections = db.getAllCollections();
-
-        allUserCollections = new ArrayList<>();
-
-        for (int i=0; i<allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                allUserCollections.add(allCollections.get(i));
-        }
-
+        coinsList = mdl.allCoinsAndCollections(getContext(),task,collectionID, model_user);
         coinIDs = new ArrayList<>();
-        if(task == 0 || task ==2) //All Coins
+
+        Collections.sort(coinsList, new Model_Coin_Comparator());
+
+        if (task == 0 || task == 2) //All Coins
         {
             pageTitle_textView.setText(R.string.coins_title);
             collectionName_textView.setText(R.string.all_coins_block_title);
-            ;
 
-            for (int b=0; b<allUserCollections.size(); b++) {
-                collectionCoins = db.getAllCoinsInCollection(allUserCollections.get(b).getCollectionID());
-                for (int i = 0; i < collectionCoins.size(); i++) {
-                    for (int s = 0; s < dbCoins.size(); s++) {
-                        if (collectionCoins.get(i) == dbCoins.get(s).getCoinID()) {
-                            coinsList.add(dbCoins.get(s));
-                            //add final list here
-                            coinIDs.add(dbCoins.get(s).getCoinID());
-                            break;
-                        }
-                    }
-                }
-            }
-        }else//For specific collection
+        } else//For specific collection
         {
             pageTitle_textView.setText(R.string.collections_title);
             collectionName_textView.setText(blockTitle);
+        }
 
-            collectionCoins = db.getAllCoinsInCollection(collectionID);
-            for (int i=0; i<collectionCoins.size(); i++)
-            {
-                for (int s=0; s<dbCoins.size(); s++) {
-                    if(collectionCoins.get(i)==dbCoins.get(s).getCoinID())
-                    {
-                        coinsList.add(dbCoins.get(s));
-                        //add final list here
-                        coinIDs.add(dbCoins.get(s).getCoinID());
-                        break;
-                    }
-                }
-            }
+        for (int i=0; i<coinsList.size(); i++)
+        {
+            coinIDs.add(coinsList.get(i).getCoinID());
         }
 
     }
@@ -187,14 +118,13 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView, 
     //implementing RecyclerViewInterface
     @Override
     public void onItemClick(int position) {
-        bundle = new Bundle();
+        Bundle bundle = new Bundle();
         bundle.putInt("Task", task);
         bundle.putInt("CoinID", coinIDs.get(position));
-        Navigation.findNavController(coinsView).navigate(R.id.action_fragment_Coins_to_fragment_Coin_Details,bundle);
+        Navigation.findNavController(coinsView).navigate(R.id.action_fragment_Coins_to_fragment_Coin_Details, bundle);
     }
 
-    @Override
-    public void backActivity() {
+    private void backActivity() {
         if(task==1)// Fragment was accessed from somewhere else
         {
             Navigation.findNavController(coinsView).navigateUp();

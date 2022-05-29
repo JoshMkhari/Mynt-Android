@@ -3,7 +3,6 @@ package com.example.mynt.collectionsActivity;
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -19,7 +18,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.dataAccessLayer.Database_Lite;
@@ -28,26 +26,12 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Fragment_Coin_Details extends Fragment implements Interface_Back {
+public class Fragment_Coin_Details extends Fragment {
 
     private View details;
-    private ImageView coinImage;
-    private TextView mintage;
-    private TextView observe;
-    private TextView reverse;
-    private TextView circulation;
-    private TextView type;
-    private TextView points;
-    private TextView pageTitle;
     private ImageButton back;
-    private Database_Lite db;
-    private Model_Coin model_coin;
-    private ArrayList<Model_Coin> dbCoin;
-    private ArrayList<Model_Coin> dbCoins;
-    private String coinTitle;
-    private String name;
     private int task;
-    private Intent home;
+
     @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,25 +40,25 @@ public class Fragment_Coin_Details extends Fragment implements Interface_Back {
 
         // Inflate the layout for this fragment
         details = inflater.inflate(R.layout.fragment_coin_details, container, false);
-        coinImage = details.findViewById(R.id.CoinDetails_Image);
-        mintage = details.findViewById(R.id.CoinDetails_Mintage_TextView);
-        observe = details.findViewById(R.id.CoinDetails_Observe_TextView);
-        reverse = details.findViewById(R.id.CoinDetails_Reverse_TextView);
-        circulation = details.findViewById(R.id.CoinDetails_Circulation_TextView);
-        type = details.findViewById(R.id.CoinDetails_Type_TextView);
-        points = details.findViewById(R.id.CoinDetails_Points);
-        pageTitle = details.findViewById(R.id.CoinDetails_PageTitle);
+        ImageView coinImage = details.findViewById(R.id.CoinDetails_Image);
+        TextView mintage = details.findViewById(R.id.CoinDetails_Mintage_TextView);
+        TextView observe = details.findViewById(R.id.CoinDetails_Observe_TextView);
+        TextView reverse = details.findViewById(R.id.CoinDetails_Reverse_TextView);
+        TextView circulation = details.findViewById(R.id.CoinDetails_Circulation_TextView);
+        TextView type = details.findViewById(R.id.CoinDetails_Type_TextView);
+        TextView points = details.findViewById(R.id.CoinDetails_Points);
+        TextView pageTitle = details.findViewById(R.id.CoinDetails_PageTitle);
         back = details.findViewById(R.id.CoinDetails_back);
 
         assert getArguments() != null;
         task = getArguments().getInt("Task");
         int coinID = getArguments().getInt("CoinID");
 
-        db = new Database_Lite(getContext());
-        model_coin = null;
-        dbCoins = db.getAllCoins();
+        Database_Lite db = new Database_Lite(getContext());
+        Model_Coin model_coin = null;
+        ArrayList<Model_Coin> dbCoins = db.getAllCoins();
 
-        for (int i=0; i<dbCoins.size(); i++)
+        for (int i = 0; i< dbCoins.size(); i++)
         {
             if(dbCoins.get(i).getCoinID()==coinID)
             {
@@ -91,11 +75,11 @@ public class Fragment_Coin_Details extends Fragment implements Interface_Back {
         reverse.setText(model_coin.getReverse());
         circulation.setText(model_coin.getReverse());
         type.setText(model_coin.getMaterial());
-        coinTitle = model_coin.getValue()+", " + model_coin.getYear();
+        String coinTitle = model_coin.getValue() + ", " + model_coin.getYear();
         pageTitle.setText(coinTitle);
         points.setText(String.valueOf(1000));
 
-        name = model_coin.getCoinID() +".jpg";
+        String name = model_coin.getCoinID() + ".jpg";
         try{
             FileInputStream fis = requireContext().openFileInput(name);
             Bitmap b = BitmapFactory.decodeStream(fis);
@@ -103,8 +87,7 @@ public class Fragment_Coin_Details extends Fragment implements Interface_Back {
             //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
             fis.close();
         }
-        catch(Exception e){
-            ;
+        catch(Exception ignored){
         }
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -120,18 +103,12 @@ public class Fragment_Coin_Details extends Fragment implements Interface_Back {
     }
     private void ReturnToMainDetailsPage(){
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backActivity();
-            }
-        });
+        back.setOnClickListener(v -> backActivity());
 
 
     }
 
-    @Override
-    public void backActivity() {
+    private void backActivity() {
         if(task==0)// Fragment was accessed home screen
         {
             Bundle bundle = new Bundle();

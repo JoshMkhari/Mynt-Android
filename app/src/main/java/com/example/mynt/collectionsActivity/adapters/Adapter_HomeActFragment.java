@@ -14,8 +14,8 @@ import com.example.mynt.collectionsActivity.Fragment_Main;
 
 public class Adapter_HomeActFragment extends FragmentStateAdapter {
 
-    private int userID;
-    private Bundle bundle = new Bundle();
+    private final int userID;
+    private final Bundle bundle = new Bundle();
     public Adapter_HomeActFragment(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, int userID) {
         super(fragmentManager, lifecycle);
         this.userID = userID;

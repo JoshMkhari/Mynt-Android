@@ -2,8 +2,9 @@ package com.example.mynt.collectionsActivity.models;
 
 public class Model_Leaderboard {
 
-    private String userName;
-    private int userScore, imageID;
+    private final String userName;
+    private final int userScore;
+    private final int imageID;
 
     public Model_Leaderboard(String userName, int userScore, int imageID) {
         this.userName = userName;
@@ -15,16 +16,8 @@ public class Model_Leaderboard {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public int getUserScore() {
         return userScore;
-    }
-
-    public void setUserScore(int userScore) {
-        this.userScore = userScore;
     }
 
 
@@ -32,7 +25,4 @@ public class Model_Leaderboard {
         return imageID;
     }
 
-    public void setImageID(int imageID) {
-        this.imageID = imageID;
-    }
 }

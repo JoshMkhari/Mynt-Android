@@ -1,6 +1,5 @@
 package com.example.mynt.collectionsActivity.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,30 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.R;
-import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
 
 import java.util.ArrayList;
 
 public class Adapter_Leaderboard extends RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> {
 
-    //Variable Declarations
-    private final Interface_RecyclerView recyclerView_Interface;
-    private ArrayList<Model_Leaderboard> arrayList_Leaderboard;
-    private Context context;
+    private final ArrayList<Model_Leaderboard> arrayList_Leaderboard;
 
-    public Adapter_Leaderboard(ArrayList<Model_Leaderboard> arrayList_Leaderboard, Context context, Interface_RecyclerView recyclerView_Interface) {
-        this.context = context;
+    public Adapter_Leaderboard(ArrayList<Model_Leaderboard> arrayList_Leaderboard) {
         this.arrayList_Leaderboard = arrayList_Leaderboard;
-        this.recyclerView_Interface = recyclerView_Interface;
+        //Variable Declarations
     }
 
     @NonNull
     @Override
     public Adapter_Leaderboard.Card_View_Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listview_leaderboard,parent,false);
-        Adapter_Leaderboard.Card_View_Holder holder = new Adapter_Leaderboard.Card_View_Holder(view);
-        return holder;
+        return new Card_View_Holder(view);
     }
 
     @Override
@@ -66,11 +59,11 @@ public class Adapter_Leaderboard extends RecyclerView.Adapter<Adapter_Leaderboar
         return arrayList_Leaderboard.size();
     }
 
-    public class Card_View_Holder extends RecyclerView.ViewHolder{
-        ImageView profileImage;
-        TextView userName;
-        TextView score;
-        ImageView rankImage;
+    public static class Card_View_Holder extends RecyclerView.ViewHolder{
+        final ImageView profileImage;
+        final TextView userName;
+        final TextView score;
+        final ImageView rankImage;
 
         public Card_View_Holder(@NonNull View itemView) {
             super(itemView);

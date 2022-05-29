@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,29 +23,23 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class Fragment_home_main extends Fragment {
-    //private TabLayout tabLayout_main;
-    private ViewPager2 viewPager2_main;
-    private Adapter_HomeActFragment fragmentAdapter;
-    private Model_User user;
-    private View home;
-    private FragmentManager fragmentManager;
-    private ArrayList<Model_User> users;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        home = inflater.inflate(R.layout.fragment_home, container, false);
-        viewPager2_main = home.findViewById(R.id.main_act_viewPager2);
+        View home = inflater.inflate(R.layout.fragment_home, container, false);
+        //private TabLayout tabLayout_main;
+        ViewPager2 viewPager2_main = home.findViewById(R.id.main_act_viewPager2);
 
 
         assert getArguments() != null;
         int currentPage = getArguments().getInt("StartPage");
 
-        user = new Model_User();
+        Model_User user = new Model_User();
 
         Database_Lite db = new Database_Lite(getContext());
 
-        users = db.getAllUsers();
+        ArrayList<Model_User> users = db.getAllUsers();
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getState() == 1) {
                 user = users.get(i);
@@ -58,8 +51,8 @@ public class Fragment_home_main extends Fragment {
         //Toast.makeText(getContext(), testuser, Toast.LENGTH_SHORT).show();
 
         //Comment
-        fragmentManager = getParentFragmentManager();
-        fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getUserID());
+        FragmentManager fragmentManager = getParentFragmentManager();
+        Adapter_HomeActFragment fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getUserID());
         viewPager2_main.setAdapter((fragmentAdapter));
         viewPager2_main.setCurrentItem(currentPage);
 

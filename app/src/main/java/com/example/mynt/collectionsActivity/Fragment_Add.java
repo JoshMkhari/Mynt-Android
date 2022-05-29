@@ -12,8 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
@@ -28,7 +26,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -36,12 +33,10 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.dataAccessLayer.Database_Lite;
-import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.collectionsActivity.models.Model_User;
 
 import java.io.FileInputStream;
@@ -51,34 +46,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class Fragment_Add extends Fragment implements Interface_Back {
+public class Fragment_Add extends Fragment {
 
     private Spinner spinnerValue, spinnerMaterial, spinnerVariant, spinnerCollection;
     private SeekBar yearBar;
     private EditText year_Textview, alternate_Textview, mintage_Textview, observe_Textview, reverse_Textview;
-    private ImageButton add_Button, changeImage, back;
+    private ImageButton changeImage;
     private ImageView userImage;
     private ActivityResultLauncher<Intent> activityResultLauncher_Camera;
     private Bitmap imageBitmap;
-    private Model_Goals model_goals;
     private Boolean imageSet;
     private Database_Lite localDB;
-    private Model_Collections model_collections;
     private int coinID;
     private Button datePicker;
     private DatePickerDialog dateAcquired;
     private Model_User model_user;
-    private ArrayList<String> userCollections;
-    private ArrayList<Integer> userCollectionIDs;
-    private ArrayList<Model_Collections> allCollections;
     private ArrayList<Model_Collections> allUserCollections;
-    private ArrayList<Integer> allCoinsWithCollection;
-    private ArrayList<Model_Coin> AllCoinsInDatabase;
-    private ArrayAdapter<CharSequence> adapterValue;
-    private ArrayAdapter<CharSequence> adapterMaterial;
-    private ArrayAdapter<CharSequence> adapterVariant;
-    private ArrayAdapter<String> adapterCollection;
-    private Intent home;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -115,8 +99,8 @@ public class Fragment_Add extends Fragment implements Interface_Back {
 
 
         //ImageButton
-        add_Button = add.findViewById(R.id.imageview_blockTitle_addCoin);
-        back = add.findViewById(R.id.image_button_back_coins);
+        ImageButton add_Button = add.findViewById(R.id.imageview_blockTitle_addCoin);
+        ImageButton back = add.findViewById(R.id.image_button_back_coins);
         changeImage = add.findViewById((R.id.changePicture));
 
         //ImageView
@@ -132,19 +116,19 @@ public class Fragment_Add extends Fragment implements Interface_Back {
 
         //Database
         localDB = new Database_Lite(getContext());
-        userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
-        allCollections = localDB.getAllCollections();
+        ArrayList<Integer> userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
+        ArrayList<Model_Collections> allCollections = localDB.getAllCollections();
 
         allUserCollections = new ArrayList<>();
 
-        for (int i=0; i<allCollections.size(); i++)
+        for (int i = 0; i< allCollections.size(); i++)
         {
             if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
                 allUserCollections.add(allCollections.get(i));
         }
 
-        allCoinsWithCollection = localDB.getAllCoinsWithACollection();
-        AllCoinsInDatabase = localDB.getAllCoins();
+        ArrayList<Integer> allCoinsWithCollection = localDB.getAllCoinsWithACollection();
+        ArrayList<Model_Coin> allCoinsInDatabase = localDB.getAllCoins();
 
         if(allCoinsWithCollection.size() == 0 )
         {
@@ -153,9 +137,9 @@ public class Fragment_Add extends Fragment implements Interface_Back {
         }
         else
         {
-            if(allCoinsWithCollection.size() == AllCoinsInDatabase.size() )
+            if(allCoinsWithCollection.size() == allCoinsInDatabase.size() )
             {
-                coinID = AllCoinsInDatabase.get(AllCoinsInDatabase.size()-1).getCoinID()+1;
+                coinID = allCoinsInDatabase.get(allCoinsInDatabase.size()-1).getCoinID()+1;
             }
             else
             {
@@ -166,7 +150,7 @@ public class Fragment_Add extends Fragment implements Interface_Back {
 
         year_Textview.setText("2010");
 
-        userCollections = new ArrayList<>();
+        ArrayList<String> userCollections = new ArrayList<>();
         userCollections.add("Create New Collection");
 
 
@@ -185,19 +169,19 @@ public class Fragment_Add extends Fragment implements Interface_Back {
         //Array Adapters
         //Value
 
-        adapterValue = ArrayAdapter.createFromResource(getContext(), R.array.Value, R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapterValue = ArrayAdapter.createFromResource(getContext(), R.array.Value, R.layout.spinner_item);
         adapterValue.setDropDownViewResource(R.layout.spinner_item);
         spinnerValue.setAdapter(adapterValue);
 
-        adapterMaterial = ArrayAdapter.createFromResource(getContext(), R.array.Material, R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapterMaterial = ArrayAdapter.createFromResource(getContext(), R.array.Material, R.layout.spinner_item);
         adapterMaterial.setDropDownViewResource(R.layout.spinner_item);
         spinnerMaterial.setAdapter(adapterMaterial);
 
-        adapterVariant = ArrayAdapter.createFromResource(getContext(), R.array.Variants, R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapterVariant = ArrayAdapter.createFromResource(getContext(), R.array.Variants, R.layout.spinner_item);
         adapterVariant.setDropDownViewResource(R.layout.spinner_item);
         spinnerVariant.setAdapter(adapterVariant);
 
-        adapterCollection = new ArrayAdapter<>(getContext(), R.layout.spinner_item, userCollections);
+        ArrayAdapter<String> adapterCollection = new ArrayAdapter<>(getContext(), R.layout.spinner_item, userCollections);
         adapterCollection.setDropDownViewResource(R.layout.spinner_item);
         spinnerCollection.setAdapter(adapterCollection);
 
@@ -209,47 +193,39 @@ public class Fragment_Add extends Fragment implements Interface_Back {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
         //Activity_Collections.OnB
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backActivity();
-            }
-        });
+        back.setOnClickListener(v -> backActivity());
 
-        add_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        add_Button.setOnClickListener(v -> {
 
-                //Check if picture is taken?
-                if (imageSet) {
-                    //check if a mintage was placed
-                    if (mintage_Textview.getText().length() > 0) {
-                        //Check if a collection has to be made
-                        if(savePhotoToInternalStorage())
+            //Check if picture is taken?
+            if (imageSet) {
+                //check if a mintage was placed
+                if (mintage_Textview.getText().length() > 0) {
+                    //Check if a collection has to be made
+                    if(savePhotoToInternalStorage())
+                    {
+                        storeCoin();
+                        if (spinnerCollection.getSelectedItemPosition() == 0) {//A new collection needs to be made
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("User", model_user.getUserID());
+                            bundle.putInt("Task", 1);
+                            bundle.putInt("ImageID",coinID);
+                            Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
+                        }else
                         {
-                            storeCoin();
-                            if (spinnerCollection.getSelectedItemPosition() == 0) {//A new collection needs to be made
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("User", model_user.getUserID());
-                                bundle.putInt("Task", 1);
-                                bundle.putInt("ImageID",coinID);
-                                Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
-                            }else
-                            {
-                                Toast.makeText(getContext(), "Storing collectionCoin", Toast.LENGTH_SHORT).show();
-                                Intent home = new Intent(getContext(),Activity_Collections.class);
-                                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(home);
-                            }
+                            Toast.makeText(getContext(), "Storing collectionCoin", Toast.LENGTH_SHORT).show();
+                            Intent home = new Intent(getContext(),Activity_Collections.class);
+                            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(home);
                         }
                     }
-                    else
-                    {
-                        Toast.makeText(getContext(), "Set Mintage", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Set image nest time", Toast.LENGTH_SHORT).show();
                 }
+                else
+                {
+                    Toast.makeText(getContext(), "Set Mintage", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getContext(), "Set image nest time", Toast.LENGTH_SHORT).show();
             }
         });
         return add;
@@ -273,13 +249,10 @@ public class Fragment_Add extends Fragment implements Interface_Back {
 
     public void setUpListeners() {
 
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-                month = month + 1;
-                String date = makeDateString(day, month, year);
-                datePicker.setText(date);
-            }
+        DatePickerDialog.OnDateSetListener dateSetListener = (view, year, month, day) -> {
+            month = month + 1;
+            String date = makeDateString(day, month, year);
+            datePicker.setText(date);
         };
 
         Calendar cal = Calendar.getInstance();
@@ -290,49 +263,30 @@ public class Fragment_Add extends Fragment implements Interface_Back {
         int style = AlertDialog.THEME_HOLO_DARK;
         dateAcquired = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
 
-        datePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dateAcquired.show();
-                ;
-            }
-        });
+        datePicker.setOnClickListener(v -> dateAcquired.show());
         //To upload and Change an Image
-        changeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                activityResultLauncher_Camera.launch(takePicture);
-            }
+        changeImage.setOnClickListener(v -> {
+            Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            activityResultLauncher_Camera.launch(takePicture);
         });
 
         //Result for Camera
-        activityResultLauncher_Camera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                Bundle extras = result.getData().getExtras();
-                if (extras != null) {
-                    Uri imageUri;
-                    imageBitmap = (Bitmap) extras.get("data");
+        activityResultLauncher_Camera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            Bundle extras = result.getData().getExtras();
+            if (extras != null) {
+                imageBitmap = (Bitmap) extras.get("data");
 
-                    userImage.setImageBitmap(imageBitmap);
-                    imageSet = true;
-                }
-
+                userImage.setImageBitmap(imageBitmap);
+                imageSet = true;
             }
+
         });
 
-        //Adding a coin to the database
 
-
-        year_Textview.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (year_Textview.length() == 0) {
-                    year_Textview.setText("2010");
-                    yearBar.setProgress(2010);
-                }
+        year_Textview.setOnFocusChangeListener((v, hasFocus) -> {
+            if (year_Textview.length() == 0) {
+                year_Textview.setText("2010");
+                yearBar.setProgress(2010);
             }
         });
 
@@ -416,7 +370,6 @@ public class Fragment_Add extends Fragment implements Interface_Back {
                 return "DEC";
         }
     }
-
     private void storeCoin() {
         try {
             Model_Coin model_coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),
@@ -430,13 +383,20 @@ public class Fragment_Add extends Fragment implements Interface_Back {
                     String.valueOf(coinID),
                     datePicker.getText().toString());
             model_coin.setCoinID(coinID);
-            String result = localDB.addCoin(model_coin,spinnerCollection.getSelectedItemPosition());
+            int selectedPosition = spinnerCollection.getSelectedItemPosition()-1;
+            if(selectedPosition == -1)
+            {
+                localDB.addCoin(model_coin,0);
+            }
+            else
+            {
+                localDB.addCoin(model_coin,allUserCollections.get(selectedPosition).getCollectionID());
+            }
 
         }catch (Exception e)
         {
             Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private boolean savePhotoToInternalStorage() {
@@ -461,13 +421,14 @@ public class Fragment_Add extends Fragment implements Interface_Back {
         String name = imageID +".jpg";
         try{
             Context context = getContext();
+            assert context != null;
             FileInputStream fis = context.openFileInput(name);
             Bitmap b = BitmapFactory.decodeStream(fis);
             userImage.setImageBitmap(b);
             fis.close();
 
         }
-        catch(Exception e){
+        catch(Exception ignored){
         }
 
         //Delete coin
@@ -476,8 +437,7 @@ public class Fragment_Add extends Fragment implements Interface_Back {
         requireContext().deleteFile(name);
     }
 
-    @Override
-    public void backActivity() {
+    private void backActivity() {
         Bundle bundle = new Bundle();
         bundle.putInt("StartPage",1);
         findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
