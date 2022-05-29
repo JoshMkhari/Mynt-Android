@@ -18,7 +18,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.dataAccessLayer.Database_Lite;
@@ -27,7 +26,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Fragment_Coin_Details extends Fragment implements Interface_Back {
+public class Fragment_Coin_Details extends Fragment {
 
     private View details;
     private ImageButton back;

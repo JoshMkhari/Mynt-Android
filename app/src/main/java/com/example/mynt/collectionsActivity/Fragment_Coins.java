@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
 import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coins;
@@ -27,7 +26,7 @@ import com.example.mynt.dataAccessLayer.Model_Database_Lite;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Fragment_Coins extends Fragment implements Interface_RecyclerView, Interface_Back {
+public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
     private ImageButton back_imageButton;
     private View coinsView;
     private int collectionID,task;

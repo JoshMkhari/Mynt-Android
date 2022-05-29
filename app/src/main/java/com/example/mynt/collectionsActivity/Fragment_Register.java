@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Database_Lite;
@@ -28,7 +27,7 @@ import java.util.Objects;
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class Fragment_Register extends Fragment implements Interface_Back {
+public class Fragment_Register extends Fragment {
     private EditText email;
     private EditText password;
     private EditText confirmPassword;

@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
 import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Collections;
@@ -33,7 +32,7 @@ import java.util.Objects;
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class Fragment_Collections extends Fragment implements Interface_RecyclerView, Interface_Back {
+public class Fragment_Collections extends Fragment implements Interface_RecyclerView {
     private ImageButton createCollection, back;
     private EditText collectionName;
     private View collectionsView;

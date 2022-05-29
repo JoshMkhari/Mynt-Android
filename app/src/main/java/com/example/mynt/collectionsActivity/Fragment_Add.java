@@ -36,7 +36,6 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
@@ -50,7 +49,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class Fragment_Add extends Fragment implements Interface_Back {
+public class Fragment_Add extends Fragment {
 
     private Spinner spinnerValue, spinnerMaterial, spinnerVariant, spinnerCollection;
     private SeekBar yearBar;
