@@ -12,8 +12,6 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
@@ -28,7 +26,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -196,47 +193,39 @@ public class Fragment_Add extends Fragment {
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
         //Activity_Collections.OnB
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backActivity();
-            }
-        });
+        back.setOnClickListener(v -> backActivity());
 
-        add_Button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        add_Button.setOnClickListener(v -> {
 
-                //Check if picture is taken?
-                if (imageSet) {
-                    //check if a mintage was placed
-                    if (mintage_Textview.getText().length() > 0) {
-                        //Check if a collection has to be made
-                        if(savePhotoToInternalStorage())
+            //Check if picture is taken?
+            if (imageSet) {
+                //check if a mintage was placed
+                if (mintage_Textview.getText().length() > 0) {
+                    //Check if a collection has to be made
+                    if(savePhotoToInternalStorage())
+                    {
+                        storeCoin();
+                        if (spinnerCollection.getSelectedItemPosition() == 0) {//A new collection needs to be made
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("User", model_user.getUserID());
+                            bundle.putInt("Task", 1);
+                            bundle.putInt("ImageID",coinID);
+                            Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
+                        }else
                         {
-                            storeCoin();
-                            if (spinnerCollection.getSelectedItemPosition() == 0) {//A new collection needs to be made
-                                Bundle bundle = new Bundle();
-                                bundle.putInt("User", model_user.getUserID());
-                                bundle.putInt("Task", 1);
-                                bundle.putInt("ImageID",coinID);
-                                Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
-                            }else
-                            {
-                                Toast.makeText(getContext(), "Storing collectionCoin", Toast.LENGTH_SHORT).show();
-                                Intent home = new Intent(getContext(),Activity_Collections.class);
-                                home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(home);
-                            }
+                            Toast.makeText(getContext(), "Storing collectionCoin", Toast.LENGTH_SHORT).show();
+                            Intent home = new Intent(getContext(),Activity_Collections.class);
+                            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(home);
                         }
                     }
-                    else
-                    {
-                        Toast.makeText(getContext(), "Set Mintage", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(getContext(), "Set image nest time", Toast.LENGTH_SHORT).show();
                 }
+                else
+                {
+                    Toast.makeText(getContext(), "Set Mintage", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getContext(), "Set image nest time", Toast.LENGTH_SHORT).show();
             }
         });
         return add;
@@ -260,13 +249,10 @@ public class Fragment_Add extends Fragment {
 
     public void setUpListeners() {
 
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int day) {
-                month = month + 1;
-                String date = makeDateString(day, month, year);
-                datePicker.setText(date);
-            }
+        DatePickerDialog.OnDateSetListener dateSetListener = (view, year, month, day) -> {
+            month = month + 1;
+            String date = makeDateString(day, month, year);
+            datePicker.setText(date);
         };
 
         Calendar cal = Calendar.getInstance();
@@ -277,46 +263,30 @@ public class Fragment_Add extends Fragment {
         int style = AlertDialog.THEME_HOLO_DARK;
         dateAcquired = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
 
-        datePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                dateAcquired.show();
-            }
-        });
+        datePicker.setOnClickListener(v -> dateAcquired.show());
         //To upload and Change an Image
-        changeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                activityResultLauncher_Camera.launch(takePicture);
-            }
+        changeImage.setOnClickListener(v -> {
+            Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            activityResultLauncher_Camera.launch(takePicture);
         });
 
         //Result for Camera
-        activityResultLauncher_Camera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult result) {
-                Bundle extras = result.getData().getExtras();
-                if (extras != null) {
-                    Uri imageUri;
-                    imageBitmap = (Bitmap) extras.get("data");
+        activityResultLauncher_Camera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            Bundle extras = result.getData().getExtras();
+            if (extras != null) {
+                imageBitmap = (Bitmap) extras.get("data");
 
-                    userImage.setImageBitmap(imageBitmap);
-                    imageSet = true;
-                }
-
+                userImage.setImageBitmap(imageBitmap);
+                imageSet = true;
             }
+
         });
 
 
-        year_Textview.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (year_Textview.length() == 0) {
-                    year_Textview.setText("2010");
-                    yearBar.setProgress(2010);
-                }
+        year_Textview.setOnFocusChangeListener((v, hasFocus) -> {
+            if (year_Textview.length() == 0) {
+                year_Textview.setText("2010");
+                yearBar.setProgress(2010);
             }
         });
 
@@ -451,13 +421,14 @@ public class Fragment_Add extends Fragment {
         String name = imageID +".jpg";
         try{
             Context context = getContext();
+            assert context != null;
             FileInputStream fis = context.openFileInput(name);
             Bitmap b = BitmapFactory.decodeStream(fis);
             userImage.setImageBitmap(b);
             fis.close();
 
         }
-        catch(Exception e){
+        catch(Exception ignored){
         }
 
         //Delete coin

@@ -10,17 +10,16 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
 
 import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coin;
+import com.example.mynt.collectionsActivity.models.CoinListComparator;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 
 import com.example.mynt.R;
-import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import com.example.mynt.collectionsActivity.adapters.Adapter_Library_Options;
@@ -29,6 +28,7 @@ import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Model_Database_Lite;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,8 +40,6 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
     private ImageButton loginButton;
     private View libraryView;
     private ArrayList<Model_Coin> arrayList_recent_coins;
-
-
     private Model_User user;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,33 +64,25 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         ArrayList<Model_Coin> currentUserCoins = mdl.allCoinsAndCollections(getContext(), 0, 0, user);
 
         //Populating Library Options List
-        arrayList_library_navigation.add(new Model_Library_Options( R.drawable.img_app_logo,
+        arrayList_library_navigation.add(new Model_Library_Options(
                 getResources().getString(R.string.library_option_coins),
-                0,
                 currentUserCoins.size()));
 
-        arrayList_library_navigation.add(new Model_Library_Options( R.drawable.ic_collection_icon,
+        arrayList_library_navigation.add(new Model_Library_Options(
                 getResources().getString(R.string.library_option_collections),
-                0,
                 0));
 
-        arrayList_library_navigation.add(new Model_Library_Options( R.drawable.ic_goal_icon,
+        arrayList_library_navigation.add(new Model_Library_Options(
                 getResources().getString(R.string.library_option_goals),
-                62,
                 62));
 
         int i= currentUserCoins.size();
 
-        if(i>0)
-            do {
-                i--;
-                arrayList_recent_coins.add(currentUserCoins.get(i));
-                if(arrayList_recent_coins.size()>3 || i==0)
-                {
 
-                    break;
-                }
-            }while (i>0);
+        Collections.sort(currentUserCoins, new CoinListComparator());
+
+
+        arrayList_recent_coins.addAll(currentUserCoins);
 
 
         //Passing data to list recycler view
@@ -110,7 +100,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         Adapter_Library_Options optionsListAdapter = new Adapter_Library_Options(getContext(), arrayList_library_navigation, user);
         optionListView.setAdapter(optionsListAdapter);
         //recyclerView
-        RecyclerView.Adapter mAdapter = new Adapter_Coin(arrayList_recent_coins, getContext(), this);
+        RecyclerView.Adapter<Adapter_Coin.CoinViewHolder> mAdapter = new Adapter_Coin(arrayList_recent_coins, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
 
@@ -135,43 +125,35 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
 
 
         //Onclick Listeners
-        optionListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            public void onItemClick(AdapterView parent, View v, int position, long id){
-                Bundle bundle = new Bundle();
-                bundle.putInt("User",user.getUserID());
-                //Intent collections = new Intent(getContext(), Activity_Collections.class);
-                if(position==0)
-                {
-                    bundle.putInt("Task",2);
-                    Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coins,bundle);
-                    //collections.putExtra("action","coins");
-                }else if (position==1)
-                {
-                    bundle.putInt("Task", 0);
-                    Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Collections, bundle);
-                }else if (position==2)
-                {
-                    //POE
-                    //Goals Activity
-                }
-
-                //startActivity(collections);
+        optionListView.setOnItemClickListener((parent, v, position, id) -> {
+            Bundle bundle = new Bundle();
+            bundle.putInt("User",user.getUserID());
+            //Intent collections = new Intent(getContext(), Activity_Collections.class);
+            if(position==0)
+            {
+                bundle.putInt("Task",2);
+                Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coins,bundle);
+                //collections.putExtra("action","coins");
+            }else if (position==1)
+            {
+                bundle.putInt("Task", 0);
+                Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Collections, bundle);
+            }else if (position==2)
+            {
+                //POE
+                //Goals Activity
             }
+
+            //startActivity(collections);
         });
 
 
     }
 
     private void ReturnToRegister(){
-
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Bundle.Add.Extra(Name of coin, year, country)
-                Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Register);
-            }
+        loginButton.setOnClickListener(v -> {
+            //Bundle.Add.Extra(Name of coin, year, country)
+            Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Register);
         });
 
     }

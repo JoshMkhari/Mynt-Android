@@ -3,7 +3,6 @@ package com.example.mynt.dataAccessLayer;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;

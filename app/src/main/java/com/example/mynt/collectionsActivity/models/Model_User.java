@@ -4,8 +4,6 @@ public class Model_User {
 
     private String email;
     private String password;
-    private String userName;
-    private int profilePicture;
     private int state,userID;
 
 

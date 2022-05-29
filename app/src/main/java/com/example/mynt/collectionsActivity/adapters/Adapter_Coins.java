@@ -54,7 +54,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
             fis.close();
         }
-        catch(Exception e){
+        catch(Exception ignored){
         }
         holder.date.setText(String.valueOf(coinsList.get(position).getDateTaken()));
         holder.country.setText("South Africa");
@@ -81,16 +81,13 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             country = itemView.findViewById(R.id.textview_coin_country);
             date = itemView.findViewById(R.id.textview_coin_acquired_date);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(interfaceRecyclerView != null)
-                    {
-                        int pos = getAbsoluteAdapterPosition();
+            itemView.setOnClickListener(v -> {
+                if(interfaceRecyclerView != null)
+                {
+                    int pos = getAbsoluteAdapterPosition();
 
-                        if(pos != RecyclerView.NO_POSITION){
-                            interfaceRecyclerView.onItemClick(pos);
-                        }
+                    if(pos != RecyclerView.NO_POSITION){
+                        interfaceRecyclerView.onItemClick(pos);
                     }
                 }
             });

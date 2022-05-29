@@ -40,7 +40,7 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
         recycler_view_leaderboard.setLayoutManager(layout_manager_leaderboard);
 
         //Setting up adapter
-        RecyclerView.Adapter rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard, getContext(), this);
+        RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard);
         recycler_view_leaderboard.setAdapter(rv_leaferbaord_adapter);
 
         DisplayLeaderBoardRanks();
@@ -51,7 +51,7 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
     private void DisplayLeaderBoardRanks(){
 
         //Creating list to store users and their ranks
-        array_list_leaderboard = new ArrayList<Model_Leaderboard>();
+        array_list_leaderboard = new ArrayList<>();
 
         //Populating leaderboard list
         for (int i =0; i<8;i++)

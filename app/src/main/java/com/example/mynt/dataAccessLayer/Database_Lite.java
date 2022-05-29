@@ -2,7 +2,6 @@ package com.example.mynt.dataAccessLayer;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -324,10 +323,8 @@ public class Database_Lite extends SQLiteOpenHelper {
                 collectionsList.add(collection);
             }while (cursor.moveToNext());
         }
-        else
-        {
-            //failure means list is empty
-        }
+        //failure means list is empty
+
         cursor.close();
         return collectionsList;
     }
@@ -383,10 +380,8 @@ public class Database_Lite extends SQLiteOpenHelper {
                 coins.add(coinID);
             }while (cursor.moveToNext());
         }
-        else
-        {
-            //failure means list is empty
-        }
+        //failure means list is empty
+
         cursor.close();
         return coins;
     }
@@ -409,10 +404,8 @@ public class Database_Lite extends SQLiteOpenHelper {
                 years.add(year);
             }while (cursor.moveToNext());
         }
-        else
-        {
-            //failure means list is empty
-        }
+        //failure means list is empty
+
         cursor.close();
         return years;
     }
@@ -454,10 +447,8 @@ public class Database_Lite extends SQLiteOpenHelper {
                 coinsList.add(coin);
             }while (cursor.moveToNext());
         }
-        else
-        {
-            //failure means list is empty
-        }
+        //failure means list is empty
+
         cursor.close();
         return coinsList;
     }
@@ -487,10 +478,8 @@ public class Database_Lite extends SQLiteOpenHelper {
                 users.add(model_user);
             }while (cursor.moveToNext());
         }
-        else
-        {
-            //failure means list is empty
-        }
+        //failure means list is empty
+
         cursor.close();
         return users;
     }
@@ -510,10 +499,10 @@ public class Database_Lite extends SQLiteOpenHelper {
                     cv.put(COLUMN_COIN_FK,coinID);
                     db.insert(COLLECTIONS_COIN_TABLE,null,cv);
                     cv.clear();
-                }catch (Exception e)
+                }catch (Exception ignored)
                 {
                 }
-            }catch ( Exception e)
+            }catch ( Exception ignored)
             {
             }
         }
@@ -614,7 +603,7 @@ public class Database_Lite extends SQLiteOpenHelper {
                 cv.put(COLUMN_USER_FK,model_user.getUserID());
                 db.insert(USER_COLLECTIONS_TABLE, null, cv);
                 cv.clear();
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
     }
@@ -692,16 +681,13 @@ public class Database_Lite extends SQLiteOpenHelper {
                     db.insert(COLLECTIONS_COIN_TABLE,null,cv);
                     cv.clear();
 
-                }catch (Exception e)
+                }catch (Exception ignored)
                 {
                 }
-            }catch ( Exception e)
+            }catch ( Exception ignored)
             {
             }
 
-        }
-        else
-        {
         }
 
         //Collections Coin Table

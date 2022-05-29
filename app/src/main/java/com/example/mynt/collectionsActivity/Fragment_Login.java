@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,40 +56,37 @@ public class Fragment_Login extends Fragment {
     }
 
     private void Login(){
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                db = new Database_Lite(getContext());
-                model_user = new Model_User();
-                model_user.setEmail(email.getText().toString());
-                model_user.setPassword(password.getText().toString());
-                users = new ArrayList<>();
-                users = db.getAllUsers();
+        login.setOnClickListener(v -> {
+            db = new Database_Lite(getContext());
+            model_user = new Model_User();
+            model_user.setEmail(email.getText().toString());
+            model_user.setPassword(password.getText().toString());
+            users = new ArrayList<>();
+            users = db.getAllUsers();
 
-                if(email.getText().toString().length()<3){
+            if(email.getText().toString().length()<3){
+                //Additional User Feedback
+                Toast.makeText(getContext(),"ERROR: A email address has not been entered.",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"Please enter a email address to proceed.",Toast.LENGTH_SHORT).show();
+            }else
+                if(password.getText().toString().length()<8){
+
                     //Additional User Feedback
-                    Toast.makeText(getContext(),"ERROR: A email address has not been entered.",Toast.LENGTH_LONG).show();
-                    Toast.makeText(getContext(),"Please enter a email address to proceed.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"ERROR: A password has not been entered",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Please enter a password to proceed.",Toast.LENGTH_SHORT).show();
                 }else
-                    if(password.getText().toString().length()<8){
-
-                        //Additional User Feedback
-                        Toast.makeText(getContext(),"ERROR: A password has not been entered",Toast.LENGTH_LONG).show();
-                        Toast.makeText(getContext(),"Please enter a password to proceed.",Toast.LENGTH_SHORT).show();
-                    }else
-                        for (int i=0; i<users.size(); i++) {
-                            if(users.get(i).getEmail().equals(model_user.getEmail()))
+                    for (int i=0; i<users.size(); i++) {
+                        if(users.get(i).getEmail().equals(model_user.getEmail()))
+                        {
+                            if(users.get(i).getPassword().equals(model_user.getPassword()))
                             {
-                                if(users.get(i).getPassword().equals(model_user.getPassword()))
-                                {
-                                    //update user state
-                                    db.updateState(model_user);
-                                    Intent login = new Intent(getContext(), Activity_Collections.class);
-                                    login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(login);
-                                    //Additional User Feedback
-                                    Toast.makeText(getContext(),model_user.getEmail()+ " has logged in successfully.",Toast.LENGTH_LONG).show();
-                                }
+                                //update user state
+                                db.updateState(model_user);
+                                Intent login = new Intent(getContext(), Activity_Collections.class);
+                                login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(login);
+                                //Additional User Feedback
+                                Toast.makeText(getContext(),model_user.getEmail()+ " has logged in successfully.",Toast.LENGTH_LONG).show();
                             }
                         }
                     }
@@ -98,12 +94,7 @@ public class Fragment_Login extends Fragment {
     }
 
     private void ReturnToRegister(){
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.findNavController(loginView).navigate(R.id.action_fragment_Login_to_fragment_Register);
-            }
-        });
+        close.setOnClickListener(v -> Navigation.findNavController(loginView).navigate(R.id.action_fragment_Login_to_fragment_Register));
 
 
     }

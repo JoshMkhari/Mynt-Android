@@ -87,7 +87,7 @@ public class Fragment_Coin_Details extends Fragment {
             //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
             fis.close();
         }
-        catch(Exception e){
+        catch(Exception ignored){
         }
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override
@@ -103,12 +103,7 @@ public class Fragment_Coin_Details extends Fragment {
     }
     private void ReturnToMainDetailsPage(){
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backActivity();
-            }
-        });
+        back.setOnClickListener(v -> backActivity());
 
 
     }

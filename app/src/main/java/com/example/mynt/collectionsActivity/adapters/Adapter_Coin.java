@@ -26,7 +26,10 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
     final Context context;
 
     public Adapter_Coin(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
-        this.coinsList = coinsList;
+        this.coinsList = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            this.coinsList.add(coinsList.get(i));
+        }
         this.context = context;
         this.interfaceRecyclerView = interfaceRecyclerView;
     }
@@ -44,9 +47,6 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
         holder.year.setText(String.valueOf(coinsList.get(position).getYear()));
         //glide for internet images???
 
-        //Image
-        ContextWrapper cw = new ContextWrapper(context);
-
         // THIS IS THE PROBLEM
         String name = coinsList.get(position).getCoinID() +".jpg";
         try{
@@ -56,7 +56,7 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
             //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
             fis.close();
         }
-        catch(Exception e){
+        catch(Exception ignored){
         }
 
         //File directory = cw.getDir("files",Context.MODE_PRIVATE);
@@ -87,16 +87,13 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
             year = itemView.findViewById(R.id.textview_coin_year);
             name = itemView.findViewById(R.id.textview_coin_name);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(interfaceRecyclerView != null)
-                    {
-                        int pos = getAbsoluteAdapterPosition();
+            itemView.setOnClickListener(v -> {
+                if(interfaceRecyclerView != null)
+                {
+                    int pos = getAbsoluteAdapterPosition();
 
-                        if(pos != RecyclerView.NO_POSITION){
-                            interfaceRecyclerView.onItemClick(pos);
-                        }
+                    if(pos != RecyclerView.NO_POSITION){
+                        interfaceRecyclerView.onItemClick(pos);
                     }
                 }
             });

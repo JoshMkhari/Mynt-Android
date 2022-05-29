@@ -1,6 +1,5 @@
 package com.example.mynt.collectionsActivity.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.R;
-import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
 
 import java.util.ArrayList;
@@ -20,7 +18,7 @@ public class Adapter_Leaderboard extends RecyclerView.Adapter<Adapter_Leaderboar
 
     private final ArrayList<Model_Leaderboard> arrayList_Leaderboard;
 
-    public Adapter_Leaderboard(ArrayList<Model_Leaderboard> arrayList_Leaderboard, Context context, Interface_RecyclerView recyclerView_Interface) {
+    public Adapter_Leaderboard(ArrayList<Model_Leaderboard> arrayList_Leaderboard) {
         this.arrayList_Leaderboard = arrayList_Leaderboard;
         //Variable Declarations
     }
@@ -61,7 +59,7 @@ public class Adapter_Leaderboard extends RecyclerView.Adapter<Adapter_Leaderboar
         return arrayList_Leaderboard.size();
     }
 
-    public class Card_View_Holder extends RecyclerView.ViewHolder{
+    public static class Card_View_Holder extends RecyclerView.ViewHolder{
         final ImageView profileImage;
         final TextView userName;
         final TextView score;

@@ -1,8 +1,9 @@
 package com.example.mynt.collectionsActivity.models;
 
 public class Model_Goals {
-    private String collectionName;
-    private int numCoins ,target;
+    private final String collectionName;
+    private final int numCoins;
+    private final int target;
 
     public Model_Goals(String collectionName, int numCoins, int target) {
         this.collectionName = collectionName;

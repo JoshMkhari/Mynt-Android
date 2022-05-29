@@ -70,64 +70,53 @@ public class Fragment_Register extends Fragment {
 
     private void ReturnToLibrary(){
 
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //intent take me to library
-                backActivity();
-            }
+        close.setOnClickListener(v -> {
+            //intent take me to library
+            backActivity();
         });
 
     }
 
     private void SignUp(){
-       signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (email.getText().toString().length() > 3) {
-                    if (password.getText().toString().length() > 7) {
-                        if (!confirmPassword.getText().toString().equals(password.getText().toString())) {
-                            // Additional User Feedback
-                            ArrayList<Model_User> users = new ArrayList<>();
-                            Database_Lite db = new Database_Lite(getContext());
-                            users = db.getAllUsers();
-                            model_user = new Model_User();
-                            model_user.setEmail(email.getText().toString());
-                            model_user.setPassword(password.getText().toString());
-                            boolean emailFound = false;
-                            for (int i = 0; i < users.size(); i++) {
-                                if (users.get(i).getEmail().equals(model_user.getEmail())) {
-                                    Toast.makeText(getContext(), "Email already registered", Toast.LENGTH_SHORT).show();
-                                    emailFound = true;
-                                }
-                            }
-                            if (!emailFound)
-                                if (db.addUser(model_user)) {
-                                    db.updateState(model_user);
-                                    Toast.makeText(getContext(), "An account has been created successfully for " + email.getText().toString() + ".", Toast.LENGTH_SHORT).show();
-                                    i = new Intent(getContext(), Activity_Collections.class);
-                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(i);
-                                }
-                            //Additional User Feedback
-                        }else
-                            Toast.makeText(getContext(), "A password length must be 8 characters", Toast.LENGTH_LONG).show();
-                    }else
-                        Toast.makeText(getContext(), "A email address has not been entered.", Toast.LENGTH_LONG).show();
-                }else
-                    Toast.makeText(getContext(), "ERROR: This account has not been created successfully.", Toast.LENGTH_SHORT).show();
-            }
-        });
+       signUp.setOnClickListener(v -> {
+           if (email.getText().toString().length() > 3) {
+               if (password.getText().toString().length() > 7) {
+                   if (!confirmPassword.getText().toString().equals(password.getText().toString())) {
+                       // Additional User Feedback
+                       ArrayList<Model_User> users = new ArrayList<>();
+                       Database_Lite db = new Database_Lite(getContext());
+                       users = db.getAllUsers();
+                       model_user = new Model_User();
+                       model_user.setEmail(email.getText().toString());
+                       model_user.setPassword(password.getText().toString());
+                       boolean emailFound = false;
+                       for (int i = 0; i < users.size(); i++) {
+                           if (users.get(i).getEmail().equals(model_user.getEmail())) {
+                               Toast.makeText(getContext(), "Email already registered", Toast.LENGTH_SHORT).show();
+                               emailFound = true;
+                           }
+                       }
+                       if (!emailFound)
+                           if (db.addUser(model_user)) {
+                               db.updateState(model_user);
+                               Toast.makeText(getContext(), "An account has been created successfully for " + email.getText().toString() + ".", Toast.LENGTH_SHORT).show();
+                               i = new Intent(getContext(), Activity_Collections.class);
+                               i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                               startActivity(i);
+                           }
+                       //Additional User Feedback
+                   }else
+                       Toast.makeText(getContext(), "A password length must be 8 characters", Toast.LENGTH_LONG).show();
+               }else
+                   Toast.makeText(getContext(), "A email address has not been entered.", Toast.LENGTH_LONG).show();
+           }else
+               Toast.makeText(getContext(), "ERROR: This account has not been created successfully.", Toast.LENGTH_SHORT).show();
+       });
     }
 
     private void LoginWithEmail(){
 
-    loginWithEmail.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Navigation.findNavController(registerView).navigate(R.id.action_fragment_Register_to_fragment_Login);
-        }
-    });
+    loginWithEmail.setOnClickListener(v -> Navigation.findNavController(registerView).navigate(R.id.action_fragment_Register_to_fragment_Login));
 
 
     }

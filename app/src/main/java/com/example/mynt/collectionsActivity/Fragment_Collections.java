@@ -55,7 +55,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         collectionName = collectionsView.findViewById(R.id.CollectionNameEditText);
 
 
-
+        assert getArguments() != null;
         task = getArguments().getInt("Task");
         model_user = new Model_User();
         model_user.setUserID(getArguments().getInt("User"));
@@ -76,7 +76,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerView.Adapter mAdapter = new Adapter_Collections(allUserCollections, getContext(), this);
+        RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder> mAdapter = new Adapter_Collections(allUserCollections, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
 
@@ -108,42 +108,32 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         };
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backActivity();
-            }
-
-        });
+        back.setOnClickListener(v -> backActivity());
 
     }
 
     private void CreateCollection(){
 
-        createCollection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(collectionName.getText().toString().length()>3)
-                {
-                    Bundle bundle = new Bundle();
-                    bundle.putString("Collection Name", collectionName.getText().toString());
-                    bundle.putInt("Coins", 0);
-                    bundle.putInt("Goal", 0);
-                    bundle.putInt("Task",task);
-                    bundle.putInt("User",model_user.getUserID());
-                    Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
+        createCollection.setOnClickListener(v -> {
+            if(collectionName.getText().toString().length()>3)
+            {
+                Bundle bundle = new Bundle();
+                bundle.putString("Collection Name", collectionName.getText().toString());
+                bundle.putInt("Coins", 0);
+                bundle.putInt("Goal", 0);
+                bundle.putInt("Task",task);
+                bundle.putInt("User",model_user.getUserID());
+                Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
 
-                    //Additional User Feedback
-                    Toast.makeText(getContext(),collectionName.getText().toString() + " has been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                }
-                else
-                {
-                    //Additional User Feedback
-                    Toast.makeText(getContext(),"Error: Your collection has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                    Toast.makeText(getContext(),"A collection name has not been set.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                    Toast.makeText(getContext(),"Please enter a name for your collection.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                }
-
+                //Additional User Feedback
+                Toast.makeText(getContext(),collectionName.getText().toString() + " has been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+            }
+            else
+            {
+                //Additional User Feedback
+                Toast.makeText(getContext(),"Error: Your collection has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                Toast.makeText(getContext(),"A collection name has not been set.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                Toast.makeText(getContext(),"Please enter a name for your collection.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
             }
 
         });

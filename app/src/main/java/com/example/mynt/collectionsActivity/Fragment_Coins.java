@@ -63,7 +63,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
         RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerView.Adapter mAdapter = new Adapter_Coins(coinsList, getContext(), this);
+        RecyclerView.Adapter<Adapter_Coins.CoinViewHolder> mAdapter = new Adapter_Coins(coinsList, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
@@ -82,12 +82,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
 
     private void ReturnToCoinPage(){
 
-        back_imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                backActivity();
-            }
-        });
+        back_imageButton.setOnClickListener(v -> backActivity());
 
 
     }

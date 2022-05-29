@@ -80,16 +80,13 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
             collectionName = itemView.findViewById(R.id.collectionNameTextView);
             progressBar = itemView.findViewById(R.id.progressBar_collections);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(interfaceRecyclerView != null)
-                    {
-                        int pos = getAbsoluteAdapterPosition();
+            itemView.setOnClickListener(v -> {
+                if(interfaceRecyclerView != null)
+                {
+                    int pos = getAbsoluteAdapterPosition();
 
-                        if(pos != RecyclerView.NO_POSITION){
-                            interfaceRecyclerView.onItemClick(pos);
-                        }
+                    if(pos != RecyclerView.NO_POSITION){
+                        interfaceRecyclerView.onItemClick(pos);
                     }
                 }
             });
