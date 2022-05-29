@@ -26,6 +26,7 @@ import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Database_Lite;
+import com.example.mynt.dataAccessLayer.Model_Database_Lite;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -49,7 +50,6 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView, 
     private ArrayList<Model_Collections> allCollections;
     private ArrayList<Model_Collections> allUserCollections;
     private ArrayList<Integer> collectionCoins;
-    private Intent home;
     private Bundle bundle;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,11 +69,9 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView, 
         model_user.setUserID(getArguments().getInt("User"));
         collectionID = getArguments().getInt("CollectionID");
 
-        String collec = collectionID + " this";
-        Log.d("collectionID", collec);
         DisplayAllLocalCoinsAndCollections();
         ReturnToCoinPage();
-        recyclerView = (RecyclerView) coinsView.findViewById(R.id.recyclerView_coins);
+        recyclerView = coinsView.findViewById(R.id.recyclerView_coins);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new StaggeredGridLayoutManager(1,1);
@@ -119,67 +117,27 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView, 
 
 
     }
-    private void DisplayAllLocalCoinsAndCollections(){
+    private void DisplayAllLocalCoinsAndCollections() {
 
-        db = new Database_Lite(getContext());
+        Model_Database_Lite mdl = new Model_Database_Lite();
 
-        coinsList = new ArrayList<>();
-
-
-        dbCoins = db.getAllCoins();
-        //get all collections for a user
-        //get all collectionCoins
-        //then match correct coins
-
-        userCollectionIDs = db.getAllCollectionsForUser(model_user);
-        allCollections = db.getAllCollections();
-
-        allUserCollections = new ArrayList<>();
-
-        for (int i=0; i<allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                allUserCollections.add(allCollections.get(i));
-        }
-
+        coinsList = mdl.allCoinsAndCollections(getContext(),task,collectionID, model_user);
         coinIDs = new ArrayList<>();
-        if(task == 0 || task ==2) //All Coins
+
+        if (task == 0 || task == 2) //All Coins
         {
             pageTitle_textView.setText(R.string.coins_title);
             collectionName_textView.setText(R.string.all_coins_block_title);
-            ;
 
-            for (int b=0; b<allUserCollections.size(); b++) {
-                collectionCoins = db.getAllCoinsInCollection(allUserCollections.get(b).getCollectionID());
-                for (int i = 0; i < collectionCoins.size(); i++) {
-                    for (int s = 0; s < dbCoins.size(); s++) {
-                        if (collectionCoins.get(i) == dbCoins.get(s).getCoinID()) {
-                            coinsList.add(dbCoins.get(s));
-                            //add final list here
-                            coinIDs.add(dbCoins.get(s).getCoinID());
-                            break;
-                        }
-                    }
-                }
-            }
-        }else//For specific collection
+        } else//For specific collection
         {
             pageTitle_textView.setText(R.string.collections_title);
             collectionName_textView.setText(blockTitle);
+        }
 
-            collectionCoins = db.getAllCoinsInCollection(collectionID);
-            for (int i=0; i<collectionCoins.size(); i++)
-            {
-                for (int s=0; s<dbCoins.size(); s++) {
-                    if(collectionCoins.get(i)==dbCoins.get(s).getCoinID())
-                    {
-                        coinsList.add(dbCoins.get(s));
-                        //add final list here
-                        coinIDs.add(dbCoins.get(s).getCoinID());
-                        break;
-                    }
-                }
-            }
+        for (int i=0; i<coinsList.size(); i++)
+        {
+            coinIDs.add(coinsList.get(i).getCoinID());
         }
 
     }

@@ -100,7 +100,7 @@ public class Fragment_Goal extends Fragment {
         collectionName_textView.setText(model_goals.getCollectionName());
         numCoinsInCollection_textView.setText(String.valueOf(model_goals.getNumCoins()));
         target_Edittext.setText(String.valueOf(model_goals.getTarget()));
-        targetText = "Target: " + String.valueOf(model_goals.getTarget());
+        targetText = "Target: " + model_goals.getTarget();
         target_textView.setText(targetText);
 
 

@@ -61,61 +61,41 @@ public class Fragment_Login extends Fragment {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 db = new Database_Lite(getContext());
                 model_user = new Model_User();
                 model_user.setEmail(email.getText().toString());
                 model_user.setPassword(password.getText().toString());
                 users = new ArrayList<>();
                 users = db.getAllUsers();
-                size = users.size() + " this";
-                Log.d("loginPage", size);
 
-                if(email.getText().toString().length()==0){
+                if(email.getText().toString().length()<3){
                     //Additional User Feedback
-                    Toast.makeText(getContext(),"ERROR: A email address has not been entered.",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
-                    Toast.makeText(getContext(),"Please enter a email address to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                }
-
-
-                    if(password.getText().toString().length()==0){
+                    Toast.makeText(getContext(),"ERROR: A email address has not been entered.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),"Please enter a email address to proceed.",Toast.LENGTH_SHORT).show();
+                }else
+                    if(password.getText().toString().length()<8){
 
                         //Additional User Feedback
-                        Toast.makeText(getContext(),"ERROR: A password has not been entered",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
-                        Toast.makeText(getContext(),"Please enter a password to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                    }
-
-                if(email.getText().toString().length()>0 && password.getText().toString().length()>0){
-                    for (int i=0; i<users.size(); i++) {
-                        if(users.get(i).getEmail().equals(model_user.getEmail()))
-                        {
-                            if(users.get(i).getPassword().equals(model_user.getPassword()))
+                        Toast.makeText(getContext(),"ERROR: A password has not been entered",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"Please enter a password to proceed.",Toast.LENGTH_SHORT).show();
+                    }else
+                        for (int i=0; i<users.size(); i++) {
+                            if(users.get(i).getEmail().equals(model_user.getEmail()))
                             {
-                                //update user state
-                                db.updateState(model_user);
-                                Intent login = new Intent(getContext(), Activity_Collections.class);
-                                login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(login);
-
-                                //Additional User Feedback
-                                Toast.makeText(getContext(),model_user.getEmail()+ " has logged in successfully.",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
+                                if(users.get(i).getPassword().equals(model_user.getPassword()))
+                                {
+                                    //update user state
+                                    db.updateState(model_user);
+                                    Intent login = new Intent(getContext(), Activity_Collections.class);
+                                    login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(login);
+                                    //Additional User Feedback
+                                    Toast.makeText(getContext(),model_user.getEmail()+ " has logged in successfully.",Toast.LENGTH_LONG).show();
+                                }
                             }
-
-
-                        }else{
-
-
                         }
                     }
-                }
-
-
-                }
-
-
-        });
-
+                });
     }
 
     private void ReturnToRegister(){

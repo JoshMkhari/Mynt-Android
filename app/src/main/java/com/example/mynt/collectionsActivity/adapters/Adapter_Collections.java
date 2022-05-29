@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder>{
     private final Interface_RecyclerView interfaceRecyclerView;
-    private ArrayList<Model_Collections> collectionsList;
-    private Context context;
-    private int selected_position = 0;
+    private final ArrayList<Model_Collections> collectionsList;
+    private final Context context;
+    private final int selected_position = 0;
 
     public Adapter_Collections(ArrayList<Model_Collections> collectionsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
         this.collectionsList = collectionsList;

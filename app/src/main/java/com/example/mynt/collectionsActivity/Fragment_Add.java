@@ -295,7 +295,6 @@ public class Fragment_Add extends Fragment implements Interface_Back {
             public void onClick(View v) {
 
                 dateAcquired.show();
-                ;
             }
         });
         //To upload and Change an Image
@@ -322,8 +321,6 @@ public class Fragment_Add extends Fragment implements Interface_Back {
 
             }
         });
-
-        //Adding a coin to the database
 
 
         year_Textview.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -443,7 +440,6 @@ public class Fragment_Add extends Fragment implements Interface_Back {
         {
             Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private boolean savePhotoToInternalStorage() {

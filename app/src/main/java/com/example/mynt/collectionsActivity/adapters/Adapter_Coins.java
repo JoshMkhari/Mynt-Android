@@ -56,7 +56,6 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             fis.close();
         }
         catch(Exception e){
-            ;
         }
         holder.date.setText(String.valueOf(coinsList.get(position).getDateTaken()));
         holder.country.setText("South Africa");

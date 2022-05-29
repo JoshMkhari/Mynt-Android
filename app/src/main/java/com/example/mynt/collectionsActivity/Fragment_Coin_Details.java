@@ -104,7 +104,6 @@ public class Fragment_Coin_Details extends Fragment implements Interface_Back {
             fis.close();
         }
         catch(Exception e){
-            ;
         }
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override

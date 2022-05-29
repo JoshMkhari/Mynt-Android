@@ -59,7 +59,6 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
             fis.close();
         }
         catch(Exception e){
-;
         }
 
         //File directory = cw.getDir("files",Context.MODE_PRIVATE);

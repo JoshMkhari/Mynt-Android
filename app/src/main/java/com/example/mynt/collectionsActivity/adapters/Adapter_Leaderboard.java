@@ -20,8 +20,8 @@ public class Adapter_Leaderboard extends RecyclerView.Adapter<Adapter_Leaderboar
 
     //Variable Declarations
     private final Interface_RecyclerView recyclerView_Interface;
-    private ArrayList<Model_Leaderboard> arrayList_Leaderboard;
-    private Context context;
+    private final ArrayList<Model_Leaderboard> arrayList_Leaderboard;
+    private final Context context;
 
     public Adapter_Leaderboard(ArrayList<Model_Leaderboard> arrayList_Leaderboard, Context context, Interface_RecyclerView recyclerView_Interface) {
         this.context = context;

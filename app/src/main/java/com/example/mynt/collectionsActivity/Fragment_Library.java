@@ -112,7 +112,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
 
 
         //Passing data to list recycler view
-        recyclerView = (RecyclerView) libraryView.findViewById(R.id.recyclerView_recentCoins_library);
+        recyclerView = libraryView.findViewById(R.id.recyclerView_recentCoins_library);
         //recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
 
@@ -150,7 +150,6 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
     }
 
     private void DisplayAllLocalCollections(){
-
         userCollectionIDs = db.getAllCollectionsForUser(user);
         allCollections = db.getAllCollections();
 
@@ -181,7 +180,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
                 if(!found)
                 {
                     //delete current coin from database
-                    db.deleteCoin(AllCoinsInDatabase.get(i).getCoinID());;
+                    db.deleteCoin(AllCoinsInDatabase.get(i).getCoinID());
                     fileName = AllCoinsInDatabase.get(i).getCoinID() + ".jpg";
                     //Delete image from files
                     requireContext().deleteFile(fileName);
@@ -223,7 +222,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
                 if(!found)
                 {
                     //delete current coin from database
-                    db.deleteCoin(AllCoinsInDatabase.get(i).getCoinID());;
+                    db.deleteCoin(AllCoinsInDatabase.get(i).getCoinID());
                     fileName = AllCoinsInDatabase.get(i).getCoinID() + ".jpg";
                     //Delete image from files
                     requireContext().deleteFile(fileName);
@@ -304,8 +303,8 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
     public void onItemClick(int position) {
         Bundle bundle = new Bundle();
         bundle.putInt("Task", 0);
-        bundle.putInt("CoinID", arrayList_recent_coins.get(position).getCoinID());;
-        Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coin_Details,bundle);;
+        bundle.putInt("CoinID", arrayList_recent_coins.get(position).getCoinID());
+        Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coin_Details,bundle);
     }
 
 

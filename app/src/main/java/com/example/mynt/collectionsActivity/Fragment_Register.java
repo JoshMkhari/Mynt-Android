@@ -21,6 +21,7 @@ import com.example.mynt.R;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_User;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -79,69 +80,45 @@ public class Fragment_Register extends Fragment implements Interface_Back {
             }
         });
 
-
     }
 
     private void SignUp(){
-
        signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                    if(email.getText().toString().length()==0){
-
-                        // Additional User Feedback
-                        Toast.makeText(getContext(),"ERROR: This account has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                        Toast.makeText(getContext(),"A email address has not been entered.",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
-                        Toast.makeText(getContext(),"Please enter a email address to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-
-                    }
-
-                        if(password.getText().toString().length()==0){
-
+                if (email.getText().toString().length() > 3) {
+                    if (password.getText().toString().length() > 7) {
+                        if (!confirmPassword.getText().toString().equals(password.getText().toString())) {
                             // Additional User Feedback
-                            Toast.makeText(getContext(),"ERROR: This account has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                            Toast.makeText(getContext(),"A password has not been entered",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
-                            Toast.makeText(getContext(),"Please enter a password to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                        }
-
-                        if(confirmPassword.getText().toString().length()==0){
-
-                            // Additional User Feedback
-                            Toast.makeText(getContext(),"ERROR: This account has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                            Toast.makeText(getContext(),"A password has not been entered to confirm the password entered.",Toast.LENGTH_LONG).show();//(Reference This) (M.Ngetu)
-                            Toast.makeText(getContext(),"Please re-enter your password to proceed.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-
-                        }
-
-
-                            if(email.getText().toString().length()>0 && password.getText().toString().length()>0 && confirmPassword.getText().toString().length()>0){
-
-                                db = new Database_Lite(getContext());
-                                model_user = new Model_User();
-                                model_user.setEmail(email.getText().toString());
-                                model_user.setPassword(password.getText().toString());
-                                if(db.addUser(model_user))
-                                {
+                            ArrayList<Model_User> users = new ArrayList<>();
+                            users = db.getAllUsers();
+                            model_user = new Model_User();
+                            model_user.setEmail(email.getText().toString());
+                            model_user.setPassword(password.getText().toString());
+                            boolean emailFound = false;
+                            for (int i = 0; i < users.size(); i++) {
+                                if (users.get(i).getEmail().equals(model_user.getEmail())) {
+                                    Toast.makeText(getContext(), "Email already registered", Toast.LENGTH_SHORT).show();
+                                    emailFound = true;
+                                }
+                            }
+                            if (!emailFound)
+                                if (db.addUser(model_user)) {
                                     db.updateState(model_user);
+                                    Toast.makeText(getContext(), "An account has been created successfully for " + email.getText().toString() + ".", Toast.LENGTH_SHORT).show();
                                     i = new Intent(getContext(), Activity_Collections.class);
                                     i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(i);
                                 }
-
-                                //Additional User Feedback
-                                Toast.makeText(getContext(),"An account has been created successfully for " + email.getText().toString() + ".",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-
-                            }
-                        }
-
-
-
-
+                            //Additional User Feedback
+                        }else
+                            Toast.makeText(getContext(), "A password length must be 8 characters", Toast.LENGTH_LONG).show();
+                    }else
+                        Toast.makeText(getContext(), "A email address has not been entered.", Toast.LENGTH_LONG).show();
+                }else
+                    Toast.makeText(getContext(), "ERROR: This account has not been created successfully.", Toast.LENGTH_SHORT).show();
+            }
         });
-
-
-
     }
 
     private void LoginWithEmail(){
