@@ -41,16 +41,11 @@ public class Fragment_Goal extends Fragment {
     private String oldText;
     private Model_Goals model_goals;
     private ImageButton setGoal_imageButton, back, subtract,add;
-    private TextView collectionName_textView,target_textView,numCoinsInCollection_textView,percentOfGoal_textView;
-    private ProgressBar goalProgress_progressBar;
+    private TextView target_textView;
+    private TextView percentOfGoal_textView;
     private View goals;
     private Model_User model_user;
-    private String userID;
-    private String targetText;
-    private float coins;
-    private float target;
     private float progress;
-    private String percentage;
     private String currentText;
     private int currentTarget;
     private int task;
@@ -71,11 +66,11 @@ public class Fragment_Goal extends Fragment {
         // Inflate the layout for this fragment
         goals = inflater.inflate(R.layout.fragment_goal, container, false);
 
-        collectionName_textView = goals.findViewById(R.id.GoalPageCollectionName_TextView);
-        numCoinsInCollection_textView = goals.findViewById(R.id.GoalsPageCoinsTotal_TextView);
+        TextView collectionName_textView = goals.findViewById(R.id.GoalPageCollectionName_TextView);
+        TextView numCoinsInCollection_textView = goals.findViewById(R.id.GoalsPageCoinsTotal_TextView);
         percentOfGoal_textView = goals.findViewById(R.id.GoalPagePercentage_TextView);
         target_textView = goals.findViewById(R.id.GoalsPageTarget_TextView);
-        goalProgress_progressBar = goals.findViewById(R.id.GoalPageProgressBar);
+        ProgressBar goalProgress_progressBar = goals.findViewById(R.id.GoalPageProgressBar);
         setGoal_imageButton = goals.findViewById(R.id.imageview_blockTitle_goal);
         back = goals.findViewById(R.id.GoalsPage_back);
         target_Edittext = goals.findViewById(R.id.GoalsPage_GoalValue);
@@ -94,13 +89,13 @@ public class Fragment_Goal extends Fragment {
         model_user.setUserID(getArguments().getInt("User"));
 
 
-        userID = model_user.getUserID() + " this";
+        String userID = model_user.getUserID() + " this";
         Log.d("goal", userID);
 
         collectionName_textView.setText(model_goals.getCollectionName());
         numCoinsInCollection_textView.setText(String.valueOf(model_goals.getNumCoins()));
         target_Edittext.setText(String.valueOf(model_goals.getTarget()));
-        targetText = "Target: " + model_goals.getTarget();
+        String targetText = "Target: " + model_goals.getTarget();
         target_textView.setText(targetText);
 
 
@@ -249,10 +244,10 @@ public class Fragment_Goal extends Fragment {
 
     private void CalculateGoalProgress(){
 
-        coins = (float)model_goals.getNumCoins();
-        target = (float)model_goals.getTarget();
-        progress =  coins /target *100;
-        percentage = String.valueOf(Math.round(progress)) + '%';
+        float coins = (float) model_goals.getNumCoins();
+        float target = (float) model_goals.getTarget();
+        progress =  coins / target *100;
+        String percentage = String.valueOf(Math.round(progress)) + '%';
         percentOfGoal_textView.setText(percentage);
 
 

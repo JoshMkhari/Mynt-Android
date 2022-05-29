@@ -26,6 +26,7 @@ import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Library_Options;
 import com.example.mynt.collectionsActivity.models.Model_Library_Options;
 import com.example.mynt.collectionsActivity.models.Model_User;
+import com.example.mynt.dataAccessLayer.Model_Database_Lite;
 
 import java.util.ArrayList;
 
@@ -35,28 +36,10 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class Fragment_Library extends Fragment implements Interface_RecyclerView {
-    //Variable Declarations
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
     private ListView optionListView;
     private ImageButton loginButton;
-    private Adapter_Library_Options optionsListAdapter;
     private View libraryView;
     private ArrayList<Model_Coin> arrayList_recent_coins;
-    private Database_Lite db;
-    private ArrayList<Model_User> users;
-    private ArrayList<Integer> userCollectionIDs;
-    private ArrayList<Model_Collections> allCollections;
-    private ArrayList<Model_Collections> allUserCollections;
-    private ArrayList<Integer> allCoinsWithCollection;
-    private ArrayList<Model_Coin> AllCoinsInDatabase;
-    private boolean found;
-    private String fileName;
-    private ArrayList<Model_Coin> dbCoins;
-    private ArrayList<Model_Coin> currentUserCoins;
-    private ArrayList<Integer> collectionCoins;
-    private ArrayList<Model_Library_Options> arrayList_library_navigation;
 
 
     private Model_User user;
@@ -72,14 +55,15 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
 
         optionListView = libraryView.findViewById(R.id.listView_navigation_library);
         loginButton = libraryView.findViewById(R.id.imageButton_userActivity_library);
-        arrayList_library_navigation = new ArrayList<>();
+        ArrayList<Model_Library_Options> arrayList_library_navigation = new ArrayList<>();
         arrayList_recent_coins = new ArrayList<>();
 
         ReturnToRegister();
         ViewLoggedInUser();
         NavigationToOtherPages();
-        DisplayAllLocalCollections();
-        DisplayAllLocalCoins();
+
+        Model_Database_Lite mdl = new Model_Database_Lite();
+        ArrayList<Model_Coin> currentUserCoins = mdl.allCoinsAndCollections(getContext(), 0, 0, user);
 
         //Populating Library Options List
         arrayList_library_navigation.add(new Model_Library_Options( R.drawable.img_app_logo,
@@ -97,7 +81,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
                 62,
                 62));
 
-        int i=currentUserCoins.size();
+        int i= currentUserCoins.size();
 
         if(i>0)
             do {
@@ -112,24 +96,22 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
 
 
         //Passing data to list recycler view
-        recyclerView = libraryView.findViewById(R.id.recyclerView_recentCoins_library);
+        //Variable Declarations
+        RecyclerView recyclerView = libraryView.findViewById(R.id.recyclerView_recentCoins_library);
         //recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setHasFixedSize(true);
 
         //Ensuring the recycler view layout contains 2 item in each row
-        layoutManager = new StaggeredGridLayoutManager(2,1);
+        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, 1);
         recyclerView.setLayoutManager(layoutManager);
 
         //Setting up adapters
         //ListView
-        optionsListAdapter = new Adapter_Library_Options(getContext(),arrayList_library_navigation,user);
+        Adapter_Library_Options optionsListAdapter = new Adapter_Library_Options(getContext(), arrayList_library_navigation, user);
         optionListView.setAdapter(optionsListAdapter);
         //recyclerView
-        mAdapter = new Adapter_Coin(arrayList_recent_coins, getContext(),this);
+        RecyclerView.Adapter mAdapter = new Adapter_Coin(arrayList_recent_coins, getContext(), this);
         recyclerView.setAdapter(mAdapter);
-
-
-
 
 
         return libraryView;
@@ -137,119 +119,16 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
 
     private void ViewLoggedInUser(){
 
-        db = new Database_Lite(getContext());
+        Database_Lite db = new Database_Lite(getContext());
 
-        users = db.getAllUsers();
-        for (int i=0; i<users.size(); i++)
+        ArrayList<Model_User> users = db.getAllUsers();
+        for (int i = 0; i< users.size(); i++)
         {
             if(users.get(i).getState()==1)
             {
                 user = users.get(i);
             }
         }
-    }
-
-    private void DisplayAllLocalCollections(){
-        userCollectionIDs = db.getAllCollectionsForUser(user);
-        allCollections = db.getAllCollections();
-
-        allUserCollections = new ArrayList<>();
-
-        for (int i=0; i<allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                allUserCollections.add(allCollections.get(i));
-        }
-
-        allCoinsWithCollection = db.getAllCoinsWithACollection();
-
-        AllCoinsInDatabase = db.getAllCoins();
-        if(allCoinsWithCollection.size() != AllCoinsInDatabase.size() )
-        {
-            for (int i=0; i<AllCoinsInDatabase.size(); i++)
-            {
-                found = false;
-                for (int b=0; b<allCoinsWithCollection.size(); b++)
-                {
-                    if(AllCoinsInDatabase.get(i).getCoinID() == allCoinsWithCollection.get(b))
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                if(!found)
-                {
-                    //delete current coin from database
-                    db.deleteCoin(AllCoinsInDatabase.get(i).getCoinID());
-                    fileName = AllCoinsInDatabase.get(i).getCoinID() + ".jpg";
-                    //Delete image from files
-                    requireContext().deleteFile(fileName);
-                    //imageID.add(AllCoinsInDatabase.get(i).getImageId());
-                }
-            }
-        }
-
-        userCollectionIDs = db.getAllCollectionsForUser(user);
-        allCollections = db.getAllCollections();
-
-        allUserCollections = new ArrayList<>();
-
-        for (int i=0; i<allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                allUserCollections.add(allCollections.get(i));
-        }
-    }
-
-    private void DisplayAllLocalCoins(){
-
-        allCoinsWithCollection = db.getAllCoinsWithACollection();
-
-        AllCoinsInDatabase = db.getAllCoins();
-        if(allCoinsWithCollection.size() != AllCoinsInDatabase.size() )
-        {
-            for (int i=0; i<AllCoinsInDatabase.size(); i++)
-            {
-                found = false;
-                for (int b=0; b<allCoinsWithCollection.size(); b++)
-                {
-                    if(AllCoinsInDatabase.get(i).getCoinID() == allCoinsWithCollection.get(b))
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                if(!found)
-                {
-                    //delete current coin from database
-                    db.deleteCoin(AllCoinsInDatabase.get(i).getCoinID());
-                    fileName = AllCoinsInDatabase.get(i).getCoinID() + ".jpg";
-                    //Delete image from files
-                    requireContext().deleteFile(fileName);
-                    //imageID.add(AllCoinsInDatabase.get(i).getImageId());
-                }
-            }
-        }
-
-        dbCoins = new ArrayList<>();
-        dbCoins = db.getAllCoins();
-
-        currentUserCoins = new ArrayList<>();
-
-        for (int b=0; b<allUserCollections.size(); b++) {
-            collectionCoins = db.getAllCoinsInCollection(allUserCollections.get(b).getCollectionID());
-            for (int i = 0; i < collectionCoins.size(); i++) {
-                for (int s = 0; s < dbCoins.size(); s++) {
-                    if (collectionCoins.get(i) == dbCoins.get(s).getCoinID()) {
-                        currentUserCoins.add(dbCoins.get(s));
-                        //add final list here
-                        break;
-                    }
-                }
-            }
-        }
-
-
     }
 
     private void NavigationToOtherPages(){
@@ -271,8 +150,6 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
                 {
                     bundle.putInt("Task", 0);
                     Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Collections, bundle);
-                    //collections.putExtra("action","collections");
-                    //Navigation.findNavController(libraryView).navigate(R.id.action_fragment_Library_to_fragment_Collections);
                 }else if (position==2)
                 {
                     //POE

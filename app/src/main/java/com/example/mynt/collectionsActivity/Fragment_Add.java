@@ -41,7 +41,6 @@ import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.dataAccessLayer.Database_Lite;
-import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.collectionsActivity.models.Model_User;
 
 import java.io.FileInputStream;
@@ -56,29 +55,18 @@ public class Fragment_Add extends Fragment implements Interface_Back {
     private Spinner spinnerValue, spinnerMaterial, spinnerVariant, spinnerCollection;
     private SeekBar yearBar;
     private EditText year_Textview, alternate_Textview, mintage_Textview, observe_Textview, reverse_Textview;
-    private ImageButton add_Button, changeImage, back;
+    private ImageButton changeImage;
     private ImageView userImage;
     private ActivityResultLauncher<Intent> activityResultLauncher_Camera;
     private Bitmap imageBitmap;
-    private Model_Goals model_goals;
     private Boolean imageSet;
     private Database_Lite localDB;
-    private Model_Collections model_collections;
     private int coinID;
     private Button datePicker;
     private DatePickerDialog dateAcquired;
     private Model_User model_user;
-    private ArrayList<String> userCollections;
-    private ArrayList<Integer> userCollectionIDs;
-    private ArrayList<Model_Collections> allCollections;
     private ArrayList<Model_Collections> allUserCollections;
-    private ArrayList<Integer> allCoinsWithCollection;
-    private ArrayList<Model_Coin> AllCoinsInDatabase;
-    private ArrayAdapter<CharSequence> adapterValue;
-    private ArrayAdapter<CharSequence> adapterMaterial;
-    private ArrayAdapter<CharSequence> adapterVariant;
-    private ArrayAdapter<String> adapterCollection;
-    private Intent home;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -115,8 +103,8 @@ public class Fragment_Add extends Fragment implements Interface_Back {
 
 
         //ImageButton
-        add_Button = add.findViewById(R.id.imageview_blockTitle_addCoin);
-        back = add.findViewById(R.id.image_button_back_coins);
+        ImageButton add_Button = add.findViewById(R.id.imageview_blockTitle_addCoin);
+        ImageButton back = add.findViewById(R.id.image_button_back_coins);
         changeImage = add.findViewById((R.id.changePicture));
 
         //ImageView
@@ -132,19 +120,19 @@ public class Fragment_Add extends Fragment implements Interface_Back {
 
         //Database
         localDB = new Database_Lite(getContext());
-        userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
-        allCollections = localDB.getAllCollections();
+        ArrayList<Integer> userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
+        ArrayList<Model_Collections> allCollections = localDB.getAllCollections();
 
         allUserCollections = new ArrayList<>();
 
-        for (int i=0; i<allCollections.size(); i++)
+        for (int i = 0; i< allCollections.size(); i++)
         {
             if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
                 allUserCollections.add(allCollections.get(i));
         }
 
-        allCoinsWithCollection = localDB.getAllCoinsWithACollection();
-        AllCoinsInDatabase = localDB.getAllCoins();
+        ArrayList<Integer> allCoinsWithCollection = localDB.getAllCoinsWithACollection();
+        ArrayList<Model_Coin> allCoinsInDatabase = localDB.getAllCoins();
 
         if(allCoinsWithCollection.size() == 0 )
         {
@@ -153,9 +141,9 @@ public class Fragment_Add extends Fragment implements Interface_Back {
         }
         else
         {
-            if(allCoinsWithCollection.size() == AllCoinsInDatabase.size() )
+            if(allCoinsWithCollection.size() == allCoinsInDatabase.size() )
             {
-                coinID = AllCoinsInDatabase.get(AllCoinsInDatabase.size()-1).getCoinID()+1;
+                coinID = allCoinsInDatabase.get(allCoinsInDatabase.size()-1).getCoinID()+1;
             }
             else
             {
@@ -166,7 +154,7 @@ public class Fragment_Add extends Fragment implements Interface_Back {
 
         year_Textview.setText("2010");
 
-        userCollections = new ArrayList<>();
+        ArrayList<String> userCollections = new ArrayList<>();
         userCollections.add("Create New Collection");
 
 
@@ -185,19 +173,19 @@ public class Fragment_Add extends Fragment implements Interface_Back {
         //Array Adapters
         //Value
 
-        adapterValue = ArrayAdapter.createFromResource(getContext(), R.array.Value, R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapterValue = ArrayAdapter.createFromResource(getContext(), R.array.Value, R.layout.spinner_item);
         adapterValue.setDropDownViewResource(R.layout.spinner_item);
         spinnerValue.setAdapter(adapterValue);
 
-        adapterMaterial = ArrayAdapter.createFromResource(getContext(), R.array.Material, R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapterMaterial = ArrayAdapter.createFromResource(getContext(), R.array.Material, R.layout.spinner_item);
         adapterMaterial.setDropDownViewResource(R.layout.spinner_item);
         spinnerMaterial.setAdapter(adapterMaterial);
 
-        adapterVariant = ArrayAdapter.createFromResource(getContext(), R.array.Variants, R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapterVariant = ArrayAdapter.createFromResource(getContext(), R.array.Variants, R.layout.spinner_item);
         adapterVariant.setDropDownViewResource(R.layout.spinner_item);
         spinnerVariant.setAdapter(adapterVariant);
 
-        adapterCollection = new ArrayAdapter<>(getContext(), R.layout.spinner_item, userCollections);
+        ArrayAdapter<String> adapterCollection = new ArrayAdapter<>(getContext(), R.layout.spinner_item, userCollections);
         adapterCollection.setDropDownViewResource(R.layout.spinner_item);
         spinnerCollection.setAdapter(adapterCollection);
 
@@ -479,8 +467,7 @@ public class Fragment_Add extends Fragment implements Interface_Back {
         requireContext().deleteFile(name);
     }
 
-    @Override
-    public void backActivity() {
+    private void backActivity() {
         Bundle bundle = new Bundle();
         bundle.putInt("StartPage",1);
         findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).

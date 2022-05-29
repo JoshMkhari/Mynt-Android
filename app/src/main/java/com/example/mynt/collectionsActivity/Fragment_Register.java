@@ -18,8 +18,8 @@ import android.widget.Toast;
 
 import com.example.mynt.Interface_Back;
 import com.example.mynt.R;
-import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_User;
+import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -36,7 +36,6 @@ public class Fragment_Register extends Fragment implements Interface_Back {
     private ImageButton loginWithEmail;
     private ImageButton close;
     private View registerView;
-    private Database_Lite db;
     private Model_User model_user;
     private Intent i;
 
@@ -91,6 +90,7 @@ public class Fragment_Register extends Fragment implements Interface_Back {
                         if (!confirmPassword.getText().toString().equals(password.getText().toString())) {
                             // Additional User Feedback
                             ArrayList<Model_User> users = new ArrayList<>();
+                            Database_Lite db = new Database_Lite(getContext());
                             users = db.getAllUsers();
                             model_user = new Model_User();
                             model_user.setEmail(email.getText().toString());
@@ -133,8 +133,7 @@ public class Fragment_Register extends Fragment implements Interface_Back {
 
     }
 
-    @Override
-    public void backActivity() {
+    private void backActivity() {
         Bundle bundle = new Bundle();
         bundle.putInt("StartPage",0);
         findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).

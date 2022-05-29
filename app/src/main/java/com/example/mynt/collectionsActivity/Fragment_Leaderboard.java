@@ -22,30 +22,25 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class Fragment_Leaderboard extends Fragment implements Interface_RecyclerView {
-    private RecyclerView recycler_view_leaderboard;
-    private RecyclerView.Adapter rv_leaferbaord_adapter;
-    private RecyclerView.LayoutManager layout_manager_leaderboard;
     private ArrayList<Model_Leaderboard> array_list_leaderboard;
-    private View view_leaderboard;
-    private Model_Leaderboard lm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        view_leaderboard = inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        View view_leaderboard = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
         //Passing data to list recycler view
-        recycler_view_leaderboard = view_leaderboard.findViewById(R.id.recycler_view_ranking_leaderboard);
+        RecyclerView recycler_view_leaderboard = view_leaderboard.findViewById(R.id.recycler_view_ranking_leaderboard);
         recycler_view_leaderboard.setHasFixedSize(true);
 
         //Ensuring the recycler view layout contains 1 item in each row
-        layout_manager_leaderboard = new StaggeredGridLayoutManager(1,1);
+        RecyclerView.LayoutManager layout_manager_leaderboard = new StaggeredGridLayoutManager(1, 1);
         recycler_view_leaderboard.setLayoutManager(layout_manager_leaderboard);
 
         //Setting up adapter
-        rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard, getContext(),this);
+        RecyclerView.Adapter rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard, getContext(), this);
         recycler_view_leaderboard.setAdapter(rv_leaferbaord_adapter);
 
         DisplayLeaderBoardRanks();
@@ -65,7 +60,7 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
                 Using constructor to create new leaderboard items
                     Passing Username, UserScore, UserIcon
              */
-            lm = new Model_Leaderboard("IHasShoulders",4396,R.drawable.ic_default_user_profile_icon);
+            Model_Leaderboard lm = new Model_Leaderboard("IHasShoulders", 4396, R.drawable.ic_default_user_profile_icon);
             array_list_leaderboard.add(lm);
         }
 

@@ -2,7 +2,6 @@ package com.example.mynt.collectionsActivity;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -35,23 +34,13 @@ import java.util.Objects;
  * create an instance of this fragment.
  */
 public class Fragment_Collections extends Fragment implements Interface_RecyclerView, Interface_Back {
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
     private ImageButton createCollection, back;
     private EditText collectionName;
-    //private Model_Goals model_goals;
-    private Boolean subActivity;
-    private ArrayList<Model_Collections> collectionsList;
     private View collectionsView;
     private int task;
     private Database_Lite db;
     private Model_User model_user;
-    private String userID;
-    private ArrayList<Integer> userCollectionIDs;
-    private ArrayList<Model_Collections> allCollections;
     private ArrayList<Model_Collections> allUserCollections;
-    private String size;
 
 
     @Override
@@ -72,7 +61,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         model_user = new Model_User();
         model_user.setUserID(getArguments().getInt("User"));
 
-        userID = model_user.getUserID() + " this";
+        String userID = model_user.getUserID() + " this";
         Log.d("collections", userID);
 
         DisplayAllLocalCollections();
@@ -81,14 +70,14 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
 
 
         //model_goals = new Model_Goals(collectionName.getText().toString(),0,0);
-        recyclerView = collectionsView.findViewById(R.id.all_collectionsList);
+        RecyclerView recyclerView = collectionsView.findViewById(R.id.all_collectionsList);
 
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new StaggeredGridLayoutManager(1,1);
+        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
         recyclerView.setLayoutManager(layoutManager);
 
-        mAdapter = new Adapter_Collections(collectionsList, getContext(), this);
+        RecyclerView.Adapter mAdapter = new Adapter_Collections(allUserCollections, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
 
@@ -98,23 +87,16 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
 
     private void DisplayAllLocalCollections(){
 
-        userCollectionIDs = db.getAllCollectionsForUser(model_user);
-        allCollections = db.getAllCollections();
+        ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(model_user);
+        ArrayList<Model_Collections> allCollections = db.getAllCollections();
 
         allUserCollections = new ArrayList<>();
 
-        for (int i=0; i<allCollections.size(); i++)
+        for (int i = 0; i< allCollections.size(); i++)
         {
             if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
                 allUserCollections.add(allCollections.get(i));
         }
-        size = allUserCollections.size() + " this";
-        Log.d("allUserCollections", size);
-
-        collectionsList = allUserCollections;
-        int imageID = getArguments().getInt("ImageID");
-
-
     }
 
     private void ReturnToHomePage(){
@@ -163,25 +145,6 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
                     Toast.makeText(getContext(),"Please enter a name for your collection.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
                 }
 
-                /*
-                Intent i = new Intent(getContext(), Activity_Collections.class);
-                i.putExtra("collectionName",model_goals.getCollectionName());
-
-                if(subActivity)
-                {
-                    Toast.makeText(getContext(),"we trying yo movr on",Toast.LENGTH_SHORT).show();
-                    i.putExtra("coins",0);
-                    i.putExtra("target",0);
-                    activityResultLauncher_Goals.launch(i);
-                }
-                else
-                {
-                    i.putExtra("coins",model_goals.getNumCoins());
-                    i.putExtra("target",model_goals.getTarget());
-                    startActivity(i);
-                }
-
-                 */
             }
 
         });
@@ -194,17 +157,16 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
     public void onItemClick(int position) {
 
         Bundle bundle = new Bundle();
-        bundle.putString("Collection Name",collectionsList.get(position).getCollectionName());
+        bundle.putString("Collection Name",allUserCollections.get(position).getCollectionName());
         bundle.putInt("Task", 1);
-        bundle.putInt("CollectionID", collectionsList.get(position).getCollectionID());
+        bundle.putInt("CollectionID", allUserCollections.get(position).getCollectionID());
         bundle.putInt("User", model_user.getUserID());
         Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Coins,bundle);
 
     }
 
 
-    @Override
-    public void backActivity() {
+    private void backActivity() {
         if(task==1)// Creating new Collection and assigning it to a coin
         {
             Navigation.findNavController(collectionsView).navigateUp();

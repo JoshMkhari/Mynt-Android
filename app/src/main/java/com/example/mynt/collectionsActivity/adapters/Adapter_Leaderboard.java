@@ -18,23 +18,18 @@ import java.util.ArrayList;
 
 public class Adapter_Leaderboard extends RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> {
 
-    //Variable Declarations
-    private final Interface_RecyclerView recyclerView_Interface;
     private final ArrayList<Model_Leaderboard> arrayList_Leaderboard;
-    private final Context context;
 
     public Adapter_Leaderboard(ArrayList<Model_Leaderboard> arrayList_Leaderboard, Context context, Interface_RecyclerView recyclerView_Interface) {
-        this.context = context;
         this.arrayList_Leaderboard = arrayList_Leaderboard;
-        this.recyclerView_Interface = recyclerView_Interface;
+        //Variable Declarations
     }
 
     @NonNull
     @Override
     public Adapter_Leaderboard.Card_View_Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listview_leaderboard,parent,false);
-        Adapter_Leaderboard.Card_View_Holder holder = new Adapter_Leaderboard.Card_View_Holder(view);
-        return holder;
+        return new Card_View_Holder(view);
     }
 
     @Override
@@ -67,10 +62,10 @@ public class Adapter_Leaderboard extends RecyclerView.Adapter<Adapter_Leaderboar
     }
 
     public class Card_View_Holder extends RecyclerView.ViewHolder{
-        ImageView profileImage;
-        TextView userName;
-        TextView score;
-        ImageView rankImage;
+        final ImageView profileImage;
+        final TextView userName;
+        final TextView score;
+        final ImageView rankImage;
 
         public Card_View_Holder(@NonNull View itemView) {
             super(itemView);

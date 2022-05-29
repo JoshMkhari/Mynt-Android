@@ -22,9 +22,8 @@ import java.util.ArrayList;
 
 public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHolder>{
     private final Interface_RecyclerView interfaceRecyclerView;
-    ArrayList<Model_Coin> coinsList;
-    Context context;
-    int selected_position = 0;
+    final ArrayList<Model_Coin> coinsList;
+    final Context context;
 
     public Adapter_Coin(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
         this.coinsList = coinsList;
@@ -36,8 +35,7 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
     @Override
     public CoinViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listview_library_recent_coins,parent,false);
-        CoinViewHolder holder = new CoinViewHolder(view);
-        return holder;
+        return new CoinViewHolder(view);
     }
 
     @Override
@@ -78,9 +76,9 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
     }
 
     public class CoinViewHolder extends RecyclerView.ViewHolder{
-        ImageView coinImage;
-        TextView year;
-        TextView name;
+        final ImageView coinImage;
+        final TextView year;
+        final TextView name;
 
 
         public CoinViewHolder(@NonNull View itemView) {

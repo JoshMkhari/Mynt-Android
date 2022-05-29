@@ -25,13 +25,9 @@ import java.util.ArrayList;
  */
 public class Fragment_Main extends Fragment {
 
-    private ActivityResultLauncher<Intent> activityResultLauncher;
     private ImageButton addButton;
     private Model_User user;
     private View main;
-    private Database_Lite db;
-    private ArrayList<Model_User> users;
-    private String userID;
     private Bundle bundle;
 
     @Override

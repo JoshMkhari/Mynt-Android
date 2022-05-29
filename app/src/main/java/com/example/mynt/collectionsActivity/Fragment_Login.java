@@ -34,7 +34,6 @@ public class Fragment_Login extends Fragment {
     private Database_Lite db;
     private Model_User model_user;
     private ArrayList<Model_User> users;
-    private String size;
 
 
     @Override

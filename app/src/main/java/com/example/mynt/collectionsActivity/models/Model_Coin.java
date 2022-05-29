@@ -27,10 +27,6 @@ public class Model_Coin {
         return DateTaken;
     }
 
-    public void setDateTaken(String dateTaken) {
-        DateTaken = dateTaken;
-    }
-
     public int getCoinID() {
         return coinID;
     }
@@ -43,24 +39,12 @@ public class Model_Coin {
         return ImageId;
     }
 
-    public void setImageId(String imageId) {
-        ImageId = imageId;
-    }
-
     public String getValue() {
         return value;
     }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
-
     public int getMintage() {
         return mintage;
-    }
-
-    public void setMintage(int mintage) {
-        this.mintage = mintage;
     }
 
 
@@ -68,57 +52,25 @@ public class Model_Coin {
         return material;
     }
 
-    public void setMaterial(String material) {
-        this.material = material;
-    }
-
     public String getAlternateName() {
         return alternateName;
-    }
-
-    public void setAlternateName(String alternateName) {
-        this.alternateName = alternateName;
     }
 
     public String getObserve() {
         return observe;
     }
 
-    public void setObserve(String observe) {
-        this.observe = observe;
-    }
-
     public String getReverse() {
         return reverse;
-    }
-
-    public void setReverse(String reverse) {
-        this.reverse = reverse;
     }
 
     public String getVariety() {
         return variety;
     }
 
-    public void setVariety(String variety) {
-        this.variety = variety;
-    }
-
-
-    public String getCoinName() {
-        return material;
-    }
-
-    public void setCoinName(String coinName) {
-        this.material = coinName;
-    }
 
     public int getYear() {
         return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
     }
 
 

@@ -13,17 +13,13 @@ import androidx.annotation.Nullable;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
-import com.example.mynt.collectionsActivity.models.Model_UserCollection;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Database_Lite extends SQLiteOpenHelper {
 
-    public Resources res;
-    public Context context;
     //Coin Table
 
     public static final String COLUMN_MATERIAL_FK = "MATERIAL";
@@ -53,7 +49,6 @@ public class Database_Lite extends SQLiteOpenHelper {
     private static final String COLUMN_GOAL = "GOAL";
     private static final String COLUMN_DATE_TAKEN = "DATE_TAKEN";
     private static final String USER_TABLE = "USER_TABLE";
-    private static final String COLUMN_USER_NAME = "USER";
     private static final String COLUMN_PASSWORD = "PASSWORD";
     private  static final String COIN_ID = "ID";
     private  static final String USER_COLLECTIONS_TABLE = "USER_COLLECTION_TABLE";
@@ -424,8 +419,6 @@ public class Database_Lite extends SQLiteOpenHelper {
 
     public void deleteCoin(int coinID)
     {
-        //String queryString = "DELETE FROM " + COIN_TABLE +
-            //    " WHERE ID = " + coinID;
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + COIN_TABLE + " WHERE ID = " + coinID);
         //db.delete(COIN_TABLE, "ID = " + coinID, null);
@@ -502,7 +495,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         return users;
     }
 
-    public String addCollectionCoin(int collectionID)
+    public void addCollectionCoin(int collectionID)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -517,14 +510,11 @@ public class Database_Lite extends SQLiteOpenHelper {
                     cv.put(COLUMN_COIN_FK,coinID);
                     db.insert(COLLECTIONS_COIN_TABLE,null,cv);
                     cv.clear();
-                    return "done";
                 }catch (Exception e)
                 {
-                    return "collections table";
                 }
             }catch ( Exception e)
             {
-                return "coiniD size";
             }
         }
 
@@ -599,7 +589,7 @@ public class Database_Lite extends SQLiteOpenHelper {
 
 
 
-        public boolean addCollection(Model_Collections model_collections, Model_User model_user) {
+        public void addCollection(Model_Collections model_collections, Model_User model_user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         try {
@@ -609,7 +599,7 @@ public class Database_Lite extends SQLiteOpenHelper {
             db.insert(COLLECTION_TABLE, null, cv);
             cv.clear();
         } catch (Exception e) {
-            return false;
+            return;
 
         }
         //get all collections
@@ -624,15 +614,13 @@ public class Database_Lite extends SQLiteOpenHelper {
                 cv.put(COLUMN_USER_FK,model_user.getUserID());
                 db.insert(USER_COLLECTIONS_TABLE, null, cv);
                 cv.clear();
-                return true;
             } catch (Exception e) {
-                return false;
 
             }
     }
 
 
-    public String addCoin(Model_Coin coin, int collectionID)
+    public void addCoin(Model_Coin coin, int collectionID)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -665,7 +653,7 @@ public class Database_Lite extends SQLiteOpenHelper {
                 e.printStackTrace(pw);
                 String sStackTrace = sw.toString();
                 Log.d("YEAR", sStackTrace);
-                return sStackTrace;
+                return;
             }
         }
 
@@ -689,7 +677,7 @@ public class Database_Lite extends SQLiteOpenHelper {
             cv.clear();
         }catch (Exception e)
         {
-            return "coin";
+            return;
         }
         if(collectionID != 0)
         {
@@ -706,19 +694,15 @@ public class Database_Lite extends SQLiteOpenHelper {
 
                 }catch (Exception e)
                 {
-                    return "collection";
                 }
             }catch ( Exception e)
             {
-                return "coinID";
             }
 
         }
         else
         {
-            return  "collectionid !=0";
         }
-        return "done";
 
         //Collections Coin Table
 

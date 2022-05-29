@@ -17,7 +17,6 @@ import com.example.mynt.R;
 import java.util.Objects;
 
 public class Activity_Collections extends AppCompatActivity {
-    private NavGraph collectionsNav;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,45 +27,5 @@ public class Activity_Collections extends AppCompatActivity {
         bundle.putInt("StartPage",1);
         findNavController(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                 setGraph(R.navigation.collection_navigation,bundle);
-
-        //NavHostFragment.create(R.navigation.collection_navigation, bundle);
-    }
-
-    /*
-    @Override
-    public void onBackPressed()
-    {
-        //Intent intent = new Intent(this,Activity_Collections.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        //startActivity(intent);
-        String currentFragment = getForegroundFragment().toString();
-        Log.d("backPressed", currentFragment);
-
-        //Fragment_Library Main Library Page and Main home Page
-
-        //Fragment_Main Register and Login pages
-
-        //Fragment_home_main e4feb2a ON LIBRARY PAGE
-            //Close App
-
-        try {
-            Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2);
-            navHostFragment.
-            //navHostFragment.on
-            //navHostFragment
-            //navigate up
-        }catch (Exception e)
-        {
-            Intent intent = new Intent(this,Activity_Collections.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        }
-    }
-
-     */
-
-    public Fragment getForegroundFragment(){
-        Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2);
-        return navHostFragment == null ? null : navHostFragment.getChildFragmentManager().getFragments().get(1);
     }
 }

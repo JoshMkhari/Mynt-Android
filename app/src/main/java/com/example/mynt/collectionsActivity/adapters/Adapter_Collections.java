@@ -21,7 +21,6 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
     private final Interface_RecyclerView interfaceRecyclerView;
     private final ArrayList<Model_Collections> collectionsList;
     private final Context context;
-    private final int selected_position = 0;
 
     public Adapter_Collections(ArrayList<Model_Collections> collectionsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
         this.collectionsList = collectionsList;
@@ -33,8 +32,7 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
     @Override
     public CollectionsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_all_collections,parent,false);
-        CollectionsViewHolder holder = new CollectionsViewHolder(view);
-        return holder;
+        return new CollectionsViewHolder(view);
     }
 
     @Override
@@ -69,10 +67,10 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
     }
 
     public class CollectionsViewHolder extends RecyclerView.ViewHolder{
-        ImageView coinImage;
-        TextView collectionCoinAmount;
-        TextView collectionName;
-        ProgressBar progressBar;
+        final ImageView coinImage;
+        final TextView collectionCoinAmount;
+        final TextView collectionName;
+        final ProgressBar progressBar;
 
 
         public CollectionsViewHolder(@NonNull View itemView) {

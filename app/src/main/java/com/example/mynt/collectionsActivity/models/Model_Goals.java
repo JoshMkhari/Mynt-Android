@@ -14,24 +14,12 @@ public class Model_Goals {
         return collectionName;
     }
 
-    public void setCollectionName(String collectionName) {
-        this.collectionName = collectionName;
-    }
-
     public int getNumCoins() {
         return numCoins;
     }
 
-    public void setNumCoins(int numCoins) {
-        this.numCoins = numCoins;
-    }
-
     public int getTarget() {
         return target;
-    }
-
-    public void setTarget(int target) {
-        this.target = target;
     }
 
 }

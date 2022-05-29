@@ -22,10 +22,10 @@ import java.util.ArrayList;
 
 public class Adapter_Library_Options extends BaseAdapter {
 
-    Context context;
-    LayoutInflater inflater;
-    ArrayList<Model_Library_Options> libraryOptionsList;
-    Model_User model_user;
+    final Context context;
+    final LayoutInflater inflater;
+    final ArrayList<Model_Library_Options> libraryOptionsList;
+    final Model_User model_user;
 
     public Adapter_Library_Options(Context context, ArrayList<Model_Library_Options> libraryOptionsList, Model_User model_user) {
         this.context = context;
