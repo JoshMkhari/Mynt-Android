@@ -16,7 +16,7 @@ import android.widget.ListView;
 
 import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coin;
-import com.example.mynt.collectionsActivity.models.CoinListComparator;
+import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 
 import com.example.mynt.R;
@@ -79,7 +79,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         int i= currentUserCoins.size();
 
 
-        Collections.sort(currentUserCoins, new CoinListComparator());
+        Collections.sort(currentUserCoins, new Model_Coin_Comparator());
 
 
         arrayList_recent_coins.addAll(currentUserCoins);
