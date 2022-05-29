@@ -19,11 +19,13 @@ import android.widget.TextView;
 import com.example.mynt.R;
 import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coins;
+import com.example.mynt.collectionsActivity.models.CoinListComparator;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Model_Database_Lite;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Objects;
 
 public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
@@ -92,6 +94,8 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
 
         coinsList = mdl.allCoinsAndCollections(getContext(),task,collectionID, model_user);
         coinIDs = new ArrayList<>();
+
+        Collections.sort(coinsList, new CoinListComparator());
 
         if (task == 0 || task == 2) //All Coins
         {
