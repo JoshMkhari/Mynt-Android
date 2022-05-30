@@ -23,6 +23,9 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class Fragment_home_main extends Fragment {
+    Model_User user = new Model_User();
+
+    private Database_Lite db = new Database_Lite(getContext());
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,27 +38,32 @@ public class Fragment_home_main extends Fragment {
         assert getArguments() != null;
         int currentPage = getArguments().getInt("StartPage");
 
-        Model_User user = new Model_User();
 
-        Database_Lite db = new Database_Lite(getContext());
 
-        ArrayList<Model_User> users = db.getAllUsers();
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getState() == 1) {
-                user = users.get(i);
-            }
-        }
+
 
         //assert getArguments() != null;
         //String testuser = getArguments().getString("User");
         //Toast.makeText(getContext(), testuser, Toast.LENGTH_SHORT).show();
 
         //Comment
-        FragmentManager fragmentManager = getParentFragmentManager();
-        Adapter_HomeActFragment fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getUserID());
-        viewPager2_main.setAdapter((fragmentAdapter));
-        viewPager2_main.setCurrentItem(currentPage);
+        Thread setUp = new Thread(){
+            public void run()
+            {
 
+                ArrayList<Model_User> users = db.getAllUsers();
+                for (int i = 0; i < users.size(); i++) {
+                    if (users.get(i).getState() == 1) {
+                        user = users.get(i);
+                    }
+                }
+                FragmentManager fragmentManager = getParentFragmentManager();
+                Adapter_HomeActFragment fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getUserID());
+                viewPager2_main.setAdapter((fragmentAdapter));
+                viewPager2_main.setCurrentItem(currentPage);
+            }
+        };
+        setUp.start();
         return home;
     }
 

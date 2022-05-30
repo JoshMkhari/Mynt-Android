@@ -62,24 +62,18 @@ public class Fragment_Add extends Fragment {
     private DatePickerDialog dateAcquired;
     private Model_User model_user;
     private ArrayList<Model_Collections> allUserCollections;
+    private boolean done;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View add = inflater.inflate(R.layout.fragment_add, container, false);
-        Log.d("distance", "We make it this far");
         //Retrieve bundles
         model_user = new Model_User();
         assert getArguments() != null;
         model_user.setUserID(getArguments().getInt("User"));
 
-        String userID = model_user.getUserID() + " this";
-        Log.d("add", userID);
-        //Database methods
-
-
-        //Toast.makeText(getApplicationContext(),localDB.getAllCoins().size()+ " That is the size",Toast.LENGTH_SHORT).show();
         //Assigning views to variables
         //spinners
         spinnerValue = add.findViewById(R.id.spinner_Values);
@@ -272,6 +266,7 @@ public class Fragment_Add extends Fragment {
 
         //Result for Camera
         activityResultLauncher_Camera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            assert result.getData() != null;
             Bundle extras = result.getData().getExtras();
             if (extras != null) {
                 imageBitmap = (Bitmap) extras.get("data");
@@ -371,49 +366,62 @@ public class Fragment_Add extends Fragment {
         }
     }
     private void storeCoin() {
-        try {
-            Model_Coin model_coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),
-                    Integer.parseInt(mintage_Textview.getText().toString()),
-                    spinnerMaterial.getSelectedItem().toString(),
-                    alternate_Textview.getText().toString(),
-                    observe_Textview.getText().toString(),
-                    reverse_Textview.getText().toString(),
-                    spinnerVariant.getSelectedItem().toString(),
-                    spinnerValue.getSelectedItem().toString(),
-                    String.valueOf(coinID),
-                    datePicker.getText().toString());
-            model_coin.setCoinID(coinID);
-            int selectedPosition = spinnerCollection.getSelectedItemPosition()-1;
-            if(selectedPosition == -1)
+        Thread coinStore = new Thread(){
+            public void run()
             {
-                localDB.addCoin(model_coin,0);
-            }
-            else
-            {
-                localDB.addCoin(model_coin,allUserCollections.get(selectedPosition).getCollectionID());
-            }
+                try {
+                    Model_Coin model_coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),
+                            Integer.parseInt(mintage_Textview.getText().toString()),
+                            spinnerMaterial.getSelectedItem().toString(),
+                            alternate_Textview.getText().toString(),
+                            observe_Textview.getText().toString(),
+                            reverse_Textview.getText().toString(),
+                            spinnerVariant.getSelectedItem().toString(),
+                            spinnerValue.getSelectedItem().toString(),
+                            String.valueOf(coinID),
+                            datePicker.getText().toString());
+                    model_coin.setCoinID(coinID);
+                    int selectedPosition = spinnerCollection.getSelectedItemPosition()-1;
+                    if(selectedPosition == -1)
+                    {
+                        localDB.addCoin(model_coin,0);
+                    }
+                    else
+                    {
+                        localDB.addCoin(model_coin,allUserCollections.get(selectedPosition).getCollectionID());
+                    }
 
-        }catch (Exception e)
-        {
-            Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();
-        }
+                }catch (Exception e)
+                {
+                    Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+        coinStore.start();
     }
 
     private boolean savePhotoToInternalStorage() {
-        //Get image number
-        FileOutputStream out;
-        try {
-            Context context = getContext();
-            assert context != null;
-            out = context.openFileOutput(coinID + ".jpg", Context.MODE_PRIVATE);
-            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-            out.flush();
-            out.close();
-            return true;
-        } catch (IOException e) {
 
-            return false;
-        }
+        Thread saveImage = new Thread(){
+            public void run(){
+                //Get image number
+                FileOutputStream out;
+                try {
+                    Context context = getContext();
+                    assert context != null;
+                    out = context.openFileOutput(coinID + ".jpg", Context.MODE_PRIVATE);
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+                    out.flush();
+                    out.close();
+                    done = true;
+                } catch (IOException e) {
+
+                    done = false;
+                }
+            }
+        };
+        saveImage.start();
+        return done;
     }
 
     private void retrieveImage(int imageID)

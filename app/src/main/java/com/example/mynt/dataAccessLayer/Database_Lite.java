@@ -282,7 +282,6 @@ public class Database_Lite extends SQLiteOpenHelper {
                 {
                     //loop through the cursor result set and create new coin object for each row
                     do{
-                        //int userCollectionID = cursor.getInt(0);
                         int collectionID = cursor.getInt(1);
                         int userID = cursor.getInt(2);
                         if(userID == model_user.getUserID())
