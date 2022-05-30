@@ -81,14 +81,16 @@ public class Fragment_Register extends Fragment {
        signUp.setOnClickListener(v -> {
            if (email.getText().toString().length() > 3) {
                if (password.getText().toString().length() > 7) {
-                   if (!confirmPassword.getText().toString().equals(password.getText().toString())) {
+                   if (confirmPassword.getText().toString().equals(password.getText().toString())) {
                        // Additional User Feedback
                        ArrayList<Model_User> users = new ArrayList<>();
                        Database_Lite db = new Database_Lite(getContext());
                        users = db.getAllUsers();
+
                        model_user = new Model_User();
                        model_user.setEmail(email.getText().toString());
                        model_user.setPassword(password.getText().toString());
+
                        boolean emailFound = false;
                        for (int i = 0; i < users.size(); i++) {
                            if (users.get(i).getEmail().equals(model_user.getEmail())) {
