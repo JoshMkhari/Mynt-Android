@@ -27,8 +27,16 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
 
     public Adapter_Coin(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
         this.coinsList = new ArrayList<>();
+        if (coinsList.size()!=0)
         for (int i = 0; i < 6; i++) {
-            this.coinsList.add(coinsList.get(i));
+            try
+            {
+                this.coinsList.add(coinsList.get(i));
+            }catch(Exception e)
+            {
+
+            }
+
         }
         this.context = context;
         this.interfaceRecyclerView = interfaceRecyclerView;
