@@ -23,4 +23,6 @@ public class Model_Goals {
         return target;
     }
 
+    public void setNumCoins(int size) {
+    }
 }
