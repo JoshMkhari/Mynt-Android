@@ -30,8 +30,8 @@
             tools:ignore="ImageContrastCheck" />
 
         <ImageButton
-            android:layout_width="48dp"
-            android:layout_height="59dp"
+            android:layout_width="40dp"
+            android:layout_height="51dp"
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/ic_library_icon_button"
             android:contentDescription="@string/mainAct_library_button"

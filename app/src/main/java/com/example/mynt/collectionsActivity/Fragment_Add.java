@@ -48,9 +48,11 @@ import java.util.Objects;
 
 public class Fragment_Add extends Fragment {
 
-    private Spinner spinnerValue, spinnerMaterial, spinnerVariant, spinnerCollection;
+    private Spinner spinnerValue, spinnerCollection;
+    //private Spinner spinnerMaterial, spinnerVariant;
     private SeekBar yearBar;
-    private EditText year_Textview, alternate_Textview, mintage_Textview, observe_Textview, reverse_Textview;
+    private EditText year_Textview;
+    //private EditText alternate_Textview, mintage_Textview, observe_Textview, reverse_Textview;
     private ImageButton changeImage;
     private ImageView userImage;
     private ActivityResultLauncher<Intent> activityResultLauncher_Camera;
@@ -77,8 +79,8 @@ public class Fragment_Add extends Fragment {
         //Assigning views to variables
         //spinners
         spinnerValue = add.findViewById(R.id.spinner_Values);
-        spinnerMaterial = add.findViewById(R.id.spinner_Material);
-        spinnerVariant = add.findViewById(R.id.spinner_Variant);
+        //spinnerMaterial = add.findViewById(R.id.spinner_Material);
+        //spinnerVariant = add.findViewById(R.id.spinner_Variant);
         spinnerCollection = add.findViewById(R.id.spinner_collection);
 
         //SeekBar
@@ -86,10 +88,10 @@ public class Fragment_Add extends Fragment {
 
         //EditTexts
         year_Textview = add.findViewById(R.id.yearValueEditText);
-        alternate_Textview = add.findViewById(R.id.alternateName_EditText);
-        mintage_Textview = add.findViewById(R.id.mintageNum_editText);
-        observe_Textview = add.findViewById(R.id.observe_EditText);
-        reverse_Textview = add.findViewById(R.id.reverse_EditText);
+        //alternate_Textview = add.findViewById(R.id.alternateName_EditText);
+        //mintage_Textview = add.findViewById(R.id.mintageNum_editText);
+        //observe_Textview = add.findViewById(R.id.observe_EditText);
+        //reverse_Textview = add.findViewById(R.id.reverse_EditText);
 
 
         //ImageButton
@@ -169,11 +171,11 @@ public class Fragment_Add extends Fragment {
 
         ArrayAdapter<CharSequence> adapterMaterial = ArrayAdapter.createFromResource(getContext(), R.array.Material, R.layout.spinner_item);
         adapterMaterial.setDropDownViewResource(R.layout.spinner_item);
-        spinnerMaterial.setAdapter(adapterMaterial);
+        //spinnerMaterial.setAdapter(adapterMaterial);
 
         ArrayAdapter<CharSequence> adapterVariant = ArrayAdapter.createFromResource(getContext(), R.array.Variants, R.layout.spinner_item);
         adapterVariant.setDropDownViewResource(R.layout.spinner_item);
-        spinnerVariant.setAdapter(adapterVariant);
+        //spinnerVariant.setAdapter(adapterVariant);
 
         ArrayAdapter<String> adapterCollection = new ArrayAdapter<>(getContext(), R.layout.spinner_item, userCollections);
         adapterCollection.setDropDownViewResource(R.layout.spinner_item);
@@ -194,7 +196,6 @@ public class Fragment_Add extends Fragment {
             //Check if picture is taken?
             if (imageSet) {
                 //check if a mintage was placed
-                if (mintage_Textview.getText().length() > 0) {
                     //Check if a collection has to be made
                     if(savePhotoToInternalStorage())
                     {
@@ -213,11 +214,6 @@ public class Fragment_Add extends Fragment {
                             startActivity(home);
                         }
                     }
-                }
-                else
-                {
-                    Toast.makeText(getContext(), "Set Mintage", Toast.LENGTH_SHORT).show();
-                }
             } else {
                 Toast.makeText(getContext(), "Set image nest time", Toast.LENGTH_SHORT).show();
             }
@@ -270,7 +266,6 @@ public class Fragment_Add extends Fragment {
             Bundle extras = result.getData().getExtras();
             if (extras != null) {
                 imageBitmap = (Bitmap) extras.get("data");
-
                 userImage.setImageBitmap(imageBitmap);
                 imageSet = true;
             }
@@ -371,12 +366,12 @@ public class Fragment_Add extends Fragment {
             {
                 try {
                     Model_Coin model_coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),
-                            Integer.parseInt(mintage_Textview.getText().toString()),
-                            spinnerMaterial.getSelectedItem().toString(),
-                            alternate_Textview.getText().toString(),
-                            observe_Textview.getText().toString(),
-                            reverse_Textview.getText().toString(),
-                            spinnerVariant.getSelectedItem().toString(),
+                            0,
+                            "POE",
+                            "POE",
+                            "POE",
+                            "POE",
+                            "POE",
                             spinnerValue.getSelectedItem().toString(),
                             String.valueOf(coinID),
                             datePicker.getText().toString());

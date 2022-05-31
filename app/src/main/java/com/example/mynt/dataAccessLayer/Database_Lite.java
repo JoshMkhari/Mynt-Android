@@ -68,7 +68,7 @@ public class Database_Lite extends SQLiteOpenHelper {
 
         //Table Creation Statements
 
-
+        Log.d("Yoh","Create::");
         //Material Table
         String tableStatement = ("CREATE TABLE " + MATERIAL_TABLE + "(" + COLUMN_MATERIAL_NAME + " TEXT PRIMARY KEY );");
         db.execSQL(tableStatement);
@@ -257,7 +257,7 @@ public class Database_Lite extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-
+        Log.d("Yoh","onUpgrade::");
     }
     /*
     tableStatement = ("CREATE TABLE " + USER_COLLECTIONS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_COLLECTION_FK
