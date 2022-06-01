@@ -13,5 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true" />
+
+    <pl.droidsonroids.gif.GifTextView
+        android:id="@+id/imageViewGIf"
+        android:layout_width="fill_parent"
+        android:scaleType="fitXY"
+        android:layout_height="fill_parent"
+        />
 </LinearLayout>
 
