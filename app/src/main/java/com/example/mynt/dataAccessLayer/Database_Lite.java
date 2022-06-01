@@ -660,7 +660,7 @@ public class Database_Lite extends SQLiteOpenHelper {
             //Coin Table
             cv.put(COIN_ID, coin.getCoinID());
             cv.put(COLUMN_ALT_NAME,coin.getAlternateName());
-            cv.put(COLUMN_DATE_TAKEN,coin.getDateTaken());
+            cv.put(COLUMN_DATE_TAKEN,coin.getDateAcquired());
             cv.put(COLUMN_MINTAGE,coin.getMintage());
             cv.put(COLUMN_OBSERVE,coin.getObserve());
             cv.put(COLUMN_REVERSE,coin.getReverse());

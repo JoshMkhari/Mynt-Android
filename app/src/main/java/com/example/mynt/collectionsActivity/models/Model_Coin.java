@@ -30,7 +30,7 @@ public class Model_Coin {
         this.DateTaken = dateTaken;
     }
 
-    public String getDateTaken() {
+    public String getDateAcquired() {
         return DateTaken;
     }
 

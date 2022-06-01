@@ -39,7 +39,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
     private View coinsView;
     private int collectionID,task;
     private ArrayList<Integer> coinIDs;
-    private TextView collectionName_textView,pageTitle_textView, progress_textview;
+    private TextView collectionName_textView,pageTitle_textView, progress_textview, goalTitle;
     private String blockTitle;
     private Model_User model_user;
     private ArrayList<Model_Coin> coinsList;
@@ -57,6 +57,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
         back_imageButton = coinsView.findViewById(R.id.image_button_back_coins);
         goalProgress = coinsView.findViewById(R.id.progressBarCollection);
         progress_textview = coinsView.findViewById(R.id.collections_goal_percent);
+        goalTitle = coinsView.findViewById(R.id.goalTitle);
 
 
         assert getArguments() != null;
@@ -126,6 +127,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
             collectionName_textView.setText(R.string.all_coins_block_title);
             goalProgress.setVisibility(View.GONE);
             progress_textview.setVisibility(View.GONE);
+            goalTitle.setVisibility(View.GONE);
 
         } else//For specific collection
         {

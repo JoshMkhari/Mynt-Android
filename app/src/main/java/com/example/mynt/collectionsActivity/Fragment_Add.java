@@ -31,17 +31,20 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
+import com.example.mynt.collectionsActivity.models.Model_Date;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_User;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Objects;
@@ -65,6 +68,8 @@ public class Fragment_Add extends Fragment {
     private Model_User model_user;
     private ArrayList<Model_Collections> allUserCollections;
     private boolean done;
+    private String dateAq;
+    private Model_Date model_date;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,6 +78,7 @@ public class Fragment_Add extends Fragment {
         View add = inflater.inflate(R.layout.fragment_add, container, false);
         //Retrieve bundles
         model_user = new Model_User();
+        model_date = new Model_Date();
         assert getArguments() != null;
         model_user.setUserID(getArguments().getInt("User"));
 
@@ -105,10 +111,12 @@ public class Fragment_Add extends Fragment {
         datePicker = add.findViewById(R.id.datePickerButton);
 
         datePicker.setText(getTodaysDate());
+        dateAq = datePicker.getText().toString();
+        setupDateAq();
 
+        Log.d("dateAq", "onCreateView: " + dateAq);
         //Listeners
         setUpListeners();
-
 
         //Database
         localDB = new Database_Lite(getContext());
@@ -221,27 +229,49 @@ public class Fragment_Add extends Fragment {
         return add;
     }
 
+    private void setupDateAq() {
 
+        ArrayList<Integer> spaces = new ArrayList<>();
+        for (int i = 0; i < dateAq.length(); i++) {
+            if(dateAq.charAt(i) == ' ')
+            {
+                spaces.add(i);
+            }
+        }
+
+
+        String monthInt = model_date.setupMonthAq(dateAq.substring(0,spaces.get(0)));
+        int subStringDistance;
+        subStringDistance = spaces.get(1)-spaces.get(0)-1;
+        int start;
+        start = spaces.get(0)+1;
+        String dayInt = dateAq.substring(start,start+subStringDistance);
+
+        start = spaces.get(1)+1;
+        String yearInt = dateAq.substring(start);
+
+        dateAq = monthInt + '/' + dayInt + '/' + yearInt;
+    }
 
     private String getTodaysDate() {
 
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
-        month = month + 1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
-        return makeDateString(day, month, year);
+        return model_date.makeDateString(day, month, year);
 
     }
     //Result for Collection
 
 
     public void setUpListeners() {
-
         DatePickerDialog.OnDateSetListener dateSetListener = (view, year, month, day) -> {
             month = month + 1;
-            String date = makeDateString(day, month, year);
+            String date = model_date.makeDateString(day, month, year);
+            dateAq = month+"/"+day+"/"+year;
+            Log.d("dateAq", "setUpListeners: " + dateAq);
             datePicker.setText(date);
         };
 
@@ -328,38 +358,10 @@ public class Fragment_Add extends Fragment {
         });
     }
 
-    private String makeDateString(int day, int month, int year) {
-        return getMonthFormat(month) + " " + day + " " + year;
-    }
 
-    private String getMonthFormat(int month) {
-        switch (month) {
-            case 1:
-                return "JAN";
-            case 2:
-                return "FEB";
-            case 3:
-                return "MAR";
-            case 4:
-                return "APR";
-            case 5:
-                return "MAY";
-            case 6:
-                return "JUN";
-            case 7:
-                return "JUL";
-            case 8:
-                return "AUG";
-            case 9:
-                return "SEP";
-            case 10:
-                return "OCT";
-            case 11:
-                return "NOV";
-            default:
-                return "DEC";
-        }
-    }
+
+
+
     private void storeCoin() {
         Thread coinStore = new Thread(){
             public void run()
@@ -374,7 +376,7 @@ public class Fragment_Add extends Fragment {
                             "POE",
                             spinnerValue.getSelectedItem().toString(),
                             String.valueOf(coinID),
-                            datePicker.getText().toString());
+                            dateAq);
                     model_coin.setCoinID(coinID);
                     int selectedPosition = spinnerCollection.getSelectedItemPosition()-1;
                     if(selectedPosition == -1)
