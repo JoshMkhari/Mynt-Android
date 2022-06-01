@@ -27,13 +27,12 @@ public class Activity_Collections extends AppCompatActivity {
 
         setContentView(R.layout.activity_collections);
 
-
         Bundle bundle = getIntent().getExtras();
-        int page = 0;
+        int page = 1;
         if(bundle == null)
         {
             bundle = new Bundle();
-            bundle.putInt("StartPage",0);
+            bundle.putInt("StartPage",1);
         }
         else
         {
@@ -50,5 +49,4 @@ public class Activity_Collections extends AppCompatActivity {
         findNavController(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                 setGraph(R.navigation.collection_navigation,bundle);
     }
-
 }

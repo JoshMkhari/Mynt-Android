@@ -27,7 +27,7 @@ public class Adapter_HomeActFragment extends FragmentStateAdapter {
 
 
         bundle.putInt("User",userID);
-        if (position == 0){
+        if (position == 1){
 
             Fragment_Main home = new Fragment_Main();
             home.setArguments(bundle);

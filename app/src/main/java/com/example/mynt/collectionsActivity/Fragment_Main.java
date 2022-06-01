@@ -52,7 +52,7 @@ public class Fragment_Main extends Fragment {
                 //Option 1
                 Intent switchToLibrary = new Intent(getContext(), Activity_Collections.class);
                 Bundle bundle = new Bundle();
-                bundle.putInt("StartPage",1);
+                bundle.putInt("StartPage",0);
                 switchToLibrary.putExtras(bundle);
                 switchToLibrary.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(switchToLibrary);
