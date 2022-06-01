@@ -575,9 +575,17 @@ public class Database_Lite extends SQLiteOpenHelper {
     }
 
 
+    public void updateCollection(Model_Collections model_collections)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
 
+        cv.put(COLUMN_GOAL, model_collections.getGoal());
+        db.update(COLLECTION_TABLE,cv,"ID =" + model_collections.getCollectionID(),null);
+        cv.clear();
+    }
 
-        public void addCollection(Model_Collections model_collections, Model_User model_user) {
+    public void addCollection(Model_Collections model_collections, Model_User model_user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         try {
@@ -591,20 +599,20 @@ public class Database_Lite extends SQLiteOpenHelper {
 
         }
         //get all collections
-            ArrayList<Model_Collections> model_collectionsArrayList = getAllCollections();
-            int newCollectionID = model_collectionsArrayList.get(model_collectionsArrayList.size()-1).getCollectionID();
+        ArrayList<Model_Collections> model_collectionsArrayList = getAllCollections();
+        int newCollectionID = model_collectionsArrayList.get(model_collectionsArrayList.size()-1).getCollectionID();
 
 
-            try {
-                //User Collections table
-                cv.put(COLUMN_COLLECTION_FK, newCollectionID);
-                //getID from userCollection
-                cv.put(COLUMN_USER_FK,model_user.getUserID());
-                db.insert(USER_COLLECTIONS_TABLE, null, cv);
-                cv.clear();
-            } catch (Exception ignored) {
+        try {
+            //User Collections table
+            cv.put(COLUMN_COLLECTION_FK, newCollectionID);
+            //getID from userCollection
+            cv.put(COLUMN_USER_FK,model_user.getUserID());
+            db.insert(USER_COLLECTIONS_TABLE, null, cv);
+            cv.clear();
+        } catch (Exception ignored) {
 
-            }
+        }
     }
 
 

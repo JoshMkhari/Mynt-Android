@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,8 +93,9 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
                 bundle.putString("Collection Name", currentCollection.getCollectionName());
                 bundle.putInt("Coins", currentCollection.getNumCoins());
                 bundle.putInt("Goal", currentCollection.getTarget());
+                bundle.putInt("CollectionID",collectionID);
                 bundle.putInt("Task",2);
-                Navigation.findNavController(coinsView).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
+                Navigation.findNavController(coinsView).navigate(R.id.action_fragment_Coins_to_fragment_Goal,bundle);
             }
         });
 
@@ -141,13 +143,21 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
                     currentCollection= new Model_Goals(AllCollections.get(i).getCollectionName(),0,AllCollections.get(i).getGoal());
                 }
             }
-            currentCollection.setNumCoins(collectionSize.size());
+            currentCollection.setNumCoins(coinsList.size());
 
             float coins = (float)currentCollection.getNumCoins();
             float target = (float)currentCollection.getTarget();
+
+            Log.d("ValuesDarsh",coins+" coins this");
+            Log.d("ValuesDarsh",target+" target this");
             float progress =  coins /target *100;
 
+            if(progress>100)
+                progress =100;
+
+            String progressText = Math.round(progress)+"%";
             goalProgress.setProgress(Math.round(progress));
+            progress_textview.setText(progressText);
         }
 
         for (int i=0; i<coinsList.size(); i++)

@@ -34,7 +34,7 @@
             android:paddingEnd="20dp"
             android:text="@string/collections_title"
             android:textColor="?colorSecondaryVariant"
-            android:textSize="33sp" />
+            android:textSize="26sp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
