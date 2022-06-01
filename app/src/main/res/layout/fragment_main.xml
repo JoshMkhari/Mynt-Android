@@ -31,6 +31,7 @@
 
         <ImageButton
             android:layout_width="40dp"
+            android:id="@+id/image_button_main_library"
             android:layout_height="51dp"
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/ic_library_icon_button"
@@ -38,7 +39,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="ImageContrastCheck" />
+            tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

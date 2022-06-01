@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.adapters.Adapter_HomeActFragment;
@@ -33,6 +34,7 @@ public class Fragment_home_main extends Fragment {
         View home = inflater.inflate(R.layout.fragment_home, container, false);
         //private TabLayout tabLayout_main;
         ViewPager2 viewPager2_main = home.findViewById(R.id.main_act_viewPager2);
+
 
 
         assert getArguments() != null;

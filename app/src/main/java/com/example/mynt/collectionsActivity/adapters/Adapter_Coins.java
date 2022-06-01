@@ -40,6 +40,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
     public Adapter_Coins(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
         this.coinsList = coinsList;
         this.context = context;
+        current = "No";
         this.interfaceRecyclerView = interfaceRecyclerView;
     }
 
@@ -130,6 +131,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             if(current.equals(dateAcquired))//Same returnDay as previous
             {
                 holder.acquired.setVisibility(View.GONE);
+
                 holder.daySeparator.setVisibility(View.GONE);
             }else
             {
