@@ -18,26 +18,29 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:visibility="invisible"
+            android:id="@+id/imageButton"
             android:layout_width="48dp"
             android:layout_height="59dp"
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/ic_leaderboard_button"
             android:contentDescription="@string/mainAct_leaderboard_image"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ImageContrastCheck" />
 
         <ImageButton
-            android:layout_width="40dp"
             android:id="@+id/image_button_main_library"
+            android:layout_width="40dp"
             android:layout_height="51dp"
             android:layout_marginHorizontal="20dp"
             android:background="@drawable/ic_library_icon_button"
             android:contentDescription="@string/mainAct_library_button"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="ImageContrastCheck,TouchTargetSizeCheck" />
 
