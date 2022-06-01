@@ -34,7 +34,7 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
                 this.coinsList.add(coinsList.get(i));
             }catch(Exception e)
             {
-
+                //There aren't anymore items
             }
 
         }

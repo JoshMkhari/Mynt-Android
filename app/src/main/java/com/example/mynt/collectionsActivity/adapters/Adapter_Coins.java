@@ -22,6 +22,7 @@ import com.example.mynt.collectionsActivity.models.Model_Date;
 import org.w3c.dom.Text;
 
 import java.io.FileInputStream;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
     final ArrayList<Model_Coin> coinsList;
     final Context context;
     static String dateAcquired, dateValue;
+    static String current = "No";
 
     public Adapter_Coins(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
         this.coinsList = coinsList;
@@ -115,29 +117,24 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
         holder.date.setText(convertedDate);
         holder.country.setText("South Africa");
 
-        if(position==0)
+        dateValue = coinsList.get(position).getDateAcquired();
+
+        if(current.equals("No"))
         {
-            dateValue = coinsList.get(position).getDateAcquired();
             dateAcquired = returnDay(dateValue);
+            current = dateAcquired;
             holder.acquired.setText(dateAcquired);
         }else
         {
-            if(dateValue.equals(coinsList.get(position).getDateAcquired()))
+            dateAcquired = returnDay(coinsList.get(position).getDateAcquired());
+            if(current.equals(dateAcquired))//Same returnDay as previous
             {
                 holder.acquired.setVisibility(View.GONE);
+                holder.daySeparator.setVisibility(View.GONE);
             }else
             {
-                dateAcquired = returnDay(coinsList.get(position).getDateAcquired());
-                if(dateAcquired.equals("No"))
-                {
-                    holder.acquired.setVisibility(View.GONE);
-                }else
-                {
-                    holder.acquired.setText(dateAcquired);
-                }
-
+                holder.acquired.setText(dateAcquired);
             }
-
         }
 
     }
@@ -154,6 +151,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
         final TextView date;
         final TextView country;
         final TextView acquired;
+        final ImageView daySeparator;
 
 
         public CoinViewHolder(@NonNull View itemView) {
@@ -164,6 +162,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             country = itemView.findViewById(R.id.textview_coin_country);
             date = itemView.findViewById(R.id.textview_coin_acquired_date);
             acquired = itemView.findViewById(R.id.textview_coinDate);
+            daySeparator = itemView.findViewById(R.id.coin_date_separator);
 
             itemView.setOnClickListener(v -> {
                 if(interfaceRecyclerView != null)

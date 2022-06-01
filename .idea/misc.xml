@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.242" />
         <entry key="app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.2385" />
         <entry key="app/src/main/res/drawable/ic_baseline_remove_24.xml" value="0.2795" />
+        <entry key="app/src/main/res/drawable/ic_coins_list_separator.xml" value="0.272" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2385" />
         <entry key="app/src/main/res/drawable/img_coin_library_overlay.xml" value="0.1775" />
         <entry key="app/src/main/res/drawable/mynt_logo.xml" value="0.2965" />
@@ -63,7 +64,7 @@
         <entry key="app/src/main/res/layout/library_recent_coins_listview.xml" value="0.67" />
         <entry key="app/src/main/res/layout/list_all_collections.xml" value="0.5" />
         <entry key="app/src/main/res/layout/list_coin_super.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/list_coins.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/list_coins.xml" value="0.5" />
         <entry key="app/src/main/res/layout/list_coins_base.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/listview_add_coin.xml" value="0.3572916666666667" />
         <entry key="app/src/main/res/layout/listview_leaderboard.xml" value="0.35833333333333334" />
