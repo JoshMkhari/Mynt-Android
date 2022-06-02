@@ -130,9 +130,9 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
             else
             {
                 //Additional User Feedback
-                Toast.makeText(getContext(),"Error: Your collection has not been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                Toast.makeText(getContext(),"A collection name has not been set.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                Toast.makeText(getContext(),"Please enter a name for your collection.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                Toast.makeText(getContext(),"Error: Your collection has not been created successfully.",Toast.LENGTH_SHORT).show();//(Alexander, 2016).
+                Toast.makeText(getContext(),"A collection name has not been set.",Toast.LENGTH_SHORT).show();//(Alexander, 2016).
+                Toast.makeText(getContext(),"Please enter a name for your collection.",Toast.LENGTH_SHORT).show();//(Alexander, 2016).
             }
 
         });

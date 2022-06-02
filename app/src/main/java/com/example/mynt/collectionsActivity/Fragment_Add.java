@@ -217,14 +217,14 @@ public class Fragment_Add extends Fragment {
                         Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
                     }else
                     {
-                        Toast.makeText(getContext(), "Storing collectionCoin", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Storing collectionCoin", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
                         Intent home = new Intent(getContext(),Activity_Collections.class);
                         home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(home);
                     }
                 }
             } else {
-                Toast.makeText(getContext(), "Set image nest time", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Set image nest time", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
             }
         });
 
@@ -393,7 +393,7 @@ public class Fragment_Add extends Fragment {
 
                 }catch (Exception e)
                 {
-                    Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
                 }
             }
         };

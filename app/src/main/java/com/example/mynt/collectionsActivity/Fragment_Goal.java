@@ -153,14 +153,14 @@ public class Fragment_Goal extends Fragment {
                 startActivity(home);
 
                 //Additional User Feedback
-                Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has been created successfully." , Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has been created successfully." , Toast.LENGTH_SHORT).show();//(Alexander, 2016).
 
             }else
             {
 
                 //Additional User Feedback
-                Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has not been created successfully." , Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                Toast.makeText(getContext(), "Target number of coins cannot be 0.", Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has not been created successfully." , Toast.LENGTH_SHORT).show();//(Alexander, 2016).
+                Toast.makeText(getContext(), "Target number of coins cannot be 0.", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
             }
 
         });
@@ -179,7 +179,7 @@ public class Fragment_Goal extends Fragment {
                 if(currentText.length()==5)
                 {
                     target_Edittext.setText(oldText);
-                    Toast.makeText(getContext(), "Goal cannot be greater than 9999", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Goal cannot be greater than 9999", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
                 }
                 else
                 {
@@ -211,7 +211,7 @@ public class Fragment_Goal extends Fragment {
                 target_Edittext.setText(String.valueOf(currentTarget));
 
                 //Additional User Feedback
-                Toast.makeText(getContext(), "ERROR: Your target number of coins cannot 0 or be less than 0.", Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
+                Toast.makeText(getContext(), "ERROR: Your target number of coins cannot 0 or be less than 0.", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
             }else{
 
                 currentTarget = Integer.parseInt(target_Edittext.getText().toString());
