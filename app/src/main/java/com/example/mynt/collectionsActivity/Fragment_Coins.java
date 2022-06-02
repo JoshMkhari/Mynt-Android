@@ -16,13 +16,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.mynt.R;
 import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coins;
-import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator;
+import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator_Date;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
@@ -119,7 +118,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
         coinsList = mdl.allCoinsAndCollections(getContext(),task,collectionID, model_user);
         coinIDs = new ArrayList<>();
 
-        Collections.sort(coinsList, new Model_Coin_Comparator());
+        Collections.sort(coinsList, new Model_Coin_Comparator_Date());
 
         if (task == 0 || task == 2) //All Coins
         {

@@ -260,7 +260,7 @@ public class Fragment_Add extends Fragment {
         int month = cal.get(Calendar.MONTH);
         int day = cal.get(Calendar.DAY_OF_MONTH);
 
-        return model_date.makeDateString(day, month, year);
+        return model_date.makeDateString(day, month, year,true);
 
     }
     //Result for Collection
@@ -269,7 +269,7 @@ public class Fragment_Add extends Fragment {
     public void setUpListeners() {
         DatePickerDialog.OnDateSetListener dateSetListener = (view, year, month, day) -> {
             month = month + 1;
-            String date = model_date.makeDateString(day, month, year);
+            String date = model_date.makeDateString(day, month, year,false);
             dateAq = month+"/"+day+"/"+year;
             Log.d("dateAq", "setUpListeners: " + dateAq);
             datePicker.setText(date);

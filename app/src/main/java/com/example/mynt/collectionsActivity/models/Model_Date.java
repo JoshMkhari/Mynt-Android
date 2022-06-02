@@ -8,12 +8,12 @@ public class Model_Date {
 
 
 
-    public String makeDateString(int day, int month, int year) {
+    public String makeDateString(int day, int month, int year, boolean type) {
         //return month + " " + day + " " + year;
-        return getMonthFormat(month) + " " + day + " " + year;
+        return getMonthFormat(month,type) + " " + day + " " + year;
     }
 
-    public String convertDateString(String date) {
+    public String convertDateString(String date, boolean type) {
         //return month + " " + day + " " + year;
         ArrayList<Integer> dashes = new ArrayList<>();
         for (int i = 0; i < date.length(); i++) {
@@ -33,10 +33,11 @@ public class Model_Date {
 
         start = dashes.get(1)+1;
         String yearInt = date.substring(start);
-        return getMonthFormat(monthInt) + " " + dayInt + " " + yearInt;
+        return getMonthFormat(monthInt,type) + " " + dayInt + " " + yearInt;
     }
 
-    public String getMonthFormat(int month) {
+    public String getMonthFormat(int month, boolean type) {
+        if(type)
         month++;
 
         switch (month) {

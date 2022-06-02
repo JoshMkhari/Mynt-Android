@@ -87,7 +87,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             if(calDay.get(Calendar.YEAR) == calToday.get(Calendar.YEAR))
             {
                 Model_Date model_date = new Model_Date();
-                return model_date.getMonthFormat(calDay.get(Calendar.MONTH));
+                return model_date.getMonthFormat(calDay.get(Calendar.MONTH),true);
             }
             //Log.d("callThing", "onBindViewHolder: " + dayOfWeek);
         } catch (ParseException e) {
@@ -114,7 +114,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
         catch(Exception ignored){
         }
         Model_Date model_date = new Model_Date();
-        String convertedDate = model_date.convertDateString(coinsList.get(position).getDateAcquired());
+        String convertedDate = model_date.convertDateString(coinsList.get(position).getDateAcquired(),true);
         holder.date.setText(convertedDate);
         holder.country.setText("South Africa");
 

@@ -76,7 +76,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder> mAdapter = new Adapter_Collections(allUserCollections, getContext(), this);
+        RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder> mAdapter = new Adapter_Collections(allUserCollections, getContext(), this,model_user);
         recyclerView.setAdapter(mAdapter);
 
 

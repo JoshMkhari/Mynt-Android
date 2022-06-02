@@ -1,6 +1,8 @@
 package com.example.mynt.collectionsActivity.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,20 +14,28 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.mynt.R;
 import com.example.mynt.Interface_RecyclerView;
+import com.example.mynt.collectionsActivity.models.Model_Coin;
+import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator_Date;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
+import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Database_Lite;
+import com.example.mynt.dataAccessLayer.Model_Database_Lite;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder>{
     private final Interface_RecyclerView interfaceRecyclerView;
     private final ArrayList<Model_Collections> collectionsList;
     private final Context context;
+    private  final Model_User model_user;
 
-    public Adapter_Collections(ArrayList<Model_Collections> collectionsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
+    public Adapter_Collections(ArrayList<Model_Collections> collectionsList, Context context, Interface_RecyclerView interfaceRecyclerView,Model_User model_user) {
         this.collectionsList = collectionsList;
         this.context = context;
         this.interfaceRecyclerView = interfaceRecyclerView;
+        this.model_user = model_user;
     }
 
     @NonNull
@@ -49,7 +59,26 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
         String coinAmount = collectionCoins.size()+" Coins";
         holder.collectionCoinAmount.setText(coinAmount);
         //glide for internet images???
-        holder.coinImage.setBackgroundResource(R.drawable.img_two_rand);
+
+        //Open each collection and select the first image
+        Model_Database_Lite mdl = new Model_Database_Lite();
+
+        ArrayList<Model_Coin>coinsList = mdl.allCoinsAndCollections(context,1,collectionID,model_user);
+
+        Collections.sort(coinsList, new Model_Coin_Comparator_Date());
+
+        try{
+            String name = coinsList.get(0).getCoinID() +".jpg";
+            FileInputStream fis = context.openFileInput(name);
+            Bitmap b = BitmapFactory.decodeStream(fis);
+            holder.coinImage.setImageBitmap(b);
+            //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
+            fis.close();
+        }
+        catch(Exception ignored){
+            holder.coinImage.setBackgroundResource(R.drawable.img_two_rand);
+        }
+
 
         float collectionSize = (float)collectionCoins.size();
         float target = (float)collectionsList.get(position).getGoal();
