@@ -43,10 +43,10 @@ public class Fragment_home_main extends Fragment {
         int currentPage = getArguments().getInt("StartPage");
         db  = new Database_Lite(getContext());
 
-
         //assert getArguments() != null;
         //String testuser = getArguments().getString("User");
         //Toast.makeText(getContext(), testuser, Toast.LENGTH_SHORT).show();
+
         ArrayList<Model_User> users = db.getAllUsers();
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getState() == 1) {

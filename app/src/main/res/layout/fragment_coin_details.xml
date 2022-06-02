@@ -73,6 +73,7 @@
         android:padding="20dp">
 
         <ImageView
+            android:transitionName="detailsTN"
             android:id="@+id/CoinDetails_Image"
             android:layout_width="150dp"
             android:layout_height="150dp"

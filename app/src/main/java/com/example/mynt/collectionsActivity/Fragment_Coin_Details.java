@@ -26,7 +26,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Fragment_Coin_Details extends Fragment {
+public class Fragment_Coin_Details extends Fragment{
 
     private View details;
     private ImageButton back;

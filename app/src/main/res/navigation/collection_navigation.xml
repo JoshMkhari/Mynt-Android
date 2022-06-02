@@ -11,13 +11,21 @@
         tools:layout="@layout/fragment_collections" >
         <action
             android:id="@+id/action_fragment_Collections_to_fragment_Goal"
-            app:destination="@id/fragment_Goal" />
+            app:destination="@id/fragment_Goal"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_fragment_Collections_to_fragment_Coins"
             app:destination="@id/fragment_Coins" />
         <action
             android:id="@+id/action_fragment_Collections_to_fragment_Add2"
-            app:destination="@id/fragment_Add" />
+            app:destination="@id/fragment_Add"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <argument
             android:name="User"
             app:argType="integer" />
@@ -41,7 +49,11 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_fragment_Goal_to_fragment_Add"
-            app:destination="@id/fragment_Add" />
+            app:destination="@id/fragment_Add"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Add"
@@ -50,7 +62,11 @@
         tools:layout="@layout/fragment_add" >
         <action
             android:id="@+id/action_fragment_Add_to_fragment_Collections2"
-            app:destination="@id/fragment_Collections" />
+            app:destination="@id/fragment_Collections"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <argument
             android:name="Collection Name"
             app:argType="string" />
@@ -97,13 +113,25 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_fragment_home_main_to_fragment_Add"
-            app:destination="@id/fragment_Add" />
+            app:destination="@id/fragment_Add"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_in"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_fragment_home_main_to_fragment_Collections"
-            app:destination="@id/fragment_Collections" />
+            app:destination="@id/fragment_Collections"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_fragment_home_main_to_fragment_Coins"
-            app:destination="@id/fragment_Coins" />
+            app:destination="@id/fragment_Coins"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_fragment_home_main_to_fragment_Coin_Details"
             app:destination="@id/fragment_Coin_Details" />
@@ -112,7 +140,11 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_fragment_home_main_to_fragment_Register"
-            app:destination="@id/fragment_Register" />
+            app:destination="@id/fragment_Register"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Login"
@@ -121,7 +153,11 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_fragment_Login_to_fragment_Register"
-            app:destination="@id/fragment_Register" />
+            app:destination="@id/fragment_Register"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Register"
@@ -130,6 +166,10 @@
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_fragment_Register_to_fragment_Login"
-            app:destination="@id/fragment_Login" />
+            app:destination="@id/fragment_Login"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 </navigation>

@@ -30,7 +30,7 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
 
         // Inflate the layout for this fragment
         View view_leaderboard = inflater.inflate(R.layout.fragment_leaderboard, container, false);
-        DisplayLeaderBoardRanks();
+
         //Passing data to list recycler view
         RecyclerView recycler_view_leaderboard = view_leaderboard.findViewById(R.id.recycler_view_ranking_leaderboard);
         recycler_view_leaderboard.setHasFixedSize(true);
@@ -43,7 +43,7 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
         RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard);
         recycler_view_leaderboard.setAdapter(rv_leaferbaord_adapter);
 
-
+        DisplayLeaderBoardRanks();
 
         return view_leaderboard;
     }
