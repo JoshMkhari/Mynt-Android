@@ -11,18 +11,24 @@
         android:layout_height="match_parent"
         android:id="@+id/main_act_viewPager2"/>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tab_layout"
-        android:layout_width="match_parent"
+    <com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="72dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.109"
-        app:tabGravity="center"
-        app:tabIndicatorHeight="8dp" />
+        android:id="@+id/spring_dots_indicator"
+        app:dampingRatio="0.5"
+        app:dotsColor="?colorPrimary"
+        app:dotsStrokeColor="@android:color/darker_gray"
+        app:dotsCornerRadius="2dp"
+        app:dotsSize="16dp"
+        app:dotsSpacing="6dp"
+        app:dotsStrokeWidth="2dp"
+        app:stiffness="300"
+ />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

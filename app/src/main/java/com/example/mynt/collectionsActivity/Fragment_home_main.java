@@ -25,6 +25,8 @@ import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
+import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -36,27 +38,21 @@ import java.util.Objects;
  */
 public class Fragment_home_main extends Fragment {
     Model_User user = new Model_User();
-    private LinearLayout layoutIndicators;
-    private Database_Lite db;
-    private Adapter_HomeActFragment fragmentAdapter;
-    View home;
     //23:54
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        home = inflater.inflate(R.layout.fragment_home, container, false);
+        View home = inflater.inflate(R.layout.fragment_home, container, false);
         //private TabLayout tabLayout_main;
         ViewPager2 viewPager2_main = home.findViewById(R.id.main_act_viewPager2);
         //layoutIndicators = home.findViewById(R.id.linearLayoutViewPagerIndicators);
 
         assert getArguments() != null;
         int currentPage = getArguments().getInt("StartPage");
-        db  = new Database_Lite(getContext());
+        Database_Lite db  = new Database_Lite(getContext());
 
-        //assert getArguments() != null;
-        //String testuser = getArguments().getString("User");
-        //Toast.makeText(getContext(), testuser, Toast.LENGTH_SHORT).show();
+
 
         ArrayList<Model_User> users = db.getAllUsers();
         for (int i = 0; i < users.size(); i++) {
@@ -65,14 +61,11 @@ public class Fragment_home_main extends Fragment {
             }
         }
         FragmentManager fragmentManager = getParentFragmentManager();
-        fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getUserID());
+        Adapter_HomeActFragment fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getUserID());
         viewPager2_main.setAdapter((fragmentAdapter));
 
-        setupIndicators();
-        TabLayout tabLayout = home.findViewById(R.id.tab_layout);
-        new TabLayoutMediator(tabLayout, viewPager2_main,
-                (tab, position) -> tab.setText("")
-        ).attach();
+        SpringDotsIndicator springDotsIndicator = (SpringDotsIndicator) home.findViewById(R.id.spring_dots_indicator);
+        springDotsIndicator.setViewPager2(viewPager2_main);
 
         //Comment
         return home;
