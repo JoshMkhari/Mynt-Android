@@ -68,7 +68,7 @@ public class Database_Lite extends SQLiteOpenHelper {
 
         //Table Creation Statements
 
-
+        Log.d("Yoh","Create::");
         //Material Table
         String tableStatement = ("CREATE TABLE " + MATERIAL_TABLE + "(" + COLUMN_MATERIAL_NAME + " TEXT PRIMARY KEY );");
         db.execSQL(tableStatement);
@@ -257,7 +257,7 @@ public class Database_Lite extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-
+        Log.d("Yoh","onUpgrade::");
     }
     /*
     tableStatement = ("CREATE TABLE " + USER_COLLECTIONS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_COLLECTION_FK
@@ -282,7 +282,6 @@ public class Database_Lite extends SQLiteOpenHelper {
                 {
                     //loop through the cursor result set and create new coin object for each row
                     do{
-                        //int userCollectionID = cursor.getInt(0);
                         int collectionID = cursor.getInt(1);
                         int userID = cursor.getInt(2);
                         if(userID == model_user.getUserID())
@@ -576,9 +575,17 @@ public class Database_Lite extends SQLiteOpenHelper {
     }
 
 
+    public void updateCollection(Model_Collections model_collections)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
 
+        cv.put(COLUMN_GOAL, model_collections.getGoal());
+        db.update(COLLECTION_TABLE,cv,"ID =" + model_collections.getCollectionID(),null);
+        cv.clear();
+    }
 
-        public void addCollection(Model_Collections model_collections, Model_User model_user) {
+    public void addCollection(Model_Collections model_collections, Model_User model_user) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         try {
@@ -592,20 +599,20 @@ public class Database_Lite extends SQLiteOpenHelper {
 
         }
         //get all collections
-            ArrayList<Model_Collections> model_collectionsArrayList = getAllCollections();
-            int newCollectionID = model_collectionsArrayList.get(model_collectionsArrayList.size()-1).getCollectionID();
+        ArrayList<Model_Collections> model_collectionsArrayList = getAllCollections();
+        int newCollectionID = model_collectionsArrayList.get(model_collectionsArrayList.size()-1).getCollectionID();
 
 
-            try {
-                //User Collections table
-                cv.put(COLUMN_COLLECTION_FK, newCollectionID);
-                //getID from userCollection
-                cv.put(COLUMN_USER_FK,model_user.getUserID());
-                db.insert(USER_COLLECTIONS_TABLE, null, cv);
-                cv.clear();
-            } catch (Exception ignored) {
+        try {
+            //User Collections table
+            cv.put(COLUMN_COLLECTION_FK, newCollectionID);
+            //getID from userCollection
+            cv.put(COLUMN_USER_FK,model_user.getUserID());
+            db.insert(USER_COLLECTIONS_TABLE, null, cv);
+            cv.clear();
+        } catch (Exception ignored) {
 
-            }
+        }
     }
 
 
@@ -653,7 +660,7 @@ public class Database_Lite extends SQLiteOpenHelper {
             //Coin Table
             cv.put(COIN_ID, coin.getCoinID());
             cv.put(COLUMN_ALT_NAME,coin.getAlternateName());
-            cv.put(COLUMN_DATE_TAKEN,coin.getDateTaken());
+            cv.put(COLUMN_DATE_TAKEN,coin.getDateAcquired());
             cv.put(COLUMN_MINTAGE,coin.getMintage());
             cv.put(COLUMN_OBSERVE,coin.getObserve());
             cv.put(COLUMN_REVERSE,coin.getReverse());

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.mynt.R;
 import com.example.mynt.Interface_RecyclerView;
@@ -66,7 +67,7 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
 
     }
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, ImageView coinImage) {
         //Code intent here if we are to code an on click event for this
     }
 }

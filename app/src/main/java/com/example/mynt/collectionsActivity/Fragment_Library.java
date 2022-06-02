@@ -1,9 +1,12 @@
 package com.example.mynt.collectionsActivity;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -11,15 +14,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 
 import com.example.mynt.Interface_RecyclerView;
-import com.example.mynt.collectionsActivity.adapters.Adapter_Coin;
-import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator;
+import com.example.mynt.collectionsActivity.adapters.Adapter_Recent_Coins;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator_ID;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import com.example.mynt.collectionsActivity.adapters.Adapter_Library_Options;
@@ -79,8 +83,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         int i= currentUserCoins.size();
 
 
-        Collections.sort(currentUserCoins, new Model_Coin_Comparator());
-
+        Collections.sort(currentUserCoins, new Model_Coin_Comparator_ID());
 
         arrayList_recent_coins.addAll(currentUserCoins);
 
@@ -100,7 +103,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         Adapter_Library_Options optionsListAdapter = new Adapter_Library_Options(getContext(), arrayList_library_navigation, user);
         optionListView.setAdapter(optionsListAdapter);
         //recyclerView
-        RecyclerView.Adapter<Adapter_Coin.CoinViewHolder> mAdapter = new Adapter_Coin(arrayList_recent_coins, getContext(), this);
+        RecyclerView.Adapter<Adapter_Recent_Coins.CoinViewHolder> mAdapter = new Adapter_Recent_Coins(arrayList_recent_coins, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
 
@@ -159,11 +162,22 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
     }
     //Implementing RecyclerViewInterface Method
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, ImageView coinImage) {
         Bundle bundle = new Bundle();
         bundle.putInt("Task", 0);
         bundle.putInt("CoinID", arrayList_recent_coins.get(position).getCoinID());
-        Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coin_Details,bundle);
+        //ViewCompat.setTransitionName(coinImage, "recentTransaction");
+        FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
+                .addSharedElement(coinImage, "libraryTransaction")
+                .build();
+
+        Navigation.findNavController(libraryView).navigate(
+                R.id.action_fragment_home_main_to_fragment_Coin_Details,
+                bundle,
+                null,
+                extras);
+
+
     }
 
 

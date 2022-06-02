@@ -17,6 +17,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.242" />
         <entry key="app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.2385" />
         <entry key="app/src/main/res/drawable/ic_baseline_remove_24.xml" value="0.2795" />
+        <entry key="app/src/main/res/drawable/ic_coins_list_separator.xml" value="0.272" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2385" />
         <entry key="app/src/main/res/drawable/img_coin_library_overlay.xml" value="0.1775" />
         <entry key="app/src/main/res/drawable/mynt_logo.xml" value="0.2965" />
@@ -35,6 +36,7 @@
         <entry key="app/src/main/res/layout/activity_collections.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_goals.xml" value="0.28894927536231885" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.245018115942029" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_temp.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/activity_user.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/coin_super_list.xml" value="0.35833333333333334" />
@@ -43,11 +45,13 @@
         <entry key="app/src/main/res/layout/content_coin_details.xml" value="0.18333333333333332" />
         <entry key="app/src/main/res/layout/details_coin_information.xml" value="0.3572916666666667" />
         <entry key="app/src/main/res/layout/dropdown_item.xml" value="0.3572916666666667" />
+        <entry key="app/src/main/res/layout/fornow.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment__add__details.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_add.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_add_details.xml" value="0.1690234202386213" />
         <entry key="app/src/main/res/layout/fragment_all_coins_.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_coin_details.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/fragment_coins.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_collections.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_goal.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.35833333333333334" />
@@ -56,13 +60,14 @@
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_main_act_adapter.xml" value="0.346875" />
-        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/fragment_register.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/layoutfornow.xml" value="0.5" />
         <entry key="app/src/main/res/layout/leaderboard_listview.xml" value="0.3578125" />
         <entry key="app/src/main/res/layout/library_navigation_listview.xml" value="0.5" />
         <entry key="app/src/main/res/layout/library_recent_coins_listview.xml" value="0.67" />
         <entry key="app/src/main/res/layout/list_all_collections.xml" value="0.5" />
         <entry key="app/src/main/res/layout/list_coin_super.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/list_coins.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/list_coins.xml" value="0.5" />
         <entry key="app/src/main/res/layout/list_coins_base.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/listview_add_coin.xml" value="0.3572916666666667" />
         <entry key="app/src/main/res/layout/listview_leaderboard.xml" value="0.35833333333333334" />

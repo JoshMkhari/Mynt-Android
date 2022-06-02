@@ -25,6 +25,7 @@
         app:srcCompat="@drawable/img_coin_library_overlay" />
 
     <ImageView
+        android:transitionName="recentTransaction"
         android:id="@+id/imageview_current_coin"
         android:layout_width="120dp"
         android:layout_height="120dp"

@@ -4,21 +4,48 @@ import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 
 import com.example.mynt.R;
 
 import java.util.Objects;
 
+import pl.droidsonroids.gif.GifTextView;
+
 public class Activity_Collections extends AppCompatActivity {
+    private GifTextView gifImageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_collections);
 
-        //Check current user
-        Bundle bundle = new Bundle();
-        bundle.putInt("StartPage",1);
+        Bundle bundle = getIntent().getExtras();
+        int page = 1;
+        if(bundle == null)
+        {
+            bundle = new Bundle();
+            bundle.putInt("StartPage",1);
+        }
+        else
+        {
+            page = bundle.getInt("StartPage");
+            bundle.putInt("StartPage",page);
+        }
+
+        /* New Handler to start the Menu-Activity
+         * and close this Splash-Screen after some seconds.*/
+
+
+        Log.d("EasyPeasyt","runing "+ page);
+        //startSplash();
         findNavController(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                 setGraph(R.navigation.collection_navigation,bundle);
     }

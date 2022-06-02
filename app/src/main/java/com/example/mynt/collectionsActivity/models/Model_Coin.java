@@ -1,8 +1,9 @@
 package com.example.mynt.collectionsActivity.models;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class Model_Coin {
+public class Model_Coin implements Serializable {
 
     private final int year;
     private final int mintage;
@@ -30,7 +31,7 @@ public class Model_Coin {
         this.DateTaken = dateTaken;
     }
 
-    public String getDateTaken() {
+    public String getDateAcquired() {
         return DateTaken;
     }
 

@@ -1,14 +1,17 @@
 package com.example.mynt.collectionsActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.adapters.Adapter_HomeActFragment;
@@ -23,6 +26,9 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class Fragment_home_main extends Fragment {
+    Model_User user = new Model_User();
+
+    private Database_Lite db;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -32,12 +38,14 @@ public class Fragment_home_main extends Fragment {
         ViewPager2 viewPager2_main = home.findViewById(R.id.main_act_viewPager2);
 
 
+
         assert getArguments() != null;
         int currentPage = getArguments().getInt("StartPage");
+        db  = new Database_Lite(getContext());
 
-        Model_User user = new Model_User();
-
-        Database_Lite db = new Database_Lite(getContext());
+        //assert getArguments() != null;
+        //String testuser = getArguments().getString("User");
+        //Toast.makeText(getContext(), testuser, Toast.LENGTH_SHORT).show();
 
         ArrayList<Model_User> users = db.getAllUsers();
         for (int i = 0; i < users.size(); i++) {
@@ -45,17 +53,12 @@ public class Fragment_home_main extends Fragment {
                 user = users.get(i);
             }
         }
-
-        //assert getArguments() != null;
-        //String testuser = getArguments().getString("User");
-        //Toast.makeText(getContext(), testuser, Toast.LENGTH_SHORT).show();
-
-        //Comment
         FragmentManager fragmentManager = getParentFragmentManager();
         Adapter_HomeActFragment fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getUserID());
         viewPager2_main.setAdapter((fragmentAdapter));
         viewPager2_main.setCurrentItem(currentPage);
 
+        //Comment
         return home;
     }
 

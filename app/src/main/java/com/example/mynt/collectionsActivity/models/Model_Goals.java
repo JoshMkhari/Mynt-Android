@@ -2,7 +2,7 @@ package com.example.mynt.collectionsActivity.models;
 
 public class Model_Goals {
     private final String collectionName;
-    private final int numCoins;
+    private int numCoins;
     private final int target;
 
     public Model_Goals(String collectionName, int numCoins, int target) {
@@ -23,4 +23,7 @@ public class Model_Goals {
         return target;
     }
 
+    public void setNumCoins(int size) {
+        this.numCoins = size;
+    }
 }

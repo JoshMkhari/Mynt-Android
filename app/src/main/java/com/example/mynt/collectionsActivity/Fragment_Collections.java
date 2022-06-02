@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.mynt.R;
@@ -76,7 +77,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder> mAdapter = new Adapter_Collections(allUserCollections, getContext(), this);
+        RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder> mAdapter = new Adapter_Collections(allUserCollections, getContext(), this,model_user);
         recyclerView.setAdapter(mAdapter);
 
 
@@ -125,8 +126,6 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
                 bundle.putInt("User",model_user.getUserID());
                 Navigation.findNavController(collectionsView).navigate(R.id.action_fragment_Collections_to_fragment_Goal,bundle);
 
-                //Additional User Feedback
-                Toast.makeText(getContext(),collectionName.getText().toString() + " has been created successfully.",Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
             }
             else
             {
@@ -143,7 +142,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
     }
     //implementing RecyclerViewInterface
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, ImageView coinImage) {
 
         Bundle bundle = new Bundle();
         bundle.putString("Collection Name",allUserCollections.get(position).getCollectionName());

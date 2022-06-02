@@ -1,7 +1,6 @@
 package com.example.mynt.collectionsActivity.adapters;
 
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -11,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.collectionsActivity.models.Model_Coin;
@@ -20,15 +20,23 @@ import com.example.mynt.Interface_RecyclerView;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
-public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHolder>{
+public class Adapter_Recent_Coins extends RecyclerView.Adapter<Adapter_Recent_Coins.CoinViewHolder>{
     private final Interface_RecyclerView interfaceRecyclerView;
     final ArrayList<Model_Coin> coinsList;
     final Context context;
 
-    public Adapter_Coin(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
+    public Adapter_Recent_Coins(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
         this.coinsList = new ArrayList<>();
+        if (coinsList.size()!=0)
         for (int i = 0; i < 6; i++) {
-            this.coinsList.add(coinsList.get(i));
+            try
+            {
+                this.coinsList.add(coinsList.get(i));
+            }catch(Exception e)
+            {
+                //There aren't anymore items
+            }
+
         }
         this.context = context;
         this.interfaceRecyclerView = interfaceRecyclerView;
@@ -86,14 +94,13 @@ public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHold
             coinImage = itemView.findViewById(R.id.imageview_current_coin);
             year = itemView.findViewById(R.id.textview_coin_year);
             name = itemView.findViewById(R.id.textview_coin_name);
-
             itemView.setOnClickListener(v -> {
                 if(interfaceRecyclerView != null)
                 {
                     int pos = getAbsoluteAdapterPosition();
 
                     if(pos != RecyclerView.NO_POSITION){
-                        interfaceRecyclerView.onItemClick(pos);
+                        interfaceRecyclerView.onItemClick(pos,coinImage);
                     }
                 }
             });

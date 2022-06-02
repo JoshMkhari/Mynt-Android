@@ -9,7 +9,7 @@ import com.example.mynt.collectionsActivity.models.Model_User;
 
 import java.util.ArrayList;
 
-public class Model_Database_Lite {
+public class Model_Database_Lite extends Thread {
 
     private ArrayList<Model_Collections>  allUserCollections;
     private ArrayList<Integer> collectionCoins;
@@ -19,7 +19,6 @@ public class Model_Database_Lite {
 
     public ArrayList<Model_Coin> allCoinsAndCollections(Context appContext, int task, int collectionID, Model_User model_user)
     {
-
         db = new Database_Lite(appContext);
 
         coinsList = new ArrayList<>();

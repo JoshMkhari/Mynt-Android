@@ -51,7 +51,7 @@ public class Fragment_Goal extends Fragment {
     private ArrayList<Model_Collections> allCollections;
     private ArrayList<Model_Collections> allUserCollections;
     private Intent home;
-
+    private ProgressBar goalProgress_progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +66,7 @@ public class Fragment_Goal extends Fragment {
         TextView numCoinsInCollection_textView = goals.findViewById(R.id.GoalsPageCoinsTotal_TextView);
         percentOfGoal_textView = goals.findViewById(R.id.GoalPagePercentage_TextView);
         target_textView = goals.findViewById(R.id.GoalsPageTarget_TextView);
-        ProgressBar goalProgress_progressBar = goals.findViewById(R.id.GoalPageProgressBar);
+        goalProgress_progressBar = goals.findViewById(R.id.GoalPageProgressBar);
         setGoal_imageButton = goals.findViewById(R.id.imageview_blockTitle_goal);
         back = goals.findViewById(R.id.GoalsPage_back);
         target_Edittext = goals.findViewById(R.id.GoalsPage_GoalValue);
@@ -75,6 +75,7 @@ public class Fragment_Goal extends Fragment {
 
         //GoalsPage_add
         //GoalsPage_subtract
+
 
 
 
@@ -103,7 +104,7 @@ public class Fragment_Goal extends Fragment {
 
         ReturnToHomePage();
         CreateGoal();
-        CalculateGoalProgress();
+        CalculateGoalProgress(0);
 
         return goals;
     }
@@ -121,7 +122,6 @@ public class Fragment_Goal extends Fragment {
 
 
                 model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
-
                 localDB.addCollection(model_collections,model_user);
                 //Add collection to database for user
                 if(task==1)// Creating new Collection and assigning it to a coin
@@ -139,6 +139,13 @@ public class Fragment_Goal extends Fragment {
                             allUserCollections.add(allCollections.get(i));
                     }
                     localDB.addCollectionCoin(allUserCollections.get(allUserCollections.size()-1).getCollectionID());
+                }
+                else
+                {
+                    assert getArguments() != null;
+                    model_collections.setCollectionID(getArguments().getInt("CollectionID"));
+                    localDB.updateCollection(model_collections);
+
                 }
                 home = new Intent(getContext(),Activity_Collections.class);
                 home.putExtra("View","library");
@@ -178,6 +185,7 @@ public class Fragment_Goal extends Fragment {
                 {
                     String targetText = "Target: " + currentText;
                     target_textView.setText(targetText);
+                    CalculateGoalProgress(Integer.parseInt(currentText));
                 }
 
             }
@@ -192,24 +200,26 @@ public class Fragment_Goal extends Fragment {
             currentTarget = Integer.parseInt(target_Edittext.getText().toString());
             if (currentTarget==0)
             {
-                target_Edittext.setText("");
+                target_Edittext.setText("1");
             }
         });
+
         subtract.setOnClickListener(v -> {
-
-
+            currentTarget = Integer.parseInt(target_Edittext.getText().toString());
             if(currentTarget <0 || currentTarget ==0){
-                currentTarget = 0;
+                currentTarget = 1;
                 target_Edittext.setText(String.valueOf(currentTarget));
 
                 //Additional User Feedback
                 Toast.makeText(getContext(), "ERROR: Your target number of coins cannot 0 or be less than 0.", Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-                Toast.makeText(getContext(),  "Please re-enter your target number of coins." , Toast.LENGTH_SHORT).show();//(Reference This) (M.Ngetu)
-
             }else{
 
                 currentTarget = Integer.parseInt(target_Edittext.getText().toString());
                 currentTarget--;
+                if(currentTarget==0)
+                {
+                    target_Edittext.setText(String.valueOf(1));
+                }else
                 target_Edittext.setText(String.valueOf(currentTarget));
 
             }
@@ -221,13 +231,23 @@ public class Fragment_Goal extends Fragment {
         });
     }
 
-    private void CalculateGoalProgress(){
+    private void CalculateGoalProgress(int trueTarget){
 
+        float target;
+        if(trueTarget==0)
+        {
+            target = (float) model_goals.getTarget();
+
+        }
+         else
+        {
+            target = (float) trueTarget;
+        }
         float coins = (float) model_goals.getNumCoins();
-        float target = (float) model_goals.getTarget();
         progress =  coins / target *100;
         String percentage = String.valueOf(Math.round(progress)) + '%';
         percentOfGoal_textView.setText(percentage);
+        goalProgress_progressBar.setProgress(Math.round(progress));
 
 
     }

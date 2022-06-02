@@ -108,7 +108,7 @@ public class Adapter_Library_Options extends BaseAdapter {
             case 1:
                 optionIcon.setBackgroundResource(R.drawable.ic_collection_icon);
                 optionValue.setVisibility(View.INVISIBLE);
-                optionProgress.setVisibility(View.INVISIBLE);
+                optionProgress.setVisibility(View.GONE);
                 break;
             default:
                 optionIcon.setBackgroundResource(R.drawable.ic_goal_icon);

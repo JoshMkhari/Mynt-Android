@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".collectionsActivity.Fragment_Add"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="?colorOnPrimary">
 
 
     <LinearLayout
@@ -15,8 +16,8 @@
         <ImageButton
             android:layout_margin="10dp"
             android:id="@+id/image_button_back_coins"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@drawable/ic_baseline_arrow_back_24"
             android:contentDescription="@string/back_button"
             tools:ignore="ImageContrastCheck" />
@@ -30,11 +31,11 @@
             android:paddingEnd="20dp"
             android:text="@string/add_coin_title"
             android:textColor="?colorSecondaryVariant"
-            android:textSize="30sp" />
+            android:textSize="26sp" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="20dp"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -94,62 +95,16 @@
 
 
             <TextView
-                android:id="@+id/materialTextView"
+                android:id="@+id/yearTextView"
                 android:layout_width="wrap_content"
+                android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="38dp"
-                android:text="@string/material"
+                android:text="@string/year"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/spinner_Values" />
-
-            <Spinner
-                android:id="@+id/spinner_Material"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:theme="@style/spinnerTheme"
-                android:contentDescription="@string/alt_name"
-                android:minHeight="48dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialTextView" />
-
-            <TextView
-                android:id="@+id/variantTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/variant"
-                android:textSize="24sp"
-                android:layout_marginTop="38dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_Material" />
-
-            <Spinner
-                android:id="@+id/spinner_Variant"
-                android:layout_width="280dp"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/variant"
-                android:theme="@style/spinnerTheme"
-                android:minHeight="48dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/variantTextView" />
-
-            <TextView
-                android:id="@+id/yearTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/year"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:layout_marginTop="38dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinner_Variant" />
 
             <EditText
                 android:id="@+id/yearValueEditText"
@@ -182,75 +137,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/yearValueEditText" />
 
-            <EditText
-                android:ems="10"
-                android:gravity="center"
-                android:id="@+id/alternateName_EditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/alt_name"
-                android:layout_marginTop="38dp"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/yearValueEditText" />
-
-            <EditText
-                android:id="@+id/mintageNum_editText"
-                android:gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number"
-                android:hint="@string/mintage"
-                android:layout_marginTop="38dp"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/alternateName_EditText" />
-
-            <EditText
-                android:id="@+id/observe_EditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="@string/observe"
-                android:layout_marginTop="38dp"
-                android:ems="10"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mintageNum_editText" />
-
-            <EditText
-                android:id="@+id/reverse_EditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:hint="@string/reverse"
-                android:layout_marginTop="38dp"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                android:ems="10"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/observe_EditText" />
-
 
             <TextView
                 android:id="@+id/collectionTextView"
                 android:layout_width="wrap_content"
+                android:layout_marginTop="20dp"
                 android:layout_height="wrap_content"
                 android:text="@string/collection"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/reverse_EditText"  />
+                app:layout_constraintTop_toBottomOf="@+id/seekBar_year" />
 
             <Spinner
                 android:id="@+id/spinner_collection"
@@ -295,7 +193,9 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:text="JAN 01 2020"
-                android:textColor="@color/black"
+                android:gravity="center"
+                android:textColor="?colorSecondaryVariant"
+                android:textStyle="bold"
                 android:textSize="23sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -318,6 +218,7 @@
                 android:layout_marginVertical="40dp"
                 android:background="@drawable/ic_title_block_shape"
                 android:contentDescription="@string/block_title"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/datePickerButton"
                 tools:ignore="ImageContrastCheck" />
