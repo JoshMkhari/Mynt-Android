@@ -1,4 +1,4 @@
-package com.example.mynt.collectionsActivity;
+package com.example.mynt;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.Activity_Collections;
 
-public class Activity_Splash extends AppCompatActivity {
+public class Activity_Main extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +24,10 @@ public class Activity_Splash extends AppCompatActivity {
             public void run() {
                 /* Create an Intent that will start the Menu-Activity. */
 
-                Intent intent = new Intent(Activity_Splash.this, Activity_Collections.class);
+                Intent intent = new Intent(Activity_Main.this, Activity_Collections.class);
                 startActivity(intent);
                 finish();
+
                 //Intent mainIntent = new Intent(SplashActivity.this,LoginActivity.class);
                 //SplashActivity.this.startActivity(mainIntent);
                 //SplashActivity.this.finish();

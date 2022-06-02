@@ -15,8 +15,7 @@ import android.widget.ListView;
 
 
 import com.example.mynt.Interface_RecyclerView;
-import com.example.mynt.collectionsActivity.adapters.Adapter_Coin;
-import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator_Date;
+import com.example.mynt.collectionsActivity.adapters.Adapter_Recent_Coins;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 
 import com.example.mynt.R;
@@ -100,7 +99,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         Adapter_Library_Options optionsListAdapter = new Adapter_Library_Options(getContext(), arrayList_library_navigation, user);
         optionListView.setAdapter(optionsListAdapter);
         //recyclerView
-        RecyclerView.Adapter<Adapter_Coin.CoinViewHolder> mAdapter = new Adapter_Coin(arrayList_recent_coins, getContext(), this);
+        RecyclerView.Adapter<Adapter_Recent_Coins.CoinViewHolder> mAdapter = new Adapter_Recent_Coins(arrayList_recent_coins, getContext(), this);
         recyclerView.setAdapter(mAdapter);
 
 

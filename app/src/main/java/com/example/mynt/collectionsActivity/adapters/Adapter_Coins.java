@@ -27,6 +27,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Objects;
 
 public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHolder>{
@@ -62,9 +63,11 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             calToday.set(Calendar.HOUR_OF_DAY,0);
             calDay.setTime(Objects.requireNonNull(sdf.parse(date)));
 
-            Log.d("callThing", "onBindViewHolder: " + calDay.get(Calendar.YEAR));
+            //Log.d("callThing", "onBindViewHolder: " + calDay.get(Calendar.YEAR));
             //Log.d("callThing", "onBindViewHolder: " + calToday);
-            Log.d("callThing", "onBindViewHolder: " + calDay);
+            //Log.d("callThing", "onBindViewHolder: " + calDay);
+
+            Log.d("order","this " + date);
             if(calDay.get(Calendar.YEAR) == calToday.get(Calendar.YEAR))
             {
                 if(calDay.get(Calendar.DAY_OF_YEAR) == calToday.get(Calendar.DAY_OF_YEAR))

@@ -107,6 +107,7 @@ public class Fragment_Add extends Fragment {
 
         //ImageView
         userImage = add.findViewById(R.id.userImage);
+        userImage.setBackgroundResource(R.drawable.img_two_rand);
         //Button
         datePicker = add.findViewById(R.id.datePickerButton);
 
@@ -204,28 +205,29 @@ public class Fragment_Add extends Fragment {
             //Check if picture is taken?
             if (imageSet) {
                 //check if a mintage was placed
-                    //Check if a collection has to be made
-                    if(savePhotoToInternalStorage())
+                //Check if a collection has to be made
+                if(savePhotoToInternalStorage())
+                {
+                    storeCoin();
+                    if (spinnerCollection.getSelectedItemPosition() == 0) {//A new collection needs to be made
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("User", model_user.getUserID());
+                        bundle.putInt("Task", 1);
+                        bundle.putInt("ImageID",coinID);
+                        Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
+                    }else
                     {
-                        storeCoin();
-                        if (spinnerCollection.getSelectedItemPosition() == 0) {//A new collection needs to be made
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("User", model_user.getUserID());
-                            bundle.putInt("Task", 1);
-                            bundle.putInt("ImageID",coinID);
-                            Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
-                        }else
-                        {
-                            Toast.makeText(getContext(), "Storing collectionCoin", Toast.LENGTH_SHORT).show();
-                            Intent home = new Intent(getContext(),Activity_Collections.class);
-                            home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(home);
-                        }
+                        Toast.makeText(getContext(), "Storing collectionCoin", Toast.LENGTH_SHORT).show();
+                        Intent home = new Intent(getContext(),Activity_Collections.class);
+                        home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(home);
                     }
+                }
             } else {
                 Toast.makeText(getContext(), "Set image nest time", Toast.LENGTH_SHORT).show();
             }
         });
+
         return add;
     }
 
@@ -267,6 +269,7 @@ public class Fragment_Add extends Fragment {
 
 
     public void setUpListeners() {
+
         DatePickerDialog.OnDateSetListener dateSetListener = (view, year, month, day) -> {
             month = month + 1;
             String date = model_date.makeDateString(day, month, year,false);

@@ -151,6 +151,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
 
             Log.d("ValuesDarsh",coins+" coins this");
             Log.d("ValuesDarsh",target+" target this");
+
             float progress =  coins /target *100;
 
             if(progress>100)

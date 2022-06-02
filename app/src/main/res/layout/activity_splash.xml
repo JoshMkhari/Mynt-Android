@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".collectionsActivity.Activity_Splash"
+    tools:context=".Activity_Main"
     android:background="@drawable/splash_screen">
 
     <pl.droidsonroids.gif.GifTextView

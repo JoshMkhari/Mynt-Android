@@ -1,7 +1,6 @@
 package com.example.mynt.collectionsActivity.adapters;
 
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -20,12 +19,12 @@ import com.example.mynt.Interface_RecyclerView;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
-public class Adapter_Coin extends RecyclerView.Adapter<Adapter_Coin.CoinViewHolder>{
+public class Adapter_Recent_Coins extends RecyclerView.Adapter<Adapter_Recent_Coins.CoinViewHolder>{
     private final Interface_RecyclerView interfaceRecyclerView;
     final ArrayList<Model_Coin> coinsList;
     final Context context;
 
-    public Adapter_Coin(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
+    public Adapter_Recent_Coins(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
         this.coinsList = new ArrayList<>();
         if (coinsList.size()!=0)
         for (int i = 0; i < 6; i++) {

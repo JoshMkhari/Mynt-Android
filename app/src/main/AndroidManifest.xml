@@ -22,7 +22,7 @@
             android:name=".collectionsActivity.Activity_Collections"
             android:exported="false" />
         <activity
-            android:name=".collectionsActivity.Activity_Splash"
+            android:name=".Activity_Main"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
