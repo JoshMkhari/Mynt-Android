@@ -50,6 +50,8 @@ public class Fragment_Coin_Details extends Fragment{
         TextView type = details.findViewById(R.id.CoinDetails_Type_TextView);
         TextView points = details.findViewById(R.id.CoinDetails_Points);
         TextView pageTitle = details.findViewById(R.id.CoinDetails_PageTitle);
+        TextView acquiredDate = details.findViewById(R.id.textViewAcquiredDate);
+
         back = details.findViewById(R.id.CoinDetails_back);
 
         task = 0;
@@ -83,6 +85,7 @@ public class Fragment_Coin_Details extends Fragment{
         String coinTitle = model_coin.getValue() + ", " + model_coin.getYear();
         pageTitle.setText(coinTitle);
         points.setText(String.valueOf(1000));
+        acquiredDate.setText(model_coin.getDateAcquired());
 
         String name = model_coin.getCoinID() + ".jpg";
         try{
@@ -100,8 +103,7 @@ public class Fragment_Coin_Details extends Fragment{
                 backActivity();
             }
         };
-
-
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
 
         coinImage.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class Fragment_Add extends Fragment {
@@ -107,10 +108,8 @@ public class Fragment_Add extends Fragment {
 
         //ImageView
         userImage = add.findViewById(R.id.userImage);
-        userImage.setBackgroundResource(R.drawable.img_two_rand);
         //Button
         datePicker = add.findViewById(R.id.datePickerButton);
-
         datePicker.setText(getTodaysDate());
         dateAq = datePicker.getText().toString();
         setupDateAq();
@@ -274,7 +273,6 @@ public class Fragment_Add extends Fragment {
             month = month + 1;
             String date = model_date.makeDateString(day, month, year,false);
             dateAq = month+"/"+day+"/"+year;
-            Log.d("dateAq", "setUpListeners: " + dateAq);
             datePicker.setText(date);
         };
 
@@ -285,6 +283,7 @@ public class Fragment_Add extends Fragment {
 
         int style = AlertDialog.THEME_HOLO_DARK;
         dateAcquired = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
+        dateAcquired.getDatePicker().setMaxDate(new Date().getTime());
 
         datePicker.setOnClickListener(v -> dateAcquired.show());
         //To upload and Change an Image

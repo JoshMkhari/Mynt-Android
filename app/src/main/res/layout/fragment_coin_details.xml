@@ -81,6 +81,7 @@
             tools:ignore="ImageContrastCheck"
             android:contentDescription="@string/coin_image" />
         <TextView
+            android:id="@+id/textViewAcquiredDate"
             android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
