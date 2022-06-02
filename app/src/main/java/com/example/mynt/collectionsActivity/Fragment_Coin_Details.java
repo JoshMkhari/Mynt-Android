@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
@@ -51,11 +52,11 @@ public class Fragment_Coin_Details extends Fragment{
         TextView pageTitle = details.findViewById(R.id.CoinDetails_PageTitle);
         back = details.findViewById(R.id.CoinDetails_back);
 
-        setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
-
+        task = 0;
         assert getArguments() != null;
         task = getArguments().getInt("Task");
         int coinID = getArguments().getInt("CoinID");
+
 
 
         Database_Lite db = new Database_Lite(getContext());
@@ -99,10 +100,24 @@ public class Fragment_Coin_Details extends Fragment{
                 backActivity();
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
 
 
 
+        coinImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt("CoinID", coinID);
+                bundle.putString("Title", coinTitle);
+
+                FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
+                        .addSharedElement(coinImage, "secondTransitionName")
+                        .build();
+
+
+                Navigation.findNavController(details).navigate(R.id.action_fragment_Coin_Details_to_fragment_CoinFull, bundle,null,extras);
+            }
+        });
         return details;
     }
 

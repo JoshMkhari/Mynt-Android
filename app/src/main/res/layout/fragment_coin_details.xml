@@ -73,7 +73,7 @@
         android:padding="20dp">
 
         <ImageView
-            android:transitionName="libraryTransaction"
+            android:transitionName="firstTransitionName"
             android:id="@+id/CoinDetails_Image"
             android:layout_width="200dp"
             android:layout_height="200dp"
