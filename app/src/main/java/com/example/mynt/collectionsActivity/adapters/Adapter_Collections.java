@@ -115,7 +115,7 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
                     int pos = getAbsoluteAdapterPosition();
 
                     if(pos != RecyclerView.NO_POSITION){
-                        interfaceRecyclerView.onItemClick(pos);
+                        interfaceRecyclerView.onItemClick(pos,coinImage);
                     }
                 }
             });

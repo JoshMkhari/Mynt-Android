@@ -73,10 +73,10 @@
         android:padding="20dp">
 
         <ImageView
-            android:transitionName="detailsTN"
+            android:transitionName="libraryTransaction"
             android:id="@+id/CoinDetails_Image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
             android:layout_gravity="center"
             tools:ignore="ImageContrastCheck"
             android:contentDescription="@string/coin_image" />

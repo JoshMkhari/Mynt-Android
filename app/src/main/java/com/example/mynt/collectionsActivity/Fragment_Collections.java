@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.mynt.R;
@@ -141,7 +142,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
     }
     //implementing RecyclerViewInterface
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, ImageView coinImage) {
 
         Bundle bundle = new Bundle();
         bundle.putString("Collection Name",allUserCollections.get(position).getCollectionName());

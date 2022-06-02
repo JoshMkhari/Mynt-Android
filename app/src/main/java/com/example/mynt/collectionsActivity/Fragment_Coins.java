@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -170,7 +171,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
 
     //implementing RecyclerViewInterface
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, ImageView coinImage) {
         Bundle bundle = new Bundle();
         bundle.putInt("Task", task);
         bundle.putInt("CoinID", coinIDs.get(position));

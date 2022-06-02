@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.collectionsActivity.models.Model_Coin;
@@ -93,14 +94,13 @@ public class Adapter_Recent_Coins extends RecyclerView.Adapter<Adapter_Recent_Co
             coinImage = itemView.findViewById(R.id.imageview_current_coin);
             year = itemView.findViewById(R.id.textview_coin_year);
             name = itemView.findViewById(R.id.textview_coin_name);
-
             itemView.setOnClickListener(v -> {
                 if(interfaceRecyclerView != null)
                 {
                     int pos = getAbsoluteAdapterPosition();
 
                     if(pos != RecyclerView.NO_POSITION){
-                        interfaceRecyclerView.onItemClick(pos);
+                        interfaceRecyclerView.onItemClick(pos,coinImage);
                     }
                 }
             });

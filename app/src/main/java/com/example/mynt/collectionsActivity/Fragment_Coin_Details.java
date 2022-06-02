@@ -11,6 +11,7 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,9 +51,12 @@ public class Fragment_Coin_Details extends Fragment{
         TextView pageTitle = details.findViewById(R.id.CoinDetails_PageTitle);
         back = details.findViewById(R.id.CoinDetails_back);
 
+        setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
+
         assert getArguments() != null;
         task = getArguments().getInt("Task");
         int coinID = getArguments().getInt("CoinID");
+
 
         Database_Lite db = new Database_Lite(getContext());
         Model_Coin model_coin = null;
@@ -101,11 +105,9 @@ public class Fragment_Coin_Details extends Fragment{
 
         return details;
     }
+
     private void ReturnToMainDetailsPage(){
-
         back.setOnClickListener(v -> backActivity());
-
-
     }
 
     private void backActivity() {

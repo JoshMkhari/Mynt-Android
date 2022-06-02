@@ -1,9 +1,12 @@
 package com.example.mynt.collectionsActivity;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 
+import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -11,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 
@@ -158,11 +162,22 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
     }
     //Implementing RecyclerViewInterface Method
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(int position, ImageView coinImage) {
         Bundle bundle = new Bundle();
         bundle.putInt("Task", 0);
         bundle.putInt("CoinID", arrayList_recent_coins.get(position).getCoinID());
-        Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Coin_Details,bundle);
+        //ViewCompat.setTransitionName(coinImage, "recentTransaction");
+        FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
+                .addSharedElement(coinImage, "libraryTransaction")
+                .build();
+
+        Navigation.findNavController(libraryView).navigate(
+                R.id.action_fragment_home_main_to_fragment_Coin_Details,
+                bundle,
+                null,
+                extras);
+
+
     }
 
 
