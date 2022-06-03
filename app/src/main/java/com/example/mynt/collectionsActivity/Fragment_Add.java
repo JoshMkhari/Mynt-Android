@@ -295,7 +295,7 @@ public class Fragment_Add extends Fragment {
         //Result for Camera
         activityResultLauncher_Camera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             assert result.getData() != null;
-            Bundle extras = result.getData().getExtras();
+                Bundle extras = result.getData().getExtras();
             if (extras != null) {
                 imageBitmap = (Bitmap) extras.get("data");
                 userImage.setImageBitmap(imageBitmap);
