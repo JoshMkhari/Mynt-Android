@@ -49,7 +49,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         // Inflate the layout for this fragment
 
         collectionsView = inflater.inflate(R.layout.fragment_collections, container, false);
-        db = new Database_Lite(getContext());
+        db = new Database_Lite(getContext());//(freecodecamp,2020)
 
         createCollection = collectionsView.findViewById(R.id.imageview_blockTitle_collections);
         back = collectionsView.findViewById(R.id.collections_back);
@@ -101,13 +101,13 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
 
     private void ReturnToHomePage(){
 
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {//(Анатолий К.,2020)
             @Override
             public void handleOnBackPressed() {
                 backActivity();
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);//(Анатолий К.,2020)
 
         back.setOnClickListener(v -> backActivity());
 
@@ -118,7 +118,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         createCollection.setOnClickListener(v -> {
             if(collectionName.getText().toString().length()>3)
             {
-                Bundle bundle = new Bundle();
+                Bundle bundle = new Bundle();//(valerybodak,2020)
                 bundle.putString("Collection Name", collectionName.getText().toString());
                 bundle.putInt("Coins", 0);
                 bundle.putInt("Goal", 0);
@@ -144,7 +144,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
     @Override
     public void onItemClick(int position, ImageView coinImage) {
 
-        Bundle bundle = new Bundle();
+        Bundle bundle = new Bundle();//(valerybodak,2020)
         bundle.putString("Collection Name",allUserCollections.get(position).getCollectionName());
         bundle.putInt("Task", 1);
         bundle.putInt("CollectionID", allUserCollections.get(position).getCollectionID());
@@ -157,11 +157,11 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
     private void backActivity() {
         if(task==1)// Creating new Collection and assigning it to a coin
         {
-            Navigation.findNavController(collectionsView).navigateUp();
+            Navigation.findNavController(collectionsView).navigateUp();//(JHowzer,2018)
 
         }else
         {
-            Bundle bundle = new Bundle();
+            Bundle bundle = new Bundle();//(valerybodak,2020)
             bundle.putInt("StartPage",0);
             findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                     setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)

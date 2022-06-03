@@ -78,13 +78,13 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
         RecyclerView.Adapter<Adapter_Coins.CoinViewHolder> mAdapter = new Adapter_Coins(coinsList, getContext(), this);//(Professor Sluiter, 2020).
         recyclerView.setAdapter(mAdapter);
 
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {//(Анатолий К.,2020)
             @Override
             public void handleOnBackPressed() {
                 backActivity();
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);//(Анатолий К.,2020)
 
         goalProgress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +134,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
             pageTitle_textView.setText(R.string.collections_title);
             collectionName_textView.setText(blockTitle);
 
-            Database_Lite db = new Database_Lite(getContext());
+            Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
             ArrayList<Model_Collections> AllCollections = db.getAllCollections();
 
             ArrayList<Integer> collectionSize = db.getAllCoinsInCollection(collectionID);
@@ -172,7 +172,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
     //implementing RecyclerViewInterface
     @Override
     public void onItemClick(int position, ImageView coinImage) {
-        Bundle bundle = new Bundle();
+        Bundle bundle = new Bundle();//(valerybodak,2020)
         bundle.putInt("Task", task);
         bundle.putInt("CoinID", coinIDs.get(position));
         Navigation.findNavController(coinsView).navigate(R.id.action_fragment_Coins_to_fragment_Coin_Details, bundle);
@@ -181,10 +181,10 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
     private void backActivity() {
         if(task==1)// Fragment was accessed from somewhere else
         {
-            Navigation.findNavController(coinsView).navigateUp();
+            Navigation.findNavController(coinsView).navigateUp();//(JHowzer,2018)
         }else
         {
-            Bundle bundle = new Bundle();
+            Bundle bundle = new Bundle();//(valerybodak,2020)
             bundle.putInt("StartPage",0);
             findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                     setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)

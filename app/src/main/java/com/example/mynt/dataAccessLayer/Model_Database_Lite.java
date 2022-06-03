@@ -17,7 +17,7 @@ public class Model_Database_Lite extends Thread {
     private ArrayList<Model_Coin> dbCoins;
     private ArrayList<Model_Coin> coinsList;
 
-    public ArrayList<Model_Coin> allCoinsAndCollections(Context appContext, int task, int collectionID, Model_User model_user)
+    public ArrayList<Model_Coin> allCoinsAndCollections(Context appContext, int task, int collectionID, Model_User model_user)//(GeeksForGeeks,2020)
     {
         db = new Database_Lite(appContext);
 
@@ -40,8 +40,6 @@ public class Model_Database_Lite extends Thread {
                 allUserCollections.add(allCollections.get(i));
         }
 
-        Log.d("allUserCollections", allUserCollections.size() + " this");
-
         if(task == 0 || task ==2) //All Coins
         {
             allCoins();
@@ -52,7 +50,7 @@ public class Model_Database_Lite extends Thread {
         return coinsList;
     }
 
-    public void allCoins()
+    public void allCoins()//(GeeksForGeeks,2020)
     {
         for (int b=0; b<allUserCollections.size(); b++) {
             collectionCoins = db.getAllCoinsInCollection(allUserCollections.get(b).getCollectionID());

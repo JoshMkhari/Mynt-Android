@@ -111,14 +111,14 @@ public class Fragment_Goal extends Fragment {
 
     private void ReturnToHomePage(){
 
-        back.setOnClickListener(v -> Navigation.findNavController(goals).navigateUp());
+        back.setOnClickListener(v -> Navigation.findNavController(goals).navigateUp());//(JHowzer,2018)
     }
     private void CreateGoal(){
 
         setGoal_imageButton.setOnClickListener(v -> {
             if(Integer.parseInt(target_Edittext.getText().toString())!=0)
             {
-                localDB = new Database_Lite(getContext());
+                localDB = new Database_Lite(getContext());//(freecodecamp,2020)
 
 
                 model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
@@ -144,7 +144,7 @@ public class Fragment_Goal extends Fragment {
                 {
                     assert getArguments() != null;
                     model_collections.setCollectionID(getArguments().getInt("CollectionID"));
-                    localDB.updateCollection(model_collections);
+                    localDB.updateCollection(model_collections);//(geeksforgeeks, 2021)
 
                 }
                 home = new Intent(getContext(),Activity_Collections.class);

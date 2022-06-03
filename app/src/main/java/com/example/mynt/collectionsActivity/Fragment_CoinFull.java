@@ -54,11 +54,11 @@ public class Fragment_CoinFull extends Fragment {
 
 
         titleCoin.setText(title);
-        setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));
+        setSharedElementEnterTransition(TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move));//(android developer blog, 2018)
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(coinFull).navigateUp();
+                Navigation.findNavController(coinFull).navigateUp();//(JHowzer,2018)
             }
         });
         return coinFull;

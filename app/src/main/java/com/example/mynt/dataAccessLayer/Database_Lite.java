@@ -58,13 +58,13 @@ public class Database_Lite extends SQLiteOpenHelper {
     //Year Table
     //public static final String COLUMN_MATERIAL_NAME = "NAME";
 
-    public Database_Lite(@Nullable Context context) {
+    public Database_Lite(@Nullable Context context) { //(freecodecamp,2020)
         super(context, "user.db", null, 1);
     }
 
     //First time a database is created
     @Override
-    public void onCreate(SQLiteDatabase db) {
+    public void onCreate(SQLiteDatabase db) {//(freecodecamp,2020)
 
         //Table Creation Statements
 
@@ -255,7 +255,7 @@ public class Database_Lite extends SQLiteOpenHelper {
 
     //In the event a database version number changes
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {//(freecodecamp,2020)
 
     }
     /*
@@ -267,7 +267,7 @@ public class Database_Lite extends SQLiteOpenHelper {
 
 
      */
-    public  ArrayList<Integer> getAllCollectionsForUser(Model_User model_user)
+    public  ArrayList<Integer> getAllCollectionsForUser(Model_User model_user)//(freecodecamp,2020)
     {
         ArrayList<Integer> collections = new ArrayList<>();
         //SELECT COIN_ID FROM COLLECTION_COIN_TABLE
@@ -300,7 +300,7 @@ public class Database_Lite extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<Model_Collections> getAllCollections() {
+    public ArrayList<Model_Collections> getAllCollections() {//(freecodecamp,2020)
         ArrayList<Model_Collections> collectionsList = new ArrayList<>();
 
         String queryString = "SELECT * FROM " + COLLECTION_TABLE;
@@ -327,7 +327,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         return collectionsList;
     }
 
-    public ArrayList<Integer> getAllCoinsWithACollection() {
+    public ArrayList<Integer> getAllCoinsWithACollection() {//(freecodecamp,2020)
         ArrayList<Integer> coins = new ArrayList<>();
         //SELECT COIN_ID FROM COLLECTION_COIN_TABLE
         // WHERE COLLECTION_ID = 1
@@ -386,7 +386,7 @@ public class Database_Lite extends SQLiteOpenHelper {
 
 
 
-    public ArrayList<Integer> getAllYears()
+    public ArrayList<Integer> getAllYears()//(freecodecamp,2020)
     {
         ArrayList<Integer> years = new ArrayList<>();
 
@@ -408,7 +408,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         return years;
     }
 
-    public void deleteCoin(int coinID)
+    public void deleteCoin(int coinID)//(freecodecamp,2020)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + COIN_TABLE + " WHERE ID = " + coinID);
@@ -451,7 +451,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         return coinsList;
     }
 
-    public ArrayList<Model_User> getAllUsers()
+    public ArrayList<Model_User> getAllUsers()//(freecodecamp,2020)
     {
         ArrayList<Model_User> users = new ArrayList<>();
 
@@ -482,7 +482,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         return users;
     }
 
-    public void addCollectionCoin(int collectionID)
+    public void addCollectionCoin(int collectionID)//(freecodecamp,2020)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -505,7 +505,7 @@ public class Database_Lite extends SQLiteOpenHelper {
             }
         }
 
-        public void updateState(Model_User model_user)
+        public void updateState(Model_User model_user)//(geeksforgeeks, 2021)
         {
             SQLiteDatabase db = this.getWritableDatabase();
             ArrayList<Model_User> users = getAllUsers();
@@ -525,7 +525,7 @@ public class Database_Lite extends SQLiteOpenHelper {
             cv.clear();
         }
 
-        public boolean addUser(Model_User model_user) {
+        public boolean addUser(Model_User model_user) {//(freecodecamp,2020)
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues cv = new ContentValues();
 
@@ -574,7 +574,7 @@ public class Database_Lite extends SQLiteOpenHelper {
     }
 
 
-    public void updateCollection(Model_Collections model_collections)//(Section, 2021)
+    public void updateCollection(Model_Collections model_collections)//(geeksforgeeks, 2021)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -585,7 +585,7 @@ public class Database_Lite extends SQLiteOpenHelper {
     }
 
     public void addCollection(Model_Collections model_collections, Model_User model_user) {//(Section, 2021)
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();//(freecodecamp,2020)
         ContentValues cv = new ContentValues();
         try {
             //Collections table
@@ -615,7 +615,7 @@ public class Database_Lite extends SQLiteOpenHelper {
     }
 
 
-    public void addCoin(Model_Coin coin, int collectionID)
+    public void addCoin(Model_Coin coin, int collectionID)//(freecodecamp,2020)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();

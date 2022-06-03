@@ -53,13 +53,13 @@ public class Fragment_Register extends Fragment {
         signUp = registerView.findViewById(R.id.SignEmail_Button);
         close = registerView.findViewById(R.id.RegisterClose_button);
 
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {//(Анатолий К.,2020)
             @Override
             public void handleOnBackPressed() {
                 backActivity();
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);//(Анатолий К.,2020)
 
 
         SignUp();
@@ -84,7 +84,7 @@ public class Fragment_Register extends Fragment {
                    if (confirmPassword.getText().toString().equals(password.getText().toString())) {
                        // Additional User Feedback
                        ArrayList<Model_User> users = new ArrayList<>();
-                       Database_Lite db = new Database_Lite(getContext());
+                       Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
                        users = db.getAllUsers();
 
                        model_user = new Model_User();
@@ -100,7 +100,7 @@ public class Fragment_Register extends Fragment {
                        }
                        if (!emailFound)
                            if (db.addUser(model_user)) {
-                               db.updateState(model_user);
+                               db.updateState(model_user);//(geeksforgeeks, 2021)
                                Toast.makeText(getContext(), "An account has been created successfully for " + email.getText().toString() + ".", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
                                i = new Intent(getContext(), Activity_Collections.class);
                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -124,7 +124,7 @@ public class Fragment_Register extends Fragment {
     }
 
     private void backActivity() {
-        Bundle bundle = new Bundle();
+        Bundle bundle = new Bundle();//(valerybodak,2020)
         bundle.putInt("StartPage",0);
         findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                 setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)

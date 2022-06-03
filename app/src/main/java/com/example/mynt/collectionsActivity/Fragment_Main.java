@@ -48,7 +48,7 @@ public class Fragment_Main extends Fragment {
 
         userTitle = main.findViewById(R.id.text_view_user_current);
 
-        Database_Lite db =new Database_Lite(getContext());
+        Database_Lite db =new Database_Lite(getContext());//(freecodecamp,2020)
         ArrayList<Model_User> allUsers = db.getAllUsers();
 
         for(int i=0;i<allUsers.size();i++)
@@ -98,7 +98,7 @@ public class Fragment_Main extends Fragment {
     private void AddCoin(){
 
         addButton.setOnClickListener(v -> {
-            bundle = new Bundle();
+            bundle = new Bundle();//(valerybodak,2020)
             bundle.putInt("User", user.getUserID());
             Navigation.findNavController(main).navigate(R.id.action_fragment_home_main_to_fragment_Add, bundle);
         });

@@ -8,12 +8,12 @@ public class Model_Date { //(Shabbir Dhangot,2016)
 
 
 
-    public String makeDateString(int day, int month, int year, boolean type) {
+    public String makeDateString(int day, int month, int year, boolean type) {//(Code With Cal, 2020)
         //return month + " " + day + " " + year;
         return getMonthFormat(month,type) + " " + day + " " + year;
     }
 
-    public String convertDateString(String date, boolean type) {
+    public String convertDateString(String date, boolean type) {//(Code With Cal, 2020)
         //return month + " " + day + " " + year;
         ArrayList<Integer> dashes = new ArrayList<>();
         for (int i = 0; i < date.length(); i++) {
@@ -36,7 +36,7 @@ public class Model_Date { //(Shabbir Dhangot,2016)
         return getMonthFormat(monthInt,type) + " " + dayInt + " " + yearInt;
     }
 
-    public String getMonthFormat(int month, boolean type) {
+    public String getMonthFormat(int month, boolean type) {//(Code With Cal, 2020)
         if(type)
         month++;
 
@@ -67,7 +67,7 @@ public class Model_Date { //(Shabbir Dhangot,2016)
                 return "DEC";
         }
     }
-    public String setupMonthAq(String substring) {
+    public String setupMonthAq(String substring) {//(Code With Cal, 2020)
 
         switch (substring)
         {

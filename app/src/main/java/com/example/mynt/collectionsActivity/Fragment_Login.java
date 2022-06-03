@@ -57,7 +57,7 @@ public class Fragment_Login extends Fragment {
 
     private void Login(){
         login.setOnClickListener(v -> {
-            db = new Database_Lite(getContext());
+            db = new Database_Lite(getContext());//(freecodecamp,2020)
             model_user = new Model_User();
             model_user.setEmail(email.getText().toString());
             model_user.setPassword(password.getText().toString());
@@ -81,7 +81,7 @@ public class Fragment_Login extends Fragment {
                             if(users.get(i).getPassword().equals(model_user.getPassword()))
                             {
                                 //update user state
-                                db.updateState(model_user);
+                                db.updateState(model_user);//(geeksforgeeks, 2021)
                                 Intent login = new Intent(getContext(), Activity_Collections.class);
                                 login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(login);

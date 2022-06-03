@@ -38,7 +38,7 @@ public class Fragment_ViewPager extends Fragment {
 
         assert getArguments() != null;
         int currentPage = getArguments().getInt("StartPage");
-        Database_Lite db  = new Database_Lite(getContext());
+        Database_Lite db  = new Database_Lite(getContext());//(freecodecamp,2020)
 
 
 

@@ -78,10 +78,10 @@ public class Fragment_Add extends Fragment {
         // Inflate the layout for this fragment
         View add = inflater.inflate(R.layout.fragment_add, container, false);
         //Retrieve bundles
-        model_user = new Model_User();
-        model_date = new Model_Date();
+        model_user = new Model_User(); //(Section, 2021)
+        model_date = new Model_Date();//(Shabbir Dhangot,2016)
         assert getArguments() != null;
-        model_user.setUserID(getArguments().getInt("User"));
+        model_user.setUserID(getArguments().getInt("User"));//(valerybodak,2020)
 
         //Assigning views to variables
         //spinners
@@ -119,7 +119,7 @@ public class Fragment_Add extends Fragment {
         setUpListeners();
 
         //Database
-        localDB = new Database_Lite(getContext());
+        localDB = new Database_Lite(getContext());//(freecodecamp,2020)
         ArrayList<Integer> userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
         ArrayList<Model_Collections> allCollections = localDB.getAllCollections();
 
@@ -173,29 +173,29 @@ public class Fragment_Add extends Fragment {
         //Array Adapters
         //Value
 
-        ArrayAdapter<CharSequence> adapterValue = ArrayAdapter.createFromResource(getContext(), R.array.Value, R.layout.spinner_item);
-        adapterValue.setDropDownViewResource(R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapterValue = ArrayAdapter.createFromResource(getContext(), R.array.Value, R.layout.spinner_item); //(Coding in flow, 2017)
+        adapterValue.setDropDownViewResource(R.layout.spinner_item);//(Coding in flow, 2017)
         spinnerValue.setAdapter(adapterValue);
 
-        ArrayAdapter<CharSequence> adapterMaterial = ArrayAdapter.createFromResource(getContext(), R.array.Material, R.layout.spinner_item);
-        adapterMaterial.setDropDownViewResource(R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapterMaterial = ArrayAdapter.createFromResource(getContext(), R.array.Material, R.layout.spinner_item);//(Coding in flow, 2017)
+        adapterMaterial.setDropDownViewResource(R.layout.spinner_item);//(Coding in flow, 2017)
         //spinnerMaterial.setAdapter(adapterMaterial);
 
-        ArrayAdapter<CharSequence> adapterVariant = ArrayAdapter.createFromResource(getContext(), R.array.Variants, R.layout.spinner_item);
-        adapterVariant.setDropDownViewResource(R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapterVariant = ArrayAdapter.createFromResource(getContext(), R.array.Variants, R.layout.spinner_item);//(Coding in flow, 2017)
+        adapterVariant.setDropDownViewResource(R.layout.spinner_item);//(Coding in flow, 2017)
         //spinnerVariant.setAdapter(adapterVariant);
 
-        ArrayAdapter<String> adapterCollection = new ArrayAdapter<>(getContext(), R.layout.spinner_item, userCollections);
-        adapterCollection.setDropDownViewResource(R.layout.spinner_item);
+        ArrayAdapter<String> adapterCollection = new ArrayAdapter<>(getContext(), R.layout.spinner_item, userCollections);//(Coding in flow, 2017)
+        adapterCollection.setDropDownViewResource(R.layout.spinner_item);//(Coding in flow, 2017)
         spinnerCollection.setAdapter(adapterCollection);
 
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {//(Анатолий К.,2020)
             @Override
             public void handleOnBackPressed() {
                 backActivity();
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);//(Анатолий К.,2020)
         //Activity_Collections.OnB
         back.setOnClickListener(v -> backActivity());
 
@@ -205,7 +205,7 @@ public class Fragment_Add extends Fragment {
             if (imageSet) {
                 //check if a mintage was placed
                 //Check if a collection has to be made
-                if(savePhotoToInternalStorage())
+                if(savePhotoToInternalStorage())//( Philipp Lackner, 2021)
                 {
                     storeCoin();
                     if (spinnerCollection.getSelectedItemPosition() == 0) {//A new collection needs to be made
@@ -230,7 +230,7 @@ public class Fragment_Add extends Fragment {
         return add;
     }
 
-    private void setupDateAq() {
+    private void setupDateAq() {//(Code With Cal, 2020)
 
         ArrayList<Integer> spaces = new ArrayList<>();
         for (int i = 0; i < dateAq.length(); i++) {
@@ -241,7 +241,7 @@ public class Fragment_Add extends Fragment {
         }
 
 
-        String monthInt = model_date.setupMonthAq(dateAq.substring(0,spaces.get(0)));
+        String monthInt = model_date.setupMonthAq(dateAq.substring(0,spaces.get(0)));//(Code With Cal, 2020)
         int subStringDistance;
         subStringDistance = spaces.get(1)-spaces.get(0)-1;
         int start;
@@ -254,7 +254,7 @@ public class Fragment_Add extends Fragment {
         dateAq = monthInt + '/' + dayInt + '/' + yearInt;
     }
 
-    private String getTodaysDate() {
+    private String getTodaysDate() {//(Code With Cal, 2020)
 
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -271,7 +271,7 @@ public class Fragment_Add extends Fragment {
 
         DatePickerDialog.OnDateSetListener dateSetListener = (view, year, month, day) -> {
             month = month + 1;
-            String date = model_date.makeDateString(day, month, year,false);
+            String date = model_date.makeDateString(day, month, year,false);//(Code With Cal, 2020)
             dateAq = month+"/"+day+"/"+year;
             datePicker.setText(date);
         };
@@ -290,18 +290,18 @@ public class Fragment_Add extends Fragment {
 
 
         //To upload and Change an Image
-        changeImage.setOnClickListener(v -> {
+        changeImage.setOnClickListener(v -> {//(Android Coiding, 2019)
             Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             activityResultLauncher_Camera.launch(takePicture);
         });
 
         //Result for Camera
-        activityResultLauncher_Camera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        activityResultLauncher_Camera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {//(Android Coiding, 2019)
             assert result.getData() != null;
                 Bundle extras = result.getData().getExtras();
             if (extras != null) {
-                imageBitmap = (Bitmap) extras.get("data");
-                userImage.setImageBitmap(imageBitmap);
+                imageBitmap = (Bitmap) extras.get("data");//(Android Coiding, 2019)
+                userImage.setImageBitmap(imageBitmap);//(Android Coiding, 2019)
                 imageSet = true;
             }
 
@@ -363,10 +363,6 @@ public class Fragment_Add extends Fragment {
         });
     }
 
-
-
-
-
     private void storeCoin() {
         Thread coinStore = new Thread(){
             public void run()
@@ -402,7 +398,7 @@ public class Fragment_Add extends Fragment {
         coinStore.start();
     }
 
-    private boolean savePhotoToInternalStorage() {
+    private boolean savePhotoToInternalStorage() {//( Philipp Lackner, 2021)
 
         Thread saveImage = new Thread(){
             public void run(){
@@ -426,7 +422,7 @@ public class Fragment_Add extends Fragment {
         return done;
     }
 
-    private void retrieveImage(int imageID)
+    private void retrieveImage(int imageID) //( Philipp Lackner, 2021)
     {
         String name = imageID +".jpg";
         try{
@@ -448,7 +444,7 @@ public class Fragment_Add extends Fragment {
     }
 
     private void backActivity() {
-        Bundle bundle = new Bundle();
+        Bundle bundle = new Bundle();//(valerybodak,2020)
         bundle.putInt("StartPage",1);
         findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                 setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)

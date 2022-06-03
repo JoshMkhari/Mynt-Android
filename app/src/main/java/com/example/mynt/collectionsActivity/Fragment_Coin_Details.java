@@ -61,7 +61,7 @@ public class Fragment_Coin_Details extends Fragment{
 
 
 
-        Database_Lite db = new Database_Lite(getContext());
+        Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
         Model_Coin model_coin = null;//(Section, 2021);
         ArrayList<Model_Coin> dbCoins = db.getAllCoins();
 
@@ -97,13 +97,13 @@ public class Fragment_Coin_Details extends Fragment{
         }
         catch(Exception ignored){
         }
-        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) { //(Анатолий К.,2020)
             @Override
             public void handleOnBackPressed() {
                 backActivity();
             }
         };
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);//(Анатолий К.,2020)
 
         coinImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,7 +114,7 @@ public class Fragment_Coin_Details extends Fragment{
 
                 FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
                         .addSharedElement(coinImage, "secondTransitionName")
-                        .build();
+                        .build();//(android developer blog, 2018)
 
 
                 Navigation.findNavController(details).navigate(R.id.action_fragment_Coin_Details_to_fragment_CoinFull, bundle,null,extras);
@@ -130,14 +130,14 @@ public class Fragment_Coin_Details extends Fragment{
     private void backActivity() {
         if(task==0)// Fragment was accessed home screen
         {
-            Bundle bundle = new Bundle();
+            Bundle bundle = new Bundle();//(valerybodak,2020)
             bundle.putInt("StartPage",0);
             findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                     setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)
 
         }else
         {
-            Navigation.findNavController(details).navigateUp();
+            Navigation.findNavController(details).navigateUp();//(JHowzer,2018)
         }
     }
 

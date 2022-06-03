@@ -112,7 +112,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
 
     private void ViewLoggedInUser(){
 
-        Database_Lite db = new Database_Lite(getContext());
+        Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
 
         ArrayList<Model_User> users = db.getAllUsers();
         for (int i = 0; i< users.size(); i++)
@@ -129,7 +129,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
 
         //Onclick Listeners
         optionListView.setOnItemClickListener((parent, v, position, id) -> {
-            Bundle bundle = new Bundle();
+            Bundle bundle = new Bundle();//(valerybodak,2020)
             bundle.putInt("User",user.getUserID());
             //Intent collections = new Intent(getContext(), Activity_Collections.class);
             if(position==0)
@@ -163,7 +163,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
     //Implementing RecyclerViewInterface Method
     @Override
     public void onItemClick(int position, ImageView coinImage) {
-        Bundle bundle = new Bundle();
+        Bundle bundle = new Bundle();//(valerybodak,2020)
         bundle.putInt("Task", 0);
         bundle.putInt("CoinID", arrayList_recent_coins.get(position).getCoinID());
         //ViewCompat.setTransitionName(coinImage, "recentTransaction");

@@ -26,7 +26,7 @@ public class Activity_Collections extends AppCompatActivity {
 
         setContentView(R.layout.activity_collections);
 
-        Bundle bundle = getIntent().getExtras();
+        Bundle bundle = getIntent().getExtras();//(valerybodak,2020)
         int page = 1;
         if(bundle == null)
         {

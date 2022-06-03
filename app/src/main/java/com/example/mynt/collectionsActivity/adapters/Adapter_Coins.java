@@ -96,7 +96,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
                 }else
                 {
                     Model_Date model_date = new Model_Date();//(Shabbir Dhangot,2016)
-                    return model_date.getMonthFormat(calDay.get(Calendar.MONTH),true);
+                    return model_date.getMonthFormat(calDay.get(Calendar.MONTH),true);//(Code With Cal, 2020)
                 }
             }
             return String.valueOf(calDay.get(Calendar.YEAR));
@@ -125,7 +125,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
         catch(Exception ignored){
         }
         Model_Date model_date = new Model_Date();//(Shabbir Dhangot,2016)
-        String convertedDate = model_date.convertDateString(coinsList.get(position).getDateAcquired(),true);
+        String convertedDate = model_date.convertDateString(coinsList.get(position).getDateAcquired(),true);//(Code With Cal, 2020)
         holder.date.setText(convertedDate);
         holder.country.setText("South Africa");
 
