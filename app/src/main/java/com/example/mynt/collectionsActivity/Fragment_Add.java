@@ -66,11 +66,11 @@ public class Fragment_Add extends Fragment {
     private int coinID;
     private Button datePicker;
     private DatePickerDialog dateAcquired;
-    private Model_User model_user;
+    private Model_User model_user;//(Section, 2021)
     private ArrayList<Model_Collections> allUserCollections;
     private boolean done;
     private String dateAq;
-    private Model_Date model_date;
+    private Model_Date model_date;//(Shabbir Dhangot,2016)
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -372,7 +372,7 @@ public class Fragment_Add extends Fragment {
             public void run()
             {
                 try {
-                    Model_Coin model_coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),
+                    Model_Coin model_coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),//(Section, 2021)
                             0,
                             "POE",
                             "POE",
@@ -451,7 +451,7 @@ public class Fragment_Add extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putInt("StartPage",1);
         findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
-                setGraph(R.navigation.collection_navigation,bundle);
+                setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)
 
     }
 }

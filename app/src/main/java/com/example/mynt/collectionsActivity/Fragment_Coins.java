@@ -41,10 +41,10 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
     private ArrayList<Integer> coinIDs;
     private TextView collectionName_textView,pageTitle_textView, progress_textview, goalTitle;
     private String blockTitle;
-    private Model_User model_user;
+    private Model_User model_user;//(Section, 2021)
     private ArrayList<Model_Coin> coinsList;
     private ProgressBar goalProgress;
-    private Model_Goals currentCollection;
+    private Model_Goals currentCollection;//(Section, 2021)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -75,7 +75,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
         RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerView.Adapter<Adapter_Coins.CoinViewHolder> mAdapter = new Adapter_Coins(coinsList, getContext(), this);
+        RecyclerView.Adapter<Adapter_Coins.CoinViewHolder> mAdapter = new Adapter_Coins(coinsList, getContext(), this);//(Professor Sluiter, 2020).
         recyclerView.setAdapter(mAdapter);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
@@ -119,7 +119,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
         coinsList = mdl.allCoinsAndCollections(getContext(),task,collectionID, model_user);
         coinIDs = new ArrayList<>();
 
-        Collections.sort(coinsList, new Model_Coin_Comparator_Date());
+        Collections.sort(coinsList, new Model_Coin_Comparator_Date());//(GeeksForGeeks,2020)
 
         if (task == 0 || task == 2) //All Coins
         {
@@ -142,7 +142,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
             {
                 if(AllCollections.get(i).getCollectionID()== collectionID)
                 {
-                    currentCollection= new Model_Goals(AllCollections.get(i).getCollectionName(),0,AllCollections.get(i).getGoal());
+                    currentCollection= new Model_Goals(AllCollections.get(i).getCollectionName(),0,AllCollections.get(i).getGoal());//(Section, 2021)
                 }
             }
             currentCollection.setNumCoins(coinsList.size());
@@ -187,7 +187,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
             Bundle bundle = new Bundle();
             bundle.putInt("StartPage",0);
             findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
-                    setGraph(R.navigation.collection_navigation,bundle);
+                    setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)
         }
     }
 }

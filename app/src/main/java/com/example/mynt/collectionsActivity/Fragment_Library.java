@@ -44,7 +44,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
     private ImageButton loginButton;
     private View libraryView;
     private ArrayList<Model_Coin> arrayList_recent_coins;
-    private Model_User user;
+    private Model_User user;//(Section, 2021)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,22 +68,22 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         ArrayList<Model_Coin> currentUserCoins = mdl.allCoinsAndCollections(getContext(), 0, 0, user);
 
         //Populating Library Options List
-        arrayList_library_navigation.add(new Model_Library_Options(
+        arrayList_library_navigation.add(new Model_Library_Options(//(Section, 2021)
                 getResources().getString(R.string.library_option_coins),
                 currentUserCoins.size()));
 
-        arrayList_library_navigation.add(new Model_Library_Options(
+        arrayList_library_navigation.add(new Model_Library_Options(//(Section, 2021)
                 getResources().getString(R.string.library_option_collections),
                 0));
 
-        arrayList_library_navigation.add(new Model_Library_Options(
+        arrayList_library_navigation.add(new Model_Library_Options(//(Section, 2021)
                 getResources().getString(R.string.library_option_goals),
                 62));
 
         int i= currentUserCoins.size();
 
 
-        Collections.sort(currentUserCoins, new Model_Coin_Comparator_ID());
+        Collections.sort(currentUserCoins, new Model_Coin_Comparator_ID());//(GeeksForGeeks,2020)
 
         arrayList_recent_coins.addAll(currentUserCoins);
 
@@ -100,10 +100,10 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
 
         //Setting up adapters
         //ListView
-        Adapter_Library_Options optionsListAdapter = new Adapter_Library_Options(getContext(), arrayList_library_navigation, user);
+        Adapter_Library_Options optionsListAdapter = new Adapter_Library_Options(getContext(), arrayList_library_navigation, user);//(FoxAndroid,2021)
         optionListView.setAdapter(optionsListAdapter);
         //recyclerView
-        RecyclerView.Adapter<Adapter_Recent_Coins.CoinViewHolder> mAdapter = new Adapter_Recent_Coins(arrayList_recent_coins, getContext(), this);
+        RecyclerView.Adapter<Adapter_Recent_Coins.CoinViewHolder> mAdapter = new Adapter_Recent_Coins(arrayList_recent_coins, getContext(), this);//(Professor Sluiter, 2020).
         recyclerView.setAdapter(mAdapter);
 
 

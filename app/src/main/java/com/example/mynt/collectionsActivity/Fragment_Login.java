@@ -31,7 +31,7 @@ public class Fragment_Login extends Fragment {
     private ImageButton close;
     private View loginView;
     private Database_Lite db;
-    private Model_User model_user;
+    private Model_User model_user;//(Section, 2021)
     private ArrayList<Model_User> users;
 
 

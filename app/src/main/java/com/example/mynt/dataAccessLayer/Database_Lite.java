@@ -574,7 +574,7 @@ public class Database_Lite extends SQLiteOpenHelper {
     }
 
 
-    public void updateCollection(Model_Collections model_collections)
+    public void updateCollection(Model_Collections model_collections)//(Section, 2021)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -584,7 +584,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         cv.clear();
     }
 
-    public void addCollection(Model_Collections model_collections, Model_User model_user) {
+    public void addCollection(Model_Collections model_collections, Model_User model_user) {//(Section, 2021)
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         try {

@@ -62,7 +62,7 @@ public class Fragment_Coin_Details extends Fragment{
 
 
         Database_Lite db = new Database_Lite(getContext());
-        Model_Coin model_coin = null;
+        Model_Coin model_coin = null;//(Section, 2021);
         ArrayList<Model_Coin> dbCoins = db.getAllCoins();
 
         for (int i = 0; i< dbCoins.size(); i++)
@@ -133,7 +133,7 @@ public class Fragment_Coin_Details extends Fragment{
             Bundle bundle = new Bundle();
             bundle.putInt("StartPage",0);
             findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
-                    setGraph(R.navigation.collection_navigation,bundle);
+                    setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)
 
         }else
         {

@@ -20,8 +20,8 @@ import com.example.mynt.Interface_RecyclerView;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
-public class Adapter_Recent_Coins extends RecyclerView.Adapter<Adapter_Recent_Coins.CoinViewHolder>{
-    private final Interface_RecyclerView interfaceRecyclerView;
+public class Adapter_Recent_Coins extends RecyclerView.Adapter<Adapter_Recent_Coins.CoinViewHolder>{//(Professor Sluiter, 2020).
+    private final Interface_RecyclerView interfaceRecyclerView;//(Practical Coding, 2021)
     final ArrayList<Model_Coin> coinsList;
     final Context context;
 
@@ -100,7 +100,7 @@ public class Adapter_Recent_Coins extends RecyclerView.Adapter<Adapter_Recent_Co
                     int pos = getAbsoluteAdapterPosition();
 
                     if(pos != RecyclerView.NO_POSITION){
-                        interfaceRecyclerView.onItemClick(pos,coinImage);
+                        interfaceRecyclerView.onItemClick(pos,coinImage);//(Practical Coding, 2021)
                     }
                 }
             });

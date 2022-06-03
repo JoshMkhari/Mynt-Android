@@ -14,7 +14,7 @@ import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
 
 import java.util.ArrayList;
 
-public class Adapter_Leaderboard extends RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> {
+public class Adapter_Leaderboard extends RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> {//(Professor Sluiter, 2020).
 
     private final ArrayList<Model_Leaderboard> arrayList_Leaderboard;
 

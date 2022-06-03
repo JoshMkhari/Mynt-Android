@@ -11,17 +11,17 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Objects;
 
-public class Model_Coin_Comparator_Date implements Comparator<Model_Coin> {
+public class Model_Coin_Comparator_Date implements Comparator<Model_Coin> {//(GeeksForGeeks,2020)
 
     @Override
     public int compare(Model_Coin o1, Model_Coin o2) {
-        Calendar calo1 = Calendar.getInstance();
-        Calendar calo2 = Calendar.getInstance();
+        Calendar calo1 = Calendar.getInstance();//(Shabbir Dhangot,2016)
+        Calendar calo2 = Calendar.getInstance();//(Shabbir Dhangot,2016)
         Log.d("dateModel", "compare: running");
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         try {
-            calo1.setTime(Objects.requireNonNull(sdf.parse(o1.getDateAcquired())));
-            calo2.setTime(Objects.requireNonNull(sdf.parse(o2.getDateAcquired())));
+            calo1.setTime(Objects.requireNonNull(sdf.parse(o1.getDateAcquired())));//(Shabbir Dhangot,2016)
+            calo2.setTime(Objects.requireNonNull(sdf.parse(o2.getDateAcquired())));//(Shabbir Dhangot,2016)
 
             if (calo1.get(Calendar.YEAR)<calo2.get(Calendar.YEAR)) {
                 //Date 1 occurs after Date 2

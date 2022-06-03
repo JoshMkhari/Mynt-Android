@@ -14,8 +14,8 @@ import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.adapters.Adapter_HomeActFragment;
 import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Database_Lite;
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
-import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator; //(tommybuonomo,2022)
+import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator; //(tommybuonomo,2022)
 
 import java.util.ArrayList;
 
@@ -25,7 +25,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class Fragment_ViewPager extends Fragment {
-    Model_User user = new Model_User();
+    Model_User user = new Model_User();//(Section, 2021)
     //23:54
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,10 +49,10 @@ public class Fragment_ViewPager extends Fragment {
             }
         }
         FragmentManager fragmentManager = getParentFragmentManager();
-        Adapter_HomeActFragment fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getUserID());
-        viewPager2_main.setAdapter((fragmentAdapter));
+        Adapter_HomeActFragment fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getUserID());//(Foxandroid,2021)
+        viewPager2_main.setAdapter((fragmentAdapter));//(Foxandroid,2021)
 
-        SpringDotsIndicator springDotsIndicator = (SpringDotsIndicator) home.findViewById(R.id.spring_dots_indicator);
+        SpringDotsIndicator springDotsIndicator = (SpringDotsIndicator) home.findViewById(R.id.spring_dots_indicator);//(tommybuonomo,2022)
         springDotsIndicator.setViewPager2(viewPager2_main);
 
         //Comment

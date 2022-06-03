@@ -1,6 +1,6 @@
 package com.example.mynt.collectionsActivity.models;
 
-public class Model_User {
+public class Model_User {//(Section, 2021)
 
     private String email;
     private String password;

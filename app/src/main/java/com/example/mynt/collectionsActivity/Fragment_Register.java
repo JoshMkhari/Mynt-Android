@@ -35,7 +35,7 @@ public class Fragment_Register extends Fragment {
     private ImageButton loginWithEmail;
     private ImageButton close;
     private View registerView;
-    private Model_User model_user;
+    private Model_User model_user;//(Section, 2021)
     private Intent i;
 
 
@@ -127,7 +127,7 @@ public class Fragment_Register extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putInt("StartPage",0);
         findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
-                setGraph(R.navigation.collection_navigation,bundle);
+                setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)
     }
 
 }

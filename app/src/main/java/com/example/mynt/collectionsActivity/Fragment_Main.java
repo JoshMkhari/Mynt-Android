@@ -29,7 +29,7 @@ import java.util.Objects;
 public class Fragment_Main extends Fragment {
 
     private ImageButton addButton;
-    private Model_User user;
+    private Model_User user;//(Section, 2021)
     private View main;
     private Bundle bundle;
 

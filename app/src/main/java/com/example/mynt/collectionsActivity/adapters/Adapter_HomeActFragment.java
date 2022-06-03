@@ -12,7 +12,7 @@ import com.example.mynt.collectionsActivity.Fragment_Leaderboard;
 import com.example.mynt.collectionsActivity.Fragment_Library;
 import com.example.mynt.collectionsActivity.Fragment_Main;
 
-public class Adapter_HomeActFragment extends FragmentStateAdapter {
+public class Adapter_HomeActFragment extends FragmentStateAdapter {//(Foxandroid,2021)
 
     private final int userID;
     private final Bundle bundle = new Bundle();
@@ -23,7 +23,7 @@ public class Adapter_HomeActFragment extends FragmentStateAdapter {
 
     @NonNull
     @Override
-    public Fragment createFragment(int position) {
+    public Fragment createFragment(int position) {//(Foxandroid,2021)
 
 
         bundle.putInt("User",userID);
@@ -51,5 +51,5 @@ public class Adapter_HomeActFragment extends FragmentStateAdapter {
     @Override
     public int getItemCount() {
         return 2;
-    }
+    }//(Foxandroid,2021)
 }

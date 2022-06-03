@@ -30,9 +30,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Objects;
 
-public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHolder>{
+public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHolder>{ //(Professor Sluiter, 2020).
+    private final Interface_RecyclerView interfaceRecyclerView;//(Practical Coding, 2021)
 
-    private final Interface_RecyclerView interfaceRecyclerView;
     final ArrayList<Model_Coin> coinsList;
     final Context context;
     static String dateAcquired, dateValue;
@@ -47,7 +47,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
 
     @NonNull
     @Override
-    public CoinViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CoinViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {//(Professor Sluiter, 2020).
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_coins,parent,false);
         return new CoinViewHolder(view);
     }
@@ -95,7 +95,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
                     return "THIS MONTH";
                 }else
                 {
-                    Model_Date model_date = new Model_Date();
+                    Model_Date model_date = new Model_Date();//(Shabbir Dhangot,2016)
                     return model_date.getMonthFormat(calDay.get(Calendar.MONTH),true);
                 }
             }
@@ -107,7 +107,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
         }
     }
     @Override
-    public void onBindViewHolder(@NonNull CoinViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CoinViewHolder holder, int position) {//(Professor Sluiter, 2020).
         holder.name.setText(coinsList.get(position).getValue());
 
         //Need to get actual year here
@@ -124,7 +124,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
         }
         catch(Exception ignored){
         }
-        Model_Date model_date = new Model_Date();
+        Model_Date model_date = new Model_Date();//(Shabbir Dhangot,2016)
         String convertedDate = model_date.convertDateString(coinsList.get(position).getDateAcquired(),true);
         holder.date.setText(convertedDate);
         holder.country.setText("South Africa");
@@ -160,7 +160,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
     @Override
     public int getItemCount() {
         return coinsList.size();
-    }
+    }//(Professor Sluiter, 2020).
 
     public class CoinViewHolder extends RecyclerView.ViewHolder{
         final ImageView coinImage;
@@ -183,13 +183,13 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             daySeparator = itemView.findViewById(R.id.coin_date_separator);
             coinSeparator = itemView.findViewById(R.id.coin_separator);
 
-            itemView.setOnClickListener(v -> {
+            itemView.setOnClickListener(v -> {//(Practical Coding, 2021).
                 if(interfaceRecyclerView != null)
                 {
                     int pos = getAbsoluteAdapterPosition();
 
                     if(pos != RecyclerView.NO_POSITION){
-                        interfaceRecyclerView.onItemClick(pos,coinImage);
+                        interfaceRecyclerView.onItemClick(pos,coinImage);//(Practical Coding, 2021)
                     }
                 }
             });

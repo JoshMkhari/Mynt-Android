@@ -20,7 +20,7 @@ import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
 
-public class Adapter_Library_Options extends BaseAdapter {
+public class Adapter_Library_Options extends BaseAdapter {//(FoxAndroid,2021)
 
     final Context context;
     final LayoutInflater inflater;

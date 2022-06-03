@@ -1,6 +1,6 @@
 package com.example.mynt.collectionsActivity.models;
 
-public class Model_Leaderboard {
+public class Model_Leaderboard {//(Section, 2021)
 
     private final String userName;
     private final int userScore;

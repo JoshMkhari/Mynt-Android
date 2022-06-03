@@ -35,21 +35,21 @@ public class Fragment_Goal extends Fragment {
 
     private EditText target_Edittext;
     private String oldText;
-    private Model_Goals model_goals;
+    private Model_Goals model_goals;//(Section, 2021)
     private ImageButton setGoal_imageButton, back, subtract,add;
     private TextView target_textView;
     private TextView percentOfGoal_textView;
     private View goals;
-    private Model_User model_user;
+    private Model_User model_user;//(Section, 2021)
     private float progress;
     private String currentText;
     private int currentTarget;
     private int task;
     private Database_Lite localDB;
-    private Model_Collections model_collections;
-    private ArrayList<Integer> userCollectionIDs;
-    private ArrayList<Model_Collections> allCollections;
-    private ArrayList<Model_Collections> allUserCollections;
+    private Model_Collections model_collections;//(Section, 2021)
+    private ArrayList<Integer> userCollectionIDs;//(Section, 2021)
+    private ArrayList<Model_Collections> allCollections;//(Section, 2021)
+    private ArrayList<Model_Collections> allUserCollections;//(Section, 2021)
     private Intent home;
     private ProgressBar goalProgress_progressBar;
 
@@ -80,7 +80,7 @@ public class Fragment_Goal extends Fragment {
 
 
         assert getArguments() != null;
-        model_goals = new Model_Goals(getArguments().getString("Collection Name"),getArguments().getInt("Coins"),getArguments().getInt("Goal"));
+        model_goals = new Model_Goals(getArguments().getString("Collection Name"),getArguments().getInt("Coins"),getArguments().getInt("Goal"));//(Section, 2021)
         task = getArguments().getInt("Task");
         model_user = new Model_User();
         model_user.setUserID(getArguments().getInt("User"));

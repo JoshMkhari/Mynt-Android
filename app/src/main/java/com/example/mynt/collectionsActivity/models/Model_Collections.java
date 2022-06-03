@@ -1,6 +1,6 @@
 package com.example.mynt.collectionsActivity.models;
 
-public class Model_Collections {
+public class Model_Collections {//(Section, 2021)
 
     private int CollectionID;//Image for collection cover
     private final String CollectionName;

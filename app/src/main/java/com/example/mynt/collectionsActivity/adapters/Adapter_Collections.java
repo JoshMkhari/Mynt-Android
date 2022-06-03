@@ -25,8 +25,8 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder>{
-    private final Interface_RecyclerView interfaceRecyclerView;
+public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder>{//(Professor Sluiter, 2020).
+    private final Interface_RecyclerView interfaceRecyclerView; //(Practical Coding, 2021)
     private final ArrayList<Model_Collections> collectionsList;
     private final Context context;
     private  final Model_User model_user;
@@ -65,7 +65,7 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
 
         ArrayList<Model_Coin>coinsList = mdl.allCoinsAndCollections(context,1,collectionID,model_user);
 
-        Collections.sort(coinsList, new Model_Coin_Comparator_Date());
+        Collections.sort(coinsList, new Model_Coin_Comparator_Date());//(GeeksForGeeks,2020)
 
         try{
             String name = coinsList.get(0).getCoinID() +".jpg";
@@ -124,7 +124,7 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
                     int pos = getAbsoluteAdapterPosition();
 
                     if(pos != RecyclerView.NO_POSITION){
-                        interfaceRecyclerView.onItemClick(pos,coinImage);
+                        interfaceRecyclerView.onItemClick(pos,coinImage);//(Practical Coding, 2021)
                     }
                 }
             });

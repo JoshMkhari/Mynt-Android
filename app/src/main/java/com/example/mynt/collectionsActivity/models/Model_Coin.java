@@ -3,8 +3,9 @@ package com.example.mynt.collectionsActivity.models;
 import java.io.Serializable;
 import java.util.Comparator;
 
-public class Model_Coin implements Serializable {
+public class Model_Coin implements Serializable {//(GeeksForGeeks,2020)
 
+    //(Section, 2021)
     private final int year;
     private final int mintage;
     private int coinID;

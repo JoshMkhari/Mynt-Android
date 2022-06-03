@@ -1,6 +1,6 @@
 package com.example.mynt.collectionsActivity.models;
 
-public class Model_Goals {
+public class Model_Goals {//(Section, 2021)
     private final String collectionName;
     private int numCoins;
     private final int target;

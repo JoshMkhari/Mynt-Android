@@ -19,7 +19,6 @@ import java.util.Objects;
 import pl.droidsonroids.gif.GifTextView;
 
 public class Activity_Collections extends AppCompatActivity {
-    private GifTextView gifImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +42,8 @@ public class Activity_Collections extends AppCompatActivity {
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
 
-
-        Log.d("EasyPeasyt","runing "+ page);
-
-        //startSplash();
         findNavController(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
-                setGraph(R.navigation.collection_navigation,bundle);
+                setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)
 
     }
 }

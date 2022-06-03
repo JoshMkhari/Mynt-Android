@@ -1,6 +1,6 @@
 package com.example.mynt.collectionsActivity.models;
 
-public class Model_Library_Options {
+public class Model_Library_Options {//(Section, 2021)
     private final String optionName;
 
     public String getOptionName() {

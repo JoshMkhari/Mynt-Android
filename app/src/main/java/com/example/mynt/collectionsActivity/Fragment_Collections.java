@@ -39,7 +39,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
     private View collectionsView;
     private int task;
     private Database_Lite db;
-    private Model_User model_user;
+    private Model_User model_user;//(Section, 2021)
     private ArrayList<Model_Collections> allUserCollections;
 
 
@@ -77,7 +77,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder> mAdapter = new Adapter_Collections(allUserCollections, getContext(), this,model_user);
+        RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder> mAdapter = new Adapter_Collections(allUserCollections, getContext(), this,model_user);//(Professor Sluiter, 2020).
         recyclerView.setAdapter(mAdapter);
 
 
@@ -164,7 +164,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
             Bundle bundle = new Bundle();
             bundle.putInt("StartPage",0);
             findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
-                    setGraph(R.navigation.collection_navigation,bundle);
+                    setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)
         }
     }
 }

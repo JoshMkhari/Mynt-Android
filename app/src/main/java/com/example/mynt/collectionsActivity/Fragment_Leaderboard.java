@@ -41,7 +41,7 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
         recycler_view_leaderboard.setLayoutManager(layout_manager_leaderboard);
 
         //Setting up adapter
-        RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard);
+        RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard);//(Professor Sluiter, 2020).
         recycler_view_leaderboard.setAdapter(rv_leaferbaord_adapter);
 
         DisplayLeaderBoardRanks();
@@ -61,7 +61,7 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
                 Using constructor to create new leaderboard items
                     Passing Username, UserScore, UserIcon
              */
-            Model_Leaderboard lm = new Model_Leaderboard("IHasShoulders", 4396, R.drawable.ic_default_user_profile_icon);
+            Model_Leaderboard lm = new Model_Leaderboard("IHasShoulders", 4396, R.drawable.ic_default_user_profile_icon);//(Section, 2021)
             array_list_leaderboard.add(lm);
         }
 
