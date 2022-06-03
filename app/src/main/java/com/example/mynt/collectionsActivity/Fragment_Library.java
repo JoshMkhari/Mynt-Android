@@ -95,7 +95,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         recyclerView.setHasFixedSize(true);
 
         //Ensuring the recycler view layout contains 2 item in each row
-        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, 1);
+        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(2, 1);//(Professor Sluiter, 2020).
         recyclerView.setLayoutManager(layoutManager);
 
         //Setting up adapters

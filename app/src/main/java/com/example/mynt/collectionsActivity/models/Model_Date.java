@@ -24,7 +24,6 @@ public class Model_Date { //(Shabbir Dhangot,2016)
         }
 
         int monthInt = Integer.parseInt(date.substring(0,dashes.get(0))) - 1;
-        Log.d("month", "getMonthFormat: " + monthInt);
         int subStringDistance;
         subStringDistance = dashes.get(1)-dashes.get(0)-1;
         int start;

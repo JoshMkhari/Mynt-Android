@@ -72,7 +72,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
         RecyclerView recyclerView = coinsView.findViewById(R.id.recyclerView_coins);
         recyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
+        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);//(Professor Sluiter, 2020).
         recyclerView.setLayoutManager(layoutManager);
 
         RecyclerView.Adapter<Adapter_Coins.CoinViewHolder> mAdapter = new Adapter_Coins(coinsList, getContext(), this);//(Professor Sluiter, 2020).
@@ -90,7 +90,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
             @Override
             public void onClick(View v) {
                 //change to goal page
-                Bundle bundle = new Bundle();
+                Bundle bundle = new Bundle();//(valerybodak,2020)
                 bundle.putString("Collection Name", currentCollection.getCollectionName());
                 bundle.putInt("Coins", currentCollection.getNumCoins());
                 bundle.putInt("Goal", currentCollection.getTarget());
@@ -150,8 +150,6 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
             float coins = (float)currentCollection.getNumCoins();
             float target = (float)currentCollection.getTarget();
 
-            Log.d("ValuesDarsh",coins+" coins this");
-            Log.d("ValuesDarsh",target+" target this");
             float progress =  coins /target *100;
 
             if(progress>100)

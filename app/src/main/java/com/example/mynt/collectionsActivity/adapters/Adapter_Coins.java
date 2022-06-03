@@ -63,11 +63,6 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             calToday.set(Calendar.HOUR_OF_DAY,0);
             calDay.setTime(Objects.requireNonNull(sdf.parse(date)));
 
-            //Log.d("callThing", "onBindViewHolder: " + calDay.get(Calendar.YEAR));
-            //Log.d("callThing", "onBindViewHolder: " + calToday);
-            //Log.d("callThing", "onBindViewHolder: " + calDay);
-
-            Log.d("order","this " + date);
             if(calDay.get(Calendar.YEAR) == calToday.get(Calendar.YEAR))
             {
                 if(calDay.get(Calendar.DAY_OF_YEAR) == calToday.get(Calendar.DAY_OF_YEAR))
@@ -84,8 +79,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
                 {
                     return "THIS WEEK";
                 }
-                Log.d("callThing", "onBindViewHolder: comparing " + calDay.get(Calendar.YEAR) + " and " + calToday.get(Calendar.YEAR) );
-                if(calDay.get(Calendar.WEEK_OF_YEAR) == (thisWeek-1))
+                 if(calDay.get(Calendar.WEEK_OF_YEAR) == (thisWeek-1))
                 {
                     return "LAST WEEK";
                 }
@@ -100,7 +94,6 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
                 }
             }
             return String.valueOf(calDay.get(Calendar.YEAR));
-            //Log.d("callThing", "onBindViewHolder: " + dayOfWeek);
         } catch (ParseException e) {
             e.printStackTrace();
             return "Error";
@@ -131,7 +124,6 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
 
         dateValue = coinsList.get(position).getDateAcquired();
 
-        Log.d("thisisCurr", "onBindViewHolder: " + current);
         if(current.equals("No"))
         {
             dateAcquired = returnDay(dateValue);

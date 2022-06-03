@@ -62,7 +62,6 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         model_user.setUserID(getArguments().getInt("User"));
 
         String userID = model_user.getUserID() + " this";
-        Log.d("collections", userID);
 
         DisplayAllLocalCollections();
         CreateCollection();
@@ -74,7 +73,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
 
         recyclerView.setHasFixedSize(true);
 
-        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);
+        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);//(Professor Sluiter, 2020).
         recyclerView.setLayoutManager(layoutManager);
 
         RecyclerView.Adapter<Adapter_Collections.CollectionsViewHolder> mAdapter = new Adapter_Collections(allUserCollections, getContext(), this,model_user);//(Professor Sluiter, 2020).

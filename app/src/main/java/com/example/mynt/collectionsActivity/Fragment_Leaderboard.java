@@ -37,7 +37,7 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
         recycler_view_leaderboard.setHasFixedSize(true);
 
         //Ensuring the recycler view layout contains 1 item in each row
-        RecyclerView.LayoutManager layout_manager_leaderboard = new StaggeredGridLayoutManager(1, 1);
+        RecyclerView.LayoutManager layout_manager_leaderboard = new StaggeredGridLayoutManager(1, 1);//(Professor Sluiter, 2020).
         recycler_view_leaderboard.setLayoutManager(layout_manager_leaderboard);
 
         //Setting up adapter

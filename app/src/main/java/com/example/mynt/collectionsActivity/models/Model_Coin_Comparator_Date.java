@@ -17,7 +17,6 @@ public class Model_Coin_Comparator_Date implements Comparator<Model_Coin> {//(Ge
     public int compare(Model_Coin o1, Model_Coin o2) {
         Calendar calo1 = Calendar.getInstance();//(Shabbir Dhangot,2016)
         Calendar calo2 = Calendar.getInstance();//(Shabbir Dhangot,2016)
-        Log.d("dateModel", "compare: running");
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         try {
             calo1.setTime(Objects.requireNonNull(sdf.parse(o1.getDateAcquired())));//(Shabbir Dhangot,2016)
@@ -48,7 +47,6 @@ public class Model_Coin_Comparator_Date implements Comparator<Model_Coin> {//(Ge
                 }
             }
         } catch (ParseException e) {
-            Log.d("parseExModel", "compare: error");
             //e.printStackTrace();
             return -1;
         }

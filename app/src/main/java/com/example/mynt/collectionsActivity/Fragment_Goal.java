@@ -87,7 +87,6 @@ public class Fragment_Goal extends Fragment {
 
 
         String userID = model_user.getUserID() + " this";
-        Log.d("goal", userID);
 
         collectionName_textView.setText(model_goals.getCollectionName());
         numCoinsInCollection_textView.setText(String.valueOf(model_goals.getNumCoins()));

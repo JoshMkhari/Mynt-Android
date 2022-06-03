@@ -114,7 +114,6 @@ public class Fragment_Add extends Fragment {
         dateAq = datePicker.getText().toString();
         setupDateAq();
 
-        Log.d("dateAq", "onCreateView: " + dateAq);
         //Listeners
         setUpListeners();
 

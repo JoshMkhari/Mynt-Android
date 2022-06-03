@@ -68,7 +68,6 @@ public class Database_Lite extends SQLiteOpenHelper {
 
         //Table Creation Statements
 
-        Log.d("Yoh","Create::");
         //Material Table
         String tableStatement = ("CREATE TABLE " + MATERIAL_TABLE + "(" + COLUMN_MATERIAL_NAME + " TEXT PRIMARY KEY );");
         db.execSQL(tableStatement);
@@ -347,11 +346,9 @@ public class Database_Lite extends SQLiteOpenHelper {
                 }while (cursor.moveToNext());
             }
             cursor.close();
-            Log.d("allWithColl", "pass: ");
             return coins;
         }catch (Exception e)
         {
-            Log.d("allWithColl", "failed: ");
             return coins;
         }
 
@@ -548,7 +545,6 @@ public class Database_Lite extends SQLiteOpenHelper {
                     cv.put(COLUMN_PASSWORD, model_user.getPassword());
                    // db.update(USER_TABLE,cv,"ID=1",null);
                     db.update(USER_TABLE,cv,COLUMN_USER_EMAIL + "=?",new String[]{oldUser});
-                    Log.d("addUser", "updatePass ");
                     return true;
                 }
                     else {
@@ -559,16 +555,16 @@ public class Database_Lite extends SQLiteOpenHelper {
                             cv.put(COLUMN_STATE, model_user.getState());
                             db.insert(USER_TABLE, null, cv);
                             cv.clear();
-                            Log.d("addUser", "insertPass ");
+
                             return true;
                         } catch (Exception e) {
-                            Log.d("addUser", "insertFailed: ");
+
                             return false;
                         }
                     }
             }catch (Exception e)
             {
-                Log.d("addUser", "updateFailed: ");
+
                 return false;
             }
     }
