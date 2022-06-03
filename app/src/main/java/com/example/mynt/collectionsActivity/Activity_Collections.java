@@ -45,8 +45,10 @@ public class Activity_Collections extends AppCompatActivity {
 
 
         Log.d("EasyPeasyt","runing "+ page);
+
         //startSplash();
         findNavController(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                 setGraph(R.navigation.collection_navigation,bundle);
+
     }
 }

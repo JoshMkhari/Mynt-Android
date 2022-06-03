@@ -137,6 +137,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             dateAcquired = returnDay(dateValue);
             current = dateAcquired;
             holder.acquired.setText(dateAcquired);
+            holder.coinSeparator.setVisibility(View.GONE);
         }else
         {
             dateAcquired = returnDay(coinsList.get(position).getDateAcquired());
@@ -145,10 +146,12 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
                 holder.acquired.setVisibility(View.GONE);
 
                 holder.daySeparator.setVisibility(View.GONE);
+
             }else
             {
                 current = dateAcquired;
                 holder.acquired.setText(dateAcquired);
+                holder.coinSeparator.setVisibility(View.GONE);
             }
         }
 
@@ -167,7 +170,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
         final TextView country;
         final TextView acquired;
         final ImageView daySeparator;
-
+        final ImageView coinSeparator;
 
         public CoinViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -178,6 +181,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             date = itemView.findViewById(R.id.textview_coin_acquired_date);
             acquired = itemView.findViewById(R.id.textview_coinDate);
             daySeparator = itemView.findViewById(R.id.coin_date_separator);
+            coinSeparator = itemView.findViewById(R.id.coin_separator);
 
             itemView.setOnClickListener(v -> {
                 if(interfaceRecyclerView != null)

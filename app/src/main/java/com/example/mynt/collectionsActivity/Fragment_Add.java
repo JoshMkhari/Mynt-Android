@@ -47,6 +47,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class Fragment_Add extends Fragment {
@@ -60,7 +61,7 @@ public class Fragment_Add extends Fragment {
     private ImageView userImage;
     private ActivityResultLauncher<Intent> activityResultLauncher_Camera;
     private Bitmap imageBitmap;
-    private Boolean imageSet;
+    private Boolean imageSet = false;
     private Database_Lite localDB;
     private int coinID;
     private Button datePicker;
@@ -107,10 +108,8 @@ public class Fragment_Add extends Fragment {
 
         //ImageView
         userImage = add.findViewById(R.id.userImage);
-        userImage.setBackgroundResource(R.drawable.img_two_rand);
         //Button
         datePicker = add.findViewById(R.id.datePickerButton);
-
         datePicker.setText(getTodaysDate());
         dateAq = datePicker.getText().toString();
         setupDateAq();
@@ -224,7 +223,7 @@ public class Fragment_Add extends Fragment {
                     }
                 }
             } else {
-                Toast.makeText(getContext(), "Set image nest time", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
+                Toast.makeText(getContext(), "Please take a image", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
             }
         });
 
@@ -274,7 +273,6 @@ public class Fragment_Add extends Fragment {
             month = month + 1;
             String date = model_date.makeDateString(day, month, year,false);
             dateAq = month+"/"+day+"/"+year;
-            Log.d("dateAq", "setUpListeners: " + dateAq);
             datePicker.setText(date);
         };
 
@@ -285,8 +283,12 @@ public class Fragment_Add extends Fragment {
 
         int style = AlertDialog.THEME_HOLO_DARK;
         dateAcquired = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
+        dateAcquired.getDatePicker().setMaxDate(new Date().getTime());
 
         datePicker.setOnClickListener(v -> dateAcquired.show());
+
+
+
         //To upload and Change an Image
         changeImage.setOnClickListener(v -> {
             Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -296,7 +298,7 @@ public class Fragment_Add extends Fragment {
         //Result for Camera
         activityResultLauncher_Camera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             assert result.getData() != null;
-            Bundle extras = result.getData().getExtras();
+                Bundle extras = result.getData().getExtras();
             if (extras != null) {
                 imageBitmap = (Bitmap) extras.get("data");
                 userImage.setImageBitmap(imageBitmap);

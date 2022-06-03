@@ -73,7 +73,7 @@
         android:padding="20dp">
 
         <ImageView
-            android:transitionName="libraryTransaction"
+            android:transitionName="firstTransitionName"
             android:id="@+id/CoinDetails_Image"
             android:layout_width="200dp"
             android:layout_height="200dp"
@@ -81,6 +81,7 @@
             tools:ignore="ImageContrastCheck"
             android:contentDescription="@string/coin_image" />
         <TextView
+            android:id="@+id/textViewAcquiredDate"
             android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

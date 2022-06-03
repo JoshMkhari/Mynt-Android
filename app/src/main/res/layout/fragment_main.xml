@@ -8,6 +8,8 @@
     android:background="?colorSecondary"
     android:padding="10dp">
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint_layout_main"
         android:layout_width="match_parent"
@@ -71,15 +73,37 @@
         tools:ignore="ImageContrastCheck" />
 
     <ImageButton
-        android:visibility="invisible"
-        android:layout_marginTop="50dp"
+        android:id="@+id/imageButton"
         android:layout_width="51dp"
         android:layout_height="48dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/search_icon"
         android:contentDescription="@string/mainAct_search_button"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_button_add_coin_main" />
 
+    <TextView
+        android:id="@+id/text_view_user_current"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="?colorPrimary"
+        android:text="User"
+        app:layout_constraintBottom_toTopOf="@+id/text_view_user_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton" />
+
+    <TextView
+        android:id="@+id/text_view_user_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="currentUser"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageButton"
+        android:textColor="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
