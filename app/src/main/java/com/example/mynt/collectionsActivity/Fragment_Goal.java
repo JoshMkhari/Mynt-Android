@@ -176,10 +176,10 @@ public class Fragment_Goal extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 currentText = target_Edittext.getText().toString();
-                if(currentText.length()==5)
+                if(currentText.length()==5 || currentText.length()<1)
                 {
                     target_Edittext.setText(oldText);
-                    Toast.makeText(getContext(), "Goal cannot be greater than 9999", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Goal cannot be greater than 9999 or empty", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {

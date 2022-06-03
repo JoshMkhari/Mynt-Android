@@ -145,9 +145,9 @@
             android:text="Goal"
             android:textColor="?colorSecondaryVariant"
             android:textSize="28sp"
-            android:layout_marginBottom="40dp"
             app:layout_constraintBottom_toTopOf="@+id/GoalsPage_subtract"
-            app:layout_constraintStart_toStartOf="@+id/GoalsPage_GoalValue" />
+            app:layout_constraintStart_toStartOf="@+id/GoalsPage_GoalValue"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -215,7 +215,8 @@
             android:contentDescription="@string/block_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/GoalsPageTarget_TextView"
+
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
             tools:ignore="ImageContrastCheck" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
