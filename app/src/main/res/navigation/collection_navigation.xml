@@ -123,9 +123,9 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_home_main"
-        android:name="com.example.mynt.collectionsActivity.Fragment_home_main"
+        android:name="com.example.mynt.collectionsActivity.Fragment_ViewPager"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_view_pager" >
         <action
             android:id="@+id/action_fragment_home_main_to_fragment_Add"
             app:destination="@id/fragment_Add"

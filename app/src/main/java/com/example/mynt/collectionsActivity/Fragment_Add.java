@@ -61,7 +61,7 @@ public class Fragment_Add extends Fragment {
     private ImageView userImage;
     private ActivityResultLauncher<Intent> activityResultLauncher_Camera;
     private Bitmap imageBitmap;
-    private Boolean imageSet;
+    private Boolean imageSet = false;
     private Database_Lite localDB;
     private int coinID;
     private Button datePicker;
@@ -223,7 +223,7 @@ public class Fragment_Add extends Fragment {
                     }
                 }
             } else {
-                Toast.makeText(getContext(), "Set image nest time", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please take a image", Toast.LENGTH_SHORT).show();
             }
         });
 
