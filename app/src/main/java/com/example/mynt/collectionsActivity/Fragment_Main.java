@@ -13,10 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_User;
+import com.example.mynt.dataAccessLayer.Database_Lite;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -39,6 +42,32 @@ public class Fragment_Main extends Fragment {
         assert getArguments() != null;
         user.setUserID(getArguments().getInt("User"));
         addButton = main.findViewById(R.id.image_button_add_coin_main);
+        TextView userName,userTitle;
+
+        userName = main.findViewById(R.id.text_view_user_main);
+
+        userTitle = main.findViewById(R.id.text_view_user_current);
+
+        Database_Lite db =new Database_Lite(getContext());
+        ArrayList<Model_User> allUsers = db.getAllUsers();
+
+        for(int i=0;i<allUsers.size();i++)
+        {
+            if(allUsers.get(i).getUserID()==user.getUserID())
+            {
+                user =allUsers.get(i);
+                break;
+            }
+        }
+
+        if(user.getEmail().equals("DefaultUser"))
+        {
+            userTitle.setVisibility(View.INVISIBLE);
+            userName.setVisibility(View.INVISIBLE);
+        }else
+        {
+            userName.setText(user.getEmail());
+        }
 
         ImageButton navigateToLibrary;
 
