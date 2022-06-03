@@ -85,6 +85,11 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
         float goal = collectionSize/target*100;
         holder.progressBar.setProgress(Math.round(goal));
 
+        if(position==0)
+        {
+            holder.collectionSeparator.setVisibility(View.GONE);
+        }
+
         // Here I am just highlighting the background
         //holder.itemView.setBackgroundColor(selected_position == position ? Color.GREEN : Color.TRANSPARENT);
     }
@@ -100,6 +105,8 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
         final TextView collectionCoinAmount;
         final TextView collectionName;
         final ProgressBar progressBar;
+        final ImageView collectionSeparator;
+
 
 
         public CollectionsViewHolder(@NonNull View itemView) {
@@ -108,8 +115,10 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
             collectionCoinAmount = itemView.findViewById(R.id.collections_amount_TextView);
             collectionName = itemView.findViewById(R.id.collectionNameTextView);
             progressBar = itemView.findViewById(R.id.progressBar_collections);
+            collectionSeparator = itemView.findViewById(R.id.collection_separator);
 
             itemView.setOnClickListener(v -> {
+
                 if(interfaceRecyclerView != null)
                 {
                     int pos = getAbsoluteAdapterPosition();

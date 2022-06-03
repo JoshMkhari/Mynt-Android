@@ -24,6 +24,16 @@
         app:layout_constraintBottom_toTopOf="@+id/imageview_coin_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_coinDate" />
+
+    <ImageView
+        android:id="@+id/coin_separator"
+        android:layout_width="180dp"
+        android:layout_height="1dp"
+        android:background="@drawable/ic_coins_list_separator"
+        app:layout_constraintBottom_toTopOf="@+id/imageview_coin_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textview_coin_name"
+        app:layout_constraintTop_toBottomOf="@+id/textview_coinDate" />
     <ImageView
         android:id="@+id/imageview_coin_background"
         android:layout_width="120dp"

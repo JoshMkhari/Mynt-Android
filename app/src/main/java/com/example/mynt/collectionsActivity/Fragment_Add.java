@@ -286,6 +286,9 @@ public class Fragment_Add extends Fragment {
         dateAcquired.getDatePicker().setMaxDate(new Date().getTime());
 
         datePicker.setOnClickListener(v -> dateAcquired.show());
+
+
+
         //To upload and Change an Image
         changeImage.setOnClickListener(v -> {
             Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
