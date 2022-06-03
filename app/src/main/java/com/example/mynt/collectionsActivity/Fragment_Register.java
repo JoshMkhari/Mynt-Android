@@ -94,25 +94,25 @@ public class Fragment_Register extends Fragment {
                        boolean emailFound = false;
                        for (int i = 0; i < users.size(); i++) {
                            if (users.get(i).getEmail().equals(model_user.getEmail())) {
-                               Toast.makeText(getContext(), "Email already registered", Toast.LENGTH_SHORT).show();
+                               Toast.makeText(getContext(), "Email already registered", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
                                emailFound = true;
                            }
                        }
                        if (!emailFound)
                            if (db.addUser(model_user)) {
                                db.updateState(model_user);
-                               Toast.makeText(getContext(), "An account has been created successfully for " + email.getText().toString() + ".", Toast.LENGTH_SHORT).show();
+                               Toast.makeText(getContext(), "An account has been created successfully for " + email.getText().toString() + ".", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
                                i = new Intent(getContext(), Activity_Collections.class);
                                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                startActivity(i);
                            }
                        //Additional User Feedback
                    }else
-                       Toast.makeText(getContext(), "A password length must be 8 characters", Toast.LENGTH_LONG).show();
+                       Toast.makeText(getContext(), "A password length must be 8 characters", Toast.LENGTH_LONG).show();//(Alexander, 2016).
                }else
-                   Toast.makeText(getContext(), "A email address has not been entered.", Toast.LENGTH_LONG).show();
+                   Toast.makeText(getContext(), "A email address has not been entered.", Toast.LENGTH_LONG).show();//(Alexander, 2016).
            }else
-               Toast.makeText(getContext(), "ERROR: This account has not been created successfully.", Toast.LENGTH_SHORT).show();
+               Toast.makeText(getContext(), "ERROR: This account has not been created successfully.", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
        });
     }
 

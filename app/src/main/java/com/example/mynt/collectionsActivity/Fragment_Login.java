@@ -66,14 +66,14 @@ public class Fragment_Login extends Fragment {
 
             if(email.getText().toString().length()<3){
                 //Additional User Feedback
-                Toast.makeText(getContext(),"ERROR: A email address has not been entered.",Toast.LENGTH_LONG).show();
-                Toast.makeText(getContext(),"Please enter a email address to proceed.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"ERROR: A email address has not been entered.",Toast.LENGTH_LONG).show();//(Alexander, 2016).
+                Toast.makeText(getContext(),"Please enter a email address to proceed.",Toast.LENGTH_SHORT).show();//(Alexander, 2016).
             }else
                 if(password.getText().toString().length()<8){
 
                     //Additional User Feedback
-                    Toast.makeText(getContext(),"ERROR: A password has not been entered",Toast.LENGTH_LONG).show();
-                    Toast.makeText(getContext(),"Please enter a password to proceed.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"ERROR: A password has not been entered",Toast.LENGTH_LONG).show();//(Alexander, 2016).
+                    Toast.makeText(getContext(),"Please enter a password to proceed.",Toast.LENGTH_SHORT).show();//(Alexander, 2016).
                 }else
                     for (int i=0; i<users.size(); i++) {
                         if(users.get(i).getEmail().equals(model_user.getEmail()))
@@ -86,7 +86,7 @@ public class Fragment_Login extends Fragment {
                                 login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(login);
                                 //Additional User Feedback
-                                Toast.makeText(getContext(),model_user.getEmail()+ " has logged in successfully.",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(),model_user.getEmail()+ " has logged in successfully.",Toast.LENGTH_LONG).show();//(Alexander, 2016).
                             }
                         }
                     }
