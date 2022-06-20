@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -13,8 +12,6 @@ import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.ArrayList;
 
 public class Database_Lite extends SQLiteOpenHelper {
@@ -45,7 +42,7 @@ public class Database_Lite extends SQLiteOpenHelper {
     private static final String COLUMN_PASSWORD = "PASSWORD";
     private static final String COLUMN_UUID = "UUID";
     private  static final String COIN_ID = "ID";
-    private static final String COLUMN_THEME = "THEME";
+    private static final String COLUMN_STATE = "THEME";
     private static final String COLUMN_USER_EMAIL = "EMAIL";
     private static final String COLUMN_USER_NAME = "USER_NAME";
     private static final String COLUMN_USER_PROFILE_PIC = "PROFILE_PIC";
@@ -64,8 +61,9 @@ public class Database_Lite extends SQLiteOpenHelper {
         //Table Creation Statements
 
         //User Table
-        String tableStatement = ("CREATE TABLE " + USER_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_USER_EMAIL + " TEXT, " +
-                COLUMN_THEME + " INTEGER, " + COLUMN_PASSWORD + " TEXT, " + COLUMN_UUID + " TEXT, " + COLUMN_USER_NAME + " TEXT, " + COLUMN_USER_PROFILE_PIC + " BLOB);");
+        String         //User Table
+                tableStatement = ("CREATE TABLE " + USER_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_USER_EMAIL + " TEXT, " +
+                COLUMN_STATE + " INTEGER, " + COLUMN_PASSWORD + " TEXT);");
         db.execSQL(tableStatement);
 
         //Collections Table
@@ -92,7 +90,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         //Populate
         //Populate Users Table
             cv.put(COLUMN_USER_EMAIL,"DefaultUser");
-            cv.put(COLUMN_THEME,1);//0 Means Light Mode, 1 Means dark mode
+            cv.put(COLUMN_STATE,1);//0 Means Light Mode, 1 Means dark mode
             db.insert(USER_TABLE,null,cv);
             cv.clear();
 
@@ -263,12 +261,11 @@ public class Database_Lite extends SQLiteOpenHelper {
                 String email = cursor.getString(1);
                 int state  = cursor.getInt(2);
                 String password = cursor.getString(3);
-                String uuId = cursor.getString(4);
 
 
                 Model_User model_user = new Model_User(email,password,state);
                 model_user.setUserID(userID);
-                model_user.setUuid(uuId);
+                model_user.setState(state);
                 users.add(model_user);
             }while (cursor.moveToNext());
         }
@@ -310,64 +307,63 @@ public class Database_Lite extends SQLiteOpenHelper {
             {
                 if(users.get(i).getState()==1)
                 {
-                    cv.put(COLUMN_THEME, 0);
-                    db.update(USER_TABLE,cv, COLUMN_THEME + "= 1",null);
+                    cv.put(COLUMN_STATE, 0);
+                    db.update(USER_TABLE,cv, COLUMN_STATE + " = 1",null);
                     cv.clear();
                     break;
                 }
             }
-            cv.put(COLUMN_THEME, 1);
-            db.update(USER_TABLE,cv,COLUMN_USER_EMAIL+"=?",new String[]{model_user.getEmail()});
+            cv.put(COLUMN_STATE, 1);
+            db.update(USER_TABLE,cv,COLUMN_USER_EMAIL+" = ",new String[]{model_user.getEmail()});
             cv.clear();
         }
 
-        public boolean addUser(Model_User model_user) {//(freecodecamp,2020)
-            SQLiteDatabase db = this.getWritableDatabase();
-            ContentValues cv = new ContentValues();
 
-            ArrayList<Model_User> users = getAllUsers();
-            String oldUser ="DefaultUser";
+    public String addUser(Model_User model_user) {//(freecodecamp,2020)
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
 
-            ArrayList<Model_User> AllUsers = getAllUsers();
+        ArrayList<Model_User> users = getAllUsers();
+        String oldUser ="DefaultUser";
 
-            for (int i=0; i<AllUsers.size(); i++)
+        ArrayList<Model_User> AllUsers = getAllUsers();
+
+        for (int i=0; i<AllUsers.size(); i++)
+        {
+            if (AllUsers.get(i).getUserID() == model_user.getUserID())
             {
-                if (AllUsers.get(i).getUserID() == model_user.getUserID())
-                {
-                    model_user = AllUsers.get(i);
-                }
+                model_user = AllUsers.get(i);
             }
-            try
-            {
-                if (users.get(0).getEmail().equals(oldUser)) {
+        }
+        try
+        {
+            if (users.get(0).getEmail().equals(oldUser)) {
+                cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
+                cv.put(COLUMN_PASSWORD, model_user.getPassword());
+                // db.update(USER_TABLE,cv,"ID=1",null);
+                db.update(USER_TABLE,cv,COLUMN_USER_EMAIL + "=?",new String[]{oldUser});
+                return "true switch";
+            }
+            else {
+                try {
+                    //Collections table
                     cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
                     cv.put(COLUMN_PASSWORD, model_user.getPassword());
-                    cv.put(COLUMN_UUID, model_user.getUuid());
-                   // db.update(USER_TABLE,cv,"ID=1",null);
-                    db.update(USER_TABLE,cv,COLUMN_USER_EMAIL + "=?",new String[]{oldUser});
-                    return true;
+                    cv.put(COLUMN_STATE, model_user.getState());
+                    db.insert(USER_TABLE, null, cv);
+                    cv.clear();
+
+                    return "true";
+                } catch (Exception e) {
+
+                    return "false";
                 }
-                    else {
-                        try {
-                            //Collections table
-                            cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
-                            cv.put(COLUMN_PASSWORD, model_user.getPassword());
-                            cv.put(COLUMN_THEME, model_user.getState());
-                            cv.put(COLUMN_UUID, model_user.getUuid());
-                            db.insert(USER_TABLE, null, cv);
-                            cv.clear();
-
-                            return true;
-                        } catch (Exception e) {
-
-                            return false;
-                        }
-                    }
-            }catch (Exception e)
-            {
-
-                return false;
             }
+        }catch (Exception e)
+        {
+
+            return "false switch";
+        }
     }
 
 
@@ -377,7 +373,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
 
         cv.put(COLUMN_GOAL, model_collections.getGoal());
-        db.update(COLLECTION_TABLE,cv,"ID =" + model_collections.getCollectionID(),null);
+        db.update(COLLECTION_TABLE,cv,"ID = " + model_collections.getCollectionID(),null);
         cv.clear();
     }
 

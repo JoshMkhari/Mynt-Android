@@ -46,7 +46,7 @@ public class Activity_Collections extends AppCompatActivity {
         if(Activity_Main.sync)
         {
             User_Data user_data = new User_Data();
-            user_data.uploadLocalData();
+            user_data.mergeData();
         }
 
         findNavController(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2))).

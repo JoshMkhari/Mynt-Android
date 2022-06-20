@@ -112,9 +112,6 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
     }
 
     private void ViewLoggedInUser(){
-
-        Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
-
         user = User_Data.currentUser;
     }
 

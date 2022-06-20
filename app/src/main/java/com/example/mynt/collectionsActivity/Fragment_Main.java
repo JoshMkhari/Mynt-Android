@@ -49,8 +49,8 @@ public class Fragment_Main extends Fragment {
 
         userTitle = main.findViewById(R.id.text_view_user_current);
 
-        user = User_Data.currentUser;
-
+        Database_Lite db =new Database_Lite(getContext());//(freecodecamp,2020)
+        ArrayList<Model_User> allUsers = db.getAllUsers();
 
         if(user.getEmail().equals("DefaultUser"))
         {

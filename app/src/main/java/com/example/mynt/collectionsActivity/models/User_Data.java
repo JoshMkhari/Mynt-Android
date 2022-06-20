@@ -15,23 +15,14 @@ public class User_Data {
     public static FirebaseUser firebaseUser;
     public static Model_User currentUser;
 
-    public void uploadLocalData()
+    public void uploadAllLocalData()
     {
         //First check if user is authorized
-
-        //Download From FireBase
-        downloadOnlineData();
-
-        mergeData();
-        // Write a message to the database
-        if(currentUser.getUuid() != null)
-        {
+        Log.d("NiggaP", "uploadAllLocalData: ");
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference(currentUser.getUuid());
-            myRef.setValue("Hello, World!");
-        }
-
-
+            DatabaseReference mDatabase = database.getReference();
+            mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentUser);
+        //mDatabase.child("users").child(firebaseUser.getUid()).setValue("Nigga");
 
         //Merge online data with offline data
     }
@@ -41,7 +32,7 @@ public class User_Data {
         Log.d("downloadOnlineData", "downloadOnlineData: ");
     }
 
-    private void mergeData()
+    public void mergeData()
     {
         Log.d("mergeData", "mergeData: ");
     }

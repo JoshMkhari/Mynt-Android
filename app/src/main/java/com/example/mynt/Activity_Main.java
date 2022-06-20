@@ -1,15 +1,21 @@
 package com.example.mynt;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.mynt.collectionsActivity.Activity_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -35,7 +41,24 @@ public class Activity_Main extends AppCompatActivity {
                 break;
             }
         }
-
+        Log.d("taskSycce", "onComplete: "+User_Data.currentUser.getEmail());
+        if (!User_Data.currentUser.getEmail().equals("DefaultUser"))
+        {
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            mAuth.signInWithEmailAndPassword(User_Data.currentUser.getEmail(),User_Data.currentUser.getPassword())
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Log.d("taskSycce", "onComplete: ");
+                        User_Data.firebaseUser = mAuth.getCurrentUser();
+                        User_Data ud = new User_Data();
+                        ud.uploadAllLocalData();
+                    }
+                }
+            });
+            //sign in
+        }
         handler.postDelayed(new Runnable(){//(Codeplayon, 2019)
             @Override
             public void run() {
@@ -51,5 +74,7 @@ public class Activity_Main extends AppCompatActivity {
                 //SplashActivity.this.finish();
             }
         }, 2500);//(Codeplayon, 2019)
+
+
     }
 }

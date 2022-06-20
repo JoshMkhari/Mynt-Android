@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,11 +100,11 @@ public class Fragment_Register extends Fragment {
                                    User_Data.firebaseUser = mAuth.getCurrentUser();
                                    User_Data.currentUser = model_user;
                                    Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
-                                   model_user.setUuid(User_Data.firebaseUser.getUid());
-                                   db.addUser(model_user);
+                                   String result = db.addUser(model_user);
 
+                                   Log.d("yourMom", "onComplete: " + result);
                                    User_Data user_data = new User_Data();
-                                   user_data.uploadLocalData();
+                                   user_data.mergeData();
 
                                    i = new Intent(getContext(), Activity_Collections.class);
                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -116,8 +117,6 @@ public class Fragment_Register extends Fragment {
                                }
                            }
                        });
-                       User_Data user_data = new User_Data();
-                       user_data.uploadLocalData();
                        //Additional User Feedback
                    }else
                        Toast.makeText(getContext(), "A password length must be 8 characters", Toast.LENGTH_LONG).show();//(Alexander, 2016).

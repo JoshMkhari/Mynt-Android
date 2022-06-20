@@ -1,5 +1,7 @@
 package com.example.mynt.collectionsActivity.models;
 
+import java.util.ArrayList;
+
 public class Model_Collections {//(Section, 2021)
 
     private int CollectionID;//Image for collection cover
