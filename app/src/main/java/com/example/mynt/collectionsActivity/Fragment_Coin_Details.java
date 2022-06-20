@@ -89,11 +89,9 @@ public class Fragment_Coin_Details extends Fragment{
 
         String name = model_coin.getCoinID() + ".jpg";
         try{
-            FileInputStream fis = requireContext().openFileInput(name);
-            Bitmap b = BitmapFactory.decodeStream(fis);
-            coinImage.setImageBitmap(b);
+            Bitmap bmp = BitmapFactory.decodeByteArray(model_coin.getImageId(), 0, model_coin.getImageId().length);
+            coinImage.setImageBitmap(bmp);
             //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
-            fis.close();
         }
         catch(Exception ignored){
         }
