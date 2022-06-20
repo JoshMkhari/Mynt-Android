@@ -86,16 +86,8 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
 
     private void DisplayAllLocalCollections(){
 
-        ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(model_user);
-        ArrayList<Model_Collections> allCollections = db.getAllCollections();
+        allUserCollections = db.getAllCollections();
 
-        allUserCollections = new ArrayList<>();
-
-        for (int i = 0; i< allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                allUserCollections.add(allCollections.get(i));
-        }
     }
 
     private void ReturnToHomePage(){

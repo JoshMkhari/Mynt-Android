@@ -47,8 +47,6 @@ public class Fragment_Goal extends Fragment {
     private int task;
     private Database_Lite localDB;
     private Model_Collections model_collections;//(Section, 2021)
-    private ArrayList<Integer> userCollectionIDs;//(Section, 2021)
-    private ArrayList<Model_Collections> allCollections;//(Section, 2021)
     private ArrayList<Model_Collections> allUserCollections;//(Section, 2021)
     private Intent home;
     private ProgressBar goalProgress_progressBar;
@@ -127,16 +125,8 @@ public class Fragment_Goal extends Fragment {
                 {
                     Toast.makeText(getContext(), "Running new", Toast.LENGTH_SHORT).show();
                     //Get latest collection ID
-                    userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
-                    allCollections = localDB.getAllCollections();
+                    allUserCollections = localDB.getAllCollections();
 
-                    allUserCollections = new ArrayList<>();
-
-                    for (int i=0; i<allCollections.size(); i++)
-                    {
-                        if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                            allUserCollections.add(allCollections.get(i));
-                    }
                     localDB.addCollectionCoin(allUserCollections.get(allUserCollections.size()-1).getCollectionID());
                 }
                 else

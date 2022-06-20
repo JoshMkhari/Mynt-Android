@@ -29,16 +29,8 @@ public class Model_Database_Lite extends Thread {
         //get all collections for a user
         //get all collectionCoins
         //then match correct coins
-        ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(model_user);
-        ArrayList<Model_Collections> allCollections = db.getAllCollections();
-        allUserCollections = new ArrayList<>();
+        allUserCollections = db.getAllCollections();
 
-
-        for (int i=0; i<allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                allUserCollections.add(allCollections.get(i));
-        }
 
         if(task == 0 || task ==2) //All Coins
         {

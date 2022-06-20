@@ -68,12 +68,8 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
         Collections.sort(coinsList, new Model_Coin_Comparator_Date());//(GeeksForGeeks,2020)
 
         try{
-            String name = coinsList.get(0).getCoinID() +".jpg";
-            FileInputStream fis = context.openFileInput(name);
-            Bitmap b = BitmapFactory.decodeStream(fis);
-            holder.coinImage.setImageBitmap(b);
-            //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
-            fis.close();
+            Bitmap bmp = BitmapFactory.decodeByteArray(coinsList.get(0).getImageId(), 0, coinsList.get(0).getImageId().length);
+            holder.coinImage.setImageBitmap(bmp);
         }
         catch(Exception ignored){
             holder.coinImage.setBackgroundResource(R.drawable.img_two_rand);

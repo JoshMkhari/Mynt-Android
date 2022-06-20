@@ -67,16 +67,8 @@ public class Adapter_Library_Options extends BaseAdapter {//(FoxAndroid,2021)
 
         Database_Lite db = new Database_Lite(context);
 
-        ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(model_user);
-        ArrayList<Model_Collections> allCollections = db.getAllCollections();
+        ArrayList<Model_Collections> allUserCollections = db.getAllCollections();
 
-        ArrayList<Model_Collections> allUserCollections = new ArrayList<>();
-
-        for (int i=0; i<allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-            allUserCollections.add(allCollections.get(i));
-        }
 
         int goalTotalProgress = 0;
         for (int i=0; i<allUserCollections.size(); i++)

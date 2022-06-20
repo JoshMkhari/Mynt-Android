@@ -21,27 +21,21 @@ public class Database_Lite extends SQLiteOpenHelper {
 
     //Coin Table
 
-    public static final String COLUMN_MATERIAL_FK = "MATERIAL";
+    public static final String COLUMN_MATERIAL = "MATERIAL";
     //Material Table
-    public static final String MATERIAL_TABLE = COLUMN_MATERIAL_FK + "_TABLE";
     public static final String COLUMN_NAME_VALUE = "NAME";
-    public static final String COLUMN_MATERIAL_NAME = COLUMN_MATERIAL_FK + "_" + COLUMN_NAME_VALUE;
-    public static final String COLUMN_YEAR_FK = "YEAR";
-    public static final String YEAR_TABLE = COLUMN_YEAR_FK + "_TABLE";
-    public static final String COLUMN_YEAR_ID = COLUMN_YEAR_FK + "_ID";
-    public static final String COLUMN_VALUE_FK = "VALUE";
-    public static final String VALUE_TABLE = COLUMN_VALUE_FK + "_TABLE";
-    public static final String COLUMN_VARIETY_FK = "VARIETY";
-    private static final String VARIETY_TABLE = COLUMN_VARIETY_FK + "_TABLE";
-    private static final String COLUMN_VARIETY_NAME = "NAME";
+    public static final String COLUMN_YEAR = "YEAR";
+    public static final String COLUMN_VALUE = "VALUE";
+    public static final String VALUE_TABLE = COLUMN_VALUE + "_TABLE";
+    public static final String COLUMN_VARIETY = "VARIETY";
     public static final String COIN_TABLE = "COIN_TABLE";
     public static final String COLUMN_ALT_NAME = "ALT_NAME";
     public static final String COLUMN_MINTAGE = "MINTAGE";
     public static final String COLUMN_OBSERVE = "OBSERVE";
     public static final String COLUMN_REVERSE = "REVERSE";
     public static final String COLUMN_IMAGE = "IMAGE";
-    private static final String COLUMN_COIN_FK = "COIN_ID";
-    private static final String COLUMN_COLLECTION_FK = "COLLECTION_ID";
+    private static final String COLUMN_COIN = "COIN_ID";
+    private static final String COLUMN_COLLECTION = "COLLECTION_ID";
     private static final String COLLECTIONS_COIN_TABLE = "COLLECTION_COIN_TABLE";
     private static final String COLLECTION_TABLE = "COLLECTION_TABLE";
     private static final String COLUMN_COLLECTION_NAME = "NAME";
@@ -50,10 +44,10 @@ public class Database_Lite extends SQLiteOpenHelper {
     private static final String USER_TABLE = "USER_TABLE";
     private static final String COLUMN_PASSWORD = "PASSWORD";
     private  static final String COIN_ID = "ID";
-    private  static final String USER_COLLECTIONS_TABLE = "USER_COLLECTION_TABLE";
-    private  static final String COLUMN_USER_FK = "USER_ID";
-    private static final String COLUMN_STATE = "STATE";
+    private static final String COLUMN_THEME = "THEME";
     private static final String COLUMN_USER_EMAIL = "EMAIL";
+    private static final String COLUMN_USER_NAME = "USER_NAME";
+    private static final String COLUMN_USER_PROFILE_PIC = "PROFILE_PIC";
 
     //Year Table
     //public static final String COLUMN_MATERIAL_NAME = "NAME";
@@ -68,24 +62,9 @@ public class Database_Lite extends SQLiteOpenHelper {
 
         //Table Creation Statements
 
-        //Material Table
-        String tableStatement = ("CREATE TABLE " + MATERIAL_TABLE + "(" + COLUMN_MATERIAL_NAME + " TEXT PRIMARY KEY );");
-        db.execSQL(tableStatement);
-
         //User Table
-        tableStatement = ("CREATE TABLE " + USER_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_USER_EMAIL + " TEXT, " +
-                COLUMN_STATE + " INTEGER, " + COLUMN_PASSWORD + " TEXT);");
-        db.execSQL(tableStatement);
-
-        //Year Table
-        tableStatement = ("CREATE TABLE " + YEAR_TABLE + "(" + COLUMN_YEAR_ID + " INTEGER PRIMARY KEY );");
-        db.execSQL(tableStatement);
-
-        //Value Table
-        tableStatement = ("CREATE TABLE " + VALUE_TABLE + "(" + COLUMN_NAME_VALUE + " TEXT PRIMARY KEY );");
-        db.execSQL(tableStatement);
-        //Variety Table
-        tableStatement = ("CREATE TABLE " + VARIETY_TABLE + "(" + COLUMN_VARIETY_NAME + " TEXT PRIMARY KEY );");
+        String tableStatement = ("CREATE TABLE " + USER_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_USER_EMAIL + " TEXT, " +
+                COLUMN_THEME + " INTEGER, " + COLUMN_PASSWORD + " TEXT, " + COLUMN_USER_NAME + " TEXT, " + COLUMN_USER_PROFILE_PIC + " BLOB);");
         db.execSQL(tableStatement);
 
         //Collections Table
@@ -93,31 +72,18 @@ public class Database_Lite extends SQLiteOpenHelper {
                 + " TEXT, "+ COLUMN_GOAL + " INTEGER);");
         db.execSQL(tableStatement);
 
-        //UserCollections Table
-        tableStatement = ("CREATE TABLE " + USER_COLLECTIONS_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_COLLECTION_FK
-                + " INTEGER, " + COLUMN_USER_FK + " INTEGER, "
-                + "FOREIGN KEY (" + COLUMN_COLLECTION_FK + ") REFERENCES "+ COLLECTION_TABLE +"(ID) ,"
-                + "FOREIGN KEY (" + COLUMN_USER_FK + ") REFERENCES "+ USER_TABLE +"(ID));");
-        db.execSQL(tableStatement);
-
         //Coin Table
         tableStatement = ("CREATE TABLE " + COIN_TABLE + "(" + COIN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_ALT_NAME + " TEXT, "
-                + COLUMN_MINTAGE + " INTEGER, " + COLUMN_OBSERVE + " TEXT, " + COLUMN_REVERSE + " TEXT, "+ COLUMN_IMAGE + " TEXT, "
-                + COLUMN_DATE_TAKEN + " TEXT, " + COLUMN_VALUE_FK + " REAL, "
-                + COLUMN_YEAR_FK + " INTEGER, " + COLUMN_VARIETY_FK + " INTEGER, " + COLUMN_MATERIAL_FK + " INTEGER, "
-                + "FOREIGN KEY (" + COLUMN_VALUE_FK + ") REFERENCES "+ VALUE_TABLE +"("+COLUMN_NAME_VALUE+"), "
-                + "FOREIGN KEY (" + COLUMN_YEAR_FK + ") REFERENCES "+ YEAR_TABLE +"("+COLUMN_YEAR_ID+"), "
-                + "FOREIGN KEY (" + COLUMN_VARIETY_FK + ") REFERENCES "+ VARIETY_TABLE +"("+COLUMN_VARIETY_NAME+"), "
-                + "FOREIGN KEY (" + COLUMN_MATERIAL_FK + ") REFERENCES "+ MATERIAL_TABLE +"("+COLUMN_MATERIAL_NAME+"));");
+                + COLUMN_MINTAGE + " INTEGER, " + COLUMN_OBSERVE + " TEXT, " + COLUMN_REVERSE + " TEXT, "+ COLUMN_IMAGE + " BLOB, "
+                + COLUMN_DATE_TAKEN + " TEXT, " + COLUMN_VALUE + " REAL, "
+                + COLUMN_YEAR + " INTEGER, " + COLUMN_VARIETY + " INTEGER, " + COLUMN_MATERIAL + " INTEGER);");
         db.execSQL(tableStatement);
 
-
-
         //Collection_Coin Table
-        tableStatement = ("CREATE TABLE " + COLLECTIONS_COIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_COLLECTION_FK
-                + " INTEGER, " + COLUMN_COIN_FK + " INTEGER, "
-                + "FOREIGN KEY (" + COLUMN_COLLECTION_FK + ") REFERENCES "+ COLLECTION_TABLE +"(ID) ,"
-                + "FOREIGN KEY (" + COLUMN_COIN_FK + ") REFERENCES "+ COIN_TABLE + "(" + COIN_ID +"));");
+        tableStatement = ("CREATE TABLE " + COLLECTIONS_COIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_COLLECTION
+                + " INTEGER, " + COLUMN_COIN + " INTEGER, "
+                + "FOREIGN KEY (" + COLUMN_COLLECTION + ") REFERENCES "+ COLLECTION_TABLE +"(ID) ,"
+                + "FOREIGN KEY (" + COLUMN_COIN + ") REFERENCES "+ COIN_TABLE + "(" + COIN_ID +"));");
         db.execSQL(tableStatement);
 
         ContentValues cv = new ContentValues();
@@ -125,129 +91,8 @@ public class Database_Lite extends SQLiteOpenHelper {
         //Populate
         //Populate Users Table
             cv.put(COLUMN_USER_EMAIL,"DefaultUser");
-            cv.put(COLUMN_STATE,1);
+            cv.put(COLUMN_THEME,1);//0 Means Light Mode, 1 Means dark mode
             db.insert(USER_TABLE,null,cv);
-            cv.clear();
-
-        //Populate Materials Table
-            cv.put(COLUMN_MATERIAL_NAME,"Bimetallic");
-            db.insert(MATERIAL_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_MATERIAL_NAME,"Silver");
-            db.insert(MATERIAL_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_MATERIAL_NAME,"Nickel-plated copper");
-            db.insert(MATERIAL_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_MATERIAL_NAME,"Nickel");
-            db.insert(MATERIAL_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_MATERIAL_NAME,"Bronze-plated Steel");
-            db.insert(MATERIAL_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_MATERIAL_NAME,"Copper-plated Steel");
-            db.insert(MATERIAL_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_MATERIAL_NAME,"Bronze");
-            db.insert(MATERIAL_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_MATERIAL_NAME,"Brass");
-            db.insert(MATERIAL_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_MATERIAL_NAME,"Aluminium-Bronze");
-            db.insert(MATERIAL_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_MATERIAL_NAME,"Gold");
-            db.insert(MATERIAL_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_MATERIAL_NAME,"Platinum");
-            db.insert(MATERIAL_TABLE,null,cv);
-            cv.clear();
-
-        //Populate Value Table
-            cv.put(COLUMN_NAME_VALUE,"Half Cent");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"One Cent");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Two and a Half Cent");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Five Cent");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Ten Cent");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Twenty Cent");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Fifty Cent");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"One Rand");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Two Rand");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Five Rand");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Fifty Rand");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Tenth Ounce");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Twentieth Ounce");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Quarter Ounce");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Fiftieth Ounce");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Half Ounce");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Ounce");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Two Ounce");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Five Ounce");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Kilo");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Penny");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Three Pence");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Six Pence");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_NAME_VALUE,"Shilling");
-            db.insert(VALUE_TABLE,null,cv);
-            cv.clear();
-
-
-        //Populate Variety Table
-            cv.put(COLUMN_VARIETY_NAME,"Proof");
-            db.insert(VARIETY_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_VARIETY_NAME,"Brilliant CW privy mark");
-            db.insert(VARIETY_TABLE,null,cv);
-            cv.clear();
-            cv.put(COLUMN_VARIETY_NAME,"Brilliant Uncirculated");
-            db.insert(VARIETY_TABLE,null,cv);
             cv.clear();
 
     }
@@ -266,38 +111,6 @@ public class Database_Lite extends SQLiteOpenHelper {
 
 
      */
-    public  ArrayList<Integer> getAllCollectionsForUser(Model_User model_user)//(freecodecamp,2020)
-    {
-        ArrayList<Integer> collections = new ArrayList<>();
-        //SELECT COIN_ID FROM COLLECTION_COIN_TABLE
-        // WHERE COLLECTION_ID = 1
-        SQLiteDatabase db = this.getReadableDatabase();
-            String queryString = "SELECT * FROM " + USER_COLLECTIONS_TABLE;
-            Cursor cursor = db.rawQuery(queryString,null);
-            try
-            {
-                if(cursor.moveToFirst())
-                {
-                    //loop through the cursor result set and create new coin object for each row
-                    do{
-                        int collectionID = cursor.getInt(1);
-                        int userID = cursor.getInt(2);
-                        if(userID == model_user.getUserID())
-                        {
-                            collections.add(collectionID);
-                        }
-                    }while (cursor.moveToNext());
-                }
-                cursor.close();
-                return collections;
-            }
-            catch (Exception e)
-            {
-                return collections;
-            }
-
-
-    }
 
     public ArrayList<Model_Collections> getAllCollections() {//(freecodecamp,2020)
         ArrayList<Model_Collections> collectionsList = new ArrayList<>();
@@ -331,7 +144,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         //SELECT COIN_ID FROM COLLECTION_COIN_TABLE
         // WHERE COLLECTION_ID = 1
         SQLiteDatabase db = this.getReadableDatabase();
-        String queryString = "SELECT " +COLUMN_COIN_FK + " FROM " + COLLECTIONS_COIN_TABLE;
+        String queryString = "SELECT " + COLUMN_COIN + " FROM " + COLLECTIONS_COIN_TABLE;
                    // + " WHERE " + COLUMN_COLLECTION_FK + " = " + userCollections.get(i);
         try
         {
@@ -362,8 +175,8 @@ public class Database_Lite extends SQLiteOpenHelper {
         //SELECT COIN_ID FROM COLLECTION_COIN_TABLE
         // WHERE COLLECTION_ID = 1
 
-        String queryString = "SELECT " +COLUMN_COIN_FK + " FROM " + COLLECTIONS_COIN_TABLE +
-                            " WHERE " + COLUMN_COLLECTION_FK + " = " + collectionID;
+        String queryString = "SELECT " + COLUMN_COIN + " FROM " + COLLECTIONS_COIN_TABLE +
+                            " WHERE " + COLUMN_COLLECTION + " = " + collectionID;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString,null);
         if(cursor.moveToFirst())
@@ -379,30 +192,6 @@ public class Database_Lite extends SQLiteOpenHelper {
 
         cursor.close();
         return coins;
-    }
-
-
-
-    public ArrayList<Integer> getAllYears()//(freecodecamp,2020)
-    {
-        ArrayList<Integer> years = new ArrayList<>();
-
-        String queryString = "SELECT * FROM " + YEAR_TABLE;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(queryString,null);
-        if(cursor.moveToFirst())
-        {
-            //loop through the cursor result set and create
-            do{
-                int year = cursor.getInt(0);
-                years.add(year);
-            }while (cursor.moveToNext());
-        }
-        //failure means list is empty
-
-        cursor.close();
-        return years;
     }
 
     public void deleteCoin(int coinID)//(freecodecamp,2020)
@@ -429,14 +218,12 @@ public class Database_Lite extends SQLiteOpenHelper {
                 int mintage = cursor.getInt(2);
                 String observe = cursor.getString(3);
                 String reverse = cursor.getString(4);
-                String image = cursor.getString(5);
+                byte[] image = cursor.getBlob(5);
                 String dateTaken = cursor.getString(6);
                 String value = cursor.getString(7);
                 int year = cursor.getInt(8);
                 String variety = cursor.getString(9);
                 String material = cursor.getString(10);
-
-
                 Model_Coin coin = new Model_Coin(year,mintage,material,altName,observe,reverse,variety,value,image,dateTaken);
                 coin.setCoinID(coinID);
                 coinsList.add(coin);
@@ -490,8 +277,8 @@ public class Database_Lite extends SQLiteOpenHelper {
                 try
                 {
                     //Collections table
-                    cv.put(COLUMN_COLLECTION_FK,collectionID);
-                    cv.put(COLUMN_COIN_FK,coinID);
+                    cv.put(COLUMN_COLLECTION,collectionID);
+                    cv.put(COLUMN_COIN,coinID);
                     db.insert(COLLECTIONS_COIN_TABLE,null,cv);
                     cv.clear();
                 }catch (Exception ignored)
@@ -511,13 +298,13 @@ public class Database_Lite extends SQLiteOpenHelper {
             {
                 if(users.get(i).getState()==1)
                 {
-                    cv.put(COLUMN_STATE, 0);
-                    db.update(USER_TABLE,cv,COLUMN_STATE + "= 1",null);
+                    cv.put(COLUMN_THEME, 0);
+                    db.update(USER_TABLE,cv, COLUMN_THEME + "= 1",null);
                     cv.clear();
                     break;
                 }
             }
-            cv.put(COLUMN_STATE, 1);
+            cv.put(COLUMN_THEME, 1);
             db.update(USER_TABLE,cv,COLUMN_USER_EMAIL+"=?",new String[]{model_user.getEmail()});
             cv.clear();
         }
@@ -552,7 +339,7 @@ public class Database_Lite extends SQLiteOpenHelper {
                             //Collections table
                             cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
                             cv.put(COLUMN_PASSWORD, model_user.getPassword());
-                            cv.put(COLUMN_STATE, model_user.getState());
+                            cv.put(COLUMN_THEME, model_user.getState());
                             db.insert(USER_TABLE, null, cv);
                             cv.clear();
 
@@ -589,22 +376,6 @@ public class Database_Lite extends SQLiteOpenHelper {
             cv.put(COLUMN_GOAL, model_collections.getGoal());
             db.insert(COLLECTION_TABLE, null, cv);
             cv.clear();
-        } catch (Exception e) {
-            return;
-
-        }
-        //get all collections
-        ArrayList<Model_Collections> model_collectionsArrayList = getAllCollections();
-        int newCollectionID = model_collectionsArrayList.get(model_collectionsArrayList.size()-1).getCollectionID();
-
-
-        try {
-            //User Collections table
-            cv.put(COLUMN_COLLECTION_FK, newCollectionID);
-            //getID from userCollection
-            cv.put(COLUMN_USER_FK,model_user.getUserID());
-            db.insert(USER_COLLECTIONS_TABLE, null, cv);
-            cv.clear();
         } catch (Exception ignored) {
 
         }
@@ -615,41 +386,6 @@ public class Database_Lite extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-
-        ArrayList<Integer> years = getAllYears();
-
-        //Year Table
-        //Get all from year table, check if year exists if not
-        boolean yearFound = false;
-
-        for (int i=0; i<years.size(); i++)
-        {
-            if(years.get(i) ==coin.getYear())
-            {
-                yearFound = true;
-                break;
-            }
-        }
-        if(!yearFound)
-        {
-            try
-            {
-                cv.put(COLUMN_YEAR_ID,coin.getYear());
-                db.insert(YEAR_TABLE,null,cv);
-                cv.clear();
-            }catch (Exception e)
-            {
-                StringWriter sw = new StringWriter();
-                PrintWriter pw = new PrintWriter(sw);
-                e.printStackTrace(pw);
-                String sStackTrace = sw.toString();
-                Log.d("YEAR", sStackTrace);
-                return;
-            }
-        }
-
-
-
         try
         {
             //Coin Table
@@ -659,11 +395,11 @@ public class Database_Lite extends SQLiteOpenHelper {
             cv.put(COLUMN_MINTAGE,coin.getMintage());
             cv.put(COLUMN_OBSERVE,coin.getObserve());
             cv.put(COLUMN_REVERSE,coin.getReverse());
-            cv.put(COLUMN_VALUE_FK,coin.getValue());
-            cv.put(COLUMN_YEAR_FK,coin.getYear());
+            cv.put(COLUMN_VALUE,coin.getValue());
+            cv.put(COLUMN_YEAR,coin.getYear());
             cv.put(COLUMN_IMAGE,coin.getImageId());
-            cv.put(COLUMN_VARIETY_FK,coin.getVariety());
-            cv.put(COLUMN_MATERIAL_FK,coin.getMaterial());
+            cv.put(COLUMN_VARIETY,coin.getVariety());
+            cv.put(COLUMN_MATERIAL,coin.getMaterial());
             db.insert(COIN_TABLE,null,cv);
             cv.clear();
         }catch (Exception e)
@@ -678,8 +414,8 @@ public class Database_Lite extends SQLiteOpenHelper {
                 try
                 {
                     //Collections table
-                    cv.put(COLUMN_COLLECTION_FK,collectionID);
-                    cv.put(COLUMN_COIN_FK,coinID);
+                    cv.put(COLUMN_COLLECTION,collectionID);
+                    cv.put(COLUMN_COIN,coinID);
                     db.insert(COLLECTIONS_COIN_TABLE,null,cv);
                     cv.clear();
 
@@ -691,9 +427,6 @@ public class Database_Lite extends SQLiteOpenHelper {
             }
 
         }
-
-        //Collections Coin Table
-
     }
 
 

@@ -41,6 +41,7 @@ import com.example.mynt.collectionsActivity.models.Model_Date;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_User;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -59,6 +60,7 @@ public class Fragment_Add extends Fragment {
     //private EditText alternate_Textview, mintage_Textview, observe_Textview, reverse_Textview;
     private ImageButton changeImage;
     private ImageView userImage;
+    private byte[] ImageByteArray;
     private ActivityResultLauncher<Intent> activityResultLauncher_Camera;
     private Bitmap imageBitmap;
     private Boolean imageSet = false;
@@ -119,16 +121,8 @@ public class Fragment_Add extends Fragment {
 
         //Database
         localDB = new Database_Lite(getContext());//(freecodecamp,2020)
-        ArrayList<Integer> userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
-        ArrayList<Model_Collections> allCollections = localDB.getAllCollections();
 
-        allUserCollections = new ArrayList<>();
-
-        for (int i = 0; i< allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                allUserCollections.add(allCollections.get(i));
-        }
+        allUserCollections = localDB.getAllCollections();
 
         ArrayList<Integer> allCoinsWithCollection = localDB.getAllCoinsWithACollection();
         ArrayList<Model_Coin> allCoinsInDatabase = localDB.getAllCoins();
@@ -301,9 +295,11 @@ public class Fragment_Add extends Fragment {
             if (extras != null) {
                 imageBitmap = (Bitmap) extras.get("data");//(Android Coiding, 2019)
                 userImage.setImageBitmap(imageBitmap);//(Android Coiding, 2019)
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                ImageByteArray = stream.toByteArray();
                 imageSet = true;
             }
-
         });
 
 
@@ -375,7 +371,7 @@ public class Fragment_Add extends Fragment {
                             "POE",
                             "POE",
                             spinnerValue.getSelectedItem().toString(),
-                            String.valueOf(coinID),
+                            ImageByteArray,
                             dateAq);
                     model_coin.setCoinID(coinID);
                     int selectedPosition = spinnerCollection.getSelectedItemPosition()-1;
@@ -399,6 +395,7 @@ public class Fragment_Add extends Fragment {
 
     private boolean savePhotoToInternalStorage() {//( Philipp Lackner, 2021)
 
+        /*
         Thread saveImage = new Thread(){
             public void run(){
                 //Get image number
@@ -418,28 +415,38 @@ public class Fragment_Add extends Fragment {
             }
         };
         saveImage.start();
-        return done;
+
+         */
+        return true;
     }
 
     private void retrieveImage(int imageID) //( Philipp Lackner, 2021)
     {
-        String name = imageID +".jpg";
-        try{
-            Context context = getContext();
-            assert context != null;
-            FileInputStream fis = context.openFileInput(name);
-            Bitmap b = BitmapFactory.decodeStream(fis);
-            userImage.setImageBitmap(b);
-            fis.close();
+        //Get all coins
+        ArrayList<Model_Coin> allCoins = localDB.getAllCoins();
+        Model_Coin foundCoin = null;
+        boolean coinFound = false;
+        for (int i = 0; i < allCoins.size(); i++) {
+            if(allCoins.get(i).getCoinID() == imageID)
+            {
+                foundCoin = allCoins.get(i);
+                coinFound = true;
+                break;
+            }
+        }
+        if(coinFound)
+        {
+            assert foundCoin != null;
+            Bitmap bmp = BitmapFactory.decodeByteArray(foundCoin.getImageId(), 0, foundCoin.getImageId().length);
 
+            userImage.setImageBitmap(bmp);
+            localDB.deleteCoin(coinID);
         }
-        catch(Exception ignored){
-        }
+
 
         //Delete coin
-        localDB.deleteCoin(coinID);
 
-        requireContext().deleteFile(name);
+
     }
 
     private void backActivity() {
