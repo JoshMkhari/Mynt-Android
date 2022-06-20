@@ -10,6 +10,8 @@ import com.example.mynt.collectionsActivity.Activity_Collections;
 
 public class Activity_Main extends AppCompatActivity {
 
+    public static boolean sync = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +27,7 @@ public class Activity_Main extends AppCompatActivity {
                 /* Create an Intent that will start the Menu-Activity. */
 
                 Intent intent = new Intent(Activity_Main.this, Activity_Collections.class);//(Codeplayon, 2019)
+                sync = true;
                 startActivity(intent);
                 finish();
 

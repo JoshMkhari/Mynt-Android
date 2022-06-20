@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -18,7 +19,13 @@ import android.widget.Toast;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_User;
+import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -38,7 +45,7 @@ public class Fragment_Register extends Fragment {
     private Model_User model_user;//(Section, 2021)
     private Intent i;
 
-
+    private FirebaseAuth mAuth;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,29 +90,38 @@ public class Fragment_Register extends Fragment {
                if (password.getText().toString().length() > 7) {
                    if (confirmPassword.getText().toString().equals(password.getText().toString())) {
                        // Additional User Feedback
-                       ArrayList<Model_User> users = new ArrayList<>();
-                       Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
-                       users = db.getAllUsers();
-
                        model_user = new Model_User();
                        model_user.setEmail(email.getText().toString());
                        model_user.setPassword(password.getText().toString());
+                       mAuth = FirebaseAuth.getInstance();
+                       mAuth.createUserWithEmailAndPassword(model_user.getEmail(), model_user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                           @Override
+                           public void onComplete(@NonNull Task<AuthResult> task) {
+                               if (task.isSuccessful()) {
+                                   // Sign in success, update UI with the signed-in user's information
+                                   //Log.d(TAG, "createUserWithEmail:success");
+                                   User_Data.firebaseUser = mAuth.getCurrentUser();
+                                   User_Data.currentUser = model_user;
+                                   Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
+                                   db.addUser(model_user);
+                                   db.updateState(model_user);
 
-                       boolean emailFound = false;
-                       for (int i = 0; i < users.size(); i++) {
-                           if (users.get(i).getEmail().equals(model_user.getEmail())) {
-                               Toast.makeText(getContext(), "Email already registered", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
-                               emailFound = true;
+                                   User_Data user_data = new User_Data();
+                                   user_data.uploadLocalData();
+
+                                   i = new Intent(getContext(), Activity_Collections.class);
+                                   i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                   startActivity(i);
+                               } else {
+                                   // If sign in fails, display a message to the user.
+                                   //Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                   Toast.makeText(getContext(), "Authentication failed.",
+                                           Toast.LENGTH_SHORT).show();
+                               }
                            }
-                       }
-                       if (!emailFound)
-                           if (db.addUser(model_user)) {
-                               db.updateState(model_user);//(geeksforgeeks, 2021)
-                               Toast.makeText(getContext(), "An account has been created successfully for " + email.getText().toString() + ".", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
-                               i = new Intent(getContext(), Activity_Collections.class);
-                               i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                               startActivity(i);
-                           }
+                       });
+                       User_Data user_data = new User_Data();
+                       user_data.uploadLocalData();
                        //Additional User Feedback
                    }else
                        Toast.makeText(getContext(), "A password length must be 8 characters", Toast.LENGTH_LONG).show();//(Alexander, 2016).

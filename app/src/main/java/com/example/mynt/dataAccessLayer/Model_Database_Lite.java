@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
+import com.example.mynt.collectionsActivity.models.User_Data;
 
 import java.util.ArrayList;
 
@@ -25,10 +26,6 @@ public class Model_Database_Lite extends Thread {
 
 
         dbCoins = db.getAllCoins();
-
-        //get all collections for a user
-        //get all collectionCoins
-        //then match correct coins
         allUserCollections = db.getAllCollections();
 
 

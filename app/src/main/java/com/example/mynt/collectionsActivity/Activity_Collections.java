@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
+import com.example.mynt.Activity_Main;
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.User_Data;
 
 import java.util.Objects;
 
@@ -41,6 +43,11 @@ public class Activity_Collections extends AppCompatActivity {
 
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
+        if(Activity_Main.sync)
+        {
+            User_Data user_data = new User_Data();
+            user_data.uploadLocalData();
+        }
 
         findNavController(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                 setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)
