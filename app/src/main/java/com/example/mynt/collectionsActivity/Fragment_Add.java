@@ -35,6 +35,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.ModelFireBaseCoin;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Date;
@@ -197,10 +198,6 @@ public class Fragment_Add extends Fragment {
 
             //Check if picture is taken?
             if (imageSet) {
-                //check if a mintage was placed
-                //Check if a collection has to be made
-                if(savePhotoToInternalStorage())//( Philipp Lackner, 2021)
-                {
                     storeCoin();
                     if (spinnerCollection.getSelectedItemPosition() == 0) {//A new collection needs to be made
                         Bundle bundle = new Bundle();
@@ -215,7 +212,7 @@ public class Fragment_Add extends Fragment {
                         home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(home);
                     }
-                }
+
             } else {
                 Toast.makeText(getContext(), "Please take a image", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
             }
@@ -297,7 +294,7 @@ public class Fragment_Add extends Fragment {
                 imageBitmap = (Bitmap) extras.get("data");//(Android Coiding, 2019)
                 userImage.setImageBitmap(imageBitmap);//(Android Coiding, 2019)
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
                 ImageByteArray = stream.toByteArray();
                 imageSet = true;
             }
@@ -384,7 +381,6 @@ public class Fragment_Add extends Fragment {
                     {
                         localDB.addCoin(model_coin,allUserCollections.get(selectedPosition).getCollectionID());
                     }
-
                 }catch (Exception e)
                 {
                     Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
@@ -394,32 +390,6 @@ public class Fragment_Add extends Fragment {
         coinStore.start();
     }
 
-    private boolean savePhotoToInternalStorage() {//( Philipp Lackner, 2021)
-
-        /*
-        Thread saveImage = new Thread(){
-            public void run(){
-                //Get image number
-                FileOutputStream out;
-                try {
-                    Context context = getContext();
-                    assert context != null;
-                    out = context.openFileOutput(coinID + ".jpg", Context.MODE_PRIVATE);
-                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-                    out.flush();
-                    out.close();
-                    done = true;
-                } catch (IOException e) {
-
-                    done = false;
-                }
-            }
-        };
-        saveImage.start();
-
-         */
-        return true;
-    }
 
     private void retrieveImage(int imageID) //( Philipp Lackner, 2021)
     {
@@ -443,10 +413,6 @@ public class Fragment_Add extends Fragment {
             userImage.setImageBitmap(bmp);
             localDB.deleteCoin(coinID);
         }
-
-
-        //Delete coin
-
 
     }
 

@@ -66,7 +66,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         NavigationToOtherPages();
 
         Model_Database_Lite mdl = new Model_Database_Lite();
-        ArrayList<Model_Coin> currentUserCoins = mdl.allCoinsAndCollections(getContext(), 0, 0, user);
+        ArrayList<Model_Coin> currentUserCoins = mdl.allCoinsAndCollections(getContext(), 0, 0);
 
         //Populating Library Options List
         arrayList_library_navigation.add(new Model_Library_Options(//(Section, 2021)

@@ -63,7 +63,7 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
         //Open each collection and select the first image
         Model_Database_Lite mdl = new Model_Database_Lite();
 
-        ArrayList<Model_Coin>coinsList = mdl.allCoinsAndCollections(context,1,collectionID,model_user);
+        ArrayList<Model_Coin>coinsList = mdl.allCoinsAndCollections(context,1,collectionID);
 
         Collections.sort(coinsList, new Model_Coin_Comparator_Date());//(GeeksForGeeks,2020)
 

@@ -53,7 +53,7 @@ public class Activity_Main extends AppCompatActivity {
                         Log.d("taskSycce", "onComplete: ");
                         User_Data.firebaseUser = mAuth.getCurrentUser();
                         User_Data ud = new User_Data();
-                        ud.uploadAllLocalData();
+                        ud.uploadAllLocalData(getApplicationContext());
                     }
                 }
             });

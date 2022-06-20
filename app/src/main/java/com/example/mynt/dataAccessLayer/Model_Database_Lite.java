@@ -18,7 +18,7 @@ public class Model_Database_Lite extends Thread {
     private ArrayList<Model_Coin> dbCoins;
     private ArrayList<Model_Coin> coinsList;
 
-    public ArrayList<Model_Coin> allCoinsAndCollections(Context appContext, int task, int collectionID, Model_User model_user)//(GeeksForGeeks,2020)
+    public ArrayList<Model_Coin> allCoinsAndCollections(Context appContext, int task, int collectionID)//(GeeksForGeeks,2020)
     {
         db = new Database_Lite(appContext);
 

@@ -117,7 +117,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
 
         Model_Database_Lite mdl = new Model_Database_Lite();
 
-        coinsList = mdl.allCoinsAndCollections(getContext(),task,collectionID, model_user);
+        coinsList = mdl.allCoinsAndCollections(getContext(),task,collectionID);
         coinIDs = new ArrayList<>();
 
         Collections.sort(coinsList, new Model_Coin_Comparator_Date());//(GeeksForGeeks,2020)
