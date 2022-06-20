@@ -7,8 +7,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-
 public class User_Data {
 
     // Will Hold static once off data
@@ -23,12 +21,18 @@ public class User_Data {
 
         //Download From FireBase
         downloadOnlineData();
+
         mergeData();
         // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
+        if(currentUser.getUuid() != null)
+        {
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference myRef = database.getReference(currentUser.getUuid());
+            myRef.setValue("Hello, World!");
+        }
 
-        myRef.setValue("Hello, World!");
+
+
         //Merge online data with offline data
     }
 

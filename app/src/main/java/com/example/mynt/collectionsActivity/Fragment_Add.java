@@ -38,6 +38,7 @@ import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Date;
+import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_User;
 
@@ -80,7 +81,7 @@ public class Fragment_Add extends Fragment {
         // Inflate the layout for this fragment
         View add = inflater.inflate(R.layout.fragment_add, container, false);
         //Retrieve bundles
-        model_user = new Model_User(); //(Section, 2021)
+        model_user = User_Data.currentUser; //(Section, 2021)
         model_date = new Model_Date();//(Shabbir Dhangot,2016)
         assert getArguments() != null;
         model_user.setUserID(getArguments().getInt("User"));//(valerybodak,2020)

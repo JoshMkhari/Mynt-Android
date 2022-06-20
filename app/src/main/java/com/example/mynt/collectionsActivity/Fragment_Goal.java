@@ -22,6 +22,7 @@ import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.collectionsActivity.models.Model_User;
+import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public class Fragment_Goal extends Fragment {
         assert getArguments() != null;
         model_goals = new Model_Goals(getArguments().getString("Collection Name"),getArguments().getInt("Coins"),getArguments().getInt("Goal"));//(Section, 2021)
         task = getArguments().getInt("Task");
-        model_user = new Model_User();
+        model_user = User_Data.currentUser;
         model_user.setUserID(getArguments().getInt("User"));
 
 

@@ -25,9 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -90,9 +88,7 @@ public class Fragment_Register extends Fragment {
                if (password.getText().toString().length() > 7) {
                    if (confirmPassword.getText().toString().equals(password.getText().toString())) {
                        // Additional User Feedback
-                       model_user = new Model_User();
-                       model_user.setEmail(email.getText().toString());
-                       model_user.setPassword(password.getText().toString());
+                       model_user = new Model_User(email.getText().toString(),password.getText().toString(),1);
                        mAuth = FirebaseAuth.getInstance();
                        mAuth.createUserWithEmailAndPassword(model_user.getEmail(), model_user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                            @Override
@@ -103,8 +99,8 @@ public class Fragment_Register extends Fragment {
                                    User_Data.firebaseUser = mAuth.getCurrentUser();
                                    User_Data.currentUser = model_user;
                                    Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
+                                   model_user.setUuid(User_Data.firebaseUser.getUid());
                                    db.addUser(model_user);
-                                   db.updateState(model_user);
 
                                    User_Data user_data = new User_Data();
                                    user_data.uploadLocalData();

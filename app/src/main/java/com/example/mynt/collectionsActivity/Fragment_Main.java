@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_User;
+import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class Fragment_Main extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         main = inflater.inflate(R.layout.fragment_main, container, false);
-        user = new Model_User();
+        user = User_Data.currentUser;
         assert getArguments() != null;
         user.setUserID(getArguments().getInt("User"));
         addButton = main.findViewById(R.id.image_button_add_coin_main);
@@ -48,17 +49,8 @@ public class Fragment_Main extends Fragment {
 
         userTitle = main.findViewById(R.id.text_view_user_current);
 
-        Database_Lite db =new Database_Lite(getContext());//(freecodecamp,2020)
-        ArrayList<Model_User> allUsers = db.getAllUsers();
+        user = User_Data.currentUser;
 
-        for(int i=0;i<allUsers.size();i++)
-        {
-            if(allUsers.get(i).getUserID()==user.getUserID())
-            {
-                user =allUsers.get(i);
-                break;
-            }
-        }
 
         if(user.getEmail().equals("DefaultUser"))
         {

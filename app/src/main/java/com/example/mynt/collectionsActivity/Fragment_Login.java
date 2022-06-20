@@ -58,7 +58,7 @@ public class Fragment_Login extends Fragment {
     private void Login(){
         login.setOnClickListener(v -> {
             db = new Database_Lite(getContext());//(freecodecamp,2020)
-            model_user = new Model_User();
+            model_user = new Model_User("","",0);
             model_user.setEmail(email.getText().toString());
             model_user.setPassword(password.getText().toString());
             users = new ArrayList<>();

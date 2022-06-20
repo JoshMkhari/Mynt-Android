@@ -43,6 +43,7 @@ public class Database_Lite extends SQLiteOpenHelper {
     private static final String COLUMN_DATE_TAKEN = "DATE_TAKEN";
     private static final String USER_TABLE = "USER_TABLE";
     private static final String COLUMN_PASSWORD = "PASSWORD";
+    private static final String COLUMN_UUID = "UUID";
     private  static final String COIN_ID = "ID";
     private static final String COLUMN_THEME = "THEME";
     private static final String COLUMN_USER_EMAIL = "EMAIL";
@@ -64,7 +65,7 @@ public class Database_Lite extends SQLiteOpenHelper {
 
         //User Table
         String tableStatement = ("CREATE TABLE " + USER_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_USER_EMAIL + " TEXT, " +
-                COLUMN_THEME + " INTEGER, " + COLUMN_PASSWORD + " TEXT, " + COLUMN_USER_NAME + " TEXT, " + COLUMN_USER_PROFILE_PIC + " BLOB);");
+                COLUMN_THEME + " INTEGER, " + COLUMN_PASSWORD + " TEXT, " + COLUMN_UUID + " TEXT, " + COLUMN_USER_NAME + " TEXT, " + COLUMN_USER_PROFILE_PIC + " BLOB);");
         db.execSQL(tableStatement);
 
         //Collections Table
@@ -234,6 +235,17 @@ public class Database_Lite extends SQLiteOpenHelper {
         cursor.close();
         return coinsList;
     }
+/*
+    String tableStatement = ("CREATE TABLE " + USER_TABLE +
+            "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            COLUMN_USER_EMAIL + " TEXT, " +
+            COLUMN_THEME + " INTEGER, " +
+            COLUMN_PASSWORD + " TEXT, " +
+            COLUMN_UUID + " TEXT, " +
+            COLUMN_USER_NAME + " TEXT, " +
+            COLUMN_USER_PROFILE_PIC + " BLOB);");
+
+ */
 
     public ArrayList<Model_User> getAllUsers()//(freecodecamp,2020)
     {
@@ -251,12 +263,12 @@ public class Database_Lite extends SQLiteOpenHelper {
                 String email = cursor.getString(1);
                 int state  = cursor.getInt(2);
                 String password = cursor.getString(3);
+                String uuId = cursor.getString(4);
 
-                Model_User model_user = new Model_User();
-                model_user.setEmail(email);
-                model_user.setPassword(password);
-                model_user.setState(state);
+
+                Model_User model_user = new Model_User(email,password,state);
                 model_user.setUserID(userID);
+                model_user.setUuid(uuId);
                 users.add(model_user);
             }while (cursor.moveToNext());
         }
@@ -330,6 +342,7 @@ public class Database_Lite extends SQLiteOpenHelper {
                 if (users.get(0).getEmail().equals(oldUser)) {
                     cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
                     cv.put(COLUMN_PASSWORD, model_user.getPassword());
+                    cv.put(COLUMN_UUID, model_user.getUuid());
                    // db.update(USER_TABLE,cv,"ID=1",null);
                     db.update(USER_TABLE,cv,COLUMN_USER_EMAIL + "=?",new String[]{oldUser});
                     return true;
@@ -340,6 +353,7 @@ public class Database_Lite extends SQLiteOpenHelper {
                             cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
                             cv.put(COLUMN_PASSWORD, model_user.getPassword());
                             cv.put(COLUMN_THEME, model_user.getState());
+                            cv.put(COLUMN_UUID, model_user.getUuid());
                             db.insert(USER_TABLE, null, cv);
                             cv.clear();
 

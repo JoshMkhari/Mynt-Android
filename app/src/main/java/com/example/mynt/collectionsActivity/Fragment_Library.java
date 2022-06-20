@@ -24,6 +24,7 @@ import com.example.mynt.collectionsActivity.models.Model_Coin;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator_ID;
+import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import com.example.mynt.collectionsActivity.adapters.Adapter_Library_Options;
@@ -114,14 +115,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
 
         Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
 
-        ArrayList<Model_User> users = db.getAllUsers();
-        for (int i = 0; i< users.size(); i++)
-        {
-            if(users.get(i).getState()==1)
-            {
-                user = users.get(i);
-            }
-        }
+        user = User_Data.currentUser;
     }
 
     private void NavigationToOtherPages(){
