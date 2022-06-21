@@ -40,14 +40,9 @@ public class Activity_Collections extends AppCompatActivity {
             page = bundle.getInt("StartPage");
             bundle.putInt("StartPage",page);
         }
-
+        User_Data.uploadAllLocalData(getApplicationContext());
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
-        if(Activity_Main.sync)
-        {
-            User_Data user_data = new User_Data();
-            user_data.mergeData();
-        }
 
         findNavController(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                 setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)

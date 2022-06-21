@@ -26,8 +26,9 @@ public class User_Data {
     public static Bitmap coinBitmap;
     public static FirebaseUser firebaseUser;
     public static Model_User currentUser;
+    public static Boolean sync =false;
 
-    public void uploadAllLocalData(Context context)
+    public static void uploadAllLocalData(Context context)
     {
         //First check if user is authorized
 
@@ -47,13 +48,15 @@ public class User_Data {
             for (int s=0; s<coins.size(); s++)
             {
                 String Value_Year = coins.get(s).getValue() + coins.get(s).getYear();
-                ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(Value_Year,coins.get(s).getDateAcquired());
-                uploadImage(Value_Year, coins.get(s).getImageId());
+                ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(Value_Year,coins.get(s).getDateAcquired(),coins.get(s).getCoinID());
+                uploadImage(Value_Year, coins.get(s).getImageId(),allCollections.get(i).getCollectionName());
                 modelFireBaseCoinArrayList.add(modelFireBaseCoin);
             }
-            userCollections.add(new Model_Collections(allCollections.get(i).getCollectionName()
+            Model_Collections model_collections = new Model_Collections(allCollections.get(i).getCollectionName()
                     ,allCollections.get(i).getGoal(),
-                    modelFireBaseCoinArrayList));
+                    modelFireBaseCoinArrayList);
+            model_collections.setCollectionID(allCollections.get(i).getCollectionID());
+            userCollections.add(model_collections);
         }
 
         //Adding coins to collections
@@ -65,7 +68,7 @@ public class User_Data {
         //Merge online data with offline data
     }
 
-    private void uploadImage(String ImageID, byte[] data)
+    private static void uploadImage(String ImageID, byte[] data, String CollectionName)
     {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
@@ -74,7 +77,7 @@ public class User_Data {
         StorageReference mountainsRef = storageRef.child(fileName);
 
         // Create a reference to 'images/mountains.jpg'
-        String directory = firebaseUser.getUid() + "/" + fileName;
+        String directory = firebaseUser.getUid() + "/"+CollectionName+"/" + fileName;
 
         UploadTask uploadTask = storageRef.child(directory).putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {

@@ -21,8 +21,6 @@ import java.util.ArrayList;
 
 public class Activity_Main extends AppCompatActivity {
 
-    public static boolean sync = false;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +50,7 @@ public class Activity_Main extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Log.d("taskSycce", "onComplete: ");
                         User_Data.firebaseUser = mAuth.getCurrentUser();
-                        User_Data ud = new User_Data();
-                        ud.uploadAllLocalData(getApplicationContext());
+                        User_Data.uploadAllLocalData(getApplicationContext());
                     }
                 }
             });
@@ -65,7 +62,6 @@ public class Activity_Main extends AppCompatActivity {
                 /* Create an Intent that will start the Menu-Activity. */
 
                 Intent intent = new Intent(Activity_Main.this, Activity_Collections.class);//(Codeplayon, 2019)
-                sync = true;
                 startActivity(intent);
                 finish();
 
@@ -74,7 +70,5 @@ public class Activity_Main extends AppCompatActivity {
                 //SplashActivity.this.finish();
             }
         }, 2500);//(Codeplayon, 2019)
-
-
     }
 }

@@ -141,7 +141,6 @@ public class Fragment_Goal extends Fragment {
                 home.putExtra("View","library");
                 home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(home);
-
                 //Additional User Feedback
                 Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has been created successfully." , Toast.LENGTH_SHORT).show();//(Alexander, 2016).
 
