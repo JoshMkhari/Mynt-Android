@@ -18,6 +18,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class User_Data {
 
@@ -31,7 +32,6 @@ public class User_Data {
     public static void uploadAllLocalData(Context context)
     {
         //First check if user is authorized
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference mDatabase = database.getReference();
 
@@ -61,7 +61,13 @@ public class User_Data {
 
         //Adding coins to collections
         currentUser.setCollections(userCollections);
-
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        db.updateUser(currentUser);
+        String lastSync = day + "/" + month + "/" + year + " " +cal.getTime();
+        currentUser.setLastSync(lastSync);
         //Adding User if not existing
         mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentUser);
 

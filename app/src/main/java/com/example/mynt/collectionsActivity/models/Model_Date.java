@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 public class Model_Date { //(Shabbir Dhangot,2016)
 
-
-
     public String makeDateString(int day, int month, int year, boolean type) {//(Code With Cal, 2020)
         //return month + " " + day + " " + year;
         return getMonthFormat(month,type) + " " + day + " " + year;
