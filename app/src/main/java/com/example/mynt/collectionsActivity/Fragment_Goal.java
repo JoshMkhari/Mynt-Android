@@ -26,6 +26,7 @@ import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -137,6 +138,10 @@ public class Fragment_Goal extends Fragment {
                     localDB.updateCollection(model_collections);//(geeksforgeeks, 2021)
 
                 }
+                Calendar cal = Calendar.getInstance();
+                String lastSync = cal.getTime().toString();
+                User_Data.currentUser.setLastSync(lastSync);
+                localDB.updateUserLastSync(User_Data.currentUser);
                 home = new Intent(getContext(),Activity_Collections.class);
                 home.putExtra("View","library");
                 home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

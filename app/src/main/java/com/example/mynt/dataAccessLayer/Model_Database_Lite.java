@@ -40,13 +40,17 @@ public class Model_Database_Lite extends Thread {
             for (ModelFireBaseCoin currentFireCoin: currentCollection.getFireBaseCoinscoins()) {
                 int year = 0;
                 String value = "";
-                for (int i = 0; i < currentFireCoin.getValueYear().length(); i++) {
-                    if(currentFireCoin.getValueYear().substring(i,1).equals("_"))
+                char underscore = '_';
+                char[] valYearArray  = currentFireCoin.getValueYear().toLowerCase().toCharArray();
+                for (int i = 0; i < valYearArray.length; i++) {
+                    if(valYearArray[i]==underscore)
                     {
-                        year = Integer.parseInt(currentFireCoin.getValueYear().substring(i));
-                        value = currentFireCoin.getValueYear().substring(0,i-1);
+                        year = Integer.parseInt(currentFireCoin.getValueYear().substring(i+1));
+                        value = currentFireCoin.getValueYear().substring(0,i);
+                        Log.d("theChange", "VALUE " + value);
                         break;
                     }
+                    Log.d("theChange", "replaceSqlDatabase: " +currentFireCoin.getValueYear() );
                 }
                 // Create a reference to "ImageID.jpg"
                 String fileName = currentFireCoin.getValueYear() + ".jpg";
@@ -63,6 +67,7 @@ public class Model_Database_Lite extends Thread {
                 // Create a reference to 'images/mountains.jpg'
 
                 Model_Coin model_coin = new Model_Coin(year,0,"","","","","",value, ImageId[0],currentFireCoin.getDateTaken());
+                model_coin.setCoinID(currentFireCoin.getCoinID());
                 db.addCoin(model_coin,currentCollection.getCollectionID());
             }
         }

@@ -117,6 +117,7 @@ public class User_Data {
                     Log.d("theChanges", "They are the same: ");
                 }else
                 {
+                    Log.d("theChanges", "We in else ");
                     //String change = snapshot.child("lastSync").getValue(String.class);
                     //Compare Dates
                     String firebaseSync = snapshot.child("lastSync").getValue(String.class);
@@ -127,8 +128,11 @@ public class User_Data {
                         assert firebaseSync != null;
                         fireCal.setTime(Objects.requireNonNull(sdf.parse(firebaseSync)));// all done https://stackoverflow.com/questions/39800547/read-data-from-firebase-database
 
-                        if(currentUser.getLastSync() == null)
+                        if(currentUser.getLastSync().equals(""))
+                        {
+                            Log.d("theChanges", "lastSync is null");
                             downloadData(snapshot,context);
+                        }
                         else
                         {
                             sqlCal.setTime(Objects.requireNonNull(sdf.parse(currentUser.getLastSync())));
@@ -192,7 +196,6 @@ public class User_Data {
     private static void downloadData(DataSnapshot snapshot, Context context) {
         //sql cal is older
         //replace sql database with firebase data
-        Log.d("theChanges", "sql cal is older: ");
         Model_User model_user = new Model_User(snapshot.child("email").getValue(String.class), snapshot.child("password").getValue(String.class), snapshot.child("state").getValue(int.class));
         model_user.setUserID(snapshot.child("userID").getValue(int.class));
 

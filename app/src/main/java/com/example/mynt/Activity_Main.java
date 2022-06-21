@@ -36,7 +36,7 @@ public class Activity_Main extends AppCompatActivity {
             if(allUsers.get(i).getState()==1)
             {
                 User_Data.currentUser = allUsers.get(i);
-                Log.d("theChanges", "setting current user" +User_Data.currentUser.getLastSync() );
+                Log.d("theChanges", "setting current user" +User_Data.currentUser.getEmail() );
                 break;
             }
         }

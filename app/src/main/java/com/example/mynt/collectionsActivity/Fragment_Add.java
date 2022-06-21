@@ -376,6 +376,10 @@ public class Fragment_Add extends Fragment {
                     if(selectedPosition == -1)
                     {
                         localDB.addCoin(model_coin,0);
+                        Calendar cal = Calendar.getInstance();
+                        String lastSync = cal.getTime().toString();
+                        User_Data.currentUser.setLastSync(lastSync);
+                        localDB.updateUserLastSync(User_Data.currentUser);
                     }
                     else
                     {
