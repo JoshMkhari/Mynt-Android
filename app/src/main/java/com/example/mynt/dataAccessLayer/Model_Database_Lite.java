@@ -28,8 +28,6 @@ public class Model_Database_Lite extends Thread {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
 
-
-
         Database_Lite db = new Database_Lite(appContext);
         //Delete all data within all Tables
         db.removeUserData();

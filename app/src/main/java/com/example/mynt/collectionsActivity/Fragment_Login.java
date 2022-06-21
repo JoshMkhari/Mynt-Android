@@ -3,6 +3,7 @@ package com.example.mynt.collectionsActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -14,10 +15,18 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,6 +91,7 @@ public class Fragment_Login extends Fragment {
                             {
                                 //update user state
                                 db.updateState(model_user);//(geeksforgeeks, 2021)
+                                User_Data.currentUser =model_user;
                                 Intent login = new Intent(getContext(), Activity_Collections.class);
                                 login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(login);
@@ -90,6 +100,30 @@ public class Fragment_Login extends Fragment {
                             }
                         }
                     }
+                    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                    mAuth.signInWithEmailAndPassword(model_user.getEmail(),model_user.getPassword()).addOnCompleteListener(
+                            getActivity(), new OnCompleteListener<AuthResult>() { //https://github.com/oemilk/firebase/blob/master/app/src/main/java/com/sh/firebase/authentication/AuthenticationFragment.java
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    User_Data.firebaseUser = mAuth.getCurrentUser();
+                                    if(User_Data.firebaseUser != null)
+                                    {
+                                        User_Data.currentUser =model_user;
+                                        db.addUser(model_user);
+                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                        DatabaseReference mDatabase = database.getReference();
+                                        mDatabase.child("users").child(User_Data.firebaseUser.getUid()).child("state").setValue(2);
+                                        //User_Data.mergeData(getContext());
+                                        Intent login = new Intent(getContext(), Activity_Collections.class);
+                                        login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(login);
+                                        //Additional User Feedback
+                                        Toast.makeText(getContext(),model_user.getEmail()+ " has logged in successfully.",Toast.LENGTH_LONG).show();//(Alexander, 2016).
+                                    }
+                                }
+                            }
+                    );
+            //sign in
                 });
     }
 
