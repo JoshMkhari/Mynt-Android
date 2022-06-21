@@ -20,10 +20,8 @@ public class Database_Lite extends SQLiteOpenHelper {
 
     public static final String COLUMN_MATERIAL = "MATERIAL";
     //Material Table
-    public static final String COLUMN_NAME_VALUE = "NAME";
     public static final String COLUMN_YEAR = "YEAR";
     public static final String COLUMN_VALUE = "VALUE";
-    public static final String VALUE_TABLE = COLUMN_VALUE + "_TABLE";
     public static final String COLUMN_VARIETY = "VARIETY";
     public static final String COIN_TABLE = "COIN_TABLE";
     public static final String COLUMN_ALT_NAME = "ALT_NAME";
@@ -111,6 +109,17 @@ public class Database_Lite extends SQLiteOpenHelper {
 
      */
 
+
+    public void removeUserData()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("delete from "+ USER_TABLE);
+        db.execSQL("delete from "+ COLLECTIONS_COIN_TABLE);
+        db.execSQL("delete from "+ COIN_TABLE);
+        db.execSQL("delete from "+ COLLECTION_TABLE);
+
+    }
     public ArrayList<Model_Collections> getAllCollections() {//(freecodecamp,2020)
         ArrayList<Model_Collections> collectionsList = new ArrayList<>();
 
@@ -320,7 +329,7 @@ public class Database_Lite extends SQLiteOpenHelper {
             cv.clear();
         }
 
-        public String updateUser(Model_User model_user)
+        public String updateUserLastSync(Model_User model_user)
         {
             try {
                 SQLiteDatabase db = this.getWritableDatabase();
@@ -366,7 +375,8 @@ public class Database_Lite extends SQLiteOpenHelper {
             }
             else {
                 try {
-                    //Collections table
+                    //User table
+                    db.execSQL("delete from "+ USER_TABLE);
                     cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
                     cv.put(COLUMN_PASSWORD, model_user.getPassword());
                     cv.put(COLUMN_LastSync, model_user.getLastSync());
@@ -398,7 +408,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         cv.clear();
     }
 
-    public void addCollection(Model_Collections model_collections, Model_User model_user) {//(Section, 2021)
+    public void addCollection(Model_Collections model_collections) {//(Section, 2021)
         SQLiteDatabase db = this.getWritableDatabase();//(freecodecamp,2020)
         ContentValues cv = new ContentValues();
         try {

@@ -120,7 +120,7 @@ public class Fragment_Goal extends Fragment {
 
 
                 model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
-                localDB.addCollection(model_collections,model_user);
+                localDB.addCollection(model_collections);
                 //Add collection to database for user
                 if(task==1)// Creating new Collection and assigning it to a coin
                 {

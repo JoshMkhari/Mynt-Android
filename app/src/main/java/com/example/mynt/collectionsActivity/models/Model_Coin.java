@@ -15,7 +15,7 @@ public class Model_Coin implements Serializable {//(GeeksForGeeks,2020)
     private final String reverse;
     private final String variety;
     private final String value;
-    private final byte[] ImageId;
+    private byte[] ImageId;
     private final String DateTaken;
 
     public Model_Coin(int year, int mintage, String material, String alternateName, String observe, String reverse, String variety, String value, byte[] image, String dateTaken) {
@@ -30,6 +30,10 @@ public class Model_Coin implements Serializable {//(GeeksForGeeks,2020)
         this.value = value;
         this.ImageId = image;
         this.DateTaken = dateTaken;
+    }
+
+    public void setImageId(byte[] imageId) {
+        ImageId = imageId;
     }
 
     public String getDateAcquired() {

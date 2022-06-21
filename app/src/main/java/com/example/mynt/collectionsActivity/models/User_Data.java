@@ -8,10 +8,8 @@ import androidx.annotation.NonNull;
 
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.dataAccessLayer.Model_Database_Lite;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -58,7 +56,7 @@ public class User_Data {
             ArrayList<ModelFireBaseCoin> modelFireBaseCoinArrayList = new ArrayList<>();
             for (int s=0; s<coins.size(); s++)
             {
-                String Value_Year = coins.get(s).getValue() + coins.get(s).getYear();
+                String Value_Year = coins.get(s).getValue() +"_"+ coins.get(s).getYear();
                 ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(Value_Year,coins.get(s).getDateAcquired(),coins.get(s).getCoinID());
                 uploadImage(Value_Year, coins.get(s).getImageId(),allCollections.get(i).getCollectionName());
                 modelFireBaseCoinArrayList.add(modelFireBaseCoin);
@@ -75,7 +73,7 @@ public class User_Data {
         Calendar cal = Calendar.getInstance();
         String lastSync = cal.getTime().toString();
         currentUser.setLastSync(lastSync);
-        db.updateUser(currentUser);
+        db.updateUserLastSync(currentUser);
         //Adding User if not existing
         mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentUser);
 
@@ -160,7 +158,8 @@ public class User_Data {
 
                                 model_user.setCollections(model_collectionsList);
                                 currentUser = model_user;
-                                Model_Database_Lite.replaceSqlDatabase(context);
+                                Model_Database_Lite model_database_lite = new Model_Database_Lite();
+                                model_database_lite.replaceSqlDatabase(context);
 
 
                         }
