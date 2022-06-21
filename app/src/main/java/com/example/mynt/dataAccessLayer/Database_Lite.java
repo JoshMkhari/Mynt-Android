@@ -376,7 +376,6 @@ public class Database_Lite extends SQLiteOpenHelper {
             else {
                 try {
                     //User table
-                    db.execSQL("delete from "+ USER_TABLE);
                     cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
                     cv.put(COLUMN_PASSWORD, model_user.getPassword());
                     cv.put(COLUMN_LastSync, model_user.getLastSync());
