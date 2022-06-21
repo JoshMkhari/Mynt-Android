@@ -18,6 +18,17 @@ public class Model_Database_Lite extends Thread {
     private ArrayList<Model_Coin> dbCoins;
     private ArrayList<Model_Coin> coinsList;
 
+    public static void replaceSqlDatabase(Context appContext)
+    {
+        Database_Lite db = new Database_Lite(appContext);
+        //Delete all data within all Tables
+
+        //Populate User Table
+
+        //Populate Collections Table
+            //Populate Coins Table
+            //Populate Collection Coins Table
+    }
     public ArrayList<Model_Coin> allCoinsAndCollections(Context appContext, int task, int collectionID)//(GeeksForGeeks,2020)
     {
         db = new Database_Lite(appContext);

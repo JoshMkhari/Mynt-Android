@@ -40,10 +40,6 @@ public class Activity_Collections extends AppCompatActivity {
             page = bundle.getInt("StartPage");
             bundle.putInt("StartPage",page);
         }
-        if(User_Data.firebaseUser != null)
-        {
-            User_Data.uploadAllLocalData(getApplicationContext());
-        }
 
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/

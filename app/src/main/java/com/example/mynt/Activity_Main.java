@@ -36,10 +36,10 @@ public class Activity_Main extends AppCompatActivity {
             if(allUsers.get(i).getState()==1)
             {
                 User_Data.currentUser = allUsers.get(i);
+                Log.d("theChanges", "setting current user" +User_Data.currentUser.getLastSync() );
                 break;
             }
         }
-        Log.d("taskSycce", "onComplete: "+User_Data.currentUser.getEmail());
         if (!User_Data.currentUser.getEmail().equals("DefaultUser"))
         {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -48,9 +48,11 @@ public class Activity_Main extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Log.d("taskSycce", "onComplete: ");
                         User_Data.firebaseUser = mAuth.getCurrentUser();
-                        User_Data.uploadAllLocalData(getApplicationContext());
+                        if(User_Data.firebaseUser != null)
+                        {
+                            User_Data.mergeData(getApplicationContext());
+                        }
                     }
                 }
             });

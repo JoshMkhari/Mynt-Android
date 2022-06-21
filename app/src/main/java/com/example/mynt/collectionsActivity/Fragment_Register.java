@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Calendar;
 import java.util.Objects;
 
 /**
@@ -98,14 +99,11 @@ public class Fragment_Register extends Fragment {
                                    // Sign in success, update UI with the signed-in user's information
                                    //Log.d(TAG, "createUserWithEmail:success");
                                    User_Data.firebaseUser = mAuth.getCurrentUser();
+                                   Calendar cal = Calendar.getInstance();
                                    User_Data.currentUser = model_user;
                                    Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
-                                   String result = db.addUser(model_user);
-
-                                   Log.d("yourMom", "onComplete: " + result);
-                                   User_Data user_data = new User_Data();
-                                   user_data.mergeData();
-
+                                   db.addUser(model_user);
+                                   User_Data.uploadAllLocalData(getContext());
                                    i = new Intent(getContext(), Activity_Collections.class);
                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                    startActivity(i);

@@ -320,13 +320,21 @@ public class Database_Lite extends SQLiteOpenHelper {
             cv.clear();
         }
 
-        public void updateUser(Model_User model_user)
+        public String updateUser(Model_User model_user)
         {
-            SQLiteDatabase db = this.getWritableDatabase();
-            ContentValues cv = new ContentValues();
-            cv.put(COLUMN_LastSync, model_user.getLastSync());
-            // db.update(USER_TABLE,cv,"ID=1",null);
-            db.update(USER_TABLE,cv,COLUMN_USER_EMAIL + "=?",new String[]{model_user.getEmail()});
+            try {
+                SQLiteDatabase db = this.getWritableDatabase();
+                ContentValues cv = new ContentValues();
+                cv.put(COLUMN_LastSync, model_user.getLastSync());
+                // db.update(USER_TABLE,cv,"ID=1",null);
+                db.update(USER_TABLE,cv,COLUMN_USER_EMAIL + "=?",new String[]{model_user.getEmail()});
+                cv.clear();
+                return "Success";
+            }catch (Exception ignored)
+            {
+                return "Faild";
+            }
+
         }
 
 
