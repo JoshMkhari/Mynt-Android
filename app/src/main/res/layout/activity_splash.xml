@@ -10,7 +10,18 @@
     <pl.droidsonroids.gif.GifTextView
         android:id="@+id/imageViewGIf"
         android:layout_width="match_parent"
-        android:scaleType="fitXY"
         android:layout_height="match_parent"
-        android:background="@drawable/splash_screen"/>
+        android:background="@drawable/splash_screen"
+        android:scaleType="fitXY"
+        tools:layout_editor_absoluteX="-117dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <ImageView
+        android:id="@+id/forCoin_Download"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </ImageView>
 </androidx.constraintlayout.widget.ConstraintLayout>

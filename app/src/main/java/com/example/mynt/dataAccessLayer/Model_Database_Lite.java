@@ -1,7 +1,11 @@
 package com.example.mynt.dataAccessLayer;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.example.mynt.collectionsActivity.models.ModelFireBaseCoin;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
@@ -13,6 +17,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class Model_Database_Lite extends Thread {
@@ -22,8 +27,12 @@ public class Model_Database_Lite extends Thread {
     private Database_Lite db;
     private ArrayList<Model_Coin> dbCoins;
     private ArrayList<Model_Coin> coinsList;
+    boolean wait;
+    Model_Coin model_coin;
+    int year = 0;
+    String value = "";
 
-    public void replaceSqlDatabase(Context appContext)
+    public void replaceSqlDatabase(Context appContext, ImageView forCoin)
     {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
@@ -38,8 +47,6 @@ public class Model_Database_Lite extends Thread {
             db.addCollection(currentCollection);
             //Populate Coins Table
             for (ModelFireBaseCoin currentFireCoin: currentCollection.getFireBaseCoinscoins()) {
-                int year = 0;
-                String value = "";
                 char underscore = '_';
                 char[] valYearArray  = currentFireCoin.getValueYear().toLowerCase().toCharArray();
                 for (int i = 0; i < valYearArray.length; i++) {
@@ -55,20 +62,20 @@ public class Model_Database_Lite extends Thread {
                 // Create a reference to "ImageID.jpg"
                 String fileName = currentFireCoin.getValueYear() + ".jpg";
                 String directory = User_Data.firebaseUser.getUid() + "/"+currentCollection.getCollectionName()+"/" + fileName;
+                Log.d("directory", "replaceSqlDatabase: " + directory);
                 StorageReference mountainsRef = storageRef.child(directory);
-                final byte[][] ImageId = new byte[1][1];
                 final long ONE_MEGABYTE = 1024 * 1024;
+
                 mountainsRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override
                     public void onSuccess(byte[] bytes) {
-                        ImageId[0] = bytes;
+                        Log.d("doYouBleed", "onSuccess: ");
+                        model_coin = new Model_Coin(year,0,"","","","","",value, bytes,currentFireCoin.getDateTaken());
+                        model_coin.setCoinID(currentFireCoin.getCoinID());
+                        db.addCoin(model_coin,currentCollection.getCollectionID());
                     }
                 });
-                // Create a reference to 'images/mountains.jpg'
 
-                Model_Coin model_coin = new Model_Coin(year,0,"","","","","",value, ImageId[0],currentFireCoin.getDateTaken());
-                model_coin.setCoinID(currentFireCoin.getCoinID());
-                db.addCoin(model_coin,currentCollection.getCollectionID());
             }
         }
             //Populate Coins Table

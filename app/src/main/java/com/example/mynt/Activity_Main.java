@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.example.mynt.collectionsActivity.Activity_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
@@ -20,11 +21,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 
 public class Activity_Main extends AppCompatActivity {
-
+    ImageView forCoin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        forCoin = findViewById(R.id.forCoin_Download);
 
         Handler handler;//(Codeplayon, 2019)
 
@@ -51,7 +54,7 @@ public class Activity_Main extends AppCompatActivity {
                         User_Data.firebaseUser = mAuth.getCurrentUser();
                         if(User_Data.firebaseUser != null)
                         {
-                            User_Data.mergeData(getApplicationContext());
+                            User_Data.mergeData(getApplicationContext(),forCoin);
                         }
                     }
                 }

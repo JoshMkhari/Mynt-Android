@@ -105,8 +105,6 @@ public class Database_Lite extends SQLiteOpenHelper {
             + "FOREIGN KEY (" + COLUMN_COLLECTION_FK + ") REFERENCES "+ COLLECTION_TABLE +"(ID) ,"
             + "FOREIGN KEY (" + COLUMN_USER_FK + ") REFERENCES "+ USER_TABLE + "(" + COLUMN_USER_NAME +"));");
         db.execSQL(tableStatement);
-
-
      */
 
 
@@ -120,6 +118,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         db.execSQL("delete from "+ COLLECTION_TABLE);
 
     }
+
     public ArrayList<Model_Collections> getAllCollections() {//(freecodecamp,2020)
         ArrayList<Model_Collections> collectionsList = new ArrayList<>();
 

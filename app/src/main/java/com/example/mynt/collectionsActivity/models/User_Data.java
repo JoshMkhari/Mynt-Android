@@ -3,6 +3,7 @@ package com.example.mynt.collectionsActivity.models;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
@@ -106,7 +107,7 @@ public class User_Data {
         });
     }
 
-    public static void mergeData(Context context)
+    public static void mergeData(Context context, ImageView forCoin)
     {
         Query myUsersQuery = mDatabase.child("users").child(firebaseUser.getUid()).orderByChild("lastSync");
         myUsersQuery.addValueEventListener(new ValueEventListener() {
@@ -131,7 +132,7 @@ public class User_Data {
                         if(currentUser.getLastSync().equals(""))
                         {
                             Log.d("theChanges", "lastSync is null");
-                            downloadData(snapshot,context);
+                            downloadData(snapshot,context,forCoin);
                         }
                         else
                         {
@@ -168,19 +169,15 @@ public class User_Data {
                                     model_user.setCollections(model_collectionsList);
                                     currentUser = model_user;
                                     Model_Database_Lite model_database_lite = new Model_Database_Lite();
-                                    model_database_lite.replaceSqlDatabase(context);
+                                    model_database_lite.replaceSqlDatabase(context,forCoin);
                                 }
 
                             }
                         }
-
-
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-
                 }
-
             }
 
             @Override
@@ -191,7 +188,7 @@ public class User_Data {
 
     }
 
-    private static void downloadData(DataSnapshot snapshot, Context context) {
+    private static void downloadData(DataSnapshot snapshot, Context context, ImageView forCoin) {
         //sql cal is older
         //replace sql database with firebase data
         Model_User model_user = new Model_User(snapshot.child("email").getValue(String.class), snapshot.child("password").getValue(String.class), snapshot.child("state").getValue(int.class));
@@ -214,7 +211,7 @@ public class User_Data {
             model_user.setCollections(model_collectionsList);
             currentUser = model_user;
             Model_Database_Lite model_database_lite = new Model_Database_Lite();
-            model_database_lite.replaceSqlDatabase(context);}
+            model_database_lite.replaceSqlDatabase(context,forCoin);}
 
     }
 }
