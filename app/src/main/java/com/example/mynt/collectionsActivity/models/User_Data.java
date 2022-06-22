@@ -81,7 +81,14 @@ public class User_Data {
             db.updateUserLastSync(currentUser);
         }
         //Adding User if not existing
-        mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentUser);
+        if(!currentUser.getLastSync().equals(""))
+        {
+            //LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL'
+            //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+            //KKKKKKKKKKKKKKKKKKKKKKKKKKKK
+            //at me
+            mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentUser);
+        }
         Log.d("changeSync", "ulpadingData: " + changeSyc);
         //Merge online data with offline data
     }

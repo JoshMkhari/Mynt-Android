@@ -87,9 +87,8 @@ public class Fragment_Login extends Fragment {
                                 //update user state
                                 db.updateState(model_user);//(geeksforgeeks, 2021)
                                 User_Data.currentUser =model_user;
-                                //User_Data.uploadAllLocalData(getContext());
                                 //Upload current data then download from Firebase
-                                Intent login = new Intent(getContext(), Activity_Main.class);
+                                Intent login = new Intent(getContext(), Activity_Collections.class);
                                 login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(login);
                                 //Additional User Feedback
@@ -106,6 +105,7 @@ public class Fragment_Login extends Fragment {
                                     {
                                         User_Data.currentUser =model_user;
                                         db.addUser(model_user);
+                                        User_Data.uploadAllLocalData(getContext());
                                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                                         DatabaseReference mDatabase = database.getReference();
                                         mDatabase.child("users").child(User_Data.firebaseUser.getUid()).child("state").setValue(2);

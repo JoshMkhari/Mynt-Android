@@ -36,12 +36,11 @@ public class Model_Database_Lite extends Thread {
     {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
-
         Database_Lite db = new Database_Lite(appContext);
         //Delete all data within all Tables
         db.removeUserData();
         //Populate User Table
-        Log.d("lastCync", "replaceSqlDatabase: " + User_Data.currentUser.getLastSync());
+        //Log.d("lastCync", "replaceSqlDatabase: " + User_Data.currentUser.getLastSync());
         db.updateUserLastSync(User_Data.currentUser);
         //Populate Collections Table
         for (Model_Collections currentCollection: User_Data.currentUser.getCollections()) {
