@@ -32,7 +32,7 @@ public class Model_Database_Lite extends Thread {
     int year = 0;
     String value = "";
 
-    public void replaceSqlDatabase(Context appContext, ImageView forCoin)
+    public void replaceSqlDatabase(Context appContext)
     {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
@@ -41,7 +41,8 @@ public class Model_Database_Lite extends Thread {
         //Delete all data within all Tables
         db.removeUserData();
         //Populate User Table
-        db.addUser(User_Data.currentUser);
+        Log.d("lastCync", "replaceSqlDatabase: " + User_Data.currentUser.getLastSync());
+        db.updateUserLastSync(User_Data.currentUser);
         //Populate Collections Table
         for (Model_Collections currentCollection: User_Data.currentUser.getCollections()) {
             db.addCollection(currentCollection);

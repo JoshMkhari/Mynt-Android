@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.mynt.Activity_Main;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
@@ -49,18 +50,12 @@ public class Fragment_Login extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         loginView = inflater.inflate(R.layout.fragment_login, container, false);
-
-
         email = loginView.findViewById(R.id.LoginEmail_EditText);
         password = loginView.findViewById(R.id.LoginPassword_EditText);
         login = loginView.findViewById(R.id.LoginEmail_Button);
         close = loginView.findViewById(R.id.LoginClose_button);
-
-
         Login();
         ReturnToRegister();
-
-
         return loginView;
     }
 
@@ -92,11 +87,12 @@ public class Fragment_Login extends Fragment {
                                 //update user state
                                 db.updateState(model_user);//(geeksforgeeks, 2021)
                                 User_Data.currentUser =model_user;
-                                Intent login = new Intent(getContext(), Activity_Collections.class);
+                                //User_Data.uploadAllLocalData(getContext());
+                                //Upload current data then download from Firebase
+                                Intent login = new Intent(getContext(), Activity_Main.class);
                                 login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(login);
                                 //Additional User Feedback
-                                Toast.makeText(getContext(),model_user.getEmail()+ " has logged in successfully.",Toast.LENGTH_LONG).show();//(Alexander, 2016).
                             }
                         }
                     }

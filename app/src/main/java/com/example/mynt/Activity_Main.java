@@ -54,7 +54,7 @@ public class Activity_Main extends AppCompatActivity {
                         User_Data.firebaseUser = mAuth.getCurrentUser();
                         if(User_Data.firebaseUser != null)
                         {
-                            User_Data.mergeData(getApplicationContext(),forCoin);
+                            User_Data.mergeData(getApplicationContext());
                         }
                     }
                 }

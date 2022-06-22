@@ -111,8 +111,6 @@ public class Database_Lite extends SQLiteOpenHelper {
     public void removeUserData()
     {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        db.execSQL("delete from "+ USER_TABLE);
         db.execSQL("delete from "+ COLLECTIONS_COIN_TABLE);
         db.execSQL("delete from "+ COIN_TABLE);
         db.execSQL("delete from "+ COLLECTION_TABLE);
@@ -333,6 +331,8 @@ public class Database_Lite extends SQLiteOpenHelper {
             try {
                 SQLiteDatabase db = this.getWritableDatabase();
                 ContentValues cv = new ContentValues();
+                //String statment = "UPDATE USER_TABLE SET ADDRESS = 'Texas' WHERE ID = 6;";
+                //db.execSQL("UPDATE USER_TABLE SET ADDRESS = 'Texas' WHERE ID = 6;");
                 cv.put(COLUMN_LastSync, model_user.getLastSync());
                 // db.update(USER_TABLE,cv,"ID=1",null);
                 db.update(USER_TABLE,cv,COLUMN_USER_EMAIL + "=?",new String[]{model_user.getEmail()});

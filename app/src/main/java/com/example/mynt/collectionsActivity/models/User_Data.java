@@ -37,17 +37,17 @@ public class User_Data {
     public static Bitmap coinBitmap;
     public static FirebaseUser firebaseUser;
     public static Model_User currentUser;
-    public static Boolean sync =false;
+    public static boolean sync =false;
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     static DatabaseReference mDatabase = database.getReference();
 
     public static void uploadAllLocalData(Context context)
     {
         //First check if user is authorized
-        Log.d("theChanges", "upload running");
         //Adding collections
+        boolean changeSyc = false;
         Database_Lite db = new Database_Lite(context);
-
+        Log.d("changeSync", "ulpadingData: " + changeSyc);
         ArrayList<Model_Collections> allCollections = db.getAllCollections();
         ArrayList<Model_Collections> userCollections = new ArrayList<>();
         Model_Database_Lite mdl = new Model_Database_Lite();
@@ -61,6 +61,8 @@ public class User_Data {
                 ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(Value_Year,coins.get(s).getDateAcquired(),coins.get(s).getCoinID());
                 uploadImage(Value_Year, coins.get(s).getImageId(),allCollections.get(i).getCollectionName());
                 modelFireBaseCoinArrayList.add(modelFireBaseCoin);
+                Log.d("changeSync", "uploadAllLocalData: " + changeSyc);
+                changeSyc = true;
             }
             Model_Collections model_collections = new Model_Collections(allCollections.get(i).getCollectionName()
                     ,allCollections.get(i).getGoal(),
@@ -71,13 +73,16 @@ public class User_Data {
 
         //Adding coins to collections
         currentUser.setCollections(userCollections);
-        Calendar cal = Calendar.getInstance();
-        String lastSync = cal.getTime().toString();
-        currentUser.setLastSync(lastSync);
-        db.updateUserLastSync(currentUser);
+        if(changeSyc)
+        {
+            Calendar cal = Calendar.getInstance();
+            String lastSync = cal.getTime().toString();
+            currentUser.setLastSync(lastSync);
+            db.updateUserLastSync(currentUser);
+        }
         //Adding User if not existing
         mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentUser);
-
+        Log.d("changeSync", "ulpadingData: " + changeSyc);
         //Merge online data with offline data
     }
 
@@ -107,7 +112,7 @@ public class User_Data {
         });
     }
 
-    public static void mergeData(Context context, ImageView forCoin)
+    public static void mergeData(Context context)
     {
         Query myUsersQuery = mDatabase.child("users").child(firebaseUser.getUid()).orderByChild("lastSync");
         myUsersQuery.addValueEventListener(new ValueEventListener() {
@@ -132,7 +137,7 @@ public class User_Data {
                         if(currentUser.getLastSync().equals(""))
                         {
                             Log.d("theChanges", "lastSync is null");
-                            downloadData(snapshot,context,forCoin);
+                            downloadData(snapshot,context,firebaseSync);
                         }
                         else
                         {
@@ -169,7 +174,7 @@ public class User_Data {
                                     model_user.setCollections(model_collectionsList);
                                     currentUser = model_user;
                                     Model_Database_Lite model_database_lite = new Model_Database_Lite();
-                                    model_database_lite.replaceSqlDatabase(context,forCoin);
+                                    model_database_lite.replaceSqlDatabase(context);
                                 }
 
                             }
@@ -188,11 +193,12 @@ public class User_Data {
 
     }
 
-    private static void downloadData(DataSnapshot snapshot, Context context, ImageView forCoin) {
+    private static void downloadData(DataSnapshot snapshot, Context context, String fireBaseSync) {
         //sql cal is older
         //replace sql database with firebase data
         Model_User model_user = new Model_User(snapshot.child("email").getValue(String.class), snapshot.child("password").getValue(String.class), snapshot.child("state").getValue(int.class));
         model_user.setUserID(snapshot.child("userID").getValue(int.class));
+        model_user.setLastSync(fireBaseSync);
 
         List<Model_Collections> model_collectionsList = new ArrayList<>();//https://stackoverflow.com/questions/38652007/how-to-retrieve-specific-list-of-data-from-firebase
         for (DataSnapshot postSnapshot : snapshot.child("collections").getChildren()) {
@@ -211,7 +217,7 @@ public class User_Data {
             model_user.setCollections(model_collectionsList);
             currentUser = model_user;
             Model_Database_Lite model_database_lite = new Model_Database_Lite();
-            model_database_lite.replaceSqlDatabase(context,forCoin);}
+            model_database_lite.replaceSqlDatabase(context);}
 
     }
 }
