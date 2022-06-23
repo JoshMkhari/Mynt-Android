@@ -134,8 +134,7 @@ public class User_Data {
                     try {
                         assert firebaseSync != null;
                         fireCal.setTime(Objects.requireNonNull(sdf.parse(firebaseSync)));// all done https://stackoverflow.com/questions/39800547/read-data-from-firebase-database
-
-                        if(currentUser.getLastSync().equals(""))//In event login
+                        if(currentUser.getLastSync() == null)//In event login
                         {
                             Log.d("theChanges", "lastSync is null");
                             downloadData(snapshot,context,firebaseSync);
