@@ -73,22 +73,15 @@ public class User_Data {
 
         //Adding coins to collections
         currentUser.setCollections(userCollections);
-        if(changeSyc)
+        if(changeSyc || currentUser.getLastSync().equals(""))
         {
             Calendar cal = Calendar.getInstance();
             String lastSync = cal.getTime().toString();
             currentUser.setLastSync(lastSync);
             db.updateUserLastSync(currentUser);
         }
-        //Adding User if not existing
-        if(!currentUser.getLastSync().equals(""))
-        {
-            //LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL'
-            //OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-            //KKKKKKKKKKKKKKKKKKKKKKKKKKKK
-            //at me
-            mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentUser);
-        }
+
+        mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentUser);
         Log.d("changeSync", "ulpadingData: " + changeSyc);
         //Merge online data with offline data
     }
@@ -141,7 +134,7 @@ public class User_Data {
                         assert firebaseSync != null;
                         fireCal.setTime(Objects.requireNonNull(sdf.parse(firebaseSync)));// all done https://stackoverflow.com/questions/39800547/read-data-from-firebase-database
 
-                        if(currentUser.getLastSync().equals(""))
+                        if(currentUser.getLastSync().equals(""))//In event login
                         {
                             Log.d("theChanges", "lastSync is null");
                             downloadData(snapshot,context,firebaseSync);

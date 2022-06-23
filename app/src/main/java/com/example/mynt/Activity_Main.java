@@ -21,13 +21,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 
 public class Activity_Main extends AppCompatActivity {
-    ImageView forCoin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
-        forCoin = findViewById(R.id.forCoin_Download);
 
         Handler handler;//(Codeplayon, 2019)
 

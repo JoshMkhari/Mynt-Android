@@ -207,7 +207,10 @@ public class Fragment_Add extends Fragment {
                         Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
                     }else
                     {
-                        Toast.makeText(getContext(), "Storing collectionCoin", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
+                        Calendar cal = Calendar.getInstance();
+                        String lastSync = cal.getTime().toString();
+                        User_Data.currentUser.setLastSync(lastSync);
+                        User_Data.mergeData(getContext());
                         Intent home = new Intent(getContext(),Activity_Collections.class);
                         home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(home);

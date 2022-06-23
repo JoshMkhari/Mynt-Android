@@ -141,6 +141,7 @@ public class Fragment_Goal extends Fragment {
                 Calendar cal = Calendar.getInstance();
                 String lastSync = cal.getTime().toString();
                 User_Data.currentUser.setLastSync(lastSync);
+                User_Data.mergeData(getContext());
                 localDB.updateUserLastSync(User_Data.currentUser);
                 home = new Intent(getContext(),Activity_Collections.class);
                 home.putExtra("View","library");
