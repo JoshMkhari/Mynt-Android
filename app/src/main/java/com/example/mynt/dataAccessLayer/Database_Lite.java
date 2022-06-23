@@ -462,7 +462,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         {
             int coinID = 1;
             if(coinArrayList.size()>0)
-                coinID = coinArrayList.get(coinArrayList.size()).getCoinID();
+                coinID = coinArrayList.get(coinArrayList.size()-1).getCoinID()+1;
             try
             {
                 try

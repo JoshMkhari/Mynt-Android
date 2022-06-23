@@ -26,7 +26,7 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class Fragment_ViewPager extends Fragment {
-    Model_User user = User_Data.currentUser;//(Section, 2021)
+    //(Section, 2021)
     //23:54
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +43,7 @@ public class Fragment_ViewPager extends Fragment {
 
 
         FragmentManager fragmentManager = getParentFragmentManager();
-        Adapter_HomeActFragment fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), user.getUserID());//(Foxandroid,2021)
+        Adapter_HomeActFragment fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), User_Data.currentUser.getUserID());//(Foxandroid,2021)
         viewPager2_main.setAdapter((fragmentAdapter));//(Foxandroid,2021)
 
         SpringDotsIndicator springDotsIndicator = (SpringDotsIndicator) home.findViewById(R.id.spring_dots_indicator);//(tommybuonomo,2022)

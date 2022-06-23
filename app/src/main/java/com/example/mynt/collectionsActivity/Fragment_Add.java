@@ -390,7 +390,8 @@ public class Fragment_Add extends Fragment {
                     }
                 }catch (Exception e)
                 {
-                    Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
+                    throw e;
+                    //Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
                 }
             }
         };
