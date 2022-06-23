@@ -50,9 +50,7 @@ public class Activity_Main extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         User_Data.firebaseUser = mAuth.getCurrentUser();
                         if(User_Data.firebaseUser != null)
-                        {
                             User_Data.mergeData(getApplicationContext());
-                        }
                     }
                 }
             });

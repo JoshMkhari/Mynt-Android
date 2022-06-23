@@ -208,7 +208,8 @@ public class Fragment_Add extends Fragment {
                         Calendar cal = Calendar.getInstance();
                         String lastSync = cal.getTime().toString();
                         User_Data.currentUser.setLastSync(lastSync);
-                        User_Data.mergeData(getContext());
+                        if(!User_Data.currentUser.getEmail().equals("DefaultUser"))
+                            User_Data.mergeData(getContext());
                         Intent home = new Intent(getContext(),Activity_Collections.class);
                         home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(home);
