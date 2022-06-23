@@ -437,10 +437,11 @@ public class Database_Lite extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
+        int coinID = getAllCoins().size();
         try
         {
             //Coin Table
-            cv.put(COIN_ID, coin.getCoinID());
+            cv.put(COIN_ID, coinID);
             cv.put(COLUMN_ALT_NAME,coin.getAlternateName());
             cv.put(COLUMN_DATE_TAKEN,coin.getDateAcquired());
             cv.put(COLUMN_MINTAGE,coin.getMintage());
@@ -461,7 +462,6 @@ public class Database_Lite extends SQLiteOpenHelper {
         {
             try
             {
-                int coinID = getAllCoins().size();
                 try
                 {
                     //Collections table
