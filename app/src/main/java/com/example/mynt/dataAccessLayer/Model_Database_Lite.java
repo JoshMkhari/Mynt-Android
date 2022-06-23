@@ -50,11 +50,14 @@ public class Model_Database_Lite extends Thread {
         Log.d("TAG", "LOGIN: change made" + userArrayList.size());
         //Populate User Table
         coinID = 1;
+        collectionID=1;
         //Log.d("lastCync", "replaceSqlDatabase: " + User_Data.currentUser.getLastSync());
         Log.d("theSync", "downloadData: udated sync" + User_Data.currentUser.getLastSync());
         //Populate Collections Table
         Log.d("wehatWeGot", "replaceSqlDatabase: collection size" + User_Data.currentUser.getCollections().size());
         for (Model_Collections currentCollection: User_Data.currentUser.getCollections()) {
+            ArrayList<Model_Collections> allCollections = db.getAllCollections();
+            currentCollection.setCollectionID(allCollections.size()+1);
             db.addCollection(currentCollection);
             //Populate Coins Table
             Log.d("wehatWeGot", "replaceSqlDatabase: coins in collection " + currentCollection.getCollectionName() + " size " + currentCollection.getFireBaseCoinscoins().size());
@@ -76,10 +79,9 @@ public class Model_Database_Lite extends Thread {
                             {
                                 year = Integer.parseInt(currentFireCoin.getValueYear().substring(i+1));
                                 value = currentFireCoin.getValueYear().substring(0,i);
-                                collectionID = db.getCollectionID(currentCollection);
                                 model_coin = new Model_Coin(year,0,"","","","","",value, bytes,currentFireCoin.getDateTaken());
                                 model_coin.setCoinID(coinID);
-                                db.addCoin(model_coin,collectionID);
+                                db.addCoin(model_coin,allCollections.size()+1);
                                 coinID++;
                                 Log.d("theChange", "VALUE " + value);
                                 break;

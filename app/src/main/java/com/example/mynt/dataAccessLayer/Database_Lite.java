@@ -41,6 +41,9 @@ public class Database_Lite extends SQLiteOpenHelper {
     private static final String COLUMN_PASSWORD = "PASSWORD";
     private static final String COLUMN_LastSync = "SYNC";
     private  static final String COIN_ID = "ID";
+    private  static final String USER_ID = "ID";
+    private  static final String COLLECTION_ID = "ID";
+    private  static final String COLLECTION_COIN_ID = "ID";
     private static final String COLUMN_STATE = "THEME";
     private static final String COLUMN_USER_EMAIL = "EMAIL";
     private static final String COLUMN_USER_NAME = "USER_NAME";
@@ -61,12 +64,12 @@ public class Database_Lite extends SQLiteOpenHelper {
 
         //User Table
         String         //User Table
-                tableStatement = ("CREATE TABLE " + USER_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_USER_EMAIL + " TEXT, " +
+                tableStatement = ("CREATE TABLE " + USER_TABLE + "(" + USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "  + COLUMN_USER_EMAIL + " TEXT, " +
                 COLUMN_STATE + " INTEGER, " + COLUMN_PASSWORD + " TEXT, " + COLUMN_LastSync + " TEXT);");
         db.execSQL(tableStatement);
 
         //Collections Table
-        tableStatement = ("CREATE TABLE " + COLLECTION_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_COLLECTION_NAME
+        tableStatement = ("CREATE TABLE " + COLLECTION_TABLE + "(" + COLLECTION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "  + COLUMN_COLLECTION_NAME
                 + " TEXT, "+ COLUMN_GOAL + " INTEGER);");
         db.execSQL(tableStatement);
 
@@ -78,7 +81,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         db.execSQL(tableStatement);
 
         //Collection_Coin Table
-        tableStatement = ("CREATE TABLE " + COLLECTIONS_COIN_TABLE + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, " + COLUMN_COLLECTION
+        tableStatement = ("CREATE TABLE " + COLLECTIONS_COIN_TABLE + "(" + COLLECTION_COIN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "  + COLUMN_COLLECTION
                 + " INTEGER, " + COLUMN_COIN + " INTEGER, "
                 + "FOREIGN KEY (" + COLUMN_COLLECTION + ") REFERENCES "+ COLLECTION_TABLE +"(ID) ,"
                 + "FOREIGN KEY (" + COLUMN_COIN + ") REFERENCES "+ COIN_TABLE + "(" + COIN_ID +"));");
@@ -285,7 +288,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         return users;
     }
 
-    public void addCollectionCoin(int collectionID, int coinID)//(freecodecamp,2020)
+    public void addCollectionCoin(int collectionID, int coinID, int ID)//(freecodecamp,2020)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -294,6 +297,7 @@ public class Database_Lite extends SQLiteOpenHelper {
                 try
                 {
                     //Collections table
+                    cv.put(COLLECTION_COIN_ID,ID);
                     cv.put(COLUMN_COLLECTION,collectionID);
                     cv.put(COLUMN_COIN,coinID);
                     db.insert(COLLECTIONS_COIN_TABLE,null,cv);
@@ -365,6 +369,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         try
         {
             if (users.size()>0) {
+                cv.put(USER_ID, 1);
                 cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
                 cv.put(COLUMN_PASSWORD, model_user.getPassword());
                 cv.put(COLUMN_LastSync, model_user.getLastSync());
@@ -375,6 +380,7 @@ public class Database_Lite extends SQLiteOpenHelper {
             else {
                 try {
                     //User table
+                    cv.put(USER_ID, 1);
                     cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
                     cv.put(COLUMN_PASSWORD, model_user.getPassword());
                     cv.put(COLUMN_LastSync, model_user.getLastSync());
@@ -410,6 +416,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         try {
             //Collections table
+            cv.put(COLLECTION_ID, model_collections.getCollectionID());
             cv.put(COLUMN_COLLECTION_NAME, model_collections.getCollectionName());
             cv.put(COLUMN_GOAL, model_collections.getGoal());
             db.insert(COLLECTION_TABLE, null, cv);
@@ -417,20 +424,6 @@ public class Database_Lite extends SQLiteOpenHelper {
         } catch (Exception ignored) {
 
         }
-    }
-
-    public int getCollectionID(Model_Collections model_collections)
-    {
-        ArrayList<Model_Collections> collections = getAllCollections();
-        for (Model_Collections currentCollection:collections
-             ) {
-            if(currentCollection.getCollectionName().equals(model_collections.getCollectionName()))
-            {
-                return currentCollection.getCollectionID();
-            }
-
-        }
-        return 0;
     }
 
     public void addCoin(Model_Coin coin, int collectionID)//(freecodecamp,2020)

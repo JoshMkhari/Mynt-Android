@@ -117,7 +117,10 @@ public class User_Data {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                if (Objects.equals(snapshot.child("lastSync").getValue(), currentUser.getLastSync())) {
+                Database_Lite db = new Database_Lite(context);
+                ArrayList<Model_User> usersList = db.getAllUsers();
+                User_Data.currentUser =usersList.get(0);
+                if (Objects.equals(snapshot.child("lastSync").getValue(), usersList.get(0).getLastSync())) {
                     Log.d("theChanges", "They are the same: ");
                 }else
                 {
@@ -151,30 +154,7 @@ public class User_Data {
                             {
                                 //sql cal is older
                                 //replace sql database with firebase data
-                                Log.d("theChanges", "sql cal is older: ");
-                                Model_User model_user = new Model_User(snapshot.child("email").getValue(String.class),snapshot.child("password").getValue(String.class),snapshot.child("state").getValue(int.class));
-                                model_user.setUserID(snapshot.child("userID").getValue(int.class));
-
-                                List<Model_Collections> model_collectionsList = new ArrayList<>();//https://stackoverflow.com/questions/38652007/how-to-retrieve-specific-list-of-data-from-firebase
-                                for (DataSnapshot postSnapshot: snapshot.child("collections").getChildren()) {
-                                    Model_Collections model_collections = new Model_Collections(postSnapshot.child("collectionName").getValue(String.class),postSnapshot.child("goal").getValue(int.class));
-                                    model_collections.setCollectionID(postSnapshot.child("collectionID").getValue(int.class));
-
-                                    List<ModelFireBaseCoin> modelFireBaseCoinList = new ArrayList<>();
-                                    for (DataSnapshot postSnapshotChild: postSnapshot.child("fireBaseCoinscoins").getChildren()) {
-                                        ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(postSnapshotChild.child("valueYear").getValue(String.class),postSnapshotChild.child("dateTaken").getValue(String.class));
-                                        modelFireBaseCoinList.add(modelFireBaseCoin);
-                                    }
-                                    //Now Add Coin to FireBaseCoinsList
-                                    model_collections.setFireBaseCoinscoins((ArrayList<ModelFireBaseCoin>) modelFireBaseCoinList);
-                                    model_collectionsList.add(model_collections);
-
-                                    model_user.setCollections(model_collectionsList);
-                                    currentUser = model_user;
-                                    Model_Database_Lite model_database_lite = new Model_Database_Lite();
-                                    model_database_lite.replaceSqlDatabase(context);
-                                }
-
+                                downloadData(snapshot,context,firebaseSync);
                             }
                         }
                     } catch (ParseException e) {

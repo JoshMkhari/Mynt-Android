@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.collectionsActivity.models.Model_User;
@@ -119,15 +120,15 @@ public class Fragment_Goal extends Fragment {
             {
                 localDB = new Database_Lite(getContext());//(freecodecamp,2020)
                 model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
+                int collectionID = localDB.getAllCollections().size()+1;
+                model_collections.setCollectionID(collectionID);
                 localDB.addCollection(model_collections);
                 //Add collection to database for user
                 if(task==1)// Creating new Collection and assigning it to a coin
                 {
                     Toast.makeText(getContext(), "Running new", Toast.LENGTH_SHORT).show();
                     //Get latest collection ID
-                    allUserCollections = localDB.getAllCollections();
-                    int collectionID = localDB.getCollectionID(model_collections);
-                    localDB.addCollectionCoin(collectionID,User_Data.model_coin.getCoinID());
+                    localDB.addCollectionCoin(collectionID,User_Data.model_coin.getCoinID(),localDB.getAllCoins().size());
                 }
                 else
                 {
