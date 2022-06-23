@@ -118,8 +118,6 @@ public class Fragment_Goal extends Fragment {
             if(Integer.parseInt(target_Edittext.getText().toString())!=0)
             {
                 localDB = new Database_Lite(getContext());//(freecodecamp,2020)
-
-
                 model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
                 localDB.addCollection(model_collections);
                 //Add collection to database for user
@@ -128,8 +126,8 @@ public class Fragment_Goal extends Fragment {
                     Toast.makeText(getContext(), "Running new", Toast.LENGTH_SHORT).show();
                     //Get latest collection ID
                     allUserCollections = localDB.getAllCollections();
-
-                    localDB.addCollectionCoin(allUserCollections.get(allUserCollections.size()-1).getCollectionID());
+                    int collectionID = localDB.getCollectionID(model_collections);
+                    localDB.addCollectionCoin(collectionID);
                 }
                 else
                 {

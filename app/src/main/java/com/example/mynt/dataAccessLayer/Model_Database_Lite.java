@@ -27,7 +27,8 @@ public class Model_Database_Lite extends Thread {
     private Database_Lite db;
     private ArrayList<Model_Coin> dbCoins;
     private ArrayList<Model_Coin> coinsList;
-    boolean wait;
+    int coinID;
+    int collectionID;
     Model_Coin model_coin;
     int year = 0;
     String value = "";
@@ -46,6 +47,8 @@ public class Model_Database_Lite extends Thread {
         //Populate Collections Table
         for (Model_Collections currentCollection: User_Data.currentUser.getCollections()) {
             db.addCollection(currentCollection);
+            collectionID = db.getCollectionID(currentCollection);
+            coinID = 1;
             //Populate Coins Table
             for (ModelFireBaseCoin currentFireCoin: currentCollection.getFireBaseCoinscoins()) {
                 char underscore = '_';
@@ -72,12 +75,14 @@ public class Model_Database_Lite extends Thread {
                     public void onSuccess(byte[] bytes) {
                         Log.d("theSync", "onSuccess: ");
                         model_coin = new Model_Coin(year,0,"","","","","",value, bytes,currentFireCoin.getDateTaken());
-                        model_coin.setCoinID(currentFireCoin.getCoinID());
-                        db.addCoin(model_coin,currentCollection.getCollectionID());
+                        model_coin.setCoinID(coinID);
+                        db.addCoin(model_coin,collectionID);
+                        coinID++;
                     }
                 });
 
             }
+            collectionID++;
         }
         Log.d("theSync", "population complete ");
             //Populate Coins Table

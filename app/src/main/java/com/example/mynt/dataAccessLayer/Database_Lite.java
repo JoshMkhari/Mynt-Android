@@ -400,7 +400,6 @@ public class Database_Lite extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-
         cv.put(COLUMN_GOAL, model_collections.getGoal());
         db.update(COLLECTION_TABLE,cv,"ID = " + model_collections.getCollectionID(),null);
         cv.clear();
@@ -420,6 +419,19 @@ public class Database_Lite extends SQLiteOpenHelper {
         }
     }
 
+    public int getCollectionID(Model_Collections model_collections)
+    {
+        ArrayList<Model_Collections> collections = getAllCollections();
+        for (Model_Collections currentCollection:collections
+             ) {
+            if(currentCollection.getCollectionName().equals(model_collections.getCollectionName()))
+            {
+                return currentCollection.getCollectionID();
+            }
+
+        }
+        return 0;
+    }
 
     public void addCoin(Model_Coin coin, int collectionID)//(freecodecamp,2020)
     {

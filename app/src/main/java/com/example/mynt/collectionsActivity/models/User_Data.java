@@ -58,7 +58,7 @@ public class User_Data {
             for (int s=0; s<coins.size(); s++)
             {
                 String Value_Year = coins.get(s).getValue() +"_"+ coins.get(s).getYear();
-                ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(Value_Year,coins.get(s).getDateAcquired(),coins.get(s).getCoinID());
+                ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(Value_Year,coins.get(s).getDateAcquired());
                 uploadImage(Value_Year, coins.get(s).getImageId(),allCollections.get(i).getCollectionName());
                 modelFireBaseCoinArrayList.add(modelFireBaseCoin);
                 Log.d("changeSync", "uploadAllLocalData: " + changeSyc);
@@ -67,7 +67,6 @@ public class User_Data {
             Model_Collections model_collections = new Model_Collections(allCollections.get(i).getCollectionName()
                     ,allCollections.get(i).getGoal(),
                     modelFireBaseCoinArrayList);
-            model_collections.setCollectionID(allCollections.get(i).getCollectionID());
             userCollections.add(model_collections);
         }
 
@@ -164,7 +163,7 @@ public class User_Data {
 
                                     List<ModelFireBaseCoin> modelFireBaseCoinList = new ArrayList<>();
                                     for (DataSnapshot postSnapshotChild: postSnapshot.child("fireBaseCoinscoins").getChildren()) {
-                                        ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(postSnapshotChild.child("valueYear").getValue(String.class),postSnapshotChild.child("dateTaken").getValue(String.class),postSnapshotChild.child("coinID").getValue(int.class));
+                                        ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(postSnapshotChild.child("valueYear").getValue(String.class),postSnapshotChild.child("dateTaken").getValue(String.class));
                                         modelFireBaseCoinList.add(modelFireBaseCoin);
                                     }
                                     //Now Add Coin to FireBaseCoinsList
@@ -203,11 +202,10 @@ public class User_Data {
         List<Model_Collections> model_collectionsList = new ArrayList<>();//https://stackoverflow.com/questions/38652007/how-to-retrieve-specific-list-of-data-from-firebase
         for (DataSnapshot postSnapshot : snapshot.child("collections").getChildren()) {
             Model_Collections model_collections = new Model_Collections(postSnapshot.child("collectionName").getValue(String.class), postSnapshot.child("goal").getValue(int.class));
-            model_collections.setCollectionID(postSnapshot.child("collectionID").getValue(int.class));
 
             List<ModelFireBaseCoin> modelFireBaseCoinList = new ArrayList<>();
             for (DataSnapshot postSnapshotChild : postSnapshot.child("fireBaseCoinscoins").getChildren()) {
-                ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(postSnapshotChild.child("valueYear").getValue(String.class), postSnapshotChild.child("dateTaken").getValue(String.class), postSnapshotChild.child("coinID").getValue(int.class));
+                ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(postSnapshotChild.child("valueYear").getValue(String.class), postSnapshotChild.child("dateTaken").getValue(String.class));
                 modelFireBaseCoinList.add(modelFireBaseCoin);
             }
             //Now Add Coin to FireBaseCoinsList
