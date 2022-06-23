@@ -193,9 +193,7 @@ public class Fragment_Add extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);//(Анатолий К.,2020)
         //Activity_Collections.OnB
         back.setOnClickListener(v -> backActivity());
-
         add_Button.setOnClickListener(v -> {
-
             //Check if picture is taken?
             if (imageSet) {
                     storeCoin();

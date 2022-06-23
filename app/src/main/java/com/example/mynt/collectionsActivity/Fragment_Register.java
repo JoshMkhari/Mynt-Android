@@ -100,8 +100,12 @@ public class Fragment_Register extends Fragment {
                                    //Log.d(TAG, "createUserWithEmail:success");
                                    User_Data.firebaseUser = mAuth.getCurrentUser();
                                    User_Data.currentUser = model_user;
+                                   Calendar cal = Calendar.getInstance();
+                                   String lastSync = cal.getTime().toString();
+                                   User_Data.currentUser.setLastSync(lastSync);
                                    Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
-                                   db.addUser(model_user);
+                                   db.addUser(User_Data.currentUser);
+                                   db.updateUserLastSync(User_Data.currentUser);
                                    User_Data.uploadAllLocalData(getContext());
                                    i = new Intent(getContext(), Activity_Collections.class);
                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
