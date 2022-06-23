@@ -46,11 +46,12 @@ public class User_Data {
         //First check if user is authorized
         //Adding collections
         boolean changeSyc = false;
+
         Database_Lite db = new Database_Lite(context);
-        Log.d("changeSync", "ulpadingData: " + changeSyc);
         ArrayList<Model_Collections> allCollections = db.getAllCollections();
         ArrayList<Model_Collections> userCollections = new ArrayList<>();
         Model_Database_Lite mdl = new Model_Database_Lite();
+
         for (int i=0; i<allCollections.size(); i++)
         {
             ArrayList<Model_Coin> coins = mdl.allCoinsAndCollections(context,1,allCollections.get(i).getCollectionID());
@@ -79,9 +80,7 @@ public class User_Data {
             currentUser.setLastSync(lastSync);
             db.updateUserLastSync(currentUser);
         }
-
-        mDatabase.child("users").child(firebaseUser.getUid()).child("collections").setValue(currentUser.getCollections());
-        Log.d("changeSync", "ulpadingData: " + changeSyc);
+        mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentUser);
         //Merge online data with offline data
     }
 

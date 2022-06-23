@@ -366,7 +366,7 @@ public class Database_Lite extends SQLiteOpenHelper {
             if (users.get(0).getEmail().equals(oldUser)) {
                 cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
                 cv.put(COLUMN_PASSWORD, model_user.getPassword());
-                User_Data.currentUser = users.get(0);
+                cv.put(COLUMN_LastSync, model_user.getLastSync());
                 // db.update(USER_TABLE,cv,"ID=1",null);
                 db.update(USER_TABLE,cv,COLUMN_USER_EMAIL + "=?",new String[]{oldUser});
                 return "true switch";
