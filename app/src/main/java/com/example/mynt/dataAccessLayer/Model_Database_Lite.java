@@ -45,8 +45,9 @@ public class Model_Database_Lite extends Thread {
         //Delete all data within all Tables
         db.removeUserData();
         //Populate User Table
+        db.addUser(User_Data.currentUser);
+        coinID = 1;
         //Log.d("lastCync", "replaceSqlDatabase: " + User_Data.currentUser.getLastSync());
-        db.updateUserLastSync(User_Data.currentUser);
         Log.d("theSync", "downloadData: udated sync" + User_Data.currentUser.getLastSync());
         //Populate Collections Table
         Log.d("wehatWeGot", "replaceSqlDatabase: collection size" + User_Data.currentUser.getCollections().size());
@@ -74,6 +75,7 @@ public class Model_Database_Lite extends Thread {
                                 value = currentFireCoin.getValueYear().substring(0,i);
                                 collectionID = db.getCollectionID(currentCollection);
                                 model_coin = new Model_Coin(year,0,"","","","","",value, bytes,currentFireCoin.getDateTaken());
+                                model_coin.setCoinID(coinID);
                                 db.addCoin(model_coin,collectionID);
                                 Log.d("theChange", "VALUE " + value);
                                 break;

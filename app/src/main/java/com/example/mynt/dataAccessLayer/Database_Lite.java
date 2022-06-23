@@ -112,6 +112,7 @@ public class Database_Lite extends SQLiteOpenHelper {
     public void removeUserData()
     {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + USER_TABLE);
         db.execSQL("delete from "+ COLLECTIONS_COIN_TABLE);
         db.execSQL("delete from "+ COIN_TABLE);
         db.execSQL("delete from "+ COLLECTION_TABLE);
@@ -437,7 +438,6 @@ public class Database_Lite extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         ArrayList<Model_Coin> coinArrayList = getAllCoins();
-
         try
         {
             //Coin Table
@@ -460,7 +460,9 @@ public class Database_Lite extends SQLiteOpenHelper {
         }
         if(collectionID != 0)
         {
-            int coinID = coinArrayList.get(coinArrayList.size()).getCoinID();
+            int coinID = 1;
+            if(coinArrayList.size()>0)
+                coinID = coinArrayList.get(coinArrayList.size()).getCoinID();
             try
             {
                 try

@@ -88,7 +88,8 @@ public class Fragment_Login extends Fragment {
                                     User_Data.firebaseUser = mAuth.getCurrentUser();
                                     if(User_Data.firebaseUser != null)
                                     {
-                                        db.addUser(User_Data.currentUser);
+                                        User_Data.currentUser = model_user;
+                                        //db.addUser(User_Data.currentUser);
                                         User_Data.mergeData(getContext());
                                         //User_Data.mergeData(getContext());
                                         Intent login = new Intent(getContext(), Activity_Collections.class);
