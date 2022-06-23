@@ -137,6 +137,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
             {
                 //POE
                 //Goals Activity
+                Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_All_Goals, bundle);
             }
 
             //startActivity(collections);

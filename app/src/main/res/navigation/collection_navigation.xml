@@ -164,6 +164,9 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_fragment_home_main_to_fragment_All_Goals"
+            app:destination="@id/fragment_All_Goals" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Login"
@@ -196,4 +199,9 @@
         android:name="com.example.mynt.collectionsActivity.Fragment_CoinFull"
         android:label="fragment_coin_full"
         tools:layout="@layout/fragment_coin_full" />
+    <fragment
+        android:id="@+id/fragment_All_Goals"
+        android:name="com.example.mynt.collectionsActivity.Fragment_All_Goals"
+        android:label="fragment_all_goals"
+        tools:layout="@layout/fragment_all_goals" />
 </navigation>
