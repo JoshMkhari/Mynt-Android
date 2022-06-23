@@ -1,13 +1,17 @@
 package com.example.mynt.collectionsActivity;
 
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
+
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
@@ -27,6 +31,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,8 +46,8 @@ public class Fragment_All_Goals extends Fragment {
         // Inflate the layout for this fragment
         View allGoals = inflater.inflate(R.layout.fragment_all_goals, container, false);
 
-        PieChart pieChart = allGoals.findViewById(R.id.pie_chart);
-
+        PieChart pieChart = allGoals.findViewById(R.id.pie_chart);//https://www.youtube.com/watch?v=vhKtbECeazQ
+        ImageButton back_imageButton = allGoals.findViewById(R.id.image_button_back_all_goals);
         ArrayList<PieEntry> goals = new ArrayList<>();
 
 
@@ -58,7 +63,6 @@ public class Fragment_All_Goals extends Fragment {
             String pieChartTitle = currentCollection.getCollectionName() + " " + Math.round(goal) + "%";
             goals.add(new PieEntry(coinsList.size(),pieChartTitle));
         }
-
         //X collection Name
         //Y axis second number
 
@@ -66,7 +70,7 @@ public class Fragment_All_Goals extends Fragment {
         //Bar colours
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         //CHange to theme colour
-        pieDataSet.setValueTextColor(Color.BLACK);
+        pieDataSet.setValueTextColor(Color.WHITE);
         pieDataSet.setValueTextSize(16f);
 
         PieData pieData = new PieData(pieDataSet);
@@ -75,6 +79,29 @@ public class Fragment_All_Goals extends Fragment {
         pieChart.getDescription().setEnabled(true);
         pieChart.setCenterText("All Collections");
         pieChart.animate();
+
+        back_imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backActivity();
+            }
+        });
+
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {//(Анатолий К.,2020)
+            @Override
+            public void handleOnBackPressed() {
+                backActivity();
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);//(Анатолий К.,2020)
+
         return allGoals;
+    }
+
+    private void backActivity() {
+        Bundle bundle = new Bundle();//(valerybodak,2020)
+        bundle.putInt("StartPage",0);
+        findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
+                setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)
     }
 }

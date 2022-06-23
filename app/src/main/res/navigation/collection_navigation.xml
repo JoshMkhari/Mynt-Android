@@ -166,7 +166,11 @@
             app:popExitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_fragment_home_main_to_fragment_All_Goals"
-            app:destination="@id/fragment_All_Goals" />
+            app:destination="@id/fragment_All_Goals"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Login"
