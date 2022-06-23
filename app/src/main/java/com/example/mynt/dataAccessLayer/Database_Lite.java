@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
+import com.example.mynt.collectionsActivity.models.User_Data;
 
 import java.util.ArrayList;
 
@@ -365,7 +366,7 @@ public class Database_Lite extends SQLiteOpenHelper {
             if (users.get(0).getEmail().equals(oldUser)) {
                 cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
                 cv.put(COLUMN_PASSWORD, model_user.getPassword());
-                cv.put(COLUMN_LastSync, model_user.getLastSync());
+                User_Data.currentUser = users.get(0);
                 // db.update(USER_TABLE,cv,"ID=1",null);
                 db.update(USER_TABLE,cv,COLUMN_USER_EMAIL + "=?",new String[]{oldUser});
                 return "true switch";
@@ -435,11 +436,12 @@ public class Database_Lite extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        int coinID = getAllCoins().size();
+        ArrayList<Model_Coin> coinArrayList = getAllCoins();
+
         try
         {
             //Coin Table
-            cv.put(COIN_ID, coinID);
+            cv.put(COIN_ID, coin.getCoinID());
             cv.put(COLUMN_ALT_NAME,coin.getAlternateName());
             cv.put(COLUMN_DATE_TAKEN,coin.getDateAcquired());
             cv.put(COLUMN_MINTAGE,coin.getMintage());
@@ -458,6 +460,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         }
         if(collectionID != 0)
         {
+            int coinID = coinArrayList.get(coinArrayList.size()).getCoinID();
             try
             {
                 try

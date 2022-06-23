@@ -80,7 +80,7 @@ public class User_Data {
             db.updateUserLastSync(currentUser);
         }
 
-        mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentUser);
+        mDatabase.child("users").child(firebaseUser.getUid()).child("collections").setValue(currentUser.getCollections());
         Log.d("changeSync", "ulpadingData: " + changeSyc);
         //Merge online data with offline data
     }
