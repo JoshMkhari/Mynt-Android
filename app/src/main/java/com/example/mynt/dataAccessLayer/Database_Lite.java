@@ -283,14 +283,12 @@ public class Database_Lite extends SQLiteOpenHelper {
         return users;
     }
 
-    public void addCollectionCoin(int collectionID)//(freecodecamp,2020)
+    public void addCollectionCoin(int collectionID, int coinID)//(freecodecamp,2020)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        int coinID;
             try
             {
-                 coinID = getAllCoins().size();
                 try
                 {
                     //Collections table

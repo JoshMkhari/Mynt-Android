@@ -374,6 +374,7 @@ public class Fragment_Add extends Fragment {
                             ImageByteArray,
                             dateAq);
                     model_coin.setCoinID(coinID);
+                    User_Data.model_coin = model_coin;
                     int selectedPosition = spinnerCollection.getSelectedItemPosition()-1;
                     if(selectedPosition == -1)
                     {

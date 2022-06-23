@@ -127,7 +127,7 @@ public class Fragment_Goal extends Fragment {
                     //Get latest collection ID
                     allUserCollections = localDB.getAllCollections();
                     int collectionID = localDB.getCollectionID(model_collections);
-                    localDB.addCollectionCoin(collectionID);
+                    localDB.addCollectionCoin(collectionID,User_Data.model_coin.getCoinID());
                 }
                 else
                 {
