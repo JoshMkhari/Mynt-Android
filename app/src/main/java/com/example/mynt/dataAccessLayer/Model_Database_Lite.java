@@ -44,8 +44,11 @@ public class Model_Database_Lite extends Thread {
         Database_Lite db = new Database_Lite(appContext);
         //Delete all data within all Tables
         db.removeUserData();
-        //Populate User Table
         db.addUser(User_Data.currentUser);
+        ArrayList<Model_User> userArrayList = db.getAllUsers();
+        Log.d("TAG", "LOGIN: result = " + db.addUser(User_Data.currentUser));
+        Log.d("TAG", "LOGIN: change made" + userArrayList.size());
+        //Populate User Table
         coinID = 1;
         //Log.d("lastCync", "replaceSqlDatabase: " + User_Data.currentUser.getLastSync());
         Log.d("theSync", "downloadData: udated sync" + User_Data.currentUser.getLastSync());

@@ -364,7 +364,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         }
         try
         {
-            if (users.get(0).getEmail().equals(oldUser)) {
+            if (users.size()>0) {
                 cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
                 cv.put(COLUMN_PASSWORD, model_user.getPassword());
                 cv.put(COLUMN_LastSync, model_user.getLastSync());
@@ -390,7 +390,7 @@ public class Database_Lite extends SQLiteOpenHelper {
             }
         }catch (Exception e)
         {
-
+            //throw e;
             return "false switch";
         }
     }

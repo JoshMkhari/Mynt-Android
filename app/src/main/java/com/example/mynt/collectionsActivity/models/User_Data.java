@@ -215,8 +215,6 @@ public class User_Data {
         }
         currentUser = model_user;
 
-        Log.d("theSync", "downloadData: last sync " + currentUser.getLastSync());
-        Log.d("theSync", "downloadData: collections num " + currentUser.getCollections().size());
         Model_Database_Lite model_database_lite = new Model_Database_Lite();
         model_database_lite.replaceSqlDatabase(context);
 
