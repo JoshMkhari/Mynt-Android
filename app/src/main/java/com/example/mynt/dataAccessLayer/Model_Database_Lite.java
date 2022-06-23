@@ -7,12 +7,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+
 import com.example.mynt.collectionsActivity.models.ModelFireBaseCoin;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.collectionsActivity.models.User_Data;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -45,41 +49,43 @@ public class Model_Database_Lite extends Thread {
         db.updateUserLastSync(User_Data.currentUser);
         Log.d("theSync", "downloadData: udated sync" + User_Data.currentUser.getLastSync());
         //Populate Collections Table
+        Log.d("wehatWeGot", "replaceSqlDatabase: collection size" + User_Data.currentUser.getCollections().size());
         for (Model_Collections currentCollection: User_Data.currentUser.getCollections()) {
             db.addCollection(currentCollection);
-            collectionID = db.getCollectionID(currentCollection);
             //Populate Coins Table
+            Log.d("wehatWeGot", "replaceSqlDatabase: coins in collection " + currentCollection.getCollectionName() + " size " + currentCollection.getFireBaseCoinscoins().size());
             for (ModelFireBaseCoin currentFireCoin: currentCollection.getFireBaseCoinscoins()) {
-                char underscore = '_';
-                char[] valYearArray  = currentFireCoin.getValueYear().toLowerCase().toCharArray();
-                for (int i = 0; i < valYearArray.length; i++) {
-                    if(valYearArray[i]==underscore)
-                    {
-                        year = Integer.parseInt(currentFireCoin.getValueYear().substring(i+1));
-                        value = currentFireCoin.getValueYear().substring(0,i);
-                        Log.d("theChange", "VALUE " + value);
-                        break;
-                    }
-                    Log.d("theChange", "replaceSqlDatabase: " +currentFireCoin.getValueYear() );
-                }
                 // Create a reference to "ImageID.jpg"
                 String fileName = currentFireCoin.getValueYear() + ".jpg";
                 String directory = User_Data.firebaseUser.getUid() + "/"+currentCollection.getCollectionName()+"/" + fileName;
                 Log.d("directory", "replaceSqlDatabase: " + directory);
                 StorageReference mountainsRef = storageRef.child(directory);
                 final long ONE_MEGABYTE = 1024 * 1024;
-
                 mountainsRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                     @Override
                     public void onSuccess(byte[] bytes) {
                         Log.d("theSync", "onSuccess: ");
-                        model_coin = new Model_Coin(year,0,"","","","","",value, bytes,currentFireCoin.getDateTaken());
-                        db.addCoin(model_coin,collectionID);
+                        char underscore = '_';
+                        char[] valYearArray  = currentFireCoin.getValueYear().toLowerCase().toCharArray();
+                        for (int i = 0; i < valYearArray.length; i++) {
+                            if(valYearArray[i]==underscore)
+                            {
+                                year = Integer.parseInt(currentFireCoin.getValueYear().substring(i+1));
+                                value = currentFireCoin.getValueYear().substring(0,i);
+                                collectionID = db.getCollectionID(currentCollection);
+                                model_coin = new Model_Coin(year,0,"","","","","",value, bytes,currentFireCoin.getDateTaken());
+                                db.addCoin(model_coin,collectionID);
+                                Log.d("theChange", "VALUE " + value);
+                                break;
+                            }
+                            Log.d("theChange", "replaceSqlDatabase: " +currentFireCoin.getValueYear() );
+                        }
+
+                        Log.d("wehatWeGot", "onSuccess: " + model_coin.getValue());
                     }
                 });
 
             }
-            collectionID++;
         }
         Log.d("theSync", "population complete ");
             //Populate Coins Table
