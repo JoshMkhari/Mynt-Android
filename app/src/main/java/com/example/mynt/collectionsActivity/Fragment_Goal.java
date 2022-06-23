@@ -153,7 +153,6 @@ public class Fragment_Goal extends Fragment {
 
             }else
             {
-
                 //Additional User Feedback
                 Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has not been created successfully." , Toast.LENGTH_SHORT).show();//(Alexander, 2016).
                 Toast.makeText(getContext(), "Target number of coins cannot be 0.", Toast.LENGTH_SHORT).show();//(Alexander, 2016).

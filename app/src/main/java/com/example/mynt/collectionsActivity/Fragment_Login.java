@@ -79,22 +79,7 @@ public class Fragment_Login extends Fragment {
                     Toast.makeText(getContext(),"ERROR: A password has not been entered",Toast.LENGTH_LONG).show();//(Alexander, 2016).
                     Toast.makeText(getContext(),"Please enter a password to proceed.",Toast.LENGTH_SHORT).show();//(Alexander, 2016).
                 }else
-                    for (int i=0; i<users.size(); i++) {
-                        if(users.get(i).getEmail().equals(model_user.getEmail()))
-                        {
-                            if(users.get(i).getPassword().equals(model_user.getPassword()))
-                            {
-                                //update user state
-                                db.updateState(model_user);//(geeksforgeeks, 2021)
-                                User_Data.currentUser =model_user;
-                                //Upload current data then download from Firebase
-                                Intent login = new Intent(getContext(), Activity_Collections.class);
-                                login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                startActivity(login);
-                                //Additional User Feedback
-                            }
-                        }
-                    }
+                {
                     FirebaseAuth mAuth = FirebaseAuth.getInstance();
                     mAuth.signInWithEmailAndPassword(model_user.getEmail(),model_user.getPassword()).addOnCompleteListener(
                             getActivity(), new OnCompleteListener<AuthResult>() { //https://github.com/oemilk/firebase/blob/master/app/src/main/java/com/sh/firebase/authentication/AuthenticationFragment.java
@@ -104,11 +89,8 @@ public class Fragment_Login extends Fragment {
                                     if(User_Data.firebaseUser != null)
                                     {
                                         User_Data.currentUser =model_user;
-                                        db.addUser(model_user);
-                                        User_Data.uploadAllLocalData(getContext());
-                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                        DatabaseReference mDatabase = database.getReference();
-                                        mDatabase.child("users").child(User_Data.firebaseUser.getUid()).child("state").setValue(2);
+                                        db.addUser(User_Data.currentUser);
+                                        User_Data.mergeData(getContext());
                                         //User_Data.mergeData(getContext());
                                         Intent login = new Intent(getContext(), Activity_Collections.class);
                                         login.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -119,6 +101,7 @@ public class Fragment_Login extends Fragment {
                                 }
                             }
                     );
+                }
             //sign in
                 });
     }
