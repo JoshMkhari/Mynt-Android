@@ -37,7 +37,9 @@
     <string name="back_button">Used to navigate back to the previous view</string>
     <string name="block_title">Displays block title</string>
     <string name="share_button">Used to share data</string>
-    <string name="goals_title">Goals</string>
+    <string name="goals_title">Set Goal</string>
+
+    <string name="all_goals_title">All Goals</string>
 
     <string name="coin_details_information">Coin Information</string>
     <string name="coin_details_mintage">Mintage:</string>
