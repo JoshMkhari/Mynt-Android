@@ -138,7 +138,8 @@ public class Fragment_Add extends Fragment {
         {
             if(allCoinsWithCollection.size() == allCoinsInDatabase.size() )
             {
-                coinID = allCoinsInDatabase.get(allCoinsInDatabase.size()-1).getCoinID()+1;
+                ArrayList<Model_Coin> coinArrayList = localDB.getAllCoins();
+                coinID =coinArrayList.get(coinArrayList.size()-1).getCoinID()+1; ;
             }
             else
             {
@@ -379,15 +380,16 @@ public class Fragment_Add extends Fragment {
                     if(selectedPosition == -1)
                     {
                         localDB.addCoin(model_coin,0);
-                        Calendar cal = Calendar.getInstance();
-                        String lastSync = cal.getTime().toString();
-                        User_Data.currentUser.setLastSync(lastSync);
-                        localDB.updateUserLastSync(User_Data.currentUser);
+
                     }
                     else
                     {
                         localDB.addCoin(model_coin,allUserCollections.get(selectedPosition).getCollectionID());
                     }
+                    Calendar cal = Calendar.getInstance();
+                    String lastSync = cal.getTime().toString();
+                    User_Data.currentUser.setLastSync(lastSync);
+                    localDB.updateUserLastSync(User_Data.currentUser);
                 }catch (Exception e)
                 {
                     throw e;

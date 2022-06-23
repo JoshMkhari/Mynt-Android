@@ -80,6 +80,7 @@ public class Model_Database_Lite extends Thread {
                                 model_coin = new Model_Coin(year,0,"","","","","",value, bytes,currentFireCoin.getDateTaken());
                                 model_coin.setCoinID(coinID);
                                 db.addCoin(model_coin,collectionID);
+                                coinID++;
                                 Log.d("theChange", "VALUE " + value);
                                 break;
                             }
