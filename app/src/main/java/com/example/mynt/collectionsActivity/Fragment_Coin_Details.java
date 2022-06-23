@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
+import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.io.FileInputStream;
@@ -59,41 +60,32 @@ public class Fragment_Coin_Details extends Fragment{
         task = getArguments().getInt("Task");
         int coinID = getArguments().getInt("CoinID");
 
-
-
         Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
-        Model_Coin model_coin = null;//(Section, 2021);
         ArrayList<Model_Coin> dbCoins = db.getAllCoins();
-
         for (int i = 0; i< dbCoins.size(); i++)
         {
             if(dbCoins.get(i).getCoinID()==coinID)
             {
-                model_coin = dbCoins.get(i);
+                User_Data.model_coin = dbCoins.get(i);
                 break;
             }
         }
-
         ReturnToMainDetailsPage();
 
-        assert model_coin != null;
-        mintage.setText(String.valueOf(model_coin.getMintage()));
-        observe.setText(model_coin.getObserve());
-        reverse.setText(model_coin.getReverse());
-        circulation.setText(model_coin.getReverse());
-        type.setText(model_coin.getMaterial());
-        String coinTitle = model_coin.getValue() + ", " + model_coin.getYear();
+        mintage.setText(String.valueOf(User_Data.model_coin.getMintage()));
+        observe.setText(User_Data.model_coin.getObserve());
+        reverse.setText(User_Data.model_coin.getReverse());
+        circulation.setText(User_Data.model_coin.getReverse());
+        type.setText(User_Data.model_coin.getMaterial());
+        String coinTitle = User_Data.model_coin.getValue() + ", " + User_Data.model_coin.getYear();
         pageTitle.setText(coinTitle);
         points.setText(String.valueOf(1000));
-        acquiredDate.setText(model_coin.getDateAcquired());
-
-        String name = model_coin.getCoinID() + ".jpg";
+        acquiredDate.setText(User_Data.model_coin.getDateAcquired());
         try{
-            FileInputStream fis = requireContext().openFileInput(name);
-            Bitmap b = BitmapFactory.decodeStream(fis);
-            coinImage.setImageBitmap(b);
+            Bitmap bmp = BitmapFactory.decodeByteArray(User_Data.model_coin.getImageId(), 0, User_Data.model_coin.getImageId().length);
+            User_Data.coinBitmap = bmp;
+            coinImage.setImageBitmap(bmp);
             //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
-            fis.close();
         }
         catch(Exception ignored){
         }
@@ -115,8 +107,6 @@ public class Fragment_Coin_Details extends Fragment{
                 FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
                         .addSharedElement(coinImage, "secondTransitionName")
                         .build();//(android developer blog, 2018)
-
-
                 Navigation.findNavController(details).navigate(R.id.action_fragment_Coin_Details_to_fragment_CoinFull, bundle,null,extras);
             }
         });

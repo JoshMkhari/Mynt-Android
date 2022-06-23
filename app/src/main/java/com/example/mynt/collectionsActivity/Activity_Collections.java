@@ -12,7 +12,9 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
+import com.example.mynt.Activity_Main;
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.User_Data;
 
 import java.util.Objects;
 

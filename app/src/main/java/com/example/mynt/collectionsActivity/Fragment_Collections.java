@@ -24,6 +24,7 @@ import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
+import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
@@ -58,7 +59,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
 
         assert getArguments() != null;
         task = getArguments().getInt("Task");
-        model_user = new Model_User();
+        model_user = User_Data.currentUser;
         model_user.setUserID(getArguments().getInt("User"));
 
         String userID = model_user.getUserID() + " this";
@@ -86,16 +87,8 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
 
     private void DisplayAllLocalCollections(){
 
-        ArrayList<Integer> userCollectionIDs = db.getAllCollectionsForUser(model_user);
-        ArrayList<Model_Collections> allCollections = db.getAllCollections();
+        allUserCollections = db.getAllCollections();
 
-        allUserCollections = new ArrayList<>();
-
-        for (int i = 0; i< allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                allUserCollections.add(allCollections.get(i));
-        }
     }
 
     private void ReturnToHomePage(){

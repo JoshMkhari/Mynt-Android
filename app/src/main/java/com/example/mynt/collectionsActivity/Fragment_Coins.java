@@ -27,6 +27,7 @@ import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.collectionsActivity.models.Model_User;
+import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.dataAccessLayer.Model_Database_Lite;
 
@@ -63,7 +64,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
         assert getArguments() != null;
         task = getArguments().getInt("Task");
         blockTitle = getArguments().getString("Collection Name");
-        model_user = new Model_User();
+        model_user = User_Data.currentUser;
         model_user.setUserID(getArguments().getInt("User"));
         collectionID = getArguments().getInt("CollectionID");
 
@@ -116,7 +117,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
 
         Model_Database_Lite mdl = new Model_Database_Lite();
 
-        coinsList = mdl.allCoinsAndCollections(getContext(),task,collectionID, model_user);
+        coinsList = mdl.allCoinsAndCollections(getContext(),task,collectionID);
         coinIDs = new ArrayList<>();
 
         Collections.sort(coinsList, new Model_Coin_Comparator_Date());//(GeeksForGeeks,2020)

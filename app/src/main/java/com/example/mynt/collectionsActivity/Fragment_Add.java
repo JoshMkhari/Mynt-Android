@@ -35,12 +35,15 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.ModelFireBaseCoin;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Date;
+import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_User;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -59,6 +62,7 @@ public class Fragment_Add extends Fragment {
     //private EditText alternate_Textview, mintage_Textview, observe_Textview, reverse_Textview;
     private ImageButton changeImage;
     private ImageView userImage;
+    private byte[] ImageByteArray;
     private ActivityResultLauncher<Intent> activityResultLauncher_Camera;
     private Bitmap imageBitmap;
     private Boolean imageSet = false;
@@ -78,7 +82,7 @@ public class Fragment_Add extends Fragment {
         // Inflate the layout for this fragment
         View add = inflater.inflate(R.layout.fragment_add, container, false);
         //Retrieve bundles
-        model_user = new Model_User(); //(Section, 2021)
+        model_user = User_Data.currentUser; //(Section, 2021)
         model_date = new Model_Date();//(Shabbir Dhangot,2016)
         assert getArguments() != null;
         model_user.setUserID(getArguments().getInt("User"));//(valerybodak,2020)
@@ -119,16 +123,8 @@ public class Fragment_Add extends Fragment {
 
         //Database
         localDB = new Database_Lite(getContext());//(freecodecamp,2020)
-        ArrayList<Integer> userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
-        ArrayList<Model_Collections> allCollections = localDB.getAllCollections();
 
-        allUserCollections = new ArrayList<>();
-
-        for (int i = 0; i< allCollections.size(); i++)
-        {
-            if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                allUserCollections.add(allCollections.get(i));
-        }
+        allUserCollections = localDB.getAllCollections();
 
         ArrayList<Integer> allCoinsWithCollection = localDB.getAllCoinsWithACollection();
         ArrayList<Model_Coin> allCoinsInDatabase = localDB.getAllCoins();
@@ -142,7 +138,8 @@ public class Fragment_Add extends Fragment {
         {
             if(allCoinsWithCollection.size() == allCoinsInDatabase.size() )
             {
-                coinID = allCoinsInDatabase.get(allCoinsInDatabase.size()-1).getCoinID()+1;
+                ArrayList<Model_Coin> coinArrayList = localDB.getAllCoins();
+                coinID =coinArrayList.get(coinArrayList.size()-1).getCoinID()+1; ;
             }
             else
             {
@@ -197,15 +194,9 @@ public class Fragment_Add extends Fragment {
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),callback);//(Анатолий К.,2020)
         //Activity_Collections.OnB
         back.setOnClickListener(v -> backActivity());
-
         add_Button.setOnClickListener(v -> {
-
             //Check if picture is taken?
             if (imageSet) {
-                //check if a mintage was placed
-                //Check if a collection has to be made
-                if(savePhotoToInternalStorage())//( Philipp Lackner, 2021)
-                {
                     storeCoin();
                     if (spinnerCollection.getSelectedItemPosition() == 0) {//A new collection needs to be made
                         Bundle bundle = new Bundle();
@@ -215,12 +206,16 @@ public class Fragment_Add extends Fragment {
                         Navigation.findNavController(add).navigate(R.id.action_fragment_Add_to_fragment_Collections2,bundle);
                     }else
                     {
-                        Toast.makeText(getContext(), "Storing collectionCoin", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
+                        Calendar cal = Calendar.getInstance();
+                        String lastSync = cal.getTime().toString();
+                        User_Data.currentUser.setLastSync(lastSync);
+                        if(!User_Data.currentUser.getEmail().equals("DefaultUser"))
+                            User_Data.mergeData(getContext());
                         Intent home = new Intent(getContext(),Activity_Collections.class);
                         home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(home);
                     }
-                }
+
             } else {
                 Toast.makeText(getContext(), "Please take a image", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
             }
@@ -301,9 +296,11 @@ public class Fragment_Add extends Fragment {
             if (extras != null) {
                 imageBitmap = (Bitmap) extras.get("data");//(Android Coiding, 2019)
                 userImage.setImageBitmap(imageBitmap);//(Android Coiding, 2019)
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                ImageByteArray = stream.toByteArray();
                 imageSet = true;
             }
-
         });
 
 
@@ -375,71 +372,58 @@ public class Fragment_Add extends Fragment {
                             "POE",
                             "POE",
                             spinnerValue.getSelectedItem().toString(),
-                            String.valueOf(coinID),
+                            ImageByteArray,
                             dateAq);
                     model_coin.setCoinID(coinID);
+                    User_Data.model_coin = model_coin;
                     int selectedPosition = spinnerCollection.getSelectedItemPosition()-1;
                     if(selectedPosition == -1)
                     {
                         localDB.addCoin(model_coin,0);
+
                     }
                     else
                     {
                         localDB.addCoin(model_coin,allUserCollections.get(selectedPosition).getCollectionID());
                     }
-
+                    Calendar cal = Calendar.getInstance();
+                    String lastSync = cal.getTime().toString();
+                    User_Data.currentUser.setLastSync(lastSync);
+                    localDB.updateUserLastSync(User_Data.currentUser);
                 }catch (Exception e)
                 {
-                    Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
+                    throw e;
+                    //Toast.makeText(getContext(), "database add", Toast.LENGTH_SHORT).show();//(Alexander, 2016).
                 }
             }
         };
         coinStore.start();
     }
 
-    private boolean savePhotoToInternalStorage() {//( Philipp Lackner, 2021)
-
-        Thread saveImage = new Thread(){
-            public void run(){
-                //Get image number
-                FileOutputStream out;
-                try {
-                    Context context = getContext();
-                    assert context != null;
-                    out = context.openFileOutput(coinID + ".jpg", Context.MODE_PRIVATE);
-                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
-                    out.flush();
-                    out.close();
-                    done = true;
-                } catch (IOException e) {
-
-                    done = false;
-                }
-            }
-        };
-        saveImage.start();
-        return done;
-    }
 
     private void retrieveImage(int imageID) //( Philipp Lackner, 2021)
     {
-        String name = imageID +".jpg";
-        try{
-            Context context = getContext();
-            assert context != null;
-            FileInputStream fis = context.openFileInput(name);
-            Bitmap b = BitmapFactory.decodeStream(fis);
-            userImage.setImageBitmap(b);
-            fis.close();
-
+        //Get all coins
+        ArrayList<Model_Coin> allCoins = localDB.getAllCoins();
+        Model_Coin foundCoin = null;
+        boolean coinFound = false;
+        for (int i = 0; i < allCoins.size(); i++) {
+            if(allCoins.get(i).getCoinID() == imageID)
+            {
+                foundCoin = allCoins.get(i);
+                coinFound = true;
+                break;
+            }
         }
-        catch(Exception ignored){
+        if(coinFound)
+        {
+            assert foundCoin != null;
+            Bitmap bmp = BitmapFactory.decodeByteArray(foundCoin.getImageId(), 0, foundCoin.getImageId().length);
+
+            userImage.setImageBitmap(bmp);
+            localDB.deleteCoin(coinID);
         }
 
-        //Delete coin
-        localDB.deleteCoin(coinID);
-
-        requireContext().deleteFile(name);
     }
 
     private void backActivity() {

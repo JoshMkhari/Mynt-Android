@@ -1,11 +1,38 @@
 package com.example.mynt.collectionsActivity.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Model_User {//(Section, 2021)
 
     private String email;
     private String password;
     private int state,userID;
+    private List<Model_Collections> collections;
+    private String LastSync;
 
+    public Model_User(String email, String password, int state) {
+        this.email = email;
+        this.password = password;
+        this.state = state;
+        LastSync = "";
+    }
+
+    public String getLastSync() {
+        return LastSync;
+    }
+
+    public void setLastSync(String lastSync) {
+        LastSync = lastSync;
+    }
+
+    public List<Model_Collections> getCollections() {
+        return collections;
+    }
+
+    public void setCollections(List<Model_Collections> collections) {
+        this.collections = collections;
+    }
 
     public int getUserID() {
         return userID;

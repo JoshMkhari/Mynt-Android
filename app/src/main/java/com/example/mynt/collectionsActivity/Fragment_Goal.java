@@ -19,12 +19,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.collectionsActivity.models.Model_User;
+import com.example.mynt.collectionsActivity.models.User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,8 +50,6 @@ public class Fragment_Goal extends Fragment {
     private int task;
     private Database_Lite localDB;
     private Model_Collections model_collections;//(Section, 2021)
-    private ArrayList<Integer> userCollectionIDs;//(Section, 2021)
-    private ArrayList<Model_Collections> allCollections;//(Section, 2021)
     private ArrayList<Model_Collections> allUserCollections;//(Section, 2021)
     private Intent home;
     private ProgressBar goalProgress_progressBar;
@@ -82,7 +83,7 @@ public class Fragment_Goal extends Fragment {
         assert getArguments() != null;
         model_goals = new Model_Goals(getArguments().getString("Collection Name"),getArguments().getInt("Coins"),getArguments().getInt("Goal"));//(Section, 2021)
         task = getArguments().getInt("Task");
-        model_user = new Model_User();
+        model_user = User_Data.currentUser;
         model_user.setUserID(getArguments().getInt("User"));
 
 
@@ -118,26 +119,16 @@ public class Fragment_Goal extends Fragment {
             if(Integer.parseInt(target_Edittext.getText().toString())!=0)
             {
                 localDB = new Database_Lite(getContext());//(freecodecamp,2020)
-
-
                 model_collections = new Model_Collections(model_goals.getCollectionName(),Integer.parseInt(target_Edittext.getText().toString()));
-                localDB.addCollection(model_collections,model_user);
+                int collectionID = localDB.getAllCollections().size()+1;
+                model_collections.setCollectionID(collectionID);
+                localDB.addCollection(model_collections);
                 //Add collection to database for user
                 if(task==1)// Creating new Collection and assigning it to a coin
                 {
                     Toast.makeText(getContext(), "Running new", Toast.LENGTH_SHORT).show();
                     //Get latest collection ID
-                    userCollectionIDs = localDB.getAllCollectionsForUser(model_user);
-                    allCollections = localDB.getAllCollections();
-
-                    allUserCollections = new ArrayList<>();
-
-                    for (int i=0; i<allCollections.size(); i++)
-                    {
-                        if(userCollectionIDs.contains(allCollections.get(i).getCollectionID()))
-                            allUserCollections.add(allCollections.get(i));
-                    }
-                    localDB.addCollectionCoin(allUserCollections.get(allUserCollections.size()-1).getCollectionID());
+                    localDB.addCollectionCoin(collectionID,User_Data.model_coin.getCoinID(),localDB.getAllCoins().size());
                 }
                 else
                 {
@@ -146,17 +137,21 @@ public class Fragment_Goal extends Fragment {
                     localDB.updateCollection(model_collections);//(geeksforgeeks, 2021)
 
                 }
+                Calendar cal = Calendar.getInstance();
+                String lastSync = cal.getTime().toString();
+                User_Data.currentUser.setLastSync(lastSync);
+                if(!User_Data.currentUser.getEmail().equals("DefaultUser"))
+                    User_Data.mergeData(getContext());
+                localDB.updateUserLastSync(User_Data.currentUser);
                 home = new Intent(getContext(),Activity_Collections.class);
                 home.putExtra("View","library");
                 home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(home);
-
                 //Additional User Feedback
                 Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has been created successfully." , Toast.LENGTH_SHORT).show();//(Alexander, 2016).
 
             }else
             {
-
                 //Additional User Feedback
                 Toast.makeText(getContext(), "Goal for " +  model_goals.getCollectionName() + " has not been created successfully." , Toast.LENGTH_SHORT).show();//(Alexander, 2016).
                 Toast.makeText(getContext(), "Target number of coins cannot be 0.", Toast.LENGTH_SHORT).show();//(Alexander, 2016).

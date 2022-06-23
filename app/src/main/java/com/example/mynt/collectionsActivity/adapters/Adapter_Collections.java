@@ -63,17 +63,13 @@ public class Adapter_Collections extends RecyclerView.Adapter<Adapter_Collection
         //Open each collection and select the first image
         Model_Database_Lite mdl = new Model_Database_Lite();
 
-        ArrayList<Model_Coin>coinsList = mdl.allCoinsAndCollections(context,1,collectionID,model_user);
+        ArrayList<Model_Coin>coinsList = mdl.allCoinsAndCollections(context,1,collectionID);
 
         Collections.sort(coinsList, new Model_Coin_Comparator_Date());//(GeeksForGeeks,2020)
 
         try{
-            String name = coinsList.get(0).getCoinID() +".jpg";
-            FileInputStream fis = context.openFileInput(name);
-            Bitmap b = BitmapFactory.decodeStream(fis);
-            holder.coinImage.setImageBitmap(b);
-            //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
-            fis.close();
+            Bitmap bmp = BitmapFactory.decodeByteArray(coinsList.get(0).getImageId(), 0, coinsList.get(0).getImageId().length);
+            holder.coinImage.setImageBitmap(bmp);
         }
         catch(Exception ignored){
             holder.coinImage.setBackgroundResource(R.drawable.img_two_rand);

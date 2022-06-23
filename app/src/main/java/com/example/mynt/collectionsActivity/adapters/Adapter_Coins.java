@@ -107,13 +107,10 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
 
         holder.year.setText(String.valueOf(coinsList.get(position).getYear()));
         //holder.coinImage.setBackgroundResource(coinsList.get(position).getImageId());
-        String name = coinsList.get(position).getCoinID() +".jpg";
         try{
-            FileInputStream fis = context.openFileInput(name);
-            Bitmap b = BitmapFactory.decodeStream(fis);
-            holder.coinImage.setImageBitmap(b);
+            Bitmap bmp = BitmapFactory.decodeByteArray(coinsList.get(position).getImageId(), 0, coinsList.get(position).getImageId().length);
+            holder.coinImage.setImageBitmap(bmp);
             //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
-            fis.close();
         }
         catch(Exception ignored){
         }

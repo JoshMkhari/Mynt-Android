@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.User_Data;
 
 import java.io.FileInputStream;
 
@@ -36,18 +37,10 @@ public class Fragment_CoinFull extends Fragment {
         userImage = coinFull.findViewById(R.id.coin_full_imageView);
         back = coinFull.findViewById(R.id.coin_full_back);
         titleCoin = coinFull.findViewById(R.id.coin_full_textTitle);
-
         assert getArguments() != null;
-        int coinID = getArguments().getInt("CoinID");
         String title = getArguments().getString("Title");
-
-        String name = coinID + ".jpg";
         try{
-            FileInputStream fis = requireContext().openFileInput(name);
-            Bitmap b = BitmapFactory.decodeStream(fis);
-            userImage.setImageBitmap(b);
-            //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
-            fis.close();
+            userImage.setImageBitmap(User_Data.coinBitmap);
         }
         catch(Exception ignored){
         }
