@@ -142,6 +142,7 @@ public class Model_User_Data {
                 }else
                 {
                     Log.d("theChanges", "We in else ");
+                    sync = true;
                     //String change = snapshot.child("lastSync").getValue(String.class);
                     //Compare Dates
                     String firebaseSync = snapshot.child("lastSync").getValue(String.class);

@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
+import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
 import com.example.mynt.collectionsActivity.models.Model_User;
 
 import java.util.ArrayList;
@@ -20,15 +21,19 @@ public class Database_Lite extends SQLiteOpenHelper {
 
     public static final String COLUMN_MATERIAL = "MATERIAL";
     //Material Table
+    public static final String COLUMN_POINTS = "POINTS";
     public static final String COLUMN_YEAR = "YEAR";
     public static final String COLUMN_VALUE = "VALUE";
     public static final String COLUMN_VARIETY = "VARIETY";
+    public static final String COLUMN_USER_EMAIL = "EMAIL";
     public static final String COIN_TABLE = "COIN_TABLE";
+    public static final String LEADERBOARD_TABLE = "LEADERBOARD_TABLE";
     public static final String COLUMN_ALT_NAME = "ALT_NAME";
     public static final String COLUMN_MINTAGE = "MINTAGE";
     public static final String COLUMN_OBSERVE = "OBSERVE";
     public static final String COLUMN_REVERSE = "REVERSE";
     public static final String COLUMN_IMAGE = "IMAGE";
+    public static final String COLUMN_PROFILE_IMAGE = "IMAGE";
     private static final String COLUMN_COIN = "COIN_ID";
     private static final String COLUMN_COLLECTION = "COLLECTION_ID";
     private static final String COLLECTIONS_COIN_TABLE = "COLLECTION_COIN_TABLE";
@@ -44,7 +49,6 @@ public class Database_Lite extends SQLiteOpenHelper {
     private  static final String COLLECTION_ID = "ID";
     private  static final String COLLECTION_COIN_ID = "ID";
     private static final String COLUMN_STATE = "THEME";
-    private static final String COLUMN_USER_EMAIL = "EMAIL";
     private static final String COLUMN_USER_NAME = "USER_NAME";
     private static final String COLUMN_USER_PROFILE_PIC = "PROFILE_PIC";
 
@@ -77,6 +81,12 @@ public class Database_Lite extends SQLiteOpenHelper {
                 + COLUMN_MINTAGE + " INTEGER, " + COLUMN_OBSERVE + " TEXT, " + COLUMN_REVERSE + " TEXT, "+ COLUMN_IMAGE + " BLOB, "
                 + COLUMN_DATE_TAKEN + " TEXT, " + COLUMN_VALUE + " REAL, "
                 + COLUMN_YEAR + " INTEGER, " + COLUMN_VARIETY + " INTEGER, " + COLUMN_MATERIAL + " INTEGER);");
+        db.execSQL(tableStatement);
+
+        //Leaderboard Table
+        tableStatement = ("CREATE TABLE " + LEADERBOARD_TABLE + "(" + COLUMN_USER_EMAIL + " TEXT PRIMARY KEY, " + COLUMN_PROFILE_IMAGE + " BLOB, " +
+                COLUMN_POINTS + " INTEGER);");
+        //Model_Leaderboard lm = new Model_Leaderboard(postSnapshot.child("userName").getValue(String.class),points, bytes);//(Section, 2021)
         db.execSQL(tableStatement);
 
         //Collection_Coin Table
@@ -119,6 +129,47 @@ public class Database_Lite extends SQLiteOpenHelper {
         db.execSQL("delete from "+ COIN_TABLE);
         db.execSQL("delete from "+ COLLECTION_TABLE);
 
+    }
+    //tableStatement = ("CREATE TABLE " + LEADERBOARD_TABLE + "(" + COLUMN_USER_EMAIL + " TEXT PRIMARY KEY AUTOINCREMENT, " + COLUMN_PROFILE_IMAGE + " BLOB, " +
+    //COLUMN_POINTS + " INTEGER);");
+
+    public void addLeaderboard(Model_Leaderboard model_leaderboard)
+    {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            try
+            {
+                //Leaderboard Table
+                cv.put(COLUMN_USER_EMAIL, model_leaderboard.getUserName());
+                cv.put(COLUMN_PROFILE_IMAGE,model_leaderboard.getImageID());
+                cv.put(COLUMN_POINTS,model_leaderboard.getUserScore());
+                db.insert(LEADERBOARD_TABLE,null,cv);
+                cv.clear();
+            }catch (Exception ignored)
+            {}
+    }
+    public ArrayList<Model_Leaderboard> getLeaderboard() {//(freecodecamp,2020)
+        ArrayList<Model_Leaderboard> leaderboardArrayList = new ArrayList<>();
+
+        String queryString = "SELECT * FROM " + LEADERBOARD_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst())
+        {
+            //loop through the cursor result set and create new coin object for each row
+            do{
+                String userName = cursor.getString(0);
+                byte[] image = cursor.getBlob(1);
+                int userScore = cursor.getInt(2);
+
+                Model_Leaderboard ml = new Model_Leaderboard(userName,userScore,image);
+                leaderboardArrayList.add(ml);
+            }while (cursor.moveToNext());
+        }
+        //failure means list is empty
+        cursor.close();
+        return leaderboardArrayList;
     }
 
     public ArrayList<Model_Collections> getAllCollections() {//(freecodecamp,2020)
@@ -208,6 +259,12 @@ public class Database_Lite extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DELETE FROM " + COIN_TABLE + " WHERE ID = " + coinID);
         //db.delete(COIN_TABLE, "ID = " + coinID, null);
+    }
+
+    public void deleteLeaderboard()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + LEADERBOARD_TABLE);
     }
 
     public ArrayList<Model_Coin> getAllCoins()

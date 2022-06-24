@@ -2,11 +2,14 @@ package com.example.mynt.collectionsActivity;
 
 import android.os.Bundle;
 
+import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +21,7 @@ import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Leaderboard;
 import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
 import com.example.mynt.collectionsActivity.models.Model_User_Data;
+import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.dataAccessLayer.Model_Database_Lite;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +42,8 @@ import java.util.ArrayList;
 public class Fragment_Leaderboard extends Fragment implements Interface_RecyclerView {
     private ArrayList<Model_Leaderboard> array_list_leaderboard;
     RecyclerView recycler_view_leaderboard;
+    RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> rv_leaferbaord_adapter;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
     @Override
     public void onResume() {
         super.onResume();
@@ -59,9 +65,10 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
         //Ensuring the recycler view layout contains 1 item in each row
         RecyclerView.LayoutManager layout_manager_leaderboard = new StaggeredGridLayoutManager(1, 1);//(Professor Sluiter, 2020).
         recycler_view_leaderboard.setLayoutManager(layout_manager_leaderboard);
+
         DisplayLeaderBoardRanks();
         //Setting up adapter
-        RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard);//(Professor Sluiter, 2020).
+        rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard);//(Professor Sluiter, 2020).
         recycler_view_leaderboard.setAdapter(rv_leaferbaord_adapter);
 
 
@@ -70,44 +77,67 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
     }
 
     private void DisplayLeaderBoardRanks(){
-
+        Database_Lite db = new Database_Lite(getContext());
         //Creating list to store users and their ranks
         array_list_leaderboard = new ArrayList<>();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference mDatabase = database.getReference();
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot postSnapshot: snapshot.child("users").getChildren()
-                     ) {
-                    array_list_leaderboard = new ArrayList<>();
-                    //Get user specific profile pic
-                    //Retrieving User Profile Picture
-                    FirebaseStorage storage = FirebaseStorage.getInstance();
-                    StorageReference storageRef = storage.getReference();
-                    String fileName = postSnapshot.child("email").getValue(String.class) + ".jpg";
-                    Log.d("leaderBoard", "onDataChange: filename "+ fileName );
-                    String directory = "ProfilePicture"+"/" + fileName;
-                    Log.d("leaderBoard", "onDataChange: UUID "+ directory );
+        if(Model_User_Data.sync)
+        {
 
-                    StorageReference mountainsRef = storageRef.child(directory);
-                    final long ONE_MEGABYTE = 1024 * 1024;
-                    mountainsRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                        @Override
-                        public void onSuccess(byte[] bytes) {
-                            int points = Math.round(postSnapshot.child("points").getValue(float.class));
-                            Model_Leaderboard lm = new Model_Leaderboard(postSnapshot.child("userName").getValue(String.class),points, bytes);//(Section, 2021)
-                            array_list_leaderboard.add(lm);
+            db.deleteLeaderboard();
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference mDatabase = database.getReference();
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    for (DataSnapshot postSnapshot: snapshot.child("users").getChildren()
+                    ) {
+                        array_list_leaderboard = new ArrayList<>();
+                        //Get user specific profile pic
+                        //Retrieving User Profile Picture
+                        FirebaseStorage storage = FirebaseStorage.getInstance();
+                        StorageReference storageRef = storage.getReference();
+                        String fileName = postSnapshot.child("email").getValue(String.class) + ".jpg";
+                        Log.d("leaderBoard", "onDataChange: filename "+ fileName );
+                        String directory = "ProfilePicture"+"/" + fileName;
+                        Log.d("leaderBoard", "onDataChange: UUID "+ directory );
+                        try {
+
+                            StorageReference mountainsRef = storageRef.child(directory);
+                            final long ONE_MEGABYTE = 1024 * 1024;
+                            mountainsRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                @Override
+                                public void onSuccess(byte[] bytes) {
+                                    int points = Math.round(postSnapshot.child("points").getValue(float.class));
+                                    Model_Leaderboard lm = new Model_Leaderboard(postSnapshot.child("userName").getValue(String.class),points, bytes);//(Section, 2021)
+                                    array_list_leaderboard.add(lm);
+
+                                    db.addLeaderboard(lm);
+                                    Runnable r = () -> {
+                                        rv_leaferbaord_adapter.notifyItemInserted(array_list_leaderboard.size()-1);
+                                        Log.d("leader", "onSuccess: ");
+                                    };
+                                    mHandler.post(r);
+                                }
+                            });
+                        }catch (Exception ignored)
+                        {
+
                         }
-                    });
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
+        else
+        {
+            //populate from database
+            array_list_leaderboard= db.getLeaderboard();
+            Log.d("offLEade", "DisplayLeaderBoardRanks: arraylist" + array_list_leaderboard.size() );
+        }
 
     }
     @Override
