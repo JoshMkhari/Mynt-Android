@@ -49,13 +49,12 @@ public class Model_User_Data {
         //First check if user is authorized
         //Adding collections
         boolean changeSyc = false;
-
+        float points = 0;
         Database_Lite db = new Database_Lite(context);
         ArrayList<Model_Collections> allCollections = db.getAllCollections();
         ArrayList<Model_Collections> userCollections = new ArrayList<>();
         Model_Database_Lite mdl = new Model_Database_Lite();
 
-        float points =0;
         for (int i=0; i<allCollections.size(); i++)
         {
             ArrayList<Model_Coin> coins = mdl.allCoinsAndCollections(context,1,allCollections.get(i).getCollectionID());
@@ -64,10 +63,11 @@ public class Model_User_Data {
             {
                 String Value_Year = coins.get(s).getValue() +"_"+ coins.get(s).getYear();
                 Model_Fire_Base_Coin modelFireBaseCoin = new Model_Fire_Base_Coin(Value_Year,coins.get(s).getDateAcquired());
+                uploadImage(Value_Year, coins.get(s).getImageId(),allCollections.get(i).getCollectionName());
+                float coinPoint = 700000000-((coins.get(s).getMintage()/2)-coins.get(s).getYear());
+                coinPoint = coinPoint/100000;
+                points+=coinPoint;
                 modelFireBaseCoinArrayList.add(modelFireBaseCoin);
-                float toIndent = 700000000-((coins.get(s).getMintage()/2)-coins.get(s).getYear());
-                toIndent = toIndent/100000;
-                points+=toIndent;
                 Log.d("changeSync", "uploadAllLocalData: " + changeSyc);
                 changeSyc = true;
             }
@@ -78,9 +78,8 @@ public class Model_User_Data {
         }
 
         //Adding coins to collections
-
-        currentUser.setCollections(userCollections);
         currentUser.setPoints(points);
+        currentUser.setCollections(userCollections);
         if(changeSyc || currentUser.getLastSync().equals(""))
         {
             Calendar cal = Calendar.getInstance();
@@ -189,6 +188,7 @@ public class Model_User_Data {
         Model_User model_user = new Model_User(snapshot.child("email").getValue(String.class), snapshot.child("password").getValue(String.class), snapshot.child("state").getValue(int.class));
         model_user.setUserName(snapshot.child("userName").getValue(String.class));
         model_user.setLastSync(fireBaseSync);
+        model_user.setPoints(snapshot.child("points").getValue(float.class));
 
         List<Model_Collections> model_collectionsList = new ArrayList<>();//https://stackoverflow.com/questions/38652007/how-to-retrieve-specific-list-of-data-from-firebase
         for (DataSnapshot postSnapshot : snapshot.child("collections").getChildren()) {
