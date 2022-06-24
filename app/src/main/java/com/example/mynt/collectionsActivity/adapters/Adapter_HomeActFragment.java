@@ -50,6 +50,6 @@ public class Adapter_HomeActFragment extends FragmentStateAdapter {//(Foxandroid
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 3;
     }//(Foxandroid,2021)
 }

@@ -39,12 +39,12 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
         //Ensuring the recycler view layout contains 1 item in each row
         RecyclerView.LayoutManager layout_manager_leaderboard = new StaggeredGridLayoutManager(1, 1);//(Professor Sluiter, 2020).
         recycler_view_leaderboard.setLayoutManager(layout_manager_leaderboard);
-
+        DisplayLeaderBoardRanks();
         //Setting up adapter
         RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard);//(Professor Sluiter, 2020).
         recycler_view_leaderboard.setAdapter(rv_leaferbaord_adapter);
 
-        DisplayLeaderBoardRanks();
+
 
         return view_leaderboard;
     }
