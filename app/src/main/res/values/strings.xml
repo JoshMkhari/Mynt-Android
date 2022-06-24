@@ -19,6 +19,11 @@
     <string name="library_nav_icon">Displays Icon</string>
     <string name="library_recent_coins">Recent Coins</string>
 
+    <string name="settings_title">Settings</string>
+    <string name="settings_profile_title">Profile</string>
+    <string name="settings_user_name_title">DisplayName</string>
+    <string name="settings_log_out_button_text">LOG OUT</string>
+
     <string name="coins_title">Coins</string>
     <string name="all_coins_block_title">All Coins</string>
     <string name="coins_acquired_date">21 April, 17:36</string>

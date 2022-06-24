@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".collectionsActivity.Fragment_Settings"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_margin="10dp"
+            android:id="@+id/image_button_back_settings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_baseline_arrow_back_24"
+            android:contentDescription="@string/back_button"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/textview_title_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/settings_title"
+            android:textColor="?colorSecondaryVariant"
+            android:textSize="26sp" />
+
+    </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_profile_title"
+            android:textColor="?colorSecondaryVariant"
+            android:textSize="24sp"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/coin_date_separator"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/ic_coins_list_separator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+        <ImageView
+            android:id="@+id/imageview_profile_background"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/coin_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/coin_date_separator"
+            app:srcCompat="@drawable/img_profile_background" />
+
+        <ImageView
+            android:id="@+id/imageview_user_profile"
+            android:layout_width="100dp"
+            android:background="@drawable/ic_default_user_profile_icon"
+            android:layout_height="100dp"
+            android:contentDescription="@string/coin_image"
+            app:layout_constraintBottom_toBottomOf="@+id/imageview_profile_background"
+            app:layout_constraintEnd_toEndOf="@+id/imageview_profile_background"
+            app:layout_constraintStart_toStartOf="@+id/imageview_profile_background"
+            app:layout_constraintTop_toTopOf="@+id/imageview_profile_background" />
+
+        <EditText
+            android:id="@+id/editText_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:inputType="textNoSuggestions"
+            android:text="@string/settings_user_name_title"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/image_button_updateUsername"
+            app:layout_constraintStart_toEndOf="@+id/imageview_profile_background"
+            app:layout_constraintTop_toBottomOf="@+id/coin_date_separator" />
+
+        <TextView
+            android:id="@+id/text_view_user_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/email_text"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/image_button_updateUsername"
+            app:layout_constraintStart_toEndOf="@+id/imageview_profile_background"
+            app:layout_constraintTop_toBottomOf="@+id/editText_username" />
+
+        <ImageButton
+            android:id="@+id/image_button_updateUsername"
+            android:background="@drawable/img_edit_username_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/coin_date_separator" />
+
+        <ImageButton
+            android:id="@+id/LoginOut_Button"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/ic_title_block_shape"
+            android:contentDescription="@string/login_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageview_profile_background"
+            tools:ignore="ImageContrastCheck" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/img_log_out_button"
+            android:contentDescription="@string/login_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/LoginOut_Button"
+            app:layout_constraintEnd_toStartOf="@+id/textView_LogOut"
+            app:layout_constraintStart_toStartOf="@+id/LoginOut_Button"
+            app:layout_constraintTop_toTopOf="@+id/LoginOut_Button"
+            tools:ignore="ImageContrastCheck" />
+
+        <TextView
+            android:id="@+id/textView_LogOut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_log_out_button_text"
+            android:textColor="?colorPrimary"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/LoginOut_Button"
+
+            app:layout_constraintEnd_toEndOf="@+id/LoginOut_Button"
+            app:layout_constraintHorizontal_bias="0.567"
+            app:layout_constraintStart_toStartOf="@+id/LoginOut_Button"
+            app:layout_constraintTop_toTopOf="@+id/LoginOut_Button"
+            app:layout_constraintVertical_bias="0.515"
+            tools:ignore="TextContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
