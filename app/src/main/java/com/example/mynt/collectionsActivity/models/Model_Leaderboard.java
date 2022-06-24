@@ -4,12 +4,12 @@ public class Model_Leaderboard {//(Section, 2021)
 
     private final String userName;
     private final int userScore;
-    private final int imageID;
+    private final byte[] imageID;
 
-    public Model_Leaderboard(String userName, int userScore, int imageID) {
+    public Model_Leaderboard(String userName, int userScore, byte[] image) {
         this.userName = userName;
         this.userScore = userScore;
-        this.imageID = imageID;
+        this.imageID = image;
     }
 
     public String getUserName() {
@@ -20,9 +20,7 @@ public class Model_Leaderboard {//(Section, 2021)
         return userScore;
     }
 
-
-    public int getImageID() {
+    public byte[] getImageID() {
         return imageID;
     }
-
 }

@@ -2,6 +2,7 @@ package com.example.mynt.collectionsActivity;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -15,6 +16,17 @@ import com.example.mynt.R;
 import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Leaderboard;
 import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
+import com.example.mynt.dataAccessLayer.Model_Database_Lite;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -53,18 +65,37 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
 
         //Creating list to store users and their ranks
         array_list_leaderboard = new ArrayList<>();
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference mDatabase = database.getReference();
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot postSnapshot: snapshot.child("users").getChildren()
+                     ) {
 
+                    //Get user specific profile pic
+                    //Retrieving User Profile Picture
+                    FirebaseStorage storage = FirebaseStorage.getInstance();
+                    StorageReference storageRef = storage.getReference();
+                    String fileName = snapshot.child("email").getValue(String.class) + ".jpg";
+                    String directory = Model_User_Data.firebaseUser.getUid() + "/"+"ProfilePicture"+"/" + fileName;
+                    StorageReference mountainsRef = storageRef.child(directory);
+                    final long ONE_MEGABYTE = 1024 * 1024;
+                    mountainsRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            int points = Math.round(snapshot.child("points").getValue(float.class));
+                            Model_Leaderboard lm = new Model_Leaderboard(snapshot.child("userName").getValue(String.class),points, bytes);//(Section, 2021)
+                        }
+                    });
+                }
+            }
 
-        //Populating leaderboard list
-        for (int i =0; i<8;i++)
-        {
-            /*
-                Using constructor to create new leaderboard items
-                    Passing Username, UserScore, UserIcon
-             */
-            Model_Leaderboard lm = new Model_Leaderboard("IHasShoulders", 4396, R.drawable.ic_default_user_profile_icon);//(Section, 2021)
-            array_list_leaderboard.add(lm);
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
     @Override
