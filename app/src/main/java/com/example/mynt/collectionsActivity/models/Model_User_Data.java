@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import com.example.mynt.R;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.dataAccessLayer.Model_Database_Lite;
+import com.example.mynt.dataAccessLayer.Model_Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
@@ -180,7 +181,7 @@ public class Model_User_Data {
         //sql cal is older
         //replace sql database with firebase data
         Model_User model_user = new Model_User(snapshot.child("email").getValue(String.class), snapshot.child("password").getValue(String.class), snapshot.child("state").getValue(int.class));
-        model_user.setUserID(snapshot.child("userID").getValue(int.class));
+        model_user.setUserName(snapshot.child("userName").getValue(String.class));
         model_user.setLastSync(fireBaseSync);
 
         List<Model_Collections> model_collectionsList = new ArrayList<>();//https://stackoverflow.com/questions/38652007/how-to-retrieve-specific-list-of-data-from-firebase
@@ -198,9 +199,22 @@ public class Model_User_Data {
 
             model_user.setCollections(model_collectionsList);
         }
-        currentUser = model_user;
-        Model_Database_Lite model_database_lite = new Model_Database_Lite();
-        model_database_lite.replaceSqlDatabase(context);
 
+        //Retrieving User Profile Picture
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        String fileName = model_user.getEmail() + ".jpg";
+        String directory = Model_User_Data.firebaseUser.getUid() + "/"+"ProfilePicture"+"/" + fileName;
+        StorageReference mountainsRef = storageRef.child(directory);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        mountainsRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                model_user.setImageId(bytes);
+                currentUser = model_user;
+                Model_Database_Lite model_database_lite = new Model_Database_Lite();
+                model_database_lite.replaceSqlDatabase(context);
+            }
+        });
     }
 }
