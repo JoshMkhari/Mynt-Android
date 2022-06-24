@@ -12,13 +12,9 @@ import android.view.ViewGroup;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.adapters.Adapter_HomeActFragment;
-import com.example.mynt.collectionsActivity.models.Model_User;
-import com.example.mynt.collectionsActivity.models.User_Data;
-import com.example.mynt.dataAccessLayer.Database_Lite;
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator; //(tommybuonomo,2022)
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.tbuonomo.viewpagerdotsindicator.SpringDotsIndicator; //(tommybuonomo,2022)
 
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,7 +39,7 @@ public class Fragment_ViewPager extends Fragment {
 
 
         FragmentManager fragmentManager = getParentFragmentManager();
-        Adapter_HomeActFragment fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), User_Data.currentUser.getUserID());//(Foxandroid,2021)
+        Adapter_HomeActFragment fragmentAdapter = new Adapter_HomeActFragment(fragmentManager, getLifecycle(), Model_User_Data.currentUser.getUserID());//(Foxandroid,2021)
         viewPager2_main.setAdapter((fragmentAdapter));//(Foxandroid,2021)
 
         SpringDotsIndicator springDotsIndicator = (SpringDotsIndicator) home.findViewById(R.id.spring_dots_indicator);//(tommybuonomo,2022)

@@ -7,11 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.widget.ImageView;
 
 import com.example.mynt.collectionsActivity.Activity_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
-import com.example.mynt.collectionsActivity.models.User_Data;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,22 +34,22 @@ public class Activity_Main extends AppCompatActivity {
         for (int i = 0; i < allUsers.size(); i++) {
             if(allUsers.get(i).getState()==1)
             {
-                User_Data.currentUser = allUsers.get(i);
-                Log.d("theChanges", "setting current user" +User_Data.currentUser.getEmail() );
+                Model_User_Data.currentUser = allUsers.get(i);
+                Log.d("theChanges", "setting current user" + Model_User_Data.currentUser.getEmail() );
                 break;
             }
         }
-        if (!User_Data.currentUser.getEmail().equals("DefaultUser"))
+        if (!Model_User_Data.currentUser.getEmail().equals("DefaultUser"))
         {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
-            mAuth.signInWithEmailAndPassword(User_Data.currentUser.getEmail(),User_Data.currentUser.getPassword())
+            mAuth.signInWithEmailAndPassword(Model_User_Data.currentUser.getEmail(), Model_User_Data.currentUser.getPassword())
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        User_Data.firebaseUser = mAuth.getCurrentUser();
-                        if(User_Data.firebaseUser != null)
-                            User_Data.mergeData(getApplicationContext());
+                        Model_User_Data.firebaseUser = mAuth.getCurrentUser();
+                        if(Model_User_Data.firebaseUser != null)
+                            Model_User_Data.mergeData(getApplicationContext());
                     }
                 }
             });

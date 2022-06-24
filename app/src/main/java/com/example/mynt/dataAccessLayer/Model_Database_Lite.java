@@ -1,27 +1,17 @@
 package com.example.mynt.dataAccessLayer;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
-import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
-
-import com.example.mynt.collectionsActivity.models.ModelFireBaseCoin;
+import com.example.mynt.collectionsActivity.models.Model_Fire_Base_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
-import com.example.mynt.collectionsActivity.models.User_Data;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class Model_Database_Lite extends Thread {
@@ -44,27 +34,27 @@ public class Model_Database_Lite extends Thread {
         Database_Lite db = new Database_Lite(appContext);
         //Delete all data within all Tables
         db.removeUserData();
-        db.addUser(User_Data.currentUser);
+        db.addUser(Model_User_Data.currentUser);
         ArrayList<Model_User> userArrayList = db.getAllUsers();
-        Log.d("TAG", "LOGIN: result = " + db.addUser(User_Data.currentUser));
+        Log.d("TAG", "LOGIN: result = " + db.addUser(Model_User_Data.currentUser));
         Log.d("TAG", "LOGIN: change made" + userArrayList.size());
         //Populate User Table
         coinID = 1;
         collectionID=1;
         //Log.d("lastCync", "replaceSqlDatabase: " + User_Data.currentUser.getLastSync());
-        Log.d("theSync", "downloadData: udated sync" + User_Data.currentUser.getLastSync());
+        Log.d("theSync", "downloadData: udated sync" + Model_User_Data.currentUser.getLastSync());
         //Populate Collections Table
-        Log.d("wehatWeGot", "replaceSqlDatabase: collection size" + User_Data.currentUser.getCollections().size());
-        for (Model_Collections currentCollection: User_Data.currentUser.getCollections()) {
+        Log.d("wehatWeGot", "replaceSqlDatabase: collection size" + Model_User_Data.currentUser.getCollections().size());
+        for (Model_Collections currentCollection: Model_User_Data.currentUser.getCollections()) {
             ArrayList<Model_Collections> allCollections = db.getAllCollections();
             currentCollection.setCollectionID(allCollections.size()+1);
             db.addCollection(currentCollection);
             //Populate Coins Table
             Log.d("wehatWeGot", "replaceSqlDatabase: coins in collection " + currentCollection.getCollectionName() + " size " + currentCollection.getFireBaseCoinscoins().size());
-            for (ModelFireBaseCoin currentFireCoin: currentCollection.getFireBaseCoinscoins()) {
+            for (Model_Fire_Base_Coin currentFireCoin: currentCollection.getFireBaseCoinscoins()) {
                 // Create a reference to "ImageID.jpg"
                 String fileName = currentFireCoin.getValueYear() + ".jpg";
-                String directory = User_Data.firebaseUser.getUid() + "/"+currentCollection.getCollectionName()+"/" + fileName;
+                String directory = Model_User_Data.firebaseUser.getUid() + "/"+currentCollection.getCollectionName()+"/" + fileName;
                 Log.d("directory", "replaceSqlDatabase: " + directory);
                 StorageReference mountainsRef = storageRef.child(directory);
                 final long ONE_MEGABYTE = 1024 * 1024;

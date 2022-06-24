@@ -3,7 +3,6 @@ package com.example.mynt.collectionsActivity.models;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.Log;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
@@ -30,7 +29,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class User_Data {
+public class Model_User_Data {
 
     // Will Hold static once off data
     public static Model_Coin model_coin;
@@ -55,11 +54,11 @@ public class User_Data {
         for (int i=0; i<allCollections.size(); i++)
         {
             ArrayList<Model_Coin> coins = mdl.allCoinsAndCollections(context,1,allCollections.get(i).getCollectionID());
-            ArrayList<ModelFireBaseCoin> modelFireBaseCoinArrayList = new ArrayList<>();
+            ArrayList<Model_Fire_Base_Coin> modelFireBaseCoinArrayList = new ArrayList<>();
             for (int s=0; s<coins.size(); s++)
             {
                 String Value_Year = coins.get(s).getValue() +"_"+ coins.get(s).getYear();
-                ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(Value_Year,coins.get(s).getDateAcquired());
+                Model_Fire_Base_Coin modelFireBaseCoin = new Model_Fire_Base_Coin(Value_Year,coins.get(s).getDateAcquired());
                 uploadImage(Value_Year, coins.get(s).getImageId(),allCollections.get(i).getCollectionName());
                 modelFireBaseCoinArrayList.add(modelFireBaseCoin);
                 Log.d("changeSync", "uploadAllLocalData: " + changeSyc);
@@ -119,7 +118,7 @@ public class User_Data {
 
                 Database_Lite db = new Database_Lite(context);
                 ArrayList<Model_User> usersList = db.getAllUsers();
-                User_Data.currentUser =usersList.get(0);
+                Model_User_Data.currentUser =usersList.get(0);
                 if (Objects.equals(snapshot.child("lastSync").getValue(), usersList.get(0).getLastSync())) {
                     Log.d("theChanges", "They are the same: ");
                 }else
@@ -181,13 +180,13 @@ public class User_Data {
         for (DataSnapshot postSnapshot : snapshot.child("collections").getChildren()) {
             Model_Collections model_collections = new Model_Collections(postSnapshot.child("collectionName").getValue(String.class), postSnapshot.child("goal").getValue(int.class));
 
-            List<ModelFireBaseCoin> modelFireBaseCoinList = new ArrayList<>();
+            List<Model_Fire_Base_Coin> modelFireBaseCoinList = new ArrayList<>();
             for (DataSnapshot postSnapshotChild : postSnapshot.child("fireBaseCoinscoins").getChildren()) {
-                ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(postSnapshotChild.child("valueYear").getValue(String.class), postSnapshotChild.child("dateTaken").getValue(String.class));
+                Model_Fire_Base_Coin modelFireBaseCoin = new Model_Fire_Base_Coin(postSnapshotChild.child("valueYear").getValue(String.class), postSnapshotChild.child("dateTaken").getValue(String.class));
                 modelFireBaseCoinList.add(modelFireBaseCoin);
             }
             //Now Add Coin to FireBaseCoinsList
-            model_collections.setFireBaseCoinscoins((ArrayList<ModelFireBaseCoin>) modelFireBaseCoinList);
+            model_collections.setFireBaseCoinscoins((ArrayList<Model_Fire_Base_Coin>) modelFireBaseCoinList);
             model_collectionsList.add(model_collections);
 
             model_user.setCollections(model_collectionsList);

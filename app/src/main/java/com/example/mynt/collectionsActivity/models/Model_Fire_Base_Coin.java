@@ -1,12 +1,12 @@
 package com.example.mynt.collectionsActivity.models;
 
-public class ModelFireBaseCoin {
+public class Model_Fire_Base_Coin {
 
     private final String ValueYear;
     private final String DateTaken;
 
 
-    public ModelFireBaseCoin(String valueYear, String dateTaken) {
+    public Model_Fire_Base_Coin(String valueYear, String dateTaken) {
         ValueYear = valueYear;
         DateTaken = dateTaken;
     }

@@ -8,7 +8,6 @@ import androidx.navigation.Navigation;
 
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mynt.R;
-import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.collectionsActivity.models.Model_User;
-import com.example.mynt.collectionsActivity.models.User_Data;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
 import java.util.ArrayList;
@@ -83,7 +81,7 @@ public class Fragment_Goal extends Fragment {
         assert getArguments() != null;
         model_goals = new Model_Goals(getArguments().getString("Collection Name"),getArguments().getInt("Coins"),getArguments().getInt("Goal"));//(Section, 2021)
         task = getArguments().getInt("Task");
-        model_user = User_Data.currentUser;
+        model_user = Model_User_Data.currentUser;
         model_user.setUserID(getArguments().getInt("User"));
 
 
@@ -128,7 +126,7 @@ public class Fragment_Goal extends Fragment {
                 {
                     Toast.makeText(getContext(), "Running new", Toast.LENGTH_SHORT).show();
                     //Get latest collection ID
-                    localDB.addCollectionCoin(collectionID,User_Data.model_coin.getCoinID(),localDB.getAllCoins().size());
+                    localDB.addCollectionCoin(collectionID, Model_User_Data.model_coin.getCoinID(),localDB.getAllCoins().size());
                 }
                 else
                 {
@@ -139,10 +137,10 @@ public class Fragment_Goal extends Fragment {
                 }
                 Calendar cal = Calendar.getInstance();
                 String lastSync = cal.getTime().toString();
-                User_Data.currentUser.setLastSync(lastSync);
-                if(!User_Data.currentUser.getEmail().equals("DefaultUser"))
-                    User_Data.mergeData(getContext());
-                localDB.updateUserLastSync(User_Data.currentUser);
+                Model_User_Data.currentUser.setLastSync(lastSync);
+                if(!Model_User_Data.currentUser.getEmail().equals("DefaultUser"))
+                    Model_User_Data.mergeData(getContext());
+                localDB.updateUserLastSync(Model_User_Data.currentUser);
                 home = new Intent(getContext(),Activity_Collections.class);
                 home.putExtra("View","library");
                 home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

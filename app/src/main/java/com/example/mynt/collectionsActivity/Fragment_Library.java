@@ -1,16 +1,12 @@
 package com.example.mynt.collectionsActivity;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +21,7 @@ import com.example.mynt.collectionsActivity.models.Model_Coin;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator_ID;
-import com.example.mynt.collectionsActivity.models.User_Data;
-import com.example.mynt.dataAccessLayer.Database_Lite;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 
 import com.example.mynt.collectionsActivity.adapters.Adapter_Library_Options;
 import com.example.mynt.collectionsActivity.models.Model_Library_Options;
@@ -113,7 +108,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
     }
 
     private void ViewLoggedInUser(){
-        user = User_Data.currentUser;
+        user = Model_User_Data.currentUser;
     }
 
     private void NavigationToOtherPages(){

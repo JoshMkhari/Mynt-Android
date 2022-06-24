@@ -1,7 +1,5 @@
 package com.example.mynt.collectionsActivity;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,9 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mynt.R;
-import com.example.mynt.collectionsActivity.models.User_Data;
-
-import java.io.FileInputStream;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +36,7 @@ public class Fragment_CoinFull extends Fragment {
         assert getArguments() != null;
         String title = getArguments().getString("Title");
         try{
-            userImage.setImageBitmap(User_Data.coinBitmap);
+            userImage.setImageBitmap(Model_User_Data.coinBitmap);
         }
         catch(Exception ignored){
         }

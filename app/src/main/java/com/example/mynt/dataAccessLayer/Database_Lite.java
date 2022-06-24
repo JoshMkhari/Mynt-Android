@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
-import com.example.mynt.collectionsActivity.models.User_Data;
 
 import java.util.ArrayList;
 
@@ -350,6 +349,25 @@ public class Database_Lite extends SQLiteOpenHelper {
         }
 
 
+    public String updateCoin(Model_Coin coin)
+    {
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put(COLUMN_MINTAGE,coin.getMintage());
+            cv.put(COLUMN_OBSERVE,coin.getObserve());
+            cv.put(COLUMN_REVERSE,coin.getReverse());
+            cv.put(COLUMN_MATERIAL,coin.getMaterial());
+            // db.update(USER_TABLE,cv,"ID=1",null);
+            db.update(COIN_TABLE,cv,COIN_ID + "=?",new String[]{String.valueOf(coin.getCoinID())});
+            cv.clear();
+            return "Success";
+        }catch (Exception ignored)
+        {
+            return "Faild";
+        }
+
+    }
     public String addUser(Model_User model_user) {//(freecodecamp,2020)
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();

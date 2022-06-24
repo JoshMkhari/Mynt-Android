@@ -4,21 +4,11 @@ import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 
-import com.example.mynt.Activity_Main;
 import com.example.mynt.R;
-import com.example.mynt.collectionsActivity.models.User_Data;
 
 import java.util.Objects;
-
-import pl.droidsonroids.gif.GifTextView;
 
 public class Activity_Collections extends AppCompatActivity {
 
