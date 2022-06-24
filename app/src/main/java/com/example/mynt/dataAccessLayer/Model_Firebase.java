@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.mynt.collectionsActivity.models.Model_Coin;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -57,6 +58,10 @@ public class Model_Firebase {
                         currentCoin.setMaterial(coinInfoList.get(3));
                         Database_Lite localDB = new Database_Lite(context);
                         localDB.updateCoin(currentCoin);
+                        float points = 700000000-((currentCoin.getMintage()/2)-currentCoin.getYear());
+                        points = points/100000;
+                        //Add to user points
+                        Model_User_Data.currentUser.setPoints(points);
                     }
                 }else
                     Log.d("TAG", "onComplete: failed to get data" );

@@ -397,9 +397,6 @@ public class Database_Lite extends SQLiteOpenHelper {
                 cv.put(COLUMN_LastSync, model_user.getLastSync());
                 cv.put(COLUMN_USER_NAME, model_user.getUserName());
                 cv.put(COLUMN_USER_PROFILE_PIC, model_user.getImageId());
-                //ProfilePic
-                //UserName
-                // db.update(USER_TABLE,cv,"ID=1",null);
                 db.update(USER_TABLE,cv,COLUMN_USER_EMAIL + "=?",new String[]{oldUser});
                 return "true switch";
             }

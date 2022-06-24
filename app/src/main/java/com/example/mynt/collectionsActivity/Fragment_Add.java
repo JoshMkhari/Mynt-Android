@@ -283,15 +283,18 @@ public class Fragment_Add extends Fragment {
 
         //Result for Camera
         activityResultLauncher_Camera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {//(Android Coiding, 2019)
-            assert result.getData() != null;
+            //assert result.getData() != null;
+            if(result.getData() != null)
+            {
                 Bundle extras = result.getData().getExtras();
-            if (extras != null) {
-                imageBitmap = (Bitmap) extras.get("data");//(Android Coiding, 2019)
-                userImage.setImageBitmap(imageBitmap);//(Android Coiding, 2019)
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                ImageByteArray = stream.toByteArray();
-                imageSet = true;
+                if (extras != null) {
+                    imageBitmap = (Bitmap) extras.get("data");//(Android Coiding, 2019)
+                    userImage.setImageBitmap(imageBitmap);//(Android Coiding, 2019)
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    ImageByteArray = stream.toByteArray();
+                    imageSet = true;
+                }
             }
         });
 
@@ -381,6 +384,7 @@ public class Fragment_Add extends Fragment {
                     //Then update the recently added coin
                     Model_Firebase model_firebase = new Model_Firebase(model_coin,getContext());
                     model_firebase.downloadCoinData();
+
                     Calendar cal = Calendar.getInstance();
                     String lastSync = cal.getTime().toString();
                     Model_User_Data.currentUser.setLastSync(lastSync);

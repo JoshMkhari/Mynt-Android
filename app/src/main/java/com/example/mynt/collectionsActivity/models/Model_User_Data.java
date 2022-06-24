@@ -55,6 +55,7 @@ public class Model_User_Data {
         ArrayList<Model_Collections> userCollections = new ArrayList<>();
         Model_Database_Lite mdl = new Model_Database_Lite();
 
+        float points =0;
         for (int i=0; i<allCollections.size(); i++)
         {
             ArrayList<Model_Coin> coins = mdl.allCoinsAndCollections(context,1,allCollections.get(i).getCollectionID());
@@ -63,8 +64,10 @@ public class Model_User_Data {
             {
                 String Value_Year = coins.get(s).getValue() +"_"+ coins.get(s).getYear();
                 Model_Fire_Base_Coin modelFireBaseCoin = new Model_Fire_Base_Coin(Value_Year,coins.get(s).getDateAcquired());
-                uploadImage(Value_Year, coins.get(s).getImageId(),allCollections.get(i).getCollectionName());
                 modelFireBaseCoinArrayList.add(modelFireBaseCoin);
+                float toIndent = 700000000-((coins.get(s).getMintage()/2)-coins.get(s).getYear());
+                toIndent = toIndent/100000;
+                points+=toIndent;
                 Log.d("changeSync", "uploadAllLocalData: " + changeSyc);
                 changeSyc = true;
             }
@@ -77,6 +80,7 @@ public class Model_User_Data {
         //Adding coins to collections
 
         currentUser.setCollections(userCollections);
+        currentUser.setPoints(points);
         if(changeSyc || currentUser.getLastSync().equals(""))
         {
             Calendar cal = Calendar.getInstance();
@@ -85,7 +89,7 @@ public class Model_User_Data {
             db.updateUserLastSync(currentUser);
         }
         Model_Fire_Base_User currentFireUser = new Model_Fire_Base_User(currentUser.getEmail(), currentUser.getUserName(),
-                currentUser.getState(), currentUser.getCollections(), currentUser.getLastSync());
+                currentUser.getState(), currentUser.getCollections(), currentUser.getLastSync(), currentUser.getPoints());
         mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentFireUser);
         uploadImage(currentUser.getEmail(), currentUser.getImageId(), "ProfilePicture");
     }

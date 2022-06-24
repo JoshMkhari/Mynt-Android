@@ -54,6 +54,7 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
         //Creating list to store users and their ranks
         array_list_leaderboard = new ArrayList<>();
 
+
         //Populating leaderboard list
         for (int i =0; i<8;i++)
         {
