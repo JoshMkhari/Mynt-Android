@@ -32,7 +32,6 @@ public class Model_Firebase {
         coinInfoList = new ArrayList<>();
         String ValueYear = currentCoin.getValue() + "_"+currentCoin.getYear();
         mDatabase.child("Value_Year").child(ValueYear).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if(task.isSuccessful())
@@ -50,12 +49,15 @@ public class Model_Firebase {
                         coinInfoList.add(coinData.getValue(String.class));
                     }
                     Log.d("TAG", "onComplete: got data" );
-                    currentCoin.setMintage(Integer.parseInt(coinInfoList.get(0)));
-                    currentCoin.setObserve(coinInfoList.get(1));
-                    currentCoin.setReverse(coinInfoList.get(2));
-                    currentCoin.setMaterial(coinInfoList.get(3));
-                    Database_Lite localDB = new Database_Lite(context);
-                    localDB.updateCoin(currentCoin);
+                    if(coinInfoList.size()>0)
+                    {
+                        currentCoin.setMintage(Integer.parseInt(coinInfoList.get(0)));
+                        currentCoin.setObserve(coinInfoList.get(1));
+                        currentCoin.setReverse(coinInfoList.get(2));
+                        currentCoin.setMaterial(coinInfoList.get(3));
+                        Database_Lite localDB = new Database_Lite(context);
+                        localDB.updateCoin(currentCoin);
+                    }
                 }else
                     Log.d("TAG", "onComplete: failed to get data" );
             }
