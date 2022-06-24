@@ -79,66 +79,8 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
     private void DisplayLeaderBoardRanks(){
         Database_Lite db = new Database_Lite(getContext());
         //Creating list to store users and their ranks
-        array_list_leaderboard = new ArrayList<>();
-        if(Model_User_Data.sync)
-        {
-
-            db.deleteLeaderboard();
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference mDatabase = database.getReference();
-            mDatabase.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot postSnapshot: snapshot.child("users").getChildren()
-                    ) {
-                        array_list_leaderboard = new ArrayList<>();
-                        //Get user specific profile pic
-                        //Retrieving User Profile Picture
-                        FirebaseStorage storage = FirebaseStorage.getInstance();
-                        StorageReference storageRef = storage.getReference();
-                        String fileName = postSnapshot.child("email").getValue(String.class) + ".jpg";
-                        Log.d("leaderBoard", "onDataChange: filename "+ fileName );
-                        String directory = "ProfilePicture"+"/" + fileName;
-                        Log.d("leaderBoard", "onDataChange: UUID "+ directory );
-                        try {
-
-                            StorageReference mountainsRef = storageRef.child(directory);
-                            final long ONE_MEGABYTE = 1024 * 1024;
-                            mountainsRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-                                @Override
-                                public void onSuccess(byte[] bytes) {
-                                    int points = Math.round(postSnapshot.child("points").getValue(float.class));
-                                    Model_Leaderboard lm = new Model_Leaderboard(postSnapshot.child("userName").getValue(String.class),points, bytes);//(Section, 2021)
-                                    array_list_leaderboard.add(lm);
-
-                                    db.addLeaderboard(lm);
-                                    Runnable r = () -> {
-                                        rv_leaferbaord_adapter.notifyItemInserted(array_list_leaderboard.size()-1);
-                                        Log.d("leader", "onSuccess: ");
-                                    };
-                                    mHandler.post(r);
-                                }
-                            });
-                        }catch (Exception ignored)
-                        {
-
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
-        else
-        {
-            //populate from database
-            array_list_leaderboard= db.getLeaderboard();
-            Log.d("offLEade", "DisplayLeaderBoardRanks: arraylist" + array_list_leaderboard.size() );
-        }
-
+        array_list_leaderboard= db.getLeaderboard();
+        Log.d("offLEade", "DisplayLeaderBoardRanks: arraylist" + array_list_leaderboard.size() );
     }
     @Override
     public void onItemClick(int position, ImageView coinImage) {

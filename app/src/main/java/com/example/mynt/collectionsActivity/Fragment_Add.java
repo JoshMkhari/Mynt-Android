@@ -18,6 +18,7 @@ import androidx.navigation.Navigation;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -384,9 +385,11 @@ public class Fragment_Add extends Fragment {
                     //Then update the recently added coin
                     Model_Firebase model_firebase = new Model_Firebase(model_coin,getContext());
                     model_firebase.downloadCoinData();
-
                     Calendar cal = Calendar.getInstance();
                     String lastSync = cal.getTime().toString();
+
+                    Log.d("pointSet", "run: " + Model_User_Data.currentUser.getPoints());
+
                     Model_User_Data.currentUser.setLastSync(lastSync);
                     localDB.updateUserLastSync(Model_User_Data.currentUser);
                 }catch (Exception e)

@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
 import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
@@ -122,6 +123,7 @@ public class Fragment_Register extends Fragment {
                                    //db.updateUserLastSync(User_Data.currentUser);
 
                                    Model_User_Data.uploadAllLocalData(getContext());
+
                                    i = new Intent(getContext(), Activity_Collections.class);
                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                    startActivity(i);

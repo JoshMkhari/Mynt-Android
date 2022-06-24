@@ -63,6 +63,8 @@ public class Fragment_Settings extends Fragment {
                 //Delete all data within all Tables
                 db.removeUserData();
                 Model_User model_user = new Model_User("DefaultUser",null,1);
+                model_user.setLastSync(null);
+                Model_User_Data.currentUser = model_user;
                 db.addUser(model_user);
                 backActivity();
             }

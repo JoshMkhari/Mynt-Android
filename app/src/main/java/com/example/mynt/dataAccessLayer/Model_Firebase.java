@@ -62,6 +62,7 @@ public class Model_Firebase {
                         points = points/100000;
                         //Add to user points
                         Model_User_Data.currentUser.setPoints(points);
+                        Log.d("TAG", "onComplete: points "+ Model_User_Data.currentUser.getPoints() + " this is points " + points);
                     }
                 }else
                     Log.d("TAG", "onComplete: failed to get data" );

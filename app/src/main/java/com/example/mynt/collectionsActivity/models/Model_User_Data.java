@@ -79,6 +79,8 @@ public class Model_User_Data {
 
         //Adding coins to collections
         currentUser.setPoints(points);
+        Model_Leaderboard lm = new Model_Leaderboard(Model_User_Data.currentUser.getUserName(),Math.round(Model_User_Data.currentUser.getPoints()), Model_User_Data.currentUser.getImageId());//(Section, 2021)
+        db.addLeaderboard(lm);
         currentUser.setCollections(userCollections);
         if(changeSyc || currentUser.getLastSync().equals(""))
         {
