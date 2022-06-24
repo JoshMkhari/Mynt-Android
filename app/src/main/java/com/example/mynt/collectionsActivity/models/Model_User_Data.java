@@ -42,6 +42,7 @@ public class Model_User_Data {
     public static boolean sync =false;
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     static DatabaseReference mDatabase = database.getReference();
+    public static String pass;
 
     public static void uploadAllLocalData(Context context)
     {
@@ -124,6 +125,7 @@ public class Model_User_Data {
 
                 Database_Lite db = new Database_Lite(context);
                 ArrayList<Model_User> usersList = db.getAllUsers();
+                pass = Model_User_Data.currentUser.getPassword();
                 Model_User_Data.currentUser =usersList.get(0);
                 if (Objects.equals(snapshot.child("lastSync").getValue(), usersList.get(0).getLastSync())) {
 

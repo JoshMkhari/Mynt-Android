@@ -33,7 +33,11 @@ public class Model_Database_Lite extends Thread {
         StorageReference storageRef = storage.getReference();
         Database_Lite db = new Database_Lite(appContext);
         //Delete all data within all Tables
+        //Storing old password
+        Log.d("password", "replaceSqlDatabase: " + Model_User_Data.pass + "for ");
         db.removeUserData();
+        Model_User_Data.currentUser.setPassword(Model_User_Data.pass);
+        Log.d("password", "replaceSqlDatabase: " + Model_User_Data.currentUser.getPassword());
         db.addUser(Model_User_Data.currentUser);
         ArrayList<Model_User> userArrayList = db.getAllUsers();
         Log.d("TAG", "LOGIN: result = " + db.addUser(Model_User_Data.currentUser));
