@@ -2,10 +2,12 @@ package com.example.mynt.collectionsActivity.models;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.mynt.R;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.dataAccessLayer.Model_Database_Lite;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -71,6 +73,7 @@ public class Model_User_Data {
         }
 
         //Adding coins to collections
+
         currentUser.setCollections(userCollections);
         if(changeSyc || currentUser.getLastSync().equals(""))
         {
@@ -79,8 +82,10 @@ public class Model_User_Data {
             currentUser.setLastSync(lastSync);
             db.updateUserLastSync(currentUser);
         }
-        mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentUser);
-        //Merge online data with offline data
+        Model_Fire_Base_User currentFireUser = new Model_Fire_Base_User(currentUser.getEmail(), currentUser.getUserName(),
+                currentUser.getState(), currentUser.getCollections(), currentUser.getLastSync());
+        mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentFireUser);
+        uploadImage(currentUser.getEmail(), currentUser.getImageId(), "ProfilePicture");
     }
 
     private static void uploadImage(String ImageID, byte[] data, String CollectionName)
@@ -120,7 +125,9 @@ public class Model_User_Data {
                 ArrayList<Model_User> usersList = db.getAllUsers();
                 Model_User_Data.currentUser =usersList.get(0);
                 if (Objects.equals(snapshot.child("lastSync").getValue(), usersList.get(0).getLastSync())) {
+
                     Log.d("theChanges", "They are the same: ");
+
                 }else
                 {
                     Log.d("theChanges", "We in else ");
@@ -192,7 +199,6 @@ public class Model_User_Data {
             model_user.setCollections(model_collectionsList);
         }
         currentUser = model_user;
-
         Model_Database_Lite model_database_lite = new Model_Database_Lite();
         model_database_lite.replaceSqlDatabase(context);
 

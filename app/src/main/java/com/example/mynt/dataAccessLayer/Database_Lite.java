@@ -64,7 +64,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         //User Table
         String         //User Table
                 tableStatement = ("CREATE TABLE " + USER_TABLE + "(" + USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "  + COLUMN_USER_EMAIL + " TEXT, " +
-                COLUMN_STATE + " INTEGER, " + COLUMN_PASSWORD + " TEXT, " + COLUMN_LastSync + " TEXT);");
+                COLUMN_STATE + " INTEGER, " + COLUMN_PASSWORD + " TEXT, " + COLUMN_LastSync + " TEXT, " + COLUMN_USER_NAME + " TEXT, "+ COLUMN_USER_PROFILE_PIC + " BLOB);");
         db.execSQL(tableStatement);
 
         //Collections Table
@@ -272,12 +272,16 @@ public class Database_Lite extends SQLiteOpenHelper {
                 int state  = cursor.getInt(2);
                 String password = cursor.getString(3);
                 String lastSync = cursor.getString(4);
+                String userName = cursor.getString(5);
+                byte[] userProfilePic = cursor.getBlob(6);
 
 
                 Model_User model_user = new Model_User(email,password,state);
                 model_user.setUserID(userID);
                 model_user.setLastSync(lastSync);
                 model_user.setState(state);
+                model_user.setUserName(userName);
+                model_user.setImageId(userProfilePic);
                 users.add(model_user);
             }while (cursor.moveToNext());
         }
@@ -391,6 +395,10 @@ public class Database_Lite extends SQLiteOpenHelper {
                 cv.put(COLUMN_USER_EMAIL, model_user.getEmail());
                 cv.put(COLUMN_PASSWORD, model_user.getPassword());
                 cv.put(COLUMN_LastSync, model_user.getLastSync());
+                cv.put(COLUMN_USER_NAME, model_user.getUserName());
+                cv.put(COLUMN_USER_PROFILE_PIC, model_user.getImageId());
+                //ProfilePic
+                //UserName
                 // db.update(USER_TABLE,cv,"ID=1",null);
                 db.update(USER_TABLE,cv,COLUMN_USER_EMAIL + "=?",new String[]{oldUser});
                 return "true switch";
@@ -403,6 +411,8 @@ public class Database_Lite extends SQLiteOpenHelper {
                     cv.put(COLUMN_PASSWORD, model_user.getPassword());
                     cv.put(COLUMN_LastSync, model_user.getLastSync());
                     cv.put(COLUMN_STATE, model_user.getState());
+                    cv.put(COLUMN_USER_NAME, model_user.getUserName());
+                    cv.put(COLUMN_USER_PROFILE_PIC, model_user.getImageId());
                     db.insert(USER_TABLE, null, cv);
                     cv.clear();
 

@@ -3,6 +3,9 @@ package com.example.mynt.collectionsActivity;
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -26,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -99,6 +103,14 @@ public class Fragment_Register extends Fragment {
                                    //Log.d(TAG, "createUserWithEmail:success");
                                    Model_User_Data.firebaseUser = mAuth.getCurrentUser();
                                    Model_User_Data.currentUser = model_user;
+
+                                   Model_User_Data.currentUser.setUserName(model_user.getEmail());
+                                   Bitmap icon = BitmapFactory.decodeResource(getContext().getResources(),
+                                           R.drawable.ic_default_user_profile_icon);
+                                   ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                                   icon.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                                   byte[] ImageByteArray = stream.toByteArray();
+                                   Model_User_Data.currentUser.setImageId(ImageByteArray);
 
                                    Calendar cal = Calendar.getInstance();
                                    String lastSync = cal.getTime().toString();
