@@ -398,7 +398,6 @@ public class Database_Lite extends SQLiteOpenHelper {
                 //String statment = "UPDATE USER_TABLE SET ADDRESS = 'Texas' WHERE ID = 6;";
                 //db.execSQL("UPDATE USER_TABLE SET ADDRESS = 'Texas' WHERE ID = 6;");
                 cv.put(COLUMN_LastSync, model_user.getLastSync());
-                cv.put(COLUMN_POINTS, model_user.getPoints());
                 // db.update(USER_TABLE,cv,"ID=1",null);
                 db.update(USER_TABLE,cv,COLUMN_USER_EMAIL + "=?",new String[]{model_user.getEmail()});
                 cv.clear();
