@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +37,13 @@ import java.util.ArrayList;
  */
 public class Fragment_Leaderboard extends Fragment implements Interface_RecyclerView {
     private ArrayList<Model_Leaderboard> array_list_leaderboard;
+    RecyclerView recycler_view_leaderboard;
+    @Override
+    public void onResume() {
+        super.onResume();
+        RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard);//(Professor Sluiter, 2020).
+        recycler_view_leaderboard.setAdapter(rv_leaferbaord_adapter);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +53,7 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
         View view_leaderboard = inflater.inflate(R.layout.fragment_leaderboard, container, false);
 
         //Passing data to list recycler view
-        RecyclerView recycler_view_leaderboard = view_leaderboard.findViewById(R.id.recycler_view_ranking_leaderboard);
+        recycler_view_leaderboard= view_leaderboard.findViewById(R.id.recycler_view_ranking_leaderboard);
         recycler_view_leaderboard.setHasFixedSize(true);
 
         //Ensuring the recycler view layout contains 1 item in each row
@@ -72,20 +80,24 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot: snapshot.child("users").getChildren()
                      ) {
-
+                    array_list_leaderboard = new ArrayList<>();
                     //Get user specific profile pic
                     //Retrieving User Profile Picture
                     FirebaseStorage storage = FirebaseStorage.getInstance();
                     StorageReference storageRef = storage.getReference();
-                    String fileName = snapshot.child("email").getValue(String.class) + ".jpg";
-                    String directory = Model_User_Data.firebaseUser.getUid() + "/"+"ProfilePicture"+"/" + fileName;
+                    String fileName = postSnapshot.child("email").getValue(String.class) + ".jpg";
+                    Log.d("leaderBoard", "onDataChange: filename "+ fileName );
+                    String directory = "ProfilePicture"+"/" + fileName;
+                    Log.d("leaderBoard", "onDataChange: UUID "+ directory );
+
                     StorageReference mountainsRef = storageRef.child(directory);
                     final long ONE_MEGABYTE = 1024 * 1024;
                     mountainsRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                         @Override
                         public void onSuccess(byte[] bytes) {
-                            int points = Math.round(snapshot.child("points").getValue(float.class));
-                            Model_Leaderboard lm = new Model_Leaderboard(snapshot.child("userName").getValue(String.class),points, bytes);//(Section, 2021)
+                            int points = Math.round(postSnapshot.child("points").getValue(float.class));
+                            Model_Leaderboard lm = new Model_Leaderboard(postSnapshot.child("userName").getValue(String.class),points, bytes);//(Section, 2021)
+                            array_list_leaderboard.add(lm);
                         }
                     });
                 }

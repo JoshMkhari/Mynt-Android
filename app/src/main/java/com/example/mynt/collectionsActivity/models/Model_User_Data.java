@@ -63,7 +63,7 @@ public class Model_User_Data {
             {
                 String Value_Year = coins.get(s).getValue() +"_"+ coins.get(s).getYear();
                 Model_Fire_Base_Coin modelFireBaseCoin = new Model_Fire_Base_Coin(Value_Year,coins.get(s).getDateAcquired());
-                uploadImage(Value_Year, coins.get(s).getImageId(),allCollections.get(i).getCollectionName());
+                uploadImage(Value_Year, coins.get(s).getImageId(),allCollections.get(i).getCollectionName(),false);
                 float coinPoint = 700000000-((coins.get(s).getMintage()/2)-coins.get(s).getYear());
                 coinPoint = coinPoint/100000;
                 points+=coinPoint;
@@ -90,10 +90,10 @@ public class Model_User_Data {
         Model_Fire_Base_User currentFireUser = new Model_Fire_Base_User(currentUser.getEmail(), currentUser.getUserName(),
                 currentUser.getState(), currentUser.getCollections(), currentUser.getLastSync(), currentUser.getPoints());
         mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentFireUser);
-        uploadImage(currentUser.getEmail(), currentUser.getImageId(), "ProfilePicture");
+        uploadImage(currentUser.getEmail(), currentUser.getImageId(), "ProfilePicture",true);
     }
 
-    private static void uploadImage(String ImageID, byte[] data, String CollectionName)
+    private static void uploadImage(String ImageID, byte[] data, String CollectionName,boolean type)
     {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
@@ -102,7 +102,12 @@ public class Model_User_Data {
         StorageReference mountainsRef = storageRef.child(fileName);
 
         // Create a reference to 'images/mountains.jpg'
-        String directory = firebaseUser.getUid() + "/"+CollectionName+"/" + fileName;
+        String directory;
+        if(type)
+        {
+            directory = CollectionName+"/" + fileName;
+        }else
+            directory = firebaseUser.getUid() + "/"+CollectionName+"/" + fileName;
 
         UploadTask uploadTask = storageRef.child(directory).putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -210,7 +215,7 @@ public class Model_User_Data {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
         String fileName = model_user.getEmail() + ".jpg";
-        String directory = Model_User_Data.firebaseUser.getUid() + "/"+"ProfilePicture"+"/" + fileName;
+        String directory = "ProfilePicture"+"/" + fileName;
         StorageReference mountainsRef = storageRef.child(directory);
         final long ONE_MEGABYTE = 1024 * 1024;
         mountainsRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
