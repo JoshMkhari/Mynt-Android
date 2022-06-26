@@ -36,7 +36,7 @@ public class Fragment_Search extends Fragment {
         // Inflate the layout for this fragment
         View search = inflater.inflate(R.layout.fragment_search, container, false);
 
-        //Comment
+        //Comment https://www.youtube.com/watch?v=EukutTtf9tQ&t=1s
         tabLayout = search.findViewById(R.id.search_tab_layout);
         viewPager2 = search.findViewById(R.id.search_viewPager2);
         backButton = search.findViewById(R.id.image_button_back_search);
@@ -76,6 +76,12 @@ public class Fragment_Search extends Fragment {
         }
         });
 
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                tabLayout.selectTab(tabLayout.getTabAt(position));
+            }
+        });
         return search;
     }
 
