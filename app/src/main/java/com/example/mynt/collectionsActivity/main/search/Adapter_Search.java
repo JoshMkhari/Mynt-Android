@@ -22,11 +22,11 @@ public class Adapter_Search extends FragmentStateAdapter {
     @Override
     public Fragment createFragment(int position) {
 
-        if (position == 1){
+        if (position == 0){
 
             return new Fragment_Search_Value();
         }else
-        if (position == 2){
+        if (position == 1){
             return new Fragment_Search_Year();
         }
 

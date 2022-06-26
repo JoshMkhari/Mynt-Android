@@ -109,9 +109,8 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
     private void ReturnToCoinPage(){
 
         back_imageButton.setOnClickListener(v -> backActivity());
-
-
     }
+
     private void DisplayAllLocalCoinsAndCollections() {
 
         Model_Database_Lite mdl = new Model_Database_Lite();
