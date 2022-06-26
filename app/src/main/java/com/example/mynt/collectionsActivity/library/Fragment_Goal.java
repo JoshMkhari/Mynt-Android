@@ -1,4 +1,4 @@
-package com.example.mynt.collectionsActivity;
+package com.example.mynt.collectionsActivity.library;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.Activity_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.collectionsActivity.models.Model_User;
@@ -141,7 +142,7 @@ public class Fragment_Goal extends Fragment {
                 if(!Model_User_Data.currentUser.getEmail().equals("DefaultUser"))
                     Model_User_Data.mergeData(getContext());
                 localDB.updateUserLastSync(Model_User_Data.currentUser);
-                home = new Intent(getContext(),Activity_Collections.class);
+                home = new Intent(getContext(), Activity_Collections.class);
                 home.putExtra("View","library");
                 home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(home);

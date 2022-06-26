@@ -1,4 +1,4 @@
-package com.example.mynt.collectionsActivity;
+package com.example.mynt.collectionsActivity.library;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
@@ -21,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.Activity_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
 import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.collectionsActivity.models.Model_User_Data;

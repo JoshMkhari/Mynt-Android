@@ -1,4 +1,4 @@
-package com.example.mynt.collectionsActivity;
+package com.example.mynt.collectionsActivity.library;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.Activity_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_User;

@@ -1,4 +1,4 @@
-package com.example.mynt.collectionsActivity;
+package com.example.mynt.collectionsActivity.main;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
@@ -32,6 +32,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.Activity_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Date;
@@ -204,7 +205,7 @@ public class Fragment_Add extends Fragment {
                         Model_User_Data.currentUser.setLastSync(lastSync);
                         if(!Model_User_Data.currentUser.getEmail().equals("DefaultUser"))
                             Model_User_Data.mergeData(getContext());
-                        Intent home = new Intent(getContext(),Activity_Collections.class);
+                        Intent home = new Intent(getContext(), Activity_Collections.class);
                         home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(home);
                     }

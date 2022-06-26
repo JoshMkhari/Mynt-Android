@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".collectionsActivity.Fragment_Settings"
+    tools:context=".collectionsActivity.library.Fragment_Settings"
     android:orientation="vertical">
 
     <LinearLayout

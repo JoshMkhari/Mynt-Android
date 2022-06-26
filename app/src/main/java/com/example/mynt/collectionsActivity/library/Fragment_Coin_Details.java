@@ -1,4 +1,4 @@
-package com.example.mynt.collectionsActivity;
+package com.example.mynt.collectionsActivity.library;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
