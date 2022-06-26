@@ -11,17 +11,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.Interface_RecyclerView_One;
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.Model_Coin;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class Adapter_Search_Value extends RecyclerView.Adapter<Adapter_Search_Value.Card_View_Holder>{
 
-    private final List<String> arrayList_Values;
+    private final ArrayList<Model_Coin> arrayList_Values;
     private final Interface_RecyclerView_One interfaceRecyclerView;
-    public Adapter_Search_Value(List<String> arrayList_values, Interface_RecyclerView_One interfaceRecyclerView) {
-        arrayList_Values = arrayList_values;
+    public Adapter_Search_Value(ArrayList<Model_Coin> arrayList_values, Interface_RecyclerView_One interfaceRecyclerView) {
+        ArrayList<Model_Coin> coinWithoutDuplicates = new ArrayList<>();
+        ArrayList<String> values = new ArrayList<>();
+        for (Model_Coin coins: arrayList_values
+             ) {
+            if(!values.contains(coins.getValue()))
+            {
+                coinWithoutDuplicates.add(coins);
+                values.add(coins.getValue());
+            }
+        }
+
+        arrayList_Values = coinWithoutDuplicates;
         this.interfaceRecyclerView = interfaceRecyclerView;
     }
 
@@ -34,7 +45,7 @@ public class Adapter_Search_Value extends RecyclerView.Adapter<Adapter_Search_Va
 
     @Override
     public void onBindViewHolder(@NonNull Adapter_Search_Value.Card_View_Holder holder, int position) {
-        holder.search_value_item_name.setText(arrayList_Values.get(position));
+        holder.search_value_item_name.setText(arrayList_Values.get(position).getValue());
     }
 
     @Override

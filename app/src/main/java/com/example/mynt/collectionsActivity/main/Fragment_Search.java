@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.navigation.Navigation;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import java.util.Objects;
 
 public class Fragment_Search extends Fragment {
 
-    private TabLayout tabLayout;
+    private static TabLayout tabLayout;
     private ViewPager2 viewPager2;
     private ImageButton backButton;
 
@@ -82,6 +83,7 @@ public class Fragment_Search extends Fragment {
                 tabLayout.selectTab(tabLayout.getTabAt(position));
             }
         });
+
         return search;
     }
 
@@ -95,4 +97,9 @@ public class Fragment_Search extends Fragment {
         findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                 setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)
     }
+
+    public static void changeTab(int position){
+        tabLayout.selectTab(tabLayout.getTabAt(position));
+    }
+
 }
