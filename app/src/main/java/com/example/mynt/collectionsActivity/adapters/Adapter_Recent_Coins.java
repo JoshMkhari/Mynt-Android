@@ -3,9 +3,11 @@ package com.example.mynt.collectionsActivity.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -84,6 +86,7 @@ public class Adapter_Recent_Coins extends RecyclerView.Adapter<Adapter_Recent_Co
         final ImageView coinImage;
         final TextView year;
         final TextView name;
+        final ImageButton moreOptions;
 
 
         public CoinViewHolder(@NonNull View itemView) {
@@ -91,6 +94,15 @@ public class Adapter_Recent_Coins extends RecyclerView.Adapter<Adapter_Recent_Co
             coinImage = itemView.findViewById(R.id.imageview_current_coin);
             year = itemView.findViewById(R.id.textview_coin_year);
             name = itemView.findViewById(R.id.textview_coin_name);
+            moreOptions = itemView.findViewById(R.id.meatball_recentCoin);
+
+            moreOptions.setOnClickListener(v -> {
+                int pos = getAbsoluteAdapterPosition();
+                //coinsList.get(pos).getValue();
+                Log.d("meatClicked", "onClick: "+coinsList.get(pos).getValue());
+                Log.d("meatClicked", "onClick: "+coinsList.get(pos).getYear());
+            });
+
             itemView.setOnClickListener(v -> {
                 if(interfaceRecyclerView != null)
                 {

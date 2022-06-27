@@ -89,7 +89,7 @@
         <entry key="app/src/main/res/layout/listview_add_coin.xml" value="0.3572916666666667" />
         <entry key="app/src/main/res/layout/listview_leaderboard.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/listview_library_navigation.xml" value="0.35833333333333334" />
-        <entry key="app/src/main/res/layout/listview_library_recent_coins.xml" value="0.35833333333333334" />
+        <entry key="app/src/main/res/layout/listview_library_recent_coins.xml" value="0.5" />
         <entry key="app/src/main/res/layout/spinner_item.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/menu/coin_menu.xml" value="0.3572916666666667" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1915" />
