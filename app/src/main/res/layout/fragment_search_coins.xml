@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".collectionsActivity.main.search.Fragment_Search_Coins"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="?colorOnPrimary">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_searchCoin"

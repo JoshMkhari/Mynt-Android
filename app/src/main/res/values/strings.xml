@@ -39,6 +39,12 @@
     <string name="coin_overlay">Used to hold coin info</string>
     <string name="coin_image">Displays coin</string>
 
+    <string name="bottom_sheet_remove">Remove</string>
+    <string name="bottom_sheet_share">Share</string>
+    <string name="bottom_sheet_view">View</string>
+    <string name="bottom_sheet_collection">Collection</string>
+
+
     <string name="collections_title">Collections</string>
     <string name="collections_name">20th Century</string>
     <string name="collections_create">Next</string>

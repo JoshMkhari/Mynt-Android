@@ -12,22 +12,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.mynt.collectionsActivity.Dialog_Bottom_Sheet;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.R;
 import com.example.mynt.Interface_RecyclerView;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
 
 public class Adapter_Recent_Coins extends RecyclerView.Adapter<Adapter_Recent_Coins.CoinViewHolder>{//(Professor Sluiter, 2020).
     private final Interface_RecyclerView interfaceRecyclerView;//(Practical Coding, 2021)
     final ArrayList<Model_Coin> coinsList;
     final Context context;
+    final FragmentManager manager;
 
-    public Adapter_Recent_Coins(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
+    public Adapter_Recent_Coins(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView, FragmentManager manager) {
+        this.manager = manager;
         this.coinsList = new ArrayList<>();
         if (coinsList.size()!=0)
         for (int i = 0; i < 6; i++) {
@@ -101,6 +104,9 @@ public class Adapter_Recent_Coins extends RecyclerView.Adapter<Adapter_Recent_Co
                 //coinsList.get(pos).getValue();
                 Log.d("meatClicked", "onClick: "+coinsList.get(pos).getValue());
                 Log.d("meatClicked", "onClick: "+coinsList.get(pos).getYear());
+                Model_User_Data.model_coin = coinsList.get(pos);
+                Dialog_Bottom_Sheet bottom_sheet = new Dialog_Bottom_Sheet();
+                bottom_sheet.show(manager,"mySheet");
             });
 
             itemView.setOnClickListener(v -> {
