@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".collectionsActivity.main.search.Fragment_Search_Coins">
+    tools:context=".collectionsActivity.main.search.Fragment_Search_Coins"
+    android:orientation="vertical">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_searchCoin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Search Coin"
-        android:gravity="center"/>
+        tools:listitem="@layout/list_search_values"/>
 
 </FrameLayout>

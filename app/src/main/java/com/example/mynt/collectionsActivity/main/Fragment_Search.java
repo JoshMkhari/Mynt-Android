@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.adapters.Adapter_HomeActFragment;
 import com.example.mynt.collectionsActivity.main.search.Adapter_Search;
+import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
@@ -29,6 +30,9 @@ public class Fragment_Search extends Fragment {
     private static TabLayout tabLayout;
     private ViewPager2 viewPager2;
     private ImageButton backButton;
+
+    public static String selectedCoinValue;
+    public static int selectedCoinYear;
 
 
     @Override
@@ -41,7 +45,8 @@ public class Fragment_Search extends Fragment {
         tabLayout = search.findViewById(R.id.search_tab_layout);
         viewPager2 = search.findViewById(R.id.search_viewPager2);
         backButton = search.findViewById(R.id.image_button_back_search);
-
+        selectedCoinValue = "";
+        selectedCoinYear =0;
         //Comment
         FragmentManager fragmentManager = getParentFragmentManager();
         Adapter_Search fragmentAdapter = new Adapter_Search(fragmentManager, getLifecycle());

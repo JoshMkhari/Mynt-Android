@@ -3,12 +3,12 @@ package com.example.mynt.collectionsActivity.main.search.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mynt.Interface_RecyclerView;
 import com.example.mynt.Interface_RecyclerView_One;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
@@ -20,20 +20,11 @@ public class Adapter_Search_Value extends RecyclerView.Adapter<Adapter_Search_Va
 
     private final ArrayList<Model_Coin> arrayList_Values;
     private final Interface_RecyclerView_One interfaceRecyclerView;
-    public Adapter_Search_Value(ArrayList<Model_Coin> arrayList_values, Interface_RecyclerView_One interfaceRecyclerView) {
-        ArrayList<Model_Coin> coinWithoutDuplicates = new ArrayList<>();
-        ArrayList<String> values = new ArrayList<>();
-        for (Model_Coin coins: arrayList_values
-             ) {
-            if(!values.contains(coins.getValue()))
-            {
-                coinWithoutDuplicates.add(coins);
-                values.add(coins.getValue());
-            }
-        }
-
-        arrayList_Values = coinWithoutDuplicates;
+    private final int mode;
+    public Adapter_Search_Value(ArrayList<Model_Coin> arrayList_values, Interface_RecyclerView_One interfaceRecyclerView, int mode) {
+        this.arrayList_Values = arrayList_values;
         this.interfaceRecyclerView = interfaceRecyclerView;
+        this.mode = mode;
     }
 
     @NonNull
@@ -45,7 +36,22 @@ public class Adapter_Search_Value extends RecyclerView.Adapter<Adapter_Search_Va
 
     @Override
     public void onBindViewHolder(@NonNull Adapter_Search_Value.Card_View_Holder holder, int position) {
-        holder.search_value_item_name.setText(arrayList_Values.get(position).getValue());
+        switch (this.mode)
+        {
+            case 1: //Search Value
+                holder.search_value_item_name.setText(arrayList_Values.get(position).getValue());
+                break;
+            case 2: //Year
+                holder.search_value_item_name.setText(String.valueOf(arrayList_Values.get(position).getYear()));
+                break;
+            default:
+                String textToDisplay = arrayList_Values.get(position).getValue() + " "
+                        + (arrayList_Values.get(position).getYear()) + " "
+                        + arrayList_Values.get(position).getAlternateName();
+                holder.search_value_item_name.setText(textToDisplay);
+                break;
+        }
+
     }
 
     @Override

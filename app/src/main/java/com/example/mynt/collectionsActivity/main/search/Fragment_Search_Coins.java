@@ -3,64 +3,71 @@ package com.example.mynt.collectionsActivity.main.search;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.mynt.Interface_RecyclerView_One;
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.main.Fragment_Search;
+import com.example.mynt.collectionsActivity.main.search.adapters.Adapter_Search_Value;
+import com.example.mynt.collectionsActivity.models.Model_Coin;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Fragment_Search_Coins#newInstance} factory method to
+ * Use the {@link Fragment_Search_Coins} factory method to
  * create an instance of this fragment.
  */
-public class Fragment_Search_Coins extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public Fragment_Search_Coins() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment fragment_search_coins.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Fragment_Search_Coins newInstance(String param1, String param2) {
-        Fragment_Search_Coins fragment = new Fragment_Search_Coins();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class Fragment_Search_Coins extends Fragment implements Interface_RecyclerView_One {
+    ArrayList<Model_Coin> resultCoinsLIst;
+    RecyclerView recyclerView;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public void onResume() {
+        super.onResume();
+        setAdapter();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_coins, container, false);
+        View searchCoins = inflater.inflate(R.layout.fragment_search_coins, container, false);
+
+        recyclerView = searchCoins.findViewById(R.id.recyclerView_searchCoin);
+        recyclerView.setHasFixedSize(true);
+
+        RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);//(Professor Sluiter, 2020).
+        recyclerView.setLayoutManager(layoutManager);
+        setAdapter();
+        return searchCoins;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Log.d("theClick", "onItemClick: " + resultCoinsLIst.get(position).getYear());
+        Fragment_Search.selectedCoinYear = resultCoinsLIst.get(position).getYear();
+        Fragment_Search.changeTab(2);//https://stackoverflow.com/questions/45144785/android-studio-attempt-to-invoke-virtual-method-on-a-null-object-reference
+        //https://stackoverflow.com/questions/27217362/calling-a-method-in-one-fragment-from-another
+    }
+
+    private void setAdapter()
+    {
+        resultCoinsLIst = new ArrayList<>();
+        for (Model_Coin coin:Fragment_Search_Year.selectedCoinsLIst
+        ) {
+            if(coin.getYear() == Fragment_Search.selectedCoinYear)
+            {
+                resultCoinsLIst.add(coin);
+            }
+        }
+        RecyclerView.Adapter<Adapter_Search_Value.Card_View_Holder> mAdapter = new Adapter_Search_Value(resultCoinsLIst, this, 3);//(Professor Sluiter, 2020).
+        recyclerView.setAdapter(mAdapter);
     }
 }
