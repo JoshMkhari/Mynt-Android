@@ -123,6 +123,9 @@ public class Fragment_Coin_Details extends Fragment{
             findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                     setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)
 
+        }else if(task==5)
+        {
+            Navigation.findNavController(details).navigate(R.id.action_fragment_Coin_Details_to_fragment_Search);
         }else
         {
             Navigation.findNavController(details).navigateUp();//(JHowzer,2018)
