@@ -20,7 +20,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:visibility="invisible"
             android:layout_width="48dp"
             android:layout_height="59dp"
             android:layout_marginHorizontal="20dp"
@@ -73,13 +72,12 @@
         tools:ignore="ImageContrastCheck" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/main_search_button"
         android:layout_width="51dp"
         android:layout_height="48dp"
         android:layout_marginTop="50dp"
         android:background="@drawable/search_icon"
         android:contentDescription="@string/mainAct_search_button"
-        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/image_button_add_coin_main" />

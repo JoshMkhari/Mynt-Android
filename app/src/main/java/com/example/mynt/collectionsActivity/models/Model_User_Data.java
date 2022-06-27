@@ -2,13 +2,15 @@ package com.example.mynt.collectionsActivity.models;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
+import com.example.mynt.R;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.dataAccessLayer.Model_Database_Lite;
+import com.example.mynt.dataAccessLayer.Model_Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,7 +32,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class User_Data {
+public class Model_User_Data {
 
     // Will Hold static once off data
     public static Model_Coin model_coin;
@@ -40,13 +42,14 @@ public class User_Data {
     public static boolean sync =false;
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     static DatabaseReference mDatabase = database.getReference();
+    public static String pass;
 
     public static void uploadAllLocalData(Context context)
     {
         //First check if user is authorized
         //Adding collections
         boolean changeSyc = false;
-
+        float points = 0;
         Database_Lite db = new Database_Lite(context);
         ArrayList<Model_Collections> allCollections = db.getAllCollections();
         ArrayList<Model_Collections> userCollections = new ArrayList<>();
@@ -55,12 +58,15 @@ public class User_Data {
         for (int i=0; i<allCollections.size(); i++)
         {
             ArrayList<Model_Coin> coins = mdl.allCoinsAndCollections(context,1,allCollections.get(i).getCollectionID());
-            ArrayList<ModelFireBaseCoin> modelFireBaseCoinArrayList = new ArrayList<>();
+            ArrayList<Model_Fire_Base_Coin> modelFireBaseCoinArrayList = new ArrayList<>();
             for (int s=0; s<coins.size(); s++)
             {
                 String Value_Year = coins.get(s).getValue() +"_"+ coins.get(s).getYear();
-                ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(Value_Year,coins.get(s).getDateAcquired());
-                uploadImage(Value_Year, coins.get(s).getImageId(),allCollections.get(i).getCollectionName());
+                Model_Fire_Base_Coin modelFireBaseCoin = new Model_Fire_Base_Coin(Value_Year,coins.get(s).getDateAcquired());
+                uploadImage(Value_Year, coins.get(s).getImageId(),allCollections.get(i).getCollectionName(),false);
+                float coinPoint = 700000000-((coins.get(s).getMintage()/2)-coins.get(s).getYear());
+                coinPoint = coinPoint/100000;
+                points+=coinPoint;
                 modelFireBaseCoinArrayList.add(modelFireBaseCoin);
                 Log.d("changeSync", "uploadAllLocalData: " + changeSyc);
                 changeSyc = true;
@@ -72,6 +78,9 @@ public class User_Data {
         }
 
         //Adding coins to collections
+        currentUser.setPoints(points);
+        Model_Leaderboard lm = new Model_Leaderboard(Model_User_Data.currentUser.getUserName(),Math.round(Model_User_Data.currentUser.getPoints()), Model_User_Data.currentUser.getImageId());//(Section, 2021)
+        db.addLeaderboard(lm);
         currentUser.setCollections(userCollections);
         if(changeSyc || currentUser.getLastSync().equals(""))
         {
@@ -80,11 +89,13 @@ public class User_Data {
             currentUser.setLastSync(lastSync);
             db.updateUserLastSync(currentUser);
         }
-        mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentUser);
-        //Merge online data with offline data
+        Model_Fire_Base_User currentFireUser = new Model_Fire_Base_User(currentUser.getEmail(), currentUser.getUserName(),
+                currentUser.getState(), currentUser.getCollections(), currentUser.getLastSync(), currentUser.getPoints());
+        mDatabase.child("users").child(firebaseUser.getUid()).setValue(currentFireUser);
+        uploadImage(currentUser.getEmail(), currentUser.getImageId(), "ProfilePicture",true);
     }
 
-    private static void uploadImage(String ImageID, byte[] data, String CollectionName)
+    private static void uploadImage(String ImageID, byte[] data, String CollectionName,boolean type)
     {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReference();
@@ -93,7 +104,12 @@ public class User_Data {
         StorageReference mountainsRef = storageRef.child(fileName);
 
         // Create a reference to 'images/mountains.jpg'
-        String directory = firebaseUser.getUid() + "/"+CollectionName+"/" + fileName;
+        String directory;
+        if(type)
+        {
+            directory = CollectionName+"/" + fileName;
+        }else
+            directory = firebaseUser.getUid() + "/"+CollectionName+"/" + fileName;
 
         UploadTask uploadTask = storageRef.child(directory).putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
@@ -119,12 +135,16 @@ public class User_Data {
 
                 Database_Lite db = new Database_Lite(context);
                 ArrayList<Model_User> usersList = db.getAllUsers();
-                User_Data.currentUser =usersList.get(0);
+                pass = Model_User_Data.currentUser.getPassword();
+                Model_User_Data.currentUser =usersList.get(0);
                 if (Objects.equals(snapshot.child("lastSync").getValue(), usersList.get(0).getLastSync())) {
+
                     Log.d("theChanges", "They are the same: ");
+
                 }else
                 {
                     Log.d("theChanges", "We in else ");
+                    sync = true;
                     //String change = snapshot.child("lastSync").getValue(String.class);
                     //Compare Dates
                     String firebaseSync = snapshot.child("lastSync").getValue(String.class);
@@ -174,28 +194,41 @@ public class User_Data {
         //sql cal is older
         //replace sql database with firebase data
         Model_User model_user = new Model_User(snapshot.child("email").getValue(String.class), snapshot.child("password").getValue(String.class), snapshot.child("state").getValue(int.class));
-        model_user.setUserID(snapshot.child("userID").getValue(int.class));
+        model_user.setUserName(snapshot.child("userName").getValue(String.class));
         model_user.setLastSync(fireBaseSync);
+        model_user.setPoints(snapshot.child("points").getValue(float.class));
 
         List<Model_Collections> model_collectionsList = new ArrayList<>();//https://stackoverflow.com/questions/38652007/how-to-retrieve-specific-list-of-data-from-firebase
         for (DataSnapshot postSnapshot : snapshot.child("collections").getChildren()) {
             Model_Collections model_collections = new Model_Collections(postSnapshot.child("collectionName").getValue(String.class), postSnapshot.child("goal").getValue(int.class));
 
-            List<ModelFireBaseCoin> modelFireBaseCoinList = new ArrayList<>();
+            List<Model_Fire_Base_Coin> modelFireBaseCoinList = new ArrayList<>();
             for (DataSnapshot postSnapshotChild : postSnapshot.child("fireBaseCoinscoins").getChildren()) {
-                ModelFireBaseCoin modelFireBaseCoin = new ModelFireBaseCoin(postSnapshotChild.child("valueYear").getValue(String.class), postSnapshotChild.child("dateTaken").getValue(String.class));
+                Model_Fire_Base_Coin modelFireBaseCoin = new Model_Fire_Base_Coin(postSnapshotChild.child("valueYear").getValue(String.class), postSnapshotChild.child("dateTaken").getValue(String.class));
                 modelFireBaseCoinList.add(modelFireBaseCoin);
             }
             //Now Add Coin to FireBaseCoinsList
-            model_collections.setFireBaseCoinscoins((ArrayList<ModelFireBaseCoin>) modelFireBaseCoinList);
+            model_collections.setFireBaseCoinscoins((ArrayList<Model_Fire_Base_Coin>) modelFireBaseCoinList);
             model_collectionsList.add(model_collections);
 
             model_user.setCollections(model_collectionsList);
         }
-        currentUser = model_user;
 
-        Model_Database_Lite model_database_lite = new Model_Database_Lite();
-        model_database_lite.replaceSqlDatabase(context);
-
+        //Retrieving User Profile Picture
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        String fileName = model_user.getEmail() + ".jpg";
+        String directory = "ProfilePicture"+"/" + fileName;
+        StorageReference mountainsRef = storageRef.child(directory);
+        final long ONE_MEGABYTE = 1024 * 1024;
+        mountainsRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                model_user.setImageId(bytes);
+                currentUser = model_user;
+                Model_Database_Lite model_database_lite = new Model_Database_Lite();
+                model_database_lite.replaceSqlDatabase(context);
+            }
+        });
     }
 }

@@ -1,14 +1,12 @@
-package com.example.mynt.collectionsActivity;
+package com.example.mynt.collectionsActivity.main;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -31,23 +29,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.mynt.R;
-import com.example.mynt.collectionsActivity.models.ModelFireBaseCoin;
+import com.example.mynt.collectionsActivity.Activity_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Date;
-import com.example.mynt.collectionsActivity.models.User_Data;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_User;
+import com.example.mynt.dataAccessLayer.Model_Firebase;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -82,7 +76,7 @@ public class Fragment_Add extends Fragment {
         // Inflate the layout for this fragment
         View add = inflater.inflate(R.layout.fragment_add, container, false);
         //Retrieve bundles
-        model_user = User_Data.currentUser; //(Section, 2021)
+        model_user = Model_User_Data.currentUser; //(Section, 2021)
         model_date = new Model_Date();//(Shabbir Dhangot,2016)
         assert getArguments() != null;
         model_user.setUserID(getArguments().getInt("User"));//(valerybodak,2020)
@@ -208,10 +202,10 @@ public class Fragment_Add extends Fragment {
                     {
                         Calendar cal = Calendar.getInstance();
                         String lastSync = cal.getTime().toString();
-                        User_Data.currentUser.setLastSync(lastSync);
-                        if(!User_Data.currentUser.getEmail().equals("DefaultUser"))
-                            User_Data.mergeData(getContext());
-                        Intent home = new Intent(getContext(),Activity_Collections.class);
+                        Model_User_Data.currentUser.setLastSync(lastSync);
+                        if(!Model_User_Data.currentUser.getEmail().equals("DefaultUser"))
+                            Model_User_Data.mergeData(getContext());
+                        Intent home = new Intent(getContext(), Activity_Collections.class);
                         home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(home);
                     }
@@ -291,15 +285,18 @@ public class Fragment_Add extends Fragment {
 
         //Result for Camera
         activityResultLauncher_Camera = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {//(Android Coiding, 2019)
-            assert result.getData() != null;
+            //assert result.getData() != null;
+            if(result.getData() != null)
+            {
                 Bundle extras = result.getData().getExtras();
-            if (extras != null) {
-                imageBitmap = (Bitmap) extras.get("data");//(Android Coiding, 2019)
-                userImage.setImageBitmap(imageBitmap);//(Android Coiding, 2019)
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                ImageByteArray = stream.toByteArray();
-                imageSet = true;
+                if (extras != null) {
+                    imageBitmap = (Bitmap) extras.get("data");//(Android Coiding, 2019)
+                    userImage.setImageBitmap(imageBitmap);//(Android Coiding, 2019)
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    ImageByteArray = stream.toByteArray();
+                    imageSet = true;
+                }
             }
         });
 
@@ -366,30 +363,36 @@ public class Fragment_Add extends Fragment {
                 try {
                     Model_Coin model_coin = new Model_Coin(Integer.parseInt(year_Textview.getText().toString()),//(Section, 2021)
                             0,
-                            "POE",
-                            "POE",
-                            "POE",
-                            "POE",
-                            "POE",
+                            "Offline",
+                            "Offline",
+                            "Offline",
+                            "Offline",
+                            "Proof",
                             spinnerValue.getSelectedItem().toString(),
                             ImageByteArray,
                             dateAq);
                     model_coin.setCoinID(coinID);
-                    User_Data.model_coin = model_coin;
+                    Model_User_Data.model_coin = model_coin;
                     int selectedPosition = spinnerCollection.getSelectedItemPosition()-1;
                     if(selectedPosition == -1)
                     {
                         localDB.addCoin(model_coin,0);
-
                     }
                     else
                     {
                         localDB.addCoin(model_coin,allUserCollections.get(selectedPosition).getCollectionID());
                     }
+                    //Search For Coin data and download it it
+                    //Then update the recently added coin
+                    Model_Firebase model_firebase = new Model_Firebase(model_coin,getContext());
+                    model_firebase.downloadCoinData();
                     Calendar cal = Calendar.getInstance();
                     String lastSync = cal.getTime().toString();
-                    User_Data.currentUser.setLastSync(lastSync);
-                    localDB.updateUserLastSync(User_Data.currentUser);
+
+                    Log.d("pointSet", "run: " + Model_User_Data.currentUser.getPoints());
+
+                    Model_User_Data.currentUser.setLastSync(lastSync);
+                    localDB.updateUserLastSync(Model_User_Data.currentUser);
                 }catch (Exception e)
                 {
                     throw e;

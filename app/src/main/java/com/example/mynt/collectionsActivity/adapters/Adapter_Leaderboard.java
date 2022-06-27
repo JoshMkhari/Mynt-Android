@@ -1,5 +1,7 @@
 package com.example.mynt.collectionsActivity.adapters;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +36,8 @@ public class Adapter_Leaderboard extends RecyclerView.Adapter<Adapter_Leaderboar
     public void onBindViewHolder(@NonNull Adapter_Leaderboard.Card_View_Holder holder, int position) {
         holder.userName.setText(arrayList_Leaderboard.get(position).getUserName());
         holder.score.setText("Score: "+ arrayList_Leaderboard.get(position).getUserScore());
-        holder.profileImage.setBackgroundResource(arrayList_Leaderboard.get(position).getImageID());
+        Bitmap bmp = BitmapFactory.decodeByteArray(arrayList_Leaderboard.get(position).getImageID(), 0, arrayList_Leaderboard.get(position).getImageID().length);
+        holder.profileImage.setImageBitmap(bmp);
         //glide for internet images???
         switch (position)
         {

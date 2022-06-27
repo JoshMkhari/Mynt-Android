@@ -1,16 +1,12 @@
 package com.example.mynt.collectionsActivity;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 
-import androidx.core.view.ViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.FragmentNavigator;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +21,7 @@ import com.example.mynt.collectionsActivity.models.Model_Coin;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator_ID;
-import com.example.mynt.collectionsActivity.models.User_Data;
-import com.example.mynt.dataAccessLayer.Database_Lite;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 
 import com.example.mynt.collectionsActivity.adapters.Adapter_Library_Options;
 import com.example.mynt.collectionsActivity.models.Model_Library_Options;
@@ -47,6 +42,19 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
     private View libraryView;
     private ArrayList<Model_Coin> arrayList_recent_coins;
     private Model_User user;//(Section, 2021)
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(Model_User_Data.currentUser.getEmail().equals("DefaultUser"))
+        {
+            loginButton.setBackgroundResource(R.drawable.ic_baseline_account_circle_24);
+        }else
+        {
+            loginButton.setBackgroundResource(R.drawable.ic_baseline_settings_24);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,7 +69,13 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         loginButton = libraryView.findViewById(R.id.imageButton_userActivity_library);
         ArrayList<Model_Library_Options> arrayList_library_navigation = new ArrayList<>();
         arrayList_recent_coins = new ArrayList<>();
-
+        if(Model_User_Data.currentUser.getEmail().equals("DefaultUser"))
+        {
+            loginButton.setBackgroundResource(R.drawable.ic_baseline_account_circle_24);
+        }else
+        {
+            loginButton.setBackgroundResource(R.drawable.ic_baseline_settings_24);
+        }
         ReturnToRegister();
         ViewLoggedInUser();
         NavigationToOtherPages();
@@ -113,7 +127,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
     }
 
     private void ViewLoggedInUser(){
-        user = User_Data.currentUser;
+        user = Model_User_Data.currentUser;
     }
 
     private void NavigationToOtherPages(){
@@ -149,7 +163,16 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
     private void ReturnToRegister(){
         loginButton.setOnClickListener(v -> {
             //Bundle.Add.Extra(Name of coin, year, country)
-            Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Register);
+            if(Model_User_Data.currentUser.getEmail().equals("DefaultUser"))
+            {
+                loginButton.setBackgroundResource(R.drawable.ic_baseline_account_circle_24);
+                Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Register);
+            }else
+            {
+                loginButton.setBackgroundResource(R.drawable.ic_baseline_settings_24);
+                Navigation.findNavController(libraryView).navigate(R.id.action_fragment_home_main_to_fragment_Settings);
+            }
+
         });
 
     }

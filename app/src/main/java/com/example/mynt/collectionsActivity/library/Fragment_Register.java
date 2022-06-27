@@ -1,8 +1,11 @@
-package com.example.mynt.collectionsActivity;
+package com.example.mynt.collectionsActivity.library;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -10,7 +13,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +21,17 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.Activity_Collections;
+import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
 import com.example.mynt.collectionsActivity.models.Model_User;
-import com.example.mynt.collectionsActivity.models.User_Data;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -98,19 +103,28 @@ public class Fragment_Register extends Fragment {
                                if (task.isSuccessful()) {
                                    // Sign in success, update UI with the signed-in user's information
                                    //Log.d(TAG, "createUserWithEmail:success");
-                                   User_Data.firebaseUser = mAuth.getCurrentUser();
-                                   User_Data.currentUser = model_user;
+                                   Model_User_Data.firebaseUser = mAuth.getCurrentUser();
+                                   Model_User_Data.currentUser = model_user;
+
+                                   Model_User_Data.currentUser.setUserName(model_user.getEmail());
+                                   Bitmap icon = BitmapFactory.decodeResource(getContext().getResources(),
+                                           R.drawable.ic_default_user_profile_icon);
+                                   ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                                   icon.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                                   byte[] ImageByteArray = stream.toByteArray();
+                                   Model_User_Data.currentUser.setImageId(ImageByteArray);
 
                                    Calendar cal = Calendar.getInstance();
                                    String lastSync = cal.getTime().toString();
-                                   User_Data.currentUser.setLastSync(lastSync);
+                                   Model_User_Data.currentUser.setLastSync(lastSync);
 
                                    Database_Lite db = new Database_Lite(getContext());//(freecodecamp,2020)
-                                   db.addUser(User_Data.currentUser);
+                                   db.addUser(Model_User_Data.currentUser);
 
                                    //db.updateUserLastSync(User_Data.currentUser);
 
-                                   User_Data.uploadAllLocalData(getContext());
+                                   Model_User_Data.uploadAllLocalData(getContext());
+
                                    i = new Intent(getContext(), Activity_Collections.class);
                                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                    startActivity(i);

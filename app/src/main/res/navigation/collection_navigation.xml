@@ -6,7 +6,7 @@
     app:startDestination="@id/fragment_home_main">
     <fragment
         android:id="@+id/fragment_Collections"
-        android:name="com.example.mynt.collectionsActivity.Fragment_Collections"
+        android:name="com.example.mynt.collectionsActivity.library.Fragment_Collections"
         android:label="fragment_collections"
         tools:layout="@layout/fragment_collections" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_Goal"
-        android:name="com.example.mynt.collectionsActivity.Fragment_Goal"
+        android:name="com.example.mynt.collectionsActivity.library.Fragment_Goal"
         android:label="fragment_goal"
         tools:layout="@layout/fragment_goal" >
         <argument
@@ -61,7 +61,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_Add"
-        android:name="com.example.mynt.collectionsActivity.Fragment_Add"
+        android:name="com.example.mynt.collectionsActivity.main.Fragment_Add"
         android:label="fragment_add"
         tools:layout="@layout/fragment_add" >
         <action
@@ -83,7 +83,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_Coins"
-        android:name="com.example.mynt.collectionsActivity.Fragment_Coins"
+        android:name="com.example.mynt.collectionsActivity.library.Fragment_Coins"
         android:label="fragment_coins"
         tools:layout="@layout/fragment_coins" >
         <action
@@ -111,7 +111,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_Coin_Details"
-        android:name="com.example.mynt.collectionsActivity.Fragment_Coin_Details"
+        android:name="com.example.mynt.collectionsActivity.library.Fragment_Coin_Details"
         android:label="fragment_coin_details"
         tools:layout="@layout/fragment_coin_details" >
         <argument
@@ -120,6 +120,9 @@
         <action
             android:id="@+id/action_fragment_Coin_Details_to_fragment_CoinFull"
             app:destination="@id/fragment_CoinFull" />
+        <action
+            android:id="@+id/action_fragment_Coin_Details_to_fragment_Search"
+            app:destination="@id/fragment_Search" />
     </fragment>
     <fragment
         android:id="@+id/fragment_home_main"
@@ -171,10 +174,24 @@
             app:exitAnim="@android:anim/fade_out"
             app:popEnterAnim="@android:anim/fade_in"
             app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_fragment_home_main_to_fragment_Settings"
+            app:destination="@id/fragment_Settings"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_fragment_home_main_to_fragment_Search"
+            app:destination="@id/fragment_Search"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/fragment_Login"
-        android:name="com.example.mynt.collectionsActivity.Fragment_Login"
+        android:name="com.example.mynt.collectionsActivity.library.Fragment_Login"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -187,7 +204,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_Register"
-        android:name="com.example.mynt.collectionsActivity.Fragment_Register"
+        android:name="com.example.mynt.collectionsActivity.library.Fragment_Register"
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
@@ -200,12 +217,30 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_CoinFull"
-        android:name="com.example.mynt.collectionsActivity.Fragment_CoinFull"
+        android:name="com.example.mynt.collectionsActivity.library.Fragment_CoinFull"
         android:label="fragment_coin_full"
         tools:layout="@layout/fragment_coin_full" />
     <fragment
         android:id="@+id/fragment_All_Goals"
-        android:name="com.example.mynt.collectionsActivity.Fragment_All_Goals"
+        android:name="com.example.mynt.collectionsActivity.library.Fragment_All_Goals"
         android:label="fragment_all_goals"
         tools:layout="@layout/fragment_all_goals" />
+    <fragment
+        android:id="@+id/fragment_Settings"
+        android:name="com.example.mynt.collectionsActivity.library.Fragment_Settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/fragment_Search"
+        android:name="com.example.mynt.collectionsActivity.main.Fragment_Search"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_fragment_Search_to_fragment_Coin_Details"
+            app:destination="@id/fragment_Coin_Details"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+    </fragment>
 </navigation>

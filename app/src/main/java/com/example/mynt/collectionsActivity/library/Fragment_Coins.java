@@ -1,4 +1,4 @@
-package com.example.mynt.collectionsActivity;
+package com.example.mynt.collectionsActivity.library;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
@@ -10,7 +10,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,7 @@ import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Goals;
 import com.example.mynt.collectionsActivity.models.Model_User;
-import com.example.mynt.collectionsActivity.models.User_Data;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.dataAccessLayer.Model_Database_Lite;
 
@@ -64,7 +63,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
         assert getArguments() != null;
         task = getArguments().getInt("Task");
         blockTitle = getArguments().getString("Collection Name");
-        model_user = User_Data.currentUser;
+        model_user = Model_User_Data.currentUser;
         model_user.setUserID(getArguments().getInt("User"));
         collectionID = getArguments().getInt("CollectionID");
 
@@ -110,9 +109,8 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
     private void ReturnToCoinPage(){
 
         back_imageButton.setOnClickListener(v -> backActivity());
-
-
     }
+
     private void DisplayAllLocalCoinsAndCollections() {
 
         Model_Database_Lite mdl = new Model_Database_Lite();

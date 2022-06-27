@@ -1,4 +1,4 @@
-package com.example.mynt.collectionsActivity;
+package com.example.mynt.collectionsActivity.library;
 
 import static androidx.navigation.fragment.NavHostFragment.findNavController;
 
@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.FragmentNavigator;
 
-import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +21,9 @@ import android.widget.TextView;
 
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
-import com.example.mynt.collectionsActivity.models.User_Data;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -66,24 +64,24 @@ public class Fragment_Coin_Details extends Fragment{
         {
             if(dbCoins.get(i).getCoinID()==coinID)
             {
-                User_Data.model_coin = dbCoins.get(i);
+                Model_User_Data.model_coin = dbCoins.get(i);
                 break;
             }
         }
         ReturnToMainDetailsPage();
 
-        mintage.setText(String.valueOf(User_Data.model_coin.getMintage()));
-        observe.setText(User_Data.model_coin.getObserve());
-        reverse.setText(User_Data.model_coin.getReverse());
-        circulation.setText(User_Data.model_coin.getReverse());
-        type.setText(User_Data.model_coin.getMaterial());
-        String coinTitle = User_Data.model_coin.getValue() + ", " + User_Data.model_coin.getYear();
+        mintage.setText(String.valueOf(Model_User_Data.model_coin.getMintage()));
+        observe.setText(Model_User_Data.model_coin.getObserve());
+        reverse.setText(Model_User_Data.model_coin.getReverse());
+        circulation.setText(Model_User_Data.model_coin.getReverse());
+        type.setText(Model_User_Data.model_coin.getMaterial());
+        String coinTitle = Model_User_Data.model_coin.getValue() + ", " + Model_User_Data.model_coin.getYear();
         pageTitle.setText(coinTitle);
         points.setText(String.valueOf(1000));
-        acquiredDate.setText(User_Data.model_coin.getDateAcquired());
+        acquiredDate.setText(Model_User_Data.model_coin.getDateAcquired());
         try{
-            Bitmap bmp = BitmapFactory.decodeByteArray(User_Data.model_coin.getImageId(), 0, User_Data.model_coin.getImageId().length);
-            User_Data.coinBitmap = bmp;
+            Bitmap bmp = BitmapFactory.decodeByteArray(Model_User_Data.model_coin.getImageId(), 0, Model_User_Data.model_coin.getImageId().length);
+            Model_User_Data.coinBitmap = bmp;
             coinImage.setImageBitmap(bmp);
             //holder.coinImage.setImageDrawable(Drawable.createFromPath(file.toString()));
         }
@@ -125,6 +123,9 @@ public class Fragment_Coin_Details extends Fragment{
             findNavController(Objects.requireNonNull(getParentFragmentManager().findFragmentById(R.id.fragmentContainerView2))).
                     setGraph(R.navigation.collection_navigation,bundle);//(developer Android NavController, n.d)
 
+        }else if(task==5)
+        {
+            Navigation.findNavController(details).navigate(R.id.action_fragment_Coin_Details_to_fragment_Search);
         }else
         {
             Navigation.findNavController(details).navigateUp();//(JHowzer,2018)

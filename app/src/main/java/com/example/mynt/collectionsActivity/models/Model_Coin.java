@@ -7,15 +7,15 @@ public class Model_Coin implements Serializable {//(GeeksForGeeks,2020)
 
     //(Section, 2021)
     private final int year;
-    private final int mintage;
+    private int mintage;
     private int coinID;
-    private final String material;
+    private String material;
     private final String alternateName;
-    private final String observe;
-    private final String reverse;
+    private String observe;
+    private String reverse;
     private final String variety;
     private final String value;
-    private byte[] ImageId;
+    private final byte[] ImageId;
     private final String DateTaken;
 
     public Model_Coin(int year, int mintage, String material, String alternateName, String observe, String reverse, String variety, String value, byte[] image, String dateTaken) {
@@ -32,8 +32,20 @@ public class Model_Coin implements Serializable {//(GeeksForGeeks,2020)
         this.DateTaken = dateTaken;
     }
 
-    public void setImageId(byte[] imageId) {
-        ImageId = imageId;
+    public void setMintage(int mintage) {
+        this.mintage = mintage;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    public void setObserve(String observe) {
+        this.observe = observe;
+    }
+
+    public void setReverse(String reverse) {
+        this.reverse = reverse;
     }
 
     public String getDateAcquired() {

@@ -16,6 +16,7 @@ public class Adapter_HomeActFragment extends FragmentStateAdapter {//(Foxandroid
 
     private final int userID;
     private final Bundle bundle = new Bundle();
+
     public Adapter_HomeActFragment(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle, int userID) {
         super(fragmentManager, lifecycle);
         this.userID = userID;
@@ -50,6 +51,6 @@ public class Adapter_HomeActFragment extends FragmentStateAdapter {//(Foxandroid
 
     @Override
     public int getItemCount() {
-        return 2;
+        return 3;
     }//(Foxandroid,2021)
 }

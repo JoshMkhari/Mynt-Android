@@ -6,16 +6,43 @@ import java.util.List;
 public class Model_User {//(Section, 2021)
 
     private String email;
-    private String password;
+    private String password, userName;
     private int state,userID;
+    private float points;
     private List<Model_Collections> collections;
     private String LastSync;
+    private byte[] ImageId;
 
     public Model_User(String email, String password, int state) {
         this.email = email;
         this.password = password;
         this.state = state;
         LastSync = "";
+        this.points = 0;
+    }
+
+    public float getPoints() {
+        return points;
+    }
+
+    public void setPoints(float points) {
+        this.points += points;
+    }
+
+    public byte[] getImageId() {
+        return ImageId;
+    }
+
+    public void setImageId(byte[] imageId) {
+        ImageId = imageId;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getLastSync() {
