@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.mynt.collectionsActivity.Fragment_Main"
-    android:background="?colorSecondary"
+    android:background="?colorOnPrimary"
     android:padding="10dp">
 
 
@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/impact"
         android:text="@string/mainAct_title"
-        android:textColor="@color/white"
+        android:textColor="?colorSecondaryVariant"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +98,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="currentUser"
-        android:textColor="@color/white"
+        android:textColor="?colorSecondaryVariant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
