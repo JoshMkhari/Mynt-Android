@@ -185,7 +185,6 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         bundle.putInt("Task", 0);
         bundle.putInt("CoinID", arrayList_recent_coins.get(position).getCoinID());
         //ViewCompat.setTransitionName(coinImage, "recentTransaction");
-
         Navigation.findNavController(libraryView).navigate(
                 R.id.action_fragment_home_main_to_fragment_Coin_Details,
                 bundle);

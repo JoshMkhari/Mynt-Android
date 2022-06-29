@@ -32,6 +32,7 @@ import java.util.Objects;
 public class Model_User_Data {
 
     public static Model_Coin model_coin;
+    public static Model_Collections model_collections;
     public static Bitmap coinBitmap;
     public static FirebaseUser firebaseUser;
     public static Model_User currentUser;
@@ -41,6 +42,7 @@ public class Model_User_Data {
     public static String pass;
     public static ArrayList<String> array_list_bottomSheet;
     public static int mode;
+    public static int position;
     public static boolean sheetModal;
     public static int task;
     public static void uploadAllLocalData(Context context)

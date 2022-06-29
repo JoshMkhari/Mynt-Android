@@ -49,9 +49,11 @@ public class Adapter_Modal extends RecyclerView.Adapter<Adapter_Modal.Card_View_
         if(mode==1)
         {
             modeText = "collection";
+            Model_User_Data.task = 3;
         }else
         {
             modeText="coin";
+            Model_User_Data.task = 0;
         }
         String Title = "Remove " + modeText + " from Library";
         String View = "View " + modeText;
@@ -78,7 +80,6 @@ public class Adapter_Modal extends RecyclerView.Adapter<Adapter_Modal.Card_View_
                     holder.optionImage.setBackgroundResource(R.drawable.ic_collection_icon);
                     Database_Lite db = new Database_Lite(context);
                     ArrayList<Model_Collections> allUserCollections = db.getAllCollections();
-                    Model_Collections currentCollection = null;
                     int collectionID = 0;
                     ArrayList<Model_Collection_Coin> allUserCollectionCoin = db.getAllCollectionCoin();
                     for (Model_Collection_Coin collectionCoin:allUserCollectionCoin
@@ -93,11 +94,12 @@ public class Adapter_Modal extends RecyclerView.Adapter<Adapter_Modal.Card_View_
                          ) {
                         if(collections.getCollectionID()==collectionID)
                         {
-                            currentCollection = collections;
+                            Model_User_Data.model_collections = collections;
                         }
                     }
-                    String collectionText = "Collection: " + currentCollection.getCollectionName();
+                    String collectionText = "Collection: " + Model_User_Data.model_collections.getCollectionName();
                     holder.optionName.setText(collectionText);
+
                     //Search Collection Coin ID for coin id to find collection it belongs to
                 }else
                 {

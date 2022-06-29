@@ -84,7 +84,7 @@ public class Dialog_Bottom_Sheet extends BottomSheetDialogFragment implements In
     public void onItemClick(int position, ImageView coinImage) {
 
         Model_User_Data.sheetModal = true;
-        Model_User_Data.task = 0;
+        Model_User_Data.position = position;
         bottomSheetListener.onButtonClicked(position);
         dismiss();
     }
