@@ -121,7 +121,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         Adapter_Library_Options optionsListAdapter = new Adapter_Library_Options(getContext(), arrayList_library_navigation, user);//(FoxAndroid,2021)
         optionListView.setAdapter(optionsListAdapter);
         //recyclerView
-        RecyclerView.Adapter<Adapter_Recent_Coins.CoinViewHolder> mAdapter = new Adapter_Recent_Coins(arrayList_recent_coins, getContext(), this, git ());//(Professor Sluiter, 2020).
+        RecyclerView.Adapter<Adapter_Recent_Coins.CoinViewHolder> mAdapter = new Adapter_Recent_Coins(arrayList_recent_coins, getContext(), this, getParentFragmentManager());//(Professor Sluiter, 2020).
         recyclerView.setAdapter(mAdapter);
 
 
