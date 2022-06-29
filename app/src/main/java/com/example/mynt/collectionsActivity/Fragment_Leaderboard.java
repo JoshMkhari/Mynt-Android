@@ -56,8 +56,6 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
         rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard);//(Professor Sluiter, 2020).
         recycler_view_leaderboard.setAdapter(rv_leaferbaord_adapter);
 
-
-
         return view_leaderboard;
     }
 
@@ -65,6 +63,8 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
         Database_Lite db = new Database_Lite(getContext());
         //Creating list to store users and their ranks
         array_list_leaderboard= db.getLeaderboard();
+
+        //On Data Change event here
         Log.d("offLEade", "DisplayLeaderBoardRanks: arraylist" + array_list_leaderboard.size() );
     }
     @Override

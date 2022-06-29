@@ -42,15 +42,10 @@ public class Fragment_Settings extends Fragment {
         // Inflate the layout for this fragment
         View settings = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        EditText userName = settings.findViewById(R.id.editText_username);
-        TextView userEmail = settings.findViewById(R.id.text_view_user_email);
         back_imageButton = settings.findViewById(R.id.image_button_back_settings);
-        ImageButton editUsernameButton = settings.findViewById(R.id.image_button_updateUsername);
         ImageButton logoutButton = settings.findViewById(R.id.LoginOut_Button);
         ImageView userProfilePic = settings.findViewById(R.id.imageview_user_profile);
 
-        userName.setText(Model_User_Data.currentUser.getUserName());
-        userEmail.setText(Model_User_Data.currentUser.getEmail());
         Bitmap bmp = BitmapFactory.decodeByteArray(Model_User_Data.currentUser.getImageId(), 0, Model_User_Data.currentUser.getImageId().length);
         userProfilePic.setImageBitmap(bmp);
 
