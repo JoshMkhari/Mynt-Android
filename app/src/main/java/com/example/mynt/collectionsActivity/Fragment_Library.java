@@ -1,6 +1,5 @@
 package com.example.mynt.collectionsActivity;
 
-import android.app.FragmentManager;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 
-import com.example.mynt.Interface_RecyclerView;
+import com.example.mynt.collectionsActivity.interfaces.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Recent_Coins;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 
@@ -50,6 +49,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         if(Model_User_Data.currentUser.getEmail().equals("DefaultUser"))
         {
             loginButton.setBackgroundResource(R.drawable.ic_baseline_account_circle_24);
+            //Reload adapters
         }else
         {
             loginButton.setBackgroundResource(R.drawable.ic_baseline_settings_24);

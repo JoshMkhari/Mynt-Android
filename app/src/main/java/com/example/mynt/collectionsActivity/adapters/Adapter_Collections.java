@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.mynt.R;
-import com.example.mynt.Interface_RecyclerView;
+import com.example.mynt.collectionsActivity.interfaces.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator_Date;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
@@ -21,7 +21,6 @@ import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.dataAccessLayer.Model_Database_Lite;
 
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 

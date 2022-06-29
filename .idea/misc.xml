@@ -83,6 +83,7 @@
         <entry key="app/src/main/res/layout/library_navigation_listview.xml" value="0.5" />
         <entry key="app/src/main/res/layout/library_recent_coins_listview.xml" value="0.67" />
         <entry key="app/src/main/res/layout/list_all_collections.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/list_bottom_sheet.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/list_coin_super.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/layout/list_coins.xml" value="0.5" />
         <entry key="app/src/main/res/layout/list_coins_base.xml" value="0.35833333333333334" />

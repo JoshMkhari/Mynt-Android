@@ -1,4 +1,4 @@
-package com.example.mynt;
+package com.example.mynt.collectionsActivity.interfaces;
 
 import android.widget.ImageView;
 

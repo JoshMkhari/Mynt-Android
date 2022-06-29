@@ -1,5 +1,7 @@
 package com.example.mynt.collectionsActivity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,19 +11,76 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.adapters.Adapter_Modal;
+import com.example.mynt.collectionsActivity.interfaces.Interface_BottomSheet;
+import com.example.mynt.collectionsActivity.adapters.Adapter_Leaderboard;
+import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
-public class Dialog_Bottom_Sheet extends BottomSheetDialogFragment {
+import java.util.ArrayList;
+
+public class Dialog_Bottom_Sheet extends BottomSheetDialogFragment  {
+    private Interface_BottomSheet bottomSheetListener;
+    private ArrayList<String> array_list_leaderboard;
+    RecyclerView recycler_view_modal;
+    RecyclerView.Adapter<Adapter_Modal.Card_View_Holder> rv_modal_adapter;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View bottom = inflater.inflate(R.layout.bottom_sheet_layout,container,false);
 
+        //Passing data to list recycler view
+        recycler_view_modal = bottom.findViewById(R.id.recycler_view_modal);
+        recycler_view_modal.setHasFixedSize(true);
+        array_list_leaderboard = new ArrayList<>();
+        array_list_leaderboard.add("1");
+        array_list_leaderboard.add("1");
+        array_list_leaderboard.add("1");
+        array_list_leaderboard.add("Easy");
+        //Ensuring the recycler view layout contains 1 item in each row
+        RecyclerView.LayoutManager layout_manager_leaderboard = new StaggeredGridLayoutManager(1, 1);//(Professor Sluiter, 2020).
+        recycler_view_modal.setLayoutManager(layout_manager_leaderboard);
+
+        //Setting up adapter
+        rv_modal_adapter = new Adapter_Modal(array_list_leaderboard,1);//(Professor Sluiter, 2020).
+        recycler_view_modal.setAdapter(rv_modal_adapter);
+
         ImageView currentCoinImage = bottom.findViewById(R.id.imageview_constraint_current_coin);
         TextView currentCoinTitle = bottom.findViewById(R.id.textview_coin_title_constraint);
         TextView currentCoinSubTitle = bottom.findViewById(R.id.textview_coin_sub_title_constraint);
+
+        try{
+            Bitmap bmp = BitmapFactory.decodeByteArray(Model_User_Data.model_coin.getImageId(), 0, Model_User_Data.model_coin.getImageId().length);
+            currentCoinImage.setImageBitmap(bmp);
+        }
+        catch(Exception ignored){
+        }
+
+        String title = Model_User_Data.model_coin.getValue() + ", " + Model_User_Data.model_coin.getYear();
+        currentCoinTitle.setText(title);
+        currentCoinSubTitle.setText("South Africa");
+
+
+
         return bottom;
     }
+/*
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            bottomSheetListener = (Interface_BottomSheet) context;
+        } catch (ClassCastException e)
+        {
+            throw new ClassCastException((context.toString() + " must implement bottom sheet listener"));
+        }
+    }
+
+ */
+
 }

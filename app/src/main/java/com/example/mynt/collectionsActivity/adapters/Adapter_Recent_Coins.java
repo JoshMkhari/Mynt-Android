@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mynt.collectionsActivity.Dialog_Bottom_Sheet;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.R;
-import com.example.mynt.Interface_RecyclerView;
+import com.example.mynt.collectionsActivity.interfaces.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.models.Model_User_Data;
 
 import java.util.ArrayList;

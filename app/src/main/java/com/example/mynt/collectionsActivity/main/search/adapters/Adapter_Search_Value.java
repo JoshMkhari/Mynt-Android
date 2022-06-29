@@ -3,13 +3,12 @@ package com.example.mynt.collectionsActivity.main.search.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mynt.Interface_RecyclerView_One;
+import com.example.mynt.collectionsActivity.interfaces.Interface_RecyclerView_One;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 

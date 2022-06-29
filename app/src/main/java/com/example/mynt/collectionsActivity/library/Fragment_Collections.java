@@ -10,6 +10,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.mynt.R;
-import com.example.mynt.Interface_RecyclerView;
+import com.example.mynt.collectionsActivity.interfaces.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_User;
@@ -60,7 +61,7 @@ public class Fragment_Collections extends Fragment implements Interface_Recycler
         task = getArguments().getInt("Task");
         model_user = Model_User_Data.currentUser;
         model_user.setUserID(getArguments().getInt("User"));
-
+        Log.d("thisIsTask", "CreateCollection: " + task);
         String userID = model_user.getUserID() + " this";
 
         DisplayAllLocalCollections();

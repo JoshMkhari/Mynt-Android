@@ -19,7 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mynt.R;
-import com.example.mynt.Interface_RecyclerView;
+import com.example.mynt.collectionsActivity.interfaces.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coins;
 import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator_Date;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
