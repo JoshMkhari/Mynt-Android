@@ -2,15 +2,12 @@ package com.example.mynt.collectionsActivity.models;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.mynt.R;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.dataAccessLayer.Model_Database_Lite;
-import com.example.mynt.dataAccessLayer.Model_Firebase;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,8 +31,8 @@ import java.util.Objects;
 
 public class Model_User_Data {
 
-    // Will Hold static once off data
     public static Model_Coin model_coin;
+    public static Model_Collections model_collections;
     public static Bitmap coinBitmap;
     public static FirebaseUser firebaseUser;
     public static Model_User currentUser;
@@ -43,7 +40,11 @@ public class Model_User_Data {
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     static DatabaseReference mDatabase = database.getReference();
     public static String pass;
-
+    public static ArrayList<String> array_list_bottomSheet;
+    public static int mode;
+    public static int position;
+    public static boolean sheetModal;
+    public static int task;
     public static void uploadAllLocalData(Context context)
     {
         //First check if user is authorized
@@ -201,7 +202,6 @@ public class Model_User_Data {
         List<Model_Collections> model_collectionsList = new ArrayList<>();//https://stackoverflow.com/questions/38652007/how-to-retrieve-specific-list-of-data-from-firebase
         for (DataSnapshot postSnapshot : snapshot.child("collections").getChildren()) {
             Model_Collections model_collections = new Model_Collections(postSnapshot.child("collectionName").getValue(String.class), postSnapshot.child("goal").getValue(int.class));
-
             List<Model_Fire_Base_Coin> modelFireBaseCoinList = new ArrayList<>();
             for (DataSnapshot postSnapshotChild : postSnapshot.child("fireBaseCoinscoins").getChildren()) {
                 Model_Fire_Base_Coin modelFireBaseCoin = new Model_Fire_Base_Coin(postSnapshotChild.child("valueYear").getValue(String.class), postSnapshotChild.child("dateTaken").getValue(String.class));

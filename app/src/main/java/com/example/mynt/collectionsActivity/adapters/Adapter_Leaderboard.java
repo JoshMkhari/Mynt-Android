@@ -12,16 +12,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator_Date;
 import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
+import com.example.mynt.collectionsActivity.models.Model_Leaderboard_Comparator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Adapter_Leaderboard extends RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> {//(Professor Sluiter, 2020).
 
     private final ArrayList<Model_Leaderboard> arrayList_Leaderboard;
 
     public Adapter_Leaderboard(ArrayList<Model_Leaderboard> arrayList_Leaderboard) {
-        this.arrayList_Leaderboard = arrayList_Leaderboard;
+
+        Collections.sort(arrayList_Leaderboard, new Model_Leaderboard_Comparator());//(GeeksForGeeks,2020)
+        this.arrayList_Leaderboard =arrayList_Leaderboard ;
         //Variable Declarations
     }
 

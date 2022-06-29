@@ -142,28 +142,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
             <TextView
-                android:id="@+id/textView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@string/coin_details_observe"
-                android:textColor="#D7CCC8"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="@string/coin_details_reverse"
-                android:textColor="#D7CCC8"
-                android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-            <TextView
                 android:id="@+id/textView11"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -172,7 +150,7 @@
                 android:textColor="#D7CCC8"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
             <TextView
                 android:id="@+id/textView12"
@@ -186,6 +164,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
             <TextView
+                android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -219,28 +198,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/CoinDetails_Mintage_TextView" />
 
             <TextView
-                android:id="@+id/CoinDetails_Observe_TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Coat of arms South Africa"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CoinDetails_Variety_TextView" />
-
-            <TextView
-                android:id="@+id/CoinDetails_Reverse_TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="Black Wilderbeest (Gnu)"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CoinDetails_Observe_TextView" />
-
-            <TextView
                 android:id="@+id/CoinDetails_Circulation_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -249,7 +206,7 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CoinDetails_Reverse_TextView" />
+                app:layout_constraintTop_toBottomOf="@+id/CoinDetails_Variety_TextView" />
 
             <TextView
                 android:id="@+id/CoinDetails_Type_TextView"

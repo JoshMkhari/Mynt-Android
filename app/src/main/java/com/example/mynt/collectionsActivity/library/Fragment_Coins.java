@@ -19,7 +19,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.mynt.R;
-import com.example.mynt.Interface_RecyclerView;
+import com.example.mynt.collectionsActivity.interfaces.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Coins;
 import com.example.mynt.collectionsActivity.models.Model_Coin_Comparator_Date;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
@@ -179,7 +179,8 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
         if(task==1)// Fragment was accessed from somewhere else
         {
             Navigation.findNavController(coinsView).navigateUp();//(JHowzer,2018)
-        }else
+        }
+        else
         {
             Bundle bundle = new Bundle();//(valerybodak,2020)
             bundle.putInt("StartPage",0);

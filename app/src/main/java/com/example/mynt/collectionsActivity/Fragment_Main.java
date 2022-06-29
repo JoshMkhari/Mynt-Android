@@ -47,9 +47,6 @@ public class Fragment_Main extends Fragment {
         userName = main.findViewById(R.id.text_view_user_main);
         userTitle = main.findViewById(R.id.text_view_user_current);
 
-        Database_Lite db =new Database_Lite(getContext());//(freecodecamp,2020)
-        ArrayList<Model_User> allUsers = db.getAllUsers();
-
         searchCoin();
 
         if(user.getEmail().equals("DefaultUser"))
@@ -61,27 +58,7 @@ public class Fragment_Main extends Fragment {
             userName.setText(user.getEmail());
         }
 
-        ImageButton navigateToLibrary;
 
-        navigateToLibrary = main.findViewById(R.id.image_button_main_library);
-
-        navigateToLibrary.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Change view to Library
-
-                //Option 1
-                Intent switchToLibrary = new Intent(getContext(), Activity_Collections.class);
-                Bundle bundle = new Bundle();
-                bundle.putInt("StartPage",0);
-                switchToLibrary.putExtras(bundle);
-                switchToLibrary.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(switchToLibrary);
-
-                //Option 2
-                //Slide to the right
-            }
-        });
         AddCoin();
 
         return main;

@@ -43,8 +43,6 @@ public class Fragment_Coin_Details extends Fragment{
         details = inflater.inflate(R.layout.fragment_coin_details, container, false);
         ImageView coinImage = details.findViewById(R.id.CoinDetails_Image);
         TextView mintage = details.findViewById(R.id.CoinDetails_Mintage_TextView);
-        TextView observe = details.findViewById(R.id.CoinDetails_Observe_TextView);
-        TextView reverse = details.findViewById(R.id.CoinDetails_Reverse_TextView);
         TextView circulation = details.findViewById(R.id.CoinDetails_Circulation_TextView);
         TextView type = details.findViewById(R.id.CoinDetails_Type_TextView);
         TextView points = details.findViewById(R.id.CoinDetails_Points);
@@ -71,14 +69,20 @@ public class Fragment_Coin_Details extends Fragment{
         ReturnToMainDetailsPage();
 
         mintage.setText(String.valueOf(Model_User_Data.model_coin.getMintage()));
-        observe.setText(Model_User_Data.model_coin.getObserve());
-        reverse.setText(Model_User_Data.model_coin.getReverse());
-        circulation.setText(Model_User_Data.model_coin.getReverse());
         type.setText(Model_User_Data.model_coin.getMaterial());
         String coinTitle = Model_User_Data.model_coin.getValue() + ", " + Model_User_Data.model_coin.getYear();
         pageTitle.setText(coinTitle);
-        points.setText(String.valueOf(1000));
+        if(Model_User_Data.model_coin.getMintage()==0)
+        {
+            points.setText(String.valueOf(0));
+        }else
+        {
+            float displaYpoints = 700000000-(((float)Model_User_Data.model_coin.getMintage()/2)-Model_User_Data.model_coin.getYear());
+            points.setText(String.valueOf(Math.round(displaYpoints/100000)));
+        }
+
         acquiredDate.setText(Model_User_Data.model_coin.getDateAcquired());
+
         try{
             Bitmap bmp = BitmapFactory.decodeByteArray(Model_User_Data.model_coin.getImageId(), 0, Model_User_Data.model_coin.getImageId().length);
             Model_User_Data.coinBitmap = bmp;

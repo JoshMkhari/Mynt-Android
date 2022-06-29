@@ -15,7 +15,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 
-import com.example.mynt.Interface_RecyclerView;
+import com.example.mynt.collectionsActivity.interfaces.Interface_BottomSheet;
+import com.example.mynt.collectionsActivity.interfaces.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Recent_Coins;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 
@@ -49,6 +50,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         if(Model_User_Data.currentUser.getEmail().equals("DefaultUser"))
         {
             loginButton.setBackgroundResource(R.drawable.ic_baseline_account_circle_24);
+            //Reload adapters
         }else
         {
             loginButton.setBackgroundResource(R.drawable.ic_baseline_settings_24);
@@ -119,7 +121,7 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         Adapter_Library_Options optionsListAdapter = new Adapter_Library_Options(getContext(), arrayList_library_navigation, user);//(FoxAndroid,2021)
         optionListView.setAdapter(optionsListAdapter);
         //recyclerView
-        RecyclerView.Adapter<Adapter_Recent_Coins.CoinViewHolder> mAdapter = new Adapter_Recent_Coins(arrayList_recent_coins, getContext(), this);//(Professor Sluiter, 2020).
+        RecyclerView.Adapter<Adapter_Recent_Coins.CoinViewHolder> mAdapter = new Adapter_Recent_Coins(arrayList_recent_coins, getContext(), this, getParentFragmentManager());//(Professor Sluiter, 2020).
         recyclerView.setAdapter(mAdapter);
 
 
@@ -183,14 +185,12 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
         bundle.putInt("Task", 0);
         bundle.putInt("CoinID", arrayList_recent_coins.get(position).getCoinID());
         //ViewCompat.setTransitionName(coinImage, "recentTransaction");
-
         Navigation.findNavController(libraryView).navigate(
                 R.id.action_fragment_home_main_to_fragment_Coin_Details,
                 bundle);
 
 
     }
-
 
 
 }

@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mynt.Interface_RecyclerView_One;
+import com.example.mynt.collectionsActivity.interfaces.Interface_RecyclerView_One;
 import com.example.mynt.R;
 import com.example.mynt.collectionsActivity.main.Fragment_Search;
 import com.example.mynt.collectionsActivity.main.search.adapters.Adapter_Search_Value;
