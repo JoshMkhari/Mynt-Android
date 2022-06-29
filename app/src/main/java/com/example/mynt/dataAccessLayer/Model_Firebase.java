@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.mynt.collectionsActivity.models.Model_Coin;
+import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -79,12 +80,11 @@ public class Model_Firebase {
                     for (DataSnapshot userData:task.getResult().getChildren()
                     ) {
                         String userName = userData.child("email").getValue(String.class);
-                        if(userName.equals(Model_User_Data.currentUser.getEmail()))
-                        {
-                            Database_Lite db = new Database_Lite(context);
-                            int points = userData.child("points").getValue(Integer.class);
-                            db.updateLeaderBoard(Model_User_Data.currentUser,points);
-                        }
+                        Model_User model_user = new Model_User(userName,"",0);
+                        Database_Lite db = new Database_Lite(context);
+                        int points = userData.child("points").getValue(Integer.class);
+                        db.updateLeaderBoard(model_user,points);
+
                     }
                 }else
                     Log.d("TAG", "onComplete: failed to get data" );
