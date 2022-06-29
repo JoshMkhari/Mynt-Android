@@ -46,7 +46,12 @@ public class Activity_Collections extends AppCompatActivity implements Interface
     @Override
     public void onButtonClicked(int buttonID) {
 
-        if(Model_User_Data.position==2)
+
+        if(Model_User_Data.position==0)
+        {
+            
+        }
+        if(Model_User_Data.position==1)
         {
             Bundle bundle = new Bundle();//(valerybodak,2020)
             bundle.putInt("Task", Model_User_Data.task);
@@ -54,17 +59,6 @@ public class Activity_Collections extends AppCompatActivity implements Interface
             //ViewCompat.setTransitionName(coinImage, "recentTransaction");
             findNavController(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2))).navigate(
                     R.id.action_fragment_home_main_to_fragment_Coin_Details,
-                    bundle);
-        }
-        if(Model_User_Data.position==3)
-        {
-            Bundle bundle = new Bundle();//(valerybodak,2020)
-            bundle.putString("Collection Name",Model_User_Data.model_collections.getCollectionName());
-            bundle.putInt("Task", 1);
-            bundle.putInt("CollectionID", Model_User_Data.model_collections.getCollectionID());
-            bundle.putInt("User", Model_User_Data.currentUser.getUserID());
-            findNavController(Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.fragmentContainerView2))).navigate(
-                    R.id.action_fragment_home_main_to_fragment_Coins,
                     bundle);
         }
 

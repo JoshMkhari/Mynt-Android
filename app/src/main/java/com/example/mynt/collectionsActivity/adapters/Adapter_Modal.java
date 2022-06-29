@@ -62,50 +62,13 @@ public class Adapter_Modal extends RecyclerView.Adapter<Adapter_Modal.Card_View_
         {
 
             case 0:
-                holder.optionImage.setBackgroundResource(R.drawable.img_delete_button);
-                holder.optionName.setText(Title);
-                break;
-            case 1:
                 holder.optionImage.setBackgroundResource(R.drawable.img_share_button);
                 String share = "Share";
                 holder.optionName.setText(share);
                 break;
-            case 2:
+            case 1:
                 holder.optionImage.setBackgroundResource(R.drawable.img_edit_username_button);
                 holder.optionName.setText(View);
-                break;
-            case 3:
-                if(mode==2)
-                {
-                    holder.optionImage.setBackgroundResource(R.drawable.ic_collection_icon);
-                    Database_Lite db = new Database_Lite(context);
-                    ArrayList<Model_Collections> allUserCollections = db.getAllCollections();
-                    int collectionID = 0;
-                    ArrayList<Model_Collection_Coin> allUserCollectionCoin = db.getAllCollectionCoin();
-                    for (Model_Collection_Coin collectionCoin:allUserCollectionCoin
-                         ) {
-                        if(collectionCoin.getCoinID()== Model_User_Data.model_coin.getCoinID())
-                        {
-                            collectionID = collectionCoin.getCollectionID();
-                            break;
-                        }
-                    }
-                    for (Model_Collections collections:allUserCollections
-                         ) {
-                        if(collections.getCollectionID()==collectionID)
-                        {
-                            Model_User_Data.model_collections = collections;
-                        }
-                    }
-                    String collectionText = "Collection: " + Model_User_Data.model_collections.getCollectionName();
-                    holder.optionName.setText(collectionText);
-
-                    //Search Collection Coin ID for coin id to find collection it belongs to
-                }else
-                {
-                    holder.optionImage.setVisibility(android.view.View.GONE);
-                    holder.optionName.setVisibility(android.view.View.GONE);
-                }
                 break;
         }
 
