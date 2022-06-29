@@ -76,7 +76,7 @@
         android:id="@+id/LoginEmail_Button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginHorizontal="20dp"
+
         android:layout_marginTop="55dp"
         android:background="@drawable/ic_title_block_shape"
         android:contentDescription="@string/login_button"
