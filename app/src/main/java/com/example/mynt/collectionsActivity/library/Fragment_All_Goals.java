@@ -44,7 +44,6 @@ public class Fragment_All_Goals extends Fragment {
         ImageButton back_imageButton = allGoals.findViewById(R.id.image_button_back_all_goals);
         ArrayList<PieEntry> goals = new ArrayList<>();
 
-
         Database_Lite localDB = new Database_Lite(getContext());
         ArrayList<Model_Collections> allCollections = localDB.getAllCollections();
         Model_Database_Lite mdl = new Model_Database_Lite();
@@ -71,6 +70,7 @@ public class Fragment_All_Goals extends Fragment {
 
         pieChart.setData(pieData);
         pieChart.getDescription().setEnabled(true);
+        pieChart.getDescription().setTextColor(Color.WHITE);
         pieChart.setCenterText("All Collections");
         pieChart.animate();
 

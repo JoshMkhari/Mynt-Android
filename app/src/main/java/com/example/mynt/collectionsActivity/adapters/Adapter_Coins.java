@@ -4,19 +4,24 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.Dialog_Bottom_Sheet;
 import com.example.mynt.collectionsActivity.interfaces.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Date;
+import com.example.mynt.collectionsActivity.models.Model_User_Data;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,12 +36,14 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
     final Context context;
     static String dateAcquired, dateValue;
     static String current = "No";
+    final FragmentManager manager;
 
-    public Adapter_Coins(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView) {
+    public Adapter_Coins(ArrayList<Model_Coin> coinsList, Context context, Interface_RecyclerView interfaceRecyclerView,FragmentManager manager ) {
         this.coinsList = coinsList;
         this.context = context;
         current = "No";
         this.interfaceRecyclerView = interfaceRecyclerView;
+        this.manager = manager;
     }
 
     @NonNull
@@ -154,6 +161,7 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
         final TextView acquired;
         final ImageView daySeparator;
         final ImageView coinSeparator;
+        final ImageButton moreOptions;
 
         public CoinViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -165,6 +173,22 @@ public class Adapter_Coins extends RecyclerView.Adapter<Adapter_Coins.CoinViewHo
             acquired = itemView.findViewById(R.id.textview_coinDate);
             daySeparator = itemView.findViewById(R.id.coin_date_separator);
             coinSeparator = itemView.findViewById(R.id.coin_separator);
+            moreOptions = itemView.findViewById(R.id.meatball_coinList);
+
+            moreOptions.setOnClickListener(v -> {
+                int pos = getAbsoluteAdapterPosition();
+                //coinsList.get(pos).getValue();
+                Log.d("meatClicked", "onClick: "+coinsList.get(pos).getValue());
+                Log.d("meatClicked", "onClick: "+coinsList.get(pos).getYear());
+                Model_User_Data.array_list_bottomSheet = new ArrayList<>();
+                for (int i = 0; i<2;i++)
+                    Model_User_Data.array_list_bottomSheet.add("1");
+
+                Model_User_Data.mode = 3;
+                Model_User_Data.model_coin = coinsList.get(pos);
+                Dialog_Bottom_Sheet bottom_sheet = new Dialog_Bottom_Sheet();
+                bottom_sheet.show(manager,"mySheet");
+            });
 
             itemView.setOnClickListener(v -> {//(Practical Coding, 2021).
                 if(interfaceRecyclerView != null)

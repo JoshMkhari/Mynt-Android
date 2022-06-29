@@ -75,7 +75,7 @@ public class Fragment_Coins extends Fragment implements Interface_RecyclerView {
         RecyclerView.LayoutManager layoutManager = new StaggeredGridLayoutManager(1, 1);//(Professor Sluiter, 2020).
         recyclerView.setLayoutManager(layoutManager);
 
-        RecyclerView.Adapter<Adapter_Coins.CoinViewHolder> mAdapter = new Adapter_Coins(coinsList, getContext(), this);//(Professor Sluiter, 2020).
+        RecyclerView.Adapter<Adapter_Coins.CoinViewHolder> mAdapter = new Adapter_Coins(coinsList, getContext(), this,getParentFragmentManager());//(Professor Sluiter, 2020).
         recyclerView.setAdapter(mAdapter);
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {//(Анатолий К.,2020)
