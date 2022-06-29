@@ -129,6 +129,7 @@ public class Database_Lite extends SQLiteOpenHelper {
         db.execSQL("delete from "+ COLLECTIONS_COIN_TABLE);
         db.execSQL("delete from "+ COIN_TABLE);
         db.execSQL("delete from "+ COLLECTION_TABLE);
+        db.execSQL("delete from "+ LEADERBOARD_TABLE);
 
     }
     //tableStatement = ("CREATE TABLE " + LEADERBOARD_TABLE + "(" + COLUMN_USER_EMAIL + " TEXT PRIMARY KEY AUTOINCREMENT, " + COLUMN_PROFILE_IMAGE + " BLOB, " +
@@ -434,6 +435,25 @@ public class Database_Lite extends SQLiteOpenHelper {
             }
 
         }
+
+    public String updateLeaderBoard(Model_User model_user, int points)
+    {
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            //String statment = "UPDATE USER_TABLE SET ADDRESS = 'Texas' WHERE ID = 6;";
+            //db.execSQL("UPDATE USER_TABLE SET ADDRESS = 'Texas' WHERE ID = 6;");
+            cv.put(COLUMN_POINTS, points);
+            // db.update(USER_TABLE,cv,"ID=1",null);
+            db.update(LEADERBOARD_TABLE,cv,COLUMN_USER_EMAIL + "=?",new String[]{model_user.getEmail()});
+            cv.clear();
+            return "Success";
+        }catch (Exception ignored)
+        {
+            return "Faild";
+        }
+
+    }
 
 
     public String updateCoin(Model_Coin coin)

@@ -79,6 +79,7 @@ public class Fragment_Coin_Details extends Fragment{
         pageTitle.setText(coinTitle);
         points.setText(String.valueOf(1000));
         acquiredDate.setText(Model_User_Data.model_coin.getDateAcquired());
+
         try{
             Bitmap bmp = BitmapFactory.decodeByteArray(Model_User_Data.model_coin.getImageId(), 0, Model_User_Data.model_coin.getImageId().length);
             Model_User_Data.coinBitmap = bmp;

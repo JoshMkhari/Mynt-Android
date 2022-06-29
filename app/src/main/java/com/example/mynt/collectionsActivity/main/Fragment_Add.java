@@ -12,6 +12,7 @@ import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
@@ -40,6 +41,10 @@ import com.example.mynt.collectionsActivity.models.Model_User_Data;
 import com.example.mynt.dataAccessLayer.Database_Lite;
 import com.example.mynt.collectionsActivity.models.Model_User;
 import com.example.mynt.dataAccessLayer.Model_Firebase;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -114,6 +119,20 @@ public class Fragment_Add extends Fragment {
 
         //Listeners
         setUpListeners();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth.signInWithEmailAndPassword(model_user.getEmail(),model_user.getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful())
+                {
+                    Model_User_Data.firebaseUser = mAuth.getCurrentUser();
+                }else
+                {
+                    Model_User_Data.firebaseUser = null;
+                }
+
+            }
+        });
 
         //Database
         localDB = new Database_Lite(getContext());//(freecodecamp,2020)
@@ -385,7 +404,7 @@ public class Fragment_Add extends Fragment {
                     //Search For Coin data and download it it
                     //Then update the recently added coin
                     Model_Firebase model_firebase = new Model_Firebase(model_coin,getContext());
-                    model_firebase.downloadCoinData();
+                    model_firebase.downloadCoinData(getContext());
                     Calendar cal = Calendar.getInstance();
                     String lastSync = cal.getTime().toString();
 

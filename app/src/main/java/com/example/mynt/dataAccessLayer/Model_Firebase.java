@@ -26,7 +26,7 @@ public class Model_Firebase {
         this.context = context;
     }
 
-    public void downloadCoinData()
+    public void downloadCoinData(Context context)
     {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference mDatabase = database.getReference();
@@ -69,6 +69,27 @@ public class Model_Firebase {
             }
         });
 
+        //now download points data and update leaderboard
+
+        mDatabase.child("users").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if(task.isSuccessful())
+                {
+                    for (DataSnapshot userData:task.getResult().getChildren()
+                    ) {
+                        String userName = userData.child("email").getValue(String.class);
+                        if(userName.equals(Model_User_Data.currentUser.getEmail()))
+                        {
+                            Database_Lite db = new Database_Lite(context);
+                            int points = userData.child("points").getValue(Integer.class);
+                            db.updateLeaderBoard(Model_User_Data.currentUser,points);
+                        }
+                    }
+                }else
+                    Log.d("TAG", "onComplete: failed to get data" );
+            }
+        });
     }
 
 }

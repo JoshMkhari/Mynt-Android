@@ -32,8 +32,7 @@ public class Fragment_Leaderboard extends Fragment implements Interface_Recycler
     @Override
     public void onResume() {
         super.onResume();
-        RecyclerView.Adapter<Adapter_Leaderboard.Card_View_Holder> rv_leaferbaord_adapter = new Adapter_Leaderboard(array_list_leaderboard);//(Professor Sluiter, 2020).
-        recycler_view_leaderboard.setAdapter(rv_leaferbaord_adapter);
+        DisplayLeaderBoardRanks();
     }
 
     @Override
