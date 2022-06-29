@@ -25,7 +25,7 @@
 
         <TextView
             android:id="@+id/textview_coin_title_constraint"
-            android:layout_width="wrap_content"
+            android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:text="@string/coins_coin_name"
@@ -41,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/coins_coin_country"
+            android:layout_marginBottom="10dp"
             android:layout_margin="15dp"
             android:textSize="22sp"
             app:layout_constraintStart_toEndOf="@+id/imageview_constraint_current_coin"

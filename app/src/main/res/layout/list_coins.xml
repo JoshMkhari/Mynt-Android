@@ -56,20 +56,22 @@
 
     <TextView
         android:id="@+id/textview_coin_name"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
         android:text="@string/coins_coin_name"
         android:textColor="?colorSecondaryVariant"
         android:textSize="28sp"
+        app:layout_constraintEnd_toStartOf="@+id/meatball_coinList"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageview_coin_background"
         app:layout_constraintTop_toBottomOf="@+id/coin_date_separator" />
 
     <TextView
         android:id="@+id/textview_coin_country"
         android:layout_width="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
         android:layout_height="wrap_content"
         android:text="@string/coins_coin_country"
@@ -81,7 +83,7 @@
     <TextView
         android:id="@+id/textview_coin_acquired_date"
         android:layout_width="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="20dp"
         android:layout_height="wrap_content"
         android:text="@string/coins_acquired_date"
         android:textSize="18sp"
@@ -92,11 +94,19 @@
         android:id="@+id/textview_coin_year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="20dp"
         android:text="@string/coins_coin_year"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/imageview_coin_background"
         app:layout_constraintTop_toBottomOf="@+id/textview_coin_name" />
+
+    <ImageButton
+        android:id="@+id/meatball_coinList"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/ic_baseline_more_vert_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageview_coin_background" />
 
 
 
