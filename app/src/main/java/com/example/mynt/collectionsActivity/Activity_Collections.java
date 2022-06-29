@@ -5,6 +5,7 @@ import static androidx.navigation.fragment.NavHostFragment.findNavController;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.Navigation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.service.autofill.UserData;
 
@@ -49,7 +50,12 @@ public class Activity_Collections extends AppCompatActivity implements Interface
 
         if(Model_User_Data.position==0)
         {
-            
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            String message = "I used 'Mynt' to store a " + Model_User_Data.model_coin.getValue() + " coin from "
+                    +   Model_User_Data.model_coin.getYear();
+            intent.putExtra(Intent.EXTRA_TEXT,message);
+            startActivity(intent);
         }
         if(Model_User_Data.position==1)
         {
