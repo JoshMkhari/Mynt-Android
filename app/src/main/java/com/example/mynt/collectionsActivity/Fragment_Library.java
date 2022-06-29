@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 
+import com.example.mynt.collectionsActivity.interfaces.Interface_BottomSheet;
 import com.example.mynt.collectionsActivity.interfaces.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.adapters.Adapter_Recent_Coins;
 import com.example.mynt.collectionsActivity.models.Model_Coin;
@@ -191,7 +192,6 @@ public class Fragment_Library extends Fragment implements Interface_RecyclerView
 
 
     }
-
 
 
 }

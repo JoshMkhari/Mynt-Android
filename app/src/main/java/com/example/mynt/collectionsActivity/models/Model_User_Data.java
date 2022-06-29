@@ -35,13 +35,14 @@ public class Model_User_Data {
     public static Bitmap coinBitmap;
     public static FirebaseUser firebaseUser;
     public static Model_User currentUser;
-    public static Model_Collections currentCollection;
     public static boolean sync =false;
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     static DatabaseReference mDatabase = database.getReference();
     public static String pass;
     public static ArrayList<String> array_list_bottomSheet;
     public static int mode;
+    public static boolean sheetModal;
+    public static int task;
     public static void uploadAllLocalData(Context context)
     {
         //First check if user is authorized

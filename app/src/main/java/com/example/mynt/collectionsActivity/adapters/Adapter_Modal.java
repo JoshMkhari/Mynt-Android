@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mynt.R;
+import com.example.mynt.collectionsActivity.interfaces.Interface_RecyclerView;
 import com.example.mynt.collectionsActivity.models.Model_Collection_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
@@ -23,13 +24,15 @@ import java.util.ArrayList;
 
 public class Adapter_Modal extends RecyclerView.Adapter<Adapter_Modal.Card_View_Holder> {
     private final ArrayList<String> arrayListOptions;
+    private final Interface_RecyclerView interfaceRecyclerView;//(Practical Coding, 2021)
     private final int mode;
     private final Context context;
 
-    public Adapter_Modal(ArrayList<String> arrayListOptions, int mode, Context context) {
+    public Adapter_Modal(ArrayList<String> arrayListOptions, int mode, Context context,Interface_RecyclerView interfaceRecyclerView ) {
         this.arrayListOptions = arrayListOptions;
         this.mode = mode;
         this.context = context;
+        this.interfaceRecyclerView = interfaceRecyclerView;
     }
 
     @NonNull
@@ -111,7 +114,7 @@ public class Adapter_Modal extends RecyclerView.Adapter<Adapter_Modal.Card_View_
         return arrayListOptions.size();
     }
 
-    public static class Card_View_Holder extends RecyclerView.ViewHolder
+    public class Card_View_Holder extends RecyclerView.ViewHolder
     {
         final ImageButton optionImage;
         final TextView optionName;
@@ -122,6 +125,17 @@ public class Adapter_Modal extends RecyclerView.Adapter<Adapter_Modal.Card_View_
 
             optionImage = itemView.findViewById(R.id.bottom_sheet_remove);
             optionName = itemView.findViewById(R.id.bottom_sheet_remove_text);
+
+            itemView.setOnClickListener(v -> {
+                if(interfaceRecyclerView != null)
+                {
+                    int pos = getAbsoluteAdapterPosition();
+
+                    if(pos != RecyclerView.NO_POSITION){
+                        interfaceRecyclerView.onItemClick(pos,optionImage);//(Practical Coding, 2021)
+                    }
+                }
+            });
         }
     }
 }
