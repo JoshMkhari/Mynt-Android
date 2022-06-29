@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 import com.example.mynt.collectionsActivity.models.Model_Coin;
+import com.example.mynt.collectionsActivity.models.Model_Collection_Coin;
 import com.example.mynt.collectionsActivity.models.Model_Collections;
 import com.example.mynt.collectionsActivity.models.Model_Leaderboard;
 import com.example.mynt.collectionsActivity.models.Model_User;
@@ -170,6 +171,31 @@ public class Database_Lite extends SQLiteOpenHelper {
         //failure means list is empty
         cursor.close();
         return leaderboardArrayList;
+    }
+
+    public ArrayList<Model_Collection_Coin> getAllCollectionCoin() {//(freecodecamp,2020)
+        ArrayList<Model_Collection_Coin> collectionsList = new ArrayList<>();
+
+        String queryString = "SELECT * FROM " + COLLECTIONS_COIN_TABLE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst())
+        {
+            //loop through the cursor result set and create new coin object for each row
+            do{
+                int collectionID = cursor.getInt(0);
+                int coinID = cursor.getInt(1);
+
+                Model_Collection_Coin collectionCoin = new Model_Collection_Coin(collectionID,coinID);
+
+                collectionsList.add(collectionCoin);
+            }while (cursor.moveToNext());
+        }
+        //failure means list is empty
+
+        cursor.close();
+        return collectionsList;
     }
 
     public ArrayList<Model_Collections> getAllCollections() {//(freecodecamp,2020)

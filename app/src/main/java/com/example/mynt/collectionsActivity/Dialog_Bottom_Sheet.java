@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class Dialog_Bottom_Sheet extends BottomSheetDialogFragment  {
     private Interface_BottomSheet bottomSheetListener;
-    private ArrayList<String> array_list_leaderboard;
+    public static ArrayList<String> array_list_leaderboard;
     RecyclerView recycler_view_modal;
     RecyclerView.Adapter<Adapter_Modal.Card_View_Holder> rv_modal_adapter;
     @Nullable
@@ -37,17 +37,16 @@ public class Dialog_Bottom_Sheet extends BottomSheetDialogFragment  {
         //Passing data to list recycler view
         recycler_view_modal = bottom.findViewById(R.id.recycler_view_modal);
         recycler_view_modal.setHasFixedSize(true);
-        array_list_leaderboard = new ArrayList<>();
-        array_list_leaderboard.add("1");
-        array_list_leaderboard.add("1");
-        array_list_leaderboard.add("1");
-        array_list_leaderboard.add("Easy");
+       // array_list_leaderboard.add("1");
+        //array_list_leaderboard.add("1");
+        //array_list_leaderboard.add("1");
+        //array_list_leaderboard.add("Easy");
         //Ensuring the recycler view layout contains 1 item in each row
         RecyclerView.LayoutManager layout_manager_leaderboard = new StaggeredGridLayoutManager(1, 1);//(Professor Sluiter, 2020).
         recycler_view_modal.setLayoutManager(layout_manager_leaderboard);
 
         //Setting up adapter
-        rv_modal_adapter = new Adapter_Modal(array_list_leaderboard,1);//(Professor Sluiter, 2020).
+        rv_modal_adapter = new Adapter_Modal(Model_User_Data.array_list_bottomSheet,Model_User_Data.mode,getContext());//(Professor Sluiter, 2020).
         recycler_view_modal.setAdapter(rv_modal_adapter);
 
         ImageView currentCoinImage = bottom.findViewById(R.id.imageview_constraint_current_coin);
@@ -62,6 +61,7 @@ public class Dialog_Bottom_Sheet extends BottomSheetDialogFragment  {
         }
 
         String title = Model_User_Data.model_coin.getValue() + ", " + Model_User_Data.model_coin.getYear();
+
         currentCoinTitle.setText(title);
         currentCoinSubTitle.setText("South Africa");
 

@@ -104,6 +104,11 @@ public class Adapter_Recent_Coins extends RecyclerView.Adapter<Adapter_Recent_Co
                 //coinsList.get(pos).getValue();
                 Log.d("meatClicked", "onClick: "+coinsList.get(pos).getValue());
                 Log.d("meatClicked", "onClick: "+coinsList.get(pos).getYear());
+                Model_User_Data.array_list_bottomSheet = new ArrayList<>();
+                for (int i = 0; i<4;i++)
+                    Model_User_Data.array_list_bottomSheet.add("1");
+
+                Model_User_Data.mode = 2;
                 Model_User_Data.model_coin = coinsList.get(pos);
                 Dialog_Bottom_Sheet bottom_sheet = new Dialog_Bottom_Sheet();
                 bottom_sheet.show(manager,"mySheet");
